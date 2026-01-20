@@ -14,6 +14,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 import '../../core/models/rsvp_settings.dart';
+import '../../core/services/pdf_extractor.dart';
 import 'reader_screen.dart';
 import 'settings_screen.dart';
 
@@ -77,9 +78,23 @@ class _HomeScreenState extends State<HomeScreen> {
             }
             break;
           case 'pdf':
-            // TODO: Implement PDF parsing
-            _showError('PDF desteği yakında eklenecek');
-            return;
+            // PDF metin çıkarma (web ve mobilde çalışır)
+            if (file.bytes != null) {
+              try {
+                content = PdfExtractor.extractText(file.bytes!);
+                if (content.trim().isEmpty) {
+                  _showError('PDF dosyasından metin çıkarılamadı');
+                  return;
+                }
+              } catch (e) {
+                _showError('PDF okuma hatası: $e');
+                return;
+              }
+            } else {
+              _showError('PDF dosyası okunamadı');
+              return;
+            }
+            break;
           case 'epub':
             // TODO: Implement EPUB parsing
             _showError('EPUB desteği yakında eklenecek');
