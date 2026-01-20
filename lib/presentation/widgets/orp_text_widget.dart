@@ -144,12 +144,8 @@ class ORPTextWidget extends StatelessWidget {
 
   /// Measure the width of a single character in the given style
   double _measureCharWidth(BuildContext context, TextStyle style) {
-    // For monospace fonts, use a fixed ratio
-    // For proportional fonts, measure 'M' as reference
-    if (fontFamily.toLowerCase().contains('mono')) {
-      return fontSize * 0.6;
-    }
-
+    // Always measure actual character width using TextPainter
+    // This ensures correct width for Google Fonts and Turkish characters
     final textPainter = TextPainter(
       text: TextSpan(text: 'M', style: style),
       textDirection: TextDirection.ltr,

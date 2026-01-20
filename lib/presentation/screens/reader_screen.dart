@@ -57,6 +57,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
   bool _showControls = true;
   bool _isDraggingSlider = false;
   int _previewIndex = 0;
+  bool _showContextView = false;
 
   @override
   void initState() {
@@ -203,6 +204,23 @@ class _ReaderScreenState extends State<ReaderScreen> {
                 },
               ),
             ),
+
+            // Context view button (top right)
+            Positioned(
+              top: MediaQuery.of(context).padding.top + 8,
+              right: 8,
+              child: IconButton(
+                icon: Icon(Icons.article, color: textColor.withOpacity(0.7)),
+                onPressed: () {
+                  _engine.pause();
+                  setState(() => _showContextView = true);
+                },
+              ),
+            ),
+
+            // Context view overlay
+            if (_showContextView)
+              _buildContextViewOverlay(state, textColor, orpColor, backgroundColor),
           ],
         ),
       ),
@@ -414,5 +432,107 @@ class _ReaderScreenState extends State<ReaderScreen> {
     }
 
     return words.join(' ');
+  }
+
+  /// Build context view overlay showing full page with current word highlighted
+  Widget _buildContextViewOverlay(
+    RSVPPlaybackState state,
+    Color textColor,
+    Color orpColor,
+    Color backgroundColor,
+  ) {
+    final currentIndex = state.currentIndex;
+
+    // Show ~200 words: ±100 from current position
+    final start = (currentIndex - 100).clamp(0, _tokens.length - 1);
+    final end = (currentIndex + 100).clamp(0, _tokens.length);
+
+    // Build text spans with current word highlighted
+    final spans = <TextSpan>[];
+    for (int i = start; i < end; i++) {
+      final word = _tokens[i].word;
+      final isCurrentWord = i == currentIndex;
+
+      spans.add(TextSpan(
+        text: word,
+        style: TextStyle(
+          color: isCurrentWord ? orpColor : textColor,
+          fontWeight: isCurrentWord ? FontWeight.bold : FontWeight.normal,
+          backgroundColor: isCurrentWord ? orpColor.withOpacity(0.2) : null,
+          fontSize: 16,
+          height: 1.6,
+        ),
+      ));
+
+      // Add space after word (except for punctuation)
+      if (i < end - 1 && !_isPunctuation(_tokens[i + 1].word)) {
+        spans.add(const TextSpan(text: ' '));
+      }
+    }
+
+    return GestureDetector(
+      onTap: () => setState(() => _showContextView = false),
+      child: Container(
+        color: backgroundColor.withOpacity(0.95),
+        child: SafeArea(
+          child: Column(
+            children: [
+              // Header with close button
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Sayfa Görünümü',
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.close, color: textColor),
+                      onPressed: () => setState(() => _showContextView = false),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Scrollable text content
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  child: RichText(
+                    text: TextSpan(
+                      children: spans,
+                    ),
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
+              ),
+
+              // Position info
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  'Kelime ${currentIndex + 1} / ${state.totalTokens}',
+                  style: TextStyle(
+                    color: textColor.withOpacity(0.7),
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Check if a word is punctuation only
+  bool _isPunctuation(String word) {
+    const punctuationChars = '.,!?;:"\'-()[]';
+    return word.split('').every((c) => punctuationChars.contains(c));
   }
 }
