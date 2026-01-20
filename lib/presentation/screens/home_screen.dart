@@ -6,9 +6,11 @@
 /// - Reading history
 library;
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 import '../../core/models/rsvp_settings.dart';
@@ -41,18 +43,30 @@ class _HomeScreenState extends State<HomeScreen> {
       final result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['txt', 'pdf', 'epub'],
+        withData: true, // Web için bytes yükle
       );
 
-      if (result != null && result.files.single.path != null) {
-        final file = File(result.files.single.path!);
-        final extension = result.files.single.extension?.toLowerCase();
+      if (result != null && result.files.isNotEmpty) {
+        final file = result.files.single;
+        final extension = file.extension?.toLowerCase();
 
         String content;
-        String title = result.files.single.name;
+        String title = file.name;
 
         switch (extension) {
           case 'txt':
-            content = await file.readAsString();
+            // Web'de bytes kullan, mobilde path kullanılabilir
+            if (kIsWeb || file.path == null) {
+              if (file.bytes != null) {
+                content = utf8.decode(file.bytes!);
+              } else {
+                _showError('Dosya okunamadı');
+                return;
+              }
+            } else {
+              final ioFile = File(file.path!);
+              content = await ioFile.readAsString();
+            }
             break;
           case 'pdf':
             // TODO: Implement PDF parsing
