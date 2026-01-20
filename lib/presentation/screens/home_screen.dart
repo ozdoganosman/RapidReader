@@ -55,8 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
         switch (extension) {
           case 'txt':
-            // Web'de bytes kullan, mobilde path kullanılabilir
-            if (kIsWeb || file.path == null) {
+            // Web'de her zaman bytes kullan
+            if (kIsWeb) {
               if (file.bytes != null) {
                 content = utf8.decode(file.bytes!);
               } else {
@@ -64,8 +64,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 return;
               }
             } else {
-              final ioFile = File(file.path!);
-              content = await ioFile.readAsString();
+              // Mobilde path veya bytes kullan
+              if (file.path != null) {
+                final ioFile = File(file.path!);
+                content = await ioFile.readAsString();
+              } else if (file.bytes != null) {
+                content = utf8.decode(file.bytes!);
+              } else {
+                _showError('Dosya okunamadı');
+                return;
+              }
             }
             break;
           case 'pdf':
