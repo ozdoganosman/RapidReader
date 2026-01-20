@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/models/rsvp_settings.dart';
 import '../../core/services/pdf_extractor.dart';
+import '../../core/services/text_cleaner.dart';
 import 'reader_screen.dart';
 import 'settings_screen.dart';
 
@@ -108,6 +109,9 @@ class _HomeScreenState extends State<HomeScreen> {
           _showError('Dosya boş veya okunamıyor');
           return;
         }
+
+        // Otomatik metin temizleme (sayfa numaraları, ISBN, vb.)
+        content = TextCleaner.clean(content);
 
         _startReading(content, title: title);
       }
