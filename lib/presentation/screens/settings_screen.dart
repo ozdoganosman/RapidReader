@@ -54,7 +54,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: ListView(
         children: [
           // Reading Speed Section
-          _buildSectionHeader('Okuma Hizi'),
+          _buildSectionHeader('Okuma Hızı'),
           _buildSliderTile(
             title: 'Kelime/Dakika (WPM)',
             value: _settings.wordsPerMinute.toDouble(),
@@ -67,8 +67,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             },
           ),
           SwitchListTile(
-            title: const Text('Adaptif Hiz'),
-            subtitle: const Text('Kisa kelimeler hizli, uzun kelimeler yavas'),
+            title: const Text('Adaptif Hız'),
+            subtitle: const Text('Kısa kelimeler hızlı, uzun kelimeler yavaş'),
             value: _settings.adaptiveSpeed,
             onChanged: (value) {
               _updateSettings(_settings.copyWith(adaptiveSpeed: value));
@@ -94,7 +94,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const Divider(),
 
           // Display Settings
-          _buildSectionHeader('Gorunum'),
+          _buildSectionHeader('Görünüm'),
           _buildSliderTile(
             title: 'Font Boyutu',
             value: _settings.fontSize,
@@ -108,15 +108,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           SwitchListTile(
             title: const Text('ORP Vurgulama'),
-            subtitle: const Text('Odak noktasini kirmizi ile vurgula'),
+            subtitle: const Text('Odak noktasını kırmızı ile vurgula'),
             value: _settings.showORPHighlight,
             onChanged: (value) {
               _updateSettings(_settings.copyWith(showORPHighlight: value));
             },
           ),
           SwitchListTile(
-            title: const Text('Odak Cizgileri'),
-            subtitle: const Text('Dikey hizalama cizgilerini goster'),
+            title: const Text('Odak Çizgileri'),
+            subtitle: const Text('Dikey hizalama çizgilerini göster'),
             value: _settings.showFocusGuides,
             onChanged: (value) {
               _updateSettings(_settings.copyWith(showFocusGuides: value));
@@ -127,20 +127,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
           // Theme Settings
           _buildSectionHeader('Tema'),
-          _buildThemeOption('Karanlik', RSVPSettings.darkTheme),
-          _buildThemeOption('Aydinlik', RSVPSettings.lightTheme),
+          _buildThemeOption('Karanlık', RSVPSettings.darkTheme),
+          _buildThemeOption('Aydınlık', RSVPSettings.lightTheme),
           _buildThemeOption('Sepia', RSVPSettings.sepiaTheme),
 
           const Divider(),
 
           // Micro-pause Settings
-          _buildSectionHeader('Bilisssel Duraklama'),
+          _buildSectionHeader('Bilişsel Duraklama'),
           SwitchListTile(
             title: const Text('Mikro-Duraklama'),
             subtitle: Text(
               _settings.microPauseInterval > 0
-                  ? 'Her ${_settings.microPauseInterval} cumlede bir duraklama'
-                  : 'Devre disi',
+                  ? 'Her ${_settings.microPauseInterval} cümlede bir duraklama'
+                  : 'Devre dışı',
             ),
             value: _settings.microPauseInterval > 0,
             onChanged: (value) {
@@ -151,12 +151,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           if (_settings.microPauseInterval > 0)
             _buildSliderTile(
-              title: 'Duraklama Araligi',
+              title: 'Duraklama Aralığı',
               value: _settings.microPauseInterval.toDouble(),
               min: 3,
               max: 15,
               divisions: 12,
-              label: '${_settings.microPauseInterval} cumle',
+              label: '${_settings.microPauseInterval} cümle',
               onChanged: (value) {
                 _updateSettings(_settings.copyWith(microPauseInterval: value.round()));
               },
@@ -171,7 +171,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 _updateSettings(const RSVPSettings());
               },
-              child: const Text('Varsayilanlara Sifirla'),
+              child: const Text('Varsayılanlara Sıfırla'),
             ),
           ),
 

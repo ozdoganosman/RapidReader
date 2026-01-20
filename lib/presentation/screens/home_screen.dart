@@ -56,26 +56,26 @@ class _HomeScreenState extends State<HomeScreen> {
             break;
           case 'pdf':
             // TODO: Implement PDF parsing
-            _showError('PDF destegi yakinda eklenecek');
+            _showError('PDF desteği yakında eklenecek');
             return;
           case 'epub':
             // TODO: Implement EPUB parsing
-            _showError('EPUB destegi yakinda eklenecek');
+            _showError('EPUB desteği yakında eklenecek');
             return;
           default:
-            _showError('Desteklenmeyen dosya formati');
+            _showError('Desteklenmeyen dosya formatı');
             return;
         }
 
         if (content.trim().isEmpty) {
-          _showError('Dosya bos veya okunamiyor');
+          _showError('Dosya boş veya okunamıyor');
           return;
         }
 
         _startReading(content, title: title);
       }
     } catch (e) {
-      _showError('Dosya okunurken hata olustu: $e');
+      _showError('Dosya okunurken hata oluştu: $e');
     } finally {
       setState(() => _isLoading = false);
     }
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _startReading(String content, {String? title}) {
     if (content.trim().isEmpty) {
-      _showError('Lutfen okumak icin metin girin');
+      _showError('Lütfen okumak için metin girin');
       return;
     }
 
@@ -128,21 +128,21 @@ class _HomeScreenState extends State<HomeScreen> {
           controller: _textController,
           maxLines: 10,
           decoration: const InputDecoration(
-            hintText: 'Okumak istediginiz metni buraya yapistin...',
+            hintText: 'Okumak istediğiniz metni buraya yapıştırın...',
             border: OutlineInputBorder(),
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Iptal'),
+            child: const Text('İptal'),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
               _startReading(_textController.text, title: 'Manuel Metin');
             },
-            child: const Text('Okumaya Basla'),
+            child: const Text('Okumaya Başla'),
           ),
         ],
       ),
@@ -182,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           const SizedBox(height: 16),
                           const Text(
-                            'RSVP Hizli Okuma',
+                            'RSVP Hızlı Okuma',
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -190,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Kelime kelime odaklanarak daha hizli okuyun',
+                            'Kelime kelime odaklanarak daha hızlı okuyun',
                             style: TextStyle(
                               color: Colors.grey[600],
                             ),
@@ -207,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Card(
                     child: ListTile(
                       leading: const Icon(Icons.speed),
-                      title: const Text('Okuma Hizi'),
+                      title: const Text('Okuma Hızı'),
                       subtitle: Text('${_settings.wordsPerMinute} kelime/dakika'),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: _openSettings,
@@ -218,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   // Import options
                   const Text(
-                    'Okumaya Basla',
+                    'Okumaya Başla',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -230,15 +230,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   _buildOptionCard(
                     icon: Icons.edit_note,
                     title: 'Metin Gir',
-                    subtitle: 'Metni manuel olarak yapistin',
+                    subtitle: 'Metni manuel olarak yapıştırın',
                     onTap: _showTextInputDialog,
                   ),
 
                   // Import file
                   _buildOptionCard(
                     icon: Icons.file_open,
-                    title: 'Dosya Yukle',
-                    subtitle: 'TXT, PDF veya EPUB dosyasi sec',
+                    title: 'Dosya Yükle',
+                    subtitle: 'TXT, PDF veya EPUB dosyası seç',
                     onTap: _importFile,
                   ),
 
@@ -256,9 +256,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   _buildOptionCard(
                     icon: Icons.play_circle_outline,
-                    title: 'Ornek Metni Oku',
-                    subtitle: 'RSVP\'yi denemek icin ornek metin',
-                    onTap: () => _startReading(_sampleText, title: 'Ornek Metin'),
+                    title: 'Örnek Metni Oku',
+                    subtitle: 'RSVP\'yi denemek için örnek metin',
+                    onTap: () => _startReading(_sampleText, title: 'Örnek Metin'),
                   ),
                 ],
               ),
@@ -286,15 +286,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
 /// Sample Turkish text for demo
 const _sampleText = '''
-Turkiye'nin en guzel sehirlerinden biri olan Istanbul, iki kitanin bulusma noktasinda yer aliyor. Bogazici, sehrin tam ortasindan gecen ve Avrupa ile Asya'yi ayiran dogal bir su yolu. Her gun binlerce gemi bu bogazdan gecerek dunya ticaretine katki sagliyor.
+Türkiye'nin en güzel şehirlerinden biri olan İstanbul, iki kıtanın buluşma noktasında yer alıyor. Boğaziçi, şehrin tam ortasından geçen ve Avrupa ile Asya'yı ayıran doğal bir su yolu. Her gün binlerce gemi bu boğazdan geçerek dünya ticaretine katkı sağlıyor.
 
-Istanbul'un tarihi yarimadasi, UNESCO Dunya Mirasi listesinde yer aliyor. Ayasofya, Sultanahmet Camii ve Topkapi Sarayi gibi yapilar, sehrin zengin tarihini gozler onune seriyor. Bu yapilar, Bizans ve Osmanli donemlerinin mirasini gunumuze tasiyor.
+İstanbul'un tarihi yarımadası, UNESCO Dünya Mirası listesinde yer alıyor. Ayasofya, Sultanahmet Camii ve Topkapı Sarayı gibi yapılar, şehrin zengin tarihini gözler önüne seriyor. Bu yapılar, Bizans ve Osmanlı dönemlerinin mirasını günümüze taşıyor.
 
-Sehir ayni zamanda modern bir metropol. Yuksek binalar, alisveris merkezleri ve teknoloji sirketleri, Istanbul'u bir is merkezi haline getiriyor. Ancak bu modernlesme, sehrin geleneksel dokusunu bozmadan devam ediyor.
+Şehir aynı zamanda modern bir metropol. Yüksek binalar, alışveriş merkezleri ve teknoloji şirketleri, İstanbul'u bir iş merkezi haline getiriyor. Ancak bu modernleşme, şehrin geleneksel dokusunu bozmadan devam ediyor.
 
-Istanbul'da yasam hizli akar. Sabah erkenden baslayan trafik, gece geç saatlere kadar devam eder. Insanlar metro, metrobus, vapur ve taksi gibi farkli ulasim araclariyla sehir icinde hareket ediyor.
+İstanbul'da yaşam hızlı akar. Sabah erkenden başlayan trafik, gece geç saatlere kadar devam eder. İnsanlar metro, metrobüs, vapur ve taksi gibi farklı ulaşım araçlarıyla şehir içinde hareket ediyor.
 
-Turk mutfagi da Istanbul'un onemli bir parcasi. Kebaplar, mezeler, baliklar ve tatlilar, sehrin gastronomi zenginligini olusturuyor. Balik ekmek ve simit gibi sokak lezzetleri, yerli ve yabanci turistlerin favorileri arasinda.
+Türk mutfağı da İstanbul'un önemli bir parçası. Kebaplar, mezeler, balıklar ve tatlılar, şehrin gastronomi zenginliğini oluşturuyor. Balık ekmek ve simit gibi sokak lezzetleri, yerli ve yabancı turistlerin favorileri arasında.
 
-Sonuc olarak Istanbul, tarihi ve moderni, doguyu ve batiyi bir arada barindiran essiz bir sehir. Buraya gelen herkes, bu buyulu atmosferi hissediyor ve unutamiyorlar.
+Sonuç olarak İstanbul, tarihi ve moderni, doğuyu ve batıyı bir arada barındıran eşsiz bir şehir. Buraya gelen herkes, bu büyülü atmosferi hissediyor ve unutamıyorlar.
 ''';

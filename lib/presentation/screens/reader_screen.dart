@@ -202,63 +202,67 @@ class _ReaderScreenState extends State<ReaderScreen> {
     Color textColor,
     Color accentColor,
   ) {
-    return Container(
-      color: Colors.black.withOpacity(0.5),
-      child: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Title
-            if (widget.title != null)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 32),
-                child: Text(
-                  widget.title!,
-                  style: TextStyle(
-                    color: textColor.withOpacity(0.7),
-                    fontSize: 16,
-                  ),
-                  textAlign: TextAlign.center,
+    return SafeArea(
+      child: Column(
+        children: [
+          // Title at top
+          if (widget.title != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 60, bottom: 16),
+              child: Text(
+                widget.title!,
+                style: TextStyle(
+                  color: textColor.withOpacity(0.7),
+                  fontSize: 16,
                 ),
+                textAlign: TextAlign.center,
               ),
+            ),
 
-            // Play/Pause button
-            IconButton(
-              iconSize: 80,
+          // Spacer to push controls to bottom half
+          const Spacer(flex: 3),
+
+          // Play/Pause button - below word display area
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 24),
+            child: IconButton(
+              iconSize: 72,
               icon: Icon(
                 state.isPlaying ? Icons.pause_circle : Icons.play_circle,
                 color: accentColor,
               ),
               onPressed: _handleTap,
             ),
+          ),
 
-            const SizedBox(height: 32),
+          const SizedBox(height: 16),
 
-            // Speed control
-            _buildSpeedControl(textColor, accentColor),
+          // Speed control
+          _buildSpeedControl(textColor, accentColor),
 
-            const SizedBox(height: 24),
+          const SizedBox(height: 16),
 
-            // Progress info
-            Text(
-              '${state.currentIndex + 1} / ${state.totalTokens}',
-              style: TextStyle(color: textColor.withOpacity(0.7)),
-            ),
+          // Progress info
+          Text(
+            '${state.currentIndex + 1} / ${state.totalTokens}',
+            style: TextStyle(color: textColor.withOpacity(0.7)),
+          ),
 
-            if (state.isComplete)
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text(
-                  'Okuma Tamamlandi!',
-                  style: TextStyle(
-                    color: accentColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+          if (state.isComplete)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: Text(
+                'Okuma Tamamlandı!',
+                style: TextStyle(
+                  color: accentColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-          ],
-        ),
+            ),
+
+          const Spacer(flex: 1),
+        ],
       ),
     );
   }
