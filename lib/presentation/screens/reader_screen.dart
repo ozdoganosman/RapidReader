@@ -10,6 +10,7 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../core/models/rsvp_settings.dart';
 import '../../core/models/word_token.dart';
@@ -86,10 +87,14 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
   void _enterImmersiveMode() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    // Keep screen awake while reading
+    WakelockPlus.enable();
   }
 
   void _exitImmersiveMode() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    // Allow screen to sleep again
+    WakelockPlus.disable();
   }
 
   void _onEngineStateChanged() {
