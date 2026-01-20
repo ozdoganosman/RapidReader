@@ -8,6 +8,7 @@
 /// - Progress indicator
 library;
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -87,14 +88,18 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
   void _enterImmersiveMode() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    // Keep screen awake while reading
-    WakelockPlus.enable();
+    // Keep screen awake while reading (not supported on web)
+    if (!kIsWeb) {
+      WakelockPlus.enable();
+    }
   }
 
   void _exitImmersiveMode() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     // Allow screen to sleep again
-    WakelockPlus.disable();
+    if (!kIsWeb) {
+      WakelockPlus.disable();
+    }
   }
 
   void _onEngineStateChanged() {
