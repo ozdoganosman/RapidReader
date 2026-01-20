@@ -53,6 +53,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
   late RSVPSettings _settings;
   late List<WordToken> _tokens;
   bool _showControls = true;
+  bool _isDraggingSlider = false;
+  int _previewIndex = 0;
 
   @override
   void initState() {
@@ -171,12 +173,12 @@ class _ReaderScreenState extends State<ReaderScreen> {
             if (_showControls || !state.isPlaying)
               _buildControlsOverlay(state, textColor, orpColor),
 
-            // Progress bar at bottom
+            // Progress slider at bottom
             Positioned(
               left: 0,
               right: 0,
               bottom: 0,
-              child: _buildProgressBar(state, orpColor),
+              child: _buildProgressSlider(state, textColor, orpColor),
             ),
 
             // Back button
@@ -205,63 +207,58 @@ class _ReaderScreenState extends State<ReaderScreen> {
     return SafeArea(
       child: Column(
         children: [
-          // Title at top
-          if (widget.title != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 60, bottom: 16),
-              child: Text(
-                widget.title!,
-                style: TextStyle(
-                  color: textColor.withOpacity(0.7),
-                  fontSize: 16,
+          // Top section: Title + Play button + Speed control
+          Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: Column(
+              children: [
+                // Title
+                if (widget.title != null)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Text(
+                      widget.title!,
+                      style: TextStyle(
+                        color: textColor.withOpacity(0.7),
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+
+                // Play/Pause button
+                IconButton(
+                  iconSize: 64,
+                  icon: Icon(
+                    state.isPlaying ? Icons.pause_circle : Icons.play_circle,
+                    color: accentColor,
+                  ),
+                  onPressed: _handleTap,
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ),
 
-          // Spacer to push controls to bottom half
-          const Spacer(flex: 3),
+                const SizedBox(height: 8),
 
-          // Play/Pause button - below word display area
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 24),
-            child: IconButton(
-              iconSize: 72,
-              icon: Icon(
-                state.isPlaying ? Icons.pause_circle : Icons.play_circle,
-                color: accentColor,
-              ),
-              onPressed: _handleTap,
+                // Speed control
+                _buildSpeedControl(textColor, accentColor),
+
+                if (state.isComplete)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: Text(
+                      'Okuma Tamamlandı!',
+                      style: TextStyle(
+                        color: accentColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
 
-          const SizedBox(height: 16),
-
-          // Speed control
-          _buildSpeedControl(textColor, accentColor),
-
-          const SizedBox(height: 16),
-
-          // Progress info
-          Text(
-            '${state.currentIndex + 1} / ${state.totalTokens}',
-            style: TextStyle(color: textColor.withOpacity(0.7)),
-          ),
-
-          if (state.isComplete)
-            Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: Text(
-                'Okuma Tamamlandı!',
-                style: TextStyle(
-                  color: accentColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-
-          const Spacer(flex: 1),
+          // Spacer - word display area in the middle
+          const Spacer(),
         ],
       ),
     );
@@ -300,24 +297,112 @@ class _ReaderScreenState extends State<ReaderScreen> {
     );
   }
 
-  Widget _buildProgressBar(RSVPPlaybackState state, Color accentColor) {
-    return GestureDetector(
-      onHorizontalDragUpdate: (details) {
-        final box = context.findRenderObject() as RenderBox;
-        final localPosition = box.globalToLocal(details.globalPosition);
-        final progress = (localPosition.dx / box.size.width).clamp(0.0, 1.0);
-        _engine.seekTo(progress);
-      },
-      child: Container(
-        height: 32,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: LinearProgressIndicator(
-          value: state.progress,
-          backgroundColor: Colors.white24,
-          valueColor: AlwaysStoppedAnimation<Color>(accentColor),
-          minHeight: 4,
+  Widget _buildProgressSlider(RSVPPlaybackState state, Color textColor, Color accentColor) {
+    final displayIndex = _isDraggingSlider ? _previewIndex : state.currentIndex;
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.transparent,
+            Colors.black.withOpacity(0.7),
+          ],
         ),
       ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Context preview when dragging
+          if (_isDraggingSlider)
+            Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.black87,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                _getContextPreview(_previewIndex),
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+
+          // Progress info
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: Text(
+              '${displayIndex + 1} / ${state.totalTokens}',
+              style: TextStyle(
+                color: textColor.withOpacity(0.7),
+                fontSize: 12,
+              ),
+            ),
+          ),
+
+          // Slider
+          SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              activeTrackColor: accentColor,
+              inactiveTrackColor: Colors.white24,
+              thumbColor: accentColor,
+              overlayColor: accentColor.withOpacity(0.2),
+              trackHeight: 4,
+              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
+            ),
+            child: Slider(
+              value: displayIndex.toDouble(),
+              min: 0,
+              max: (state.totalTokens - 1).toDouble().clamp(0, double.infinity),
+              onChangeStart: (value) {
+                setState(() {
+                  _isDraggingSlider = true;
+                  _previewIndex = value.round();
+                });
+                _engine.pause();
+              },
+              onChanged: (value) {
+                setState(() {
+                  _previewIndex = value.round();
+                });
+              },
+              onChangeEnd: (value) {
+                _engine.seekTo(value / (state.totalTokens - 1).clamp(1, double.infinity));
+                setState(() {
+                  _isDraggingSlider = false;
+                });
+              },
+            ),
+          ),
+        ],
+      ),
     );
+  }
+
+  /// Get context preview showing surrounding words
+  String _getContextPreview(int index) {
+    if (_tokens.isEmpty) return '';
+
+    final start = (index - 3).clamp(0, _tokens.length - 1);
+    final end = (index + 4).clamp(0, _tokens.length);
+
+    final words = <String>[];
+    for (int i = start; i < end; i++) {
+      if (i == index) {
+        words.add('【${_tokens[i].word}】');
+      } else {
+        words.add(_tokens[i].word);
+      }
+    }
+
+    return words.join(' ');
   }
 }
