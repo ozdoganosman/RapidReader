@@ -5,6 +5,7 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/utils/orp_calculator.dart';
 
@@ -59,17 +60,16 @@ class ORPTextWidget extends StatelessWidget {
 
     final parts = ORPCalculator.splitForDisplay(word);
 
-    // Base text style
-    final baseStyle = TextStyle(
+    // Base text style - use Google Fonts for proper web support
+    final baseStyle = _getTextStyle(
       fontSize: fontSize,
-      fontFamily: fontFamily,
       color: textColor,
       fontWeight: fontWeight,
-      height: 1.2,
     );
 
     // ORP character style
-    final orpStyle = baseStyle.copyWith(
+    final orpStyle = _getTextStyle(
+      fontSize: fontSize,
       color: showHighlight ? orpColor : textColor,
       fontWeight: showHighlight ? orpFontWeight : fontWeight,
     );
@@ -113,6 +113,32 @@ class ORPTextWidget extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  /// Get text style with proper font loading for web
+  TextStyle _getTextStyle({
+    required double fontSize,
+    required Color color,
+    required FontWeight fontWeight,
+  }) {
+    // Use Google Fonts for proper web support with Turkish characters
+    if (fontFamily.toLowerCase().contains('mono')) {
+      return GoogleFonts.robotoMono(
+        fontSize: fontSize,
+        color: color,
+        fontWeight: fontWeight,
+        height: 1.2,
+      );
+    }
+
+    // Fallback to system font
+    return TextStyle(
+      fontSize: fontSize,
+      fontFamily: fontFamily,
+      color: color,
+      fontWeight: fontWeight,
+      height: 1.2,
     );
   }
 

@@ -14,6 +14,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 import '../../core/models/rsvp_settings.dart';
+import '../../core/services/epub_extractor.dart';
 import '../../core/services/pdf_extractor.dart';
 import '../../core/services/text_cleaner.dart';
 import 'reader_screen.dart';
@@ -97,9 +98,28 @@ class _HomeScreenState extends State<HomeScreen> {
             }
             break;
           case 'epub':
-            // TODO: Implement EPUB parsing
-            _showError('EPUB desteği yakında eklenecek');
-            return;
+            // EPUB metin çıkarma (web ve mobilde çalışır)
+            if (file.bytes != null) {
+              try {
+                content = await EpubExtractor.extractText(file.bytes!);
+                if (content.trim().isEmpty) {
+                  _showError('EPUB dosyasından metin çıkarılamadı');
+                  return;
+                }
+                // EPUB başlığını dosya adı yerine kullan
+                final metadata = await EpubExtractor.getMetadata(file.bytes!);
+                if (metadata.title.isNotEmpty && metadata.title != 'Bilinmeyen') {
+                  title = metadata.title;
+                }
+              } catch (e) {
+                _showError('EPUB okuma hatası: $e');
+                return;
+              }
+            } else {
+              _showError('EPUB dosyası okunamadı');
+              return;
+            }
+            break;
           default:
             _showError('Desteklenmeyen dosya formatı');
             return;
