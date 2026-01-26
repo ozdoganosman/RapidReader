@@ -1,7 +1,7 @@
 /// ORP (Optimal Recognition Point) Calculator
 ///
 /// Calculates the optimal focus point for each word in RSVP display.
-/// Supports Turkish characters and handles apostrophes correctly.
+/// Simple approach: ORP is approximately 1/3 into the word.
 library;
 
 /// Result of splitting a word for ORP display
@@ -20,157 +20,99 @@ class ORPWordParts {
     required this.orp,
     required this.after,
   });
-
-  @override
-  String toString() => '$before[$orp]$after';
 }
 
 /// Calculator for Optimal Recognition Point
 class ORPCalculator {
-  /// Characters that don't count toward effective word length
-  /// but should stay attached to the word
-  /// Includes: apostrophe ('), right single quote, hyphen
-  static const _ignoredInLength = {
-    "'", // apostrophe
-    "\u2019", // right single quote
-    "-", // hyphen
-  };
-
-  /// Leading punctuation to strip before ORP calculation
-  static const _leadingPunctuation = {
-    '"', // double quote
-    "'", // single quote
-    '(', '[', '{',
-    '\u00AB', // left guillemet
-    '\u201C', // left double quote
-    '\u2018', // left single quote
-  };
-
-  /// Trailing punctuation to strip before ORP calculation
-  static const _trailingPunctuation = {
-    '"', // double quote
-    "'", // single quote
-    ')', ']', '}',
-    '\u00BB', // right guillemet
-    '\u201D', // right double quote
-    '\u2019', // right single quote
-    '.', ',', '!', '?', ':', ';',
-    '\u2026', // ellipsis
-  };
-
-  /// Calculate ORP index based on effective word length
+  /// Calculate ORP index based on word length
   ///
-  /// Algorithm:
-  /// - 1 character: index 0
-  /// - 2-5 characters: index 1
+  /// Simple rule: ORP is about 1/3 into the word
+  /// - 1-2 characters: index 0
+  /// - 3-5 characters: index 1
   /// - 6-9 characters: index 2
   /// - 10-13 characters: index 3
   /// - 14+ characters: index 4
-  static int calculateORPIndex(int effectiveLength) {
-    if (effectiveLength <= 1) return 0;
-    if (effectiveLength <= 5) return 1;
-    if (effectiveLength <= 9) return 2;
-    if (effectiveLength <= 13) return 3;
+  static int calculateORPIndex(int length) {
+    if (length <= 2) return 0;
+    if (length <= 5) return 1;
+    if (length <= 9) return 2;
+    if (length <= 13) return 3;
     return 4;
-  }
-
-  /// Get effective length of a word (excluding apostrophes and hyphens)
-  ///
-  /// Examples:
-  /// - "Turkiye'nin" -> 10 (apostrophe not counted)
-  /// - "e-posta" -> 6 (hyphen not counted)
-  /// - "covid-19" -> 7
-  static int getEffectiveLength(String word) {
-    final cleaned = _getCleanWord(word);
-    int length = 0;
-    for (final char in cleaned.runes) {
-      final c = String.fromCharCode(char);
-      if (!_ignoredInLength.contains(c)) {
-        length++;
-      }
-    }
-    return length;
-  }
-
-  /// Remove leading and trailing punctuation from a word
-  static String _getCleanWord(String word) {
-    if (word.isEmpty) return word;
-
-    int start = 0;
-    int end = word.length;
-
-    // Remove leading punctuation
-    while (start < end && _leadingPunctuation.contains(word[start])) {
-      start++;
-    }
-
-    // Remove trailing punctuation
-    while (end > start && _trailingPunctuation.contains(word[end - 1])) {
-      end--;
-    }
-
-    return word.substring(start, end);
-  }
-
-  /// Get the actual character index for ORP in the original word
-  /// accounting for leading punctuation
-  static int getActualORPIndex(String word) {
-    if (word.isEmpty) return 0;
-
-    // Count leading punctuation
-    int leadingCount = 0;
-    for (final char in word.runes) {
-      final c = String.fromCharCode(char);
-      if (_leadingPunctuation.contains(c)) {
-        leadingCount++;
-      } else {
-        break;
-      }
-    }
-
-    // Get clean word and calculate ORP
-    final cleanWord = _getCleanWord(word);
-    final effectiveLength = getEffectiveLength(cleanWord);
-    final orpIndex = calculateORPIndex(effectiveLength);
-
-    // Find actual position accounting for ignored characters
-    int actualIndex = leadingCount;
-    int effectiveIndex = 0;
-
-    for (int i = leadingCount; i < word.length && effectiveIndex < orpIndex; i++) {
-      final c = word[i];
-      if (!_ignoredInLength.contains(c) && !_trailingPunctuation.contains(c)) {
-        effectiveIndex++;
-      }
-      actualIndex = i + 1;
-    }
-
-    // Clamp to valid range
-    return actualIndex.clamp(0, word.length - 1);
   }
 
   /// Split word into three parts for ORP display
   ///
-  /// The ORP character is centered, with before/after parts on sides.
-  ///
-  /// Examples:
-  /// - "kitap" -> before: "k", orp: "i", after: "tap"
-  /// - "Turkiye'nin" -> before: "Tu", orp: "r", after: "kiye'nin"
-  static ORPWordParts splitForDisplay(String word) {
-    if (word.isEmpty) {
+  /// Returns before, orp character, and after parts
+  /// For chunks (multi-word), calculates ORP on the middle word
+  static ORPWordParts splitForDisplay(String text) {
+    if (text.isEmpty) {
       return const ORPWordParts(before: '', orp: '', after: '');
     }
 
-    final orpIndex = getActualORPIndex(word);
-
-    if (orpIndex >= word.length) {
-      return ORPWordParts(before: word, orp: '', after: '');
+    if (text.length == 1) {
+      return ORPWordParts(before: '', orp: text, after: '');
     }
 
+    // Check if this is a chunk (contains spaces)
+    final words = text.split(' ');
+    if (words.length > 1) {
+      // For chunks, find the middle word and calculate ORP on it
+      return _splitChunkForDisplay(text, words);
+    }
+
+    // Single word - use standard ORP calculation
+    final orpIndex = calculateORPIndex(text.length);
+
+    // Clamp to valid range
+    final safeIndex = orpIndex.clamp(0, text.length - 1);
+
     return ORPWordParts(
-      before: word.substring(0, orpIndex),
-      orp: word[orpIndex],
-      after: orpIndex + 1 < word.length ? word.substring(orpIndex + 1) : '',
+      before: text.substring(0, safeIndex),
+      orp: text[safeIndex],
+      after: safeIndex + 1 < text.length ? text.substring(safeIndex + 1) : '',
     );
+  }
+
+  /// Split a chunk (multi-word text) for ORP display
+  /// ORP is calculated on the middle word of the chunk
+  static ORPWordParts _splitChunkForDisplay(String text, List<String> words) {
+    // Find the target word index (middle word, or slightly right of center)
+    // For 2 words: use word index 1 (second word)
+    // For 3 words: use word index 1 (middle word)
+    final targetWordIndex = words.length ~/ 2;
+    final targetWord = words[targetWordIndex];
+
+    // Calculate ORP for the target word
+    final wordOrpIndex = calculateORPIndex(targetWord.length);
+    final safeWordOrpIndex = wordOrpIndex.clamp(0, targetWord.length - 1);
+
+    // Build the before part: all words before target + beginning of target word
+    final beforeWords = words.sublist(0, targetWordIndex);
+    final beforePart = beforeWords.isNotEmpty
+        ? '${beforeWords.join(' ')} ${targetWord.substring(0, safeWordOrpIndex)}'
+        : targetWord.substring(0, safeWordOrpIndex);
+
+    // The ORP character
+    final orpChar = targetWord[safeWordOrpIndex];
+
+    // Build the after part: rest of target word + all words after target
+    final afterTargetWord = safeWordOrpIndex + 1 < targetWord.length
+        ? targetWord.substring(safeWordOrpIndex + 1)
+        : '';
+    final afterWords = words.sublist(targetWordIndex + 1);
+    final afterPart = afterWords.isNotEmpty
+        ? '$afterTargetWord ${afterWords.join(' ')}'
+        : afterTargetWord;
+
+    return ORPWordParts(
+      before: beforePart,
+      orp: orpChar,
+      after: afterPart,
+    );
+  }
+
+  /// Get effective length (same as actual length in simplified version)
+  static int getEffectiveLength(String word) {
+    return word.length;
   }
 }

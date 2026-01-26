@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
 import '../../core/models/word_token.dart';
 import '../../core/services/rsvp_engine.dart';
@@ -37,6 +38,12 @@ class ReaderScreen extends StatefulWidget {
   /// Callback when reading position changes
   final void Function(int index)? onProgressChanged;
 
+  /// Current book (for series navigation)
+  final Book? currentBook;
+
+  /// All chapters in the series (for next chapter button)
+  final List<Book>? seriesChapters;
+
   const ReaderScreen({
     super.key,
     required this.content,
@@ -44,6 +51,8 @@ class ReaderScreen extends StatefulWidget {
     this.settings = const RSVPSettings(),
     this.startIndex = 0,
     this.onProgressChanged,
+    this.currentBook,
+    this.seriesChapters,
   });
 
   @override
@@ -221,6 +230,10 @@ class _ReaderScreenState extends State<ReaderScreen> {
             // Context view overlay
             if (_showContextView)
               _buildContextViewOverlay(state, textColor, orpColor, backgroundColor),
+
+            // Completion overlay (shown when reading finishes)
+            if (state.isComplete)
+              _buildCompletionOverlay(textColor, orpColor),
           ],
         ),
       ),
@@ -292,34 +305,58 @@ class _ReaderScreenState extends State<ReaderScreen> {
     );
   }
 
+  /// Format seconds to "X dk Y sn" format
+  String _formatTime(int seconds) {
+    final mins = seconds ~/ 60;
+    final secs = seconds % 60;
+    return '$mins dk $secs sn';
+  }
+
   Widget _buildSpeedControl(Color textColor, Color accentColor) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    // Calculate estimated reading time in seconds
+    final remainingWords = _tokens.length - _engine.state.currentIndex;
+    final totalSeconds = (_tokens.length / _settings.wordsPerMinute * 60).round();
+    final remainingSeconds = (remainingWords / _settings.wordsPerMinute * 60).round();
+
+    return Column(
       children: [
-        IconButton(
-          icon: Icon(Icons.remove_circle_outline, color: textColor),
-          onPressed: () => _updateSpeed(_settings.wordsPerMinute - 50),
-        ),
-        const SizedBox(width: 16),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: BoxDecoration(
-            border: Border.all(color: accentColor),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Text(
-            '${_settings.wordsPerMinute} WPM',
-            style: TextStyle(
-              color: textColor,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              icon: Icon(Icons.remove_circle_outline, color: textColor),
+              onPressed: () => _updateSpeed(_settings.wordsPerMinute - 50),
             ),
-          ),
+            const SizedBox(width: 16),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                border: Border.all(color: accentColor),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                '${_settings.wordsPerMinute} WPM',
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            IconButton(
+              icon: Icon(Icons.add_circle_outline, color: textColor),
+              onPressed: () => _updateSpeed(_settings.wordsPerMinute + 50),
+            ),
+          ],
         ),
-        const SizedBox(width: 16),
-        IconButton(
-          icon: Icon(Icons.add_circle_outline, color: textColor),
-          onPressed: () => _updateSpeed(_settings.wordsPerMinute + 50),
+        const SizedBox(height: 8),
+        Text(
+          'Kalan: ${_formatTime(remainingSeconds)} / Toplam: ${_formatTime(totalSeconds)}',
+          style: TextStyle(
+            color: textColor.withOpacity(0.6),
+            fontSize: 13,
+          ),
         ),
       ],
     );
@@ -534,5 +571,96 @@ class _ReaderScreenState extends State<ReaderScreen> {
   bool _isPunctuation(String word) {
     const punctuationChars = '.,!?;:"\'-()[]';
     return word.split('').every((c) => punctuationChars.contains(c));
+  }
+
+  /// Get the next chapter in the series
+  Book? _getNextChapter() {
+    if (widget.currentBook == null || widget.seriesChapters == null) return null;
+
+    final currentChapter = widget.currentBook!.chapterNumber;
+    if (currentChapter == null) return null;
+
+    // Sort chapters by chapter number
+    final sorted = List<Book>.from(widget.seriesChapters!)
+      ..sort((a, b) => (a.chapterNumber ?? 0).compareTo(b.chapterNumber ?? 0));
+
+    // Find current chapter index
+    final currentIndex = sorted.indexWhere((b) => b.chapterNumber == currentChapter);
+    if (currentIndex == -1 || currentIndex == sorted.length - 1) return null;
+
+    return sorted[currentIndex + 1];
+  }
+
+  /// Navigate to the next chapter
+  void _openNextChapter(Book nextChapter) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => ReaderScreen(
+          content: nextChapter.content,
+          title: '${nextChapter.seriesName} - Bölüm ${nextChapter.chapterNumber}',
+          settings: _settings,
+          currentBook: nextChapter,
+          seriesChapters: widget.seriesChapters,
+        ),
+      ),
+    );
+  }
+
+  /// Build completion overlay with next chapter button
+  Widget _buildCompletionOverlay(Color textColor, Color accentColor) {
+    final nextChapter = _getNextChapter();
+
+    return Container(
+      color: Colors.black.withOpacity(0.85),
+      child: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.check_circle, size: 80, color: accentColor),
+              const SizedBox(height: 24),
+              Text(
+                'Bölüm Tamamlandı!',
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 40),
+
+              // Next chapter button (if available)
+              if (nextChapter != null) ...[
+                ElevatedButton.icon(
+                  onPressed: () => _openNextChapter(nextChapter),
+                  icon: const Icon(Icons.arrow_forward),
+                  label: const Text('Sonraki Bölüm'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: accentColor,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
+
+              // Return to home button
+              OutlinedButton.icon(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(Icons.home),
+                label: const Text('Ana Sayfaya Dön'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: textColor,
+                  side: BorderSide(color: textColor),
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

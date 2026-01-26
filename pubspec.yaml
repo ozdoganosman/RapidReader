@@ -1,7 +1,7 @@
 name: rapid_reader
 description: "RSVP Speed Reading App for Android"
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.5+6
 
 environment:
   sdk: ^3.5.4
@@ -35,10 +35,15 @@ dependencies:
   uuid: ^4.3.3
   intl: ^0.19.0
   equatable: ^2.0.5
+  shared_preferences: ^2.2.2
+  image_picker: ^1.0.7
 
   # Charts
   fl_chart: ^0.68.0
   wakelock_plus: 1.2.8
+
+  # Ads
+  google_mobile_ads: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -50,3 +55,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/books.json
+    - assets/books/

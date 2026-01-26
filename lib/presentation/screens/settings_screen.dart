@@ -27,233 +27,597 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  late RSVPSettings _settings;
+  late RSVPSettings _initialSettings;
+  late RSVPSettings _currentSettings;
+  bool _hasChanges = false;
 
   @override
   void initState() {
     super.initState();
-    _settings = widget.settings;
+    _initialSettings = widget.settings;
+    _currentSettings = widget.settings;
   }
 
   void _updateSettings(RSVPSettings newSettings) {
-    setState(() => _settings = newSettings);
+    setState(() {
+      _currentSettings = newSettings;
+      _hasChanges = !_settingsEqual(_initialSettings, newSettings);
+    });
+  }
+
+  bool _settingsEqual(RSVPSettings a, RSVPSettings b) {
+    return a.wordsPerMinute == b.wordsPerMinute &&
+        a.adaptiveSpeed == b.adaptiveSpeed &&
+        a.chunkSize == b.chunkSize &&
+        a.fontSize == b.fontSize &&
+        a.fontFamily == b.fontFamily &&
+        a.showORPHighlight == b.showORPHighlight &&
+        a.showFocusGuides == b.showFocusGuides &&
+        a.darkMode == b.darkMode &&
+        a.backgroundColor == b.backgroundColor &&
+        a.textColor == b.textColor &&
+        a.orpHighlightColor == b.orpHighlightColor &&
+        a.microPauseInterval == b.microPauseInterval &&
+        a.microPauseDuration == b.microPauseDuration;
+  }
+
+  Future<void> _handleBackPress() async {
+    if (!_hasChanges) {
+      Navigator.of(context).pop(_currentSettings);
+      return;
+    }
+
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        title: Text(
+          'Kaydedilmemis Degisiklikler',
+          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w400),
+        ),
+        content: Text(
+          'Ayarlarda yaptiginiz degisiklikler kaydedilmedi. Ne yapmak istersiniz?',
+          style: TextStyle(color: Colors.black54),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop('cancel'),
+            child: Text('Iptal', style: TextStyle(color: Colors.black38)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop('discard'),
+            child: Text('Cikis (Kaydetme)', style: TextStyle(color: Colors.red[400])),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop('save'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black87,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            ),
+            child: const Text('Kaydet ve Cik'),
+          ),
+        ],
+      ),
+    );
+
+    if (result == 'save') {
+      Navigator.of(context).pop(_currentSettings);
+    } else if (result == 'discard') {
+      Navigator.of(context).pop(_initialSettings);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ayarlar'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, _settings),
-            child: const Text('Kaydet'),
-          ),
-        ],
-      ),
-      body: ListView(
-        children: [
-          // Reading Speed Section
-          _buildSectionHeader('Okuma Hızı'),
-          _buildSliderTile(
-            title: 'Kelime/Dakika (WPM)',
-            value: _settings.wordsPerMinute.toDouble(),
-            min: 100,
-            max: 800,
-            divisions: 14,
-            label: '${_settings.wordsPerMinute} WPM',
-            onChanged: (value) {
-              _updateSettings(_settings.copyWith(wordsPerMinute: value.round()));
-            },
-          ),
-          SwitchListTile(
-            title: const Text('Adaptif Hız'),
-            subtitle: const Text('Kısa kelimeler hızlı, uzun kelimeler yavaş'),
-            value: _settings.adaptiveSpeed,
-            onChanged: (value) {
-              _updateSettings(_settings.copyWith(adaptiveSpeed: value));
-            },
-          ),
-
-          const Divider(),
-
-          // Chunk Settings
-          _buildSectionHeader('Kelime Gruplama'),
-          _buildSliderTile(
-            title: 'Chunk Boyutu',
-            value: _settings.chunkSize.toDouble(),
-            min: 1,
-            max: 3,
-            divisions: 2,
-            label: '${_settings.chunkSize} kelime',
-            onChanged: (value) {
-              _updateSettings(_settings.copyWith(chunkSize: value.round()));
-            },
-          ),
-
-          const Divider(),
-
-          // Display Settings
-          _buildSectionHeader('Görünüm'),
-          _buildSliderTile(
-            title: 'Font Boyutu',
-            value: _settings.fontSize,
-            min: 20,
-            max: 60,
-            divisions: 8,
-            label: '${_settings.fontSize.round()} pt',
-            onChanged: (value) {
-              _updateSettings(_settings.copyWith(fontSize: value));
-            },
-          ),
-          SwitchListTile(
-            title: const Text('ORP Vurgulama'),
-            subtitle: const Text('Odak noktasını kırmızı ile vurgula'),
-            value: _settings.showORPHighlight,
-            onChanged: (value) {
-              _updateSettings(_settings.copyWith(showORPHighlight: value));
-            },
-          ),
-          SwitchListTile(
-            title: const Text('Odak Çizgileri'),
-            subtitle: const Text('Dikey hizalama çizgilerini göster'),
-            value: _settings.showFocusGuides,
-            onChanged: (value) {
-              _updateSettings(_settings.copyWith(showFocusGuides: value));
-            },
-          ),
-
-          const Divider(),
-
-          // Theme Settings
-          _buildSectionHeader('Tema'),
-          _buildThemeOption('Karanlık', RSVPSettings.darkTheme),
-          _buildThemeOption('Aydınlık', RSVPSettings.lightTheme),
-          _buildThemeOption('Sepia', RSVPSettings.sepiaTheme),
-
-          const Divider(),
-
-          // Micro-pause Settings
-          _buildSectionHeader('Bilişsel Duraklama'),
-          SwitchListTile(
-            title: const Text('Mikro-Duraklama'),
-            subtitle: Text(
-              _settings.microPauseInterval > 0
-                  ? 'Her ${_settings.microPauseInterval} cümlede bir duraklama'
-                  : 'Devre dışı',
-            ),
-            value: _settings.microPauseInterval > 0,
-            onChanged: (value) {
-              _updateSettings(_settings.copyWith(
-                microPauseInterval: value ? 7 : 0,
-              ));
-            },
-          ),
-          if (_settings.microPauseInterval > 0)
-            _buildSliderTile(
-              title: 'Duraklama Aralığı',
-              value: _settings.microPauseInterval.toDouble(),
-              min: 3,
-              max: 15,
-              divisions: 12,
-              label: '${_settings.microPauseInterval} cümle',
-              onChanged: (value) {
-                _updateSettings(_settings.copyWith(microPauseInterval: value.round()));
-              },
-            ),
-
-          const SizedBox(height: 32),
-
-          // Reset button
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: OutlinedButton(
-              onPressed: () {
-                _updateSettings(const RSVPSettings());
-              },
-              child: const Text('Varsayılanlara Sıfırla'),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (!didPop) {
+          await _handleBackPress();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          title: Text(
+            'Ayarlar',
+            style: TextStyle(
+              color: Colors.black87,
+              fontSize: 18,
+              fontWeight: FontWeight.w300,
+              letterSpacing: 1,
             ),
           ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.black54),
+            onPressed: _handleBackPress,
+          ),
+          actions: [
+            if (_hasChanges)
+              TextButton(
+                onPressed: () => Navigator.pop(context, _currentSettings),
+                child: Text(
+                  'Kaydet',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+          ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(1),
+            child: Container(height: 0.5, color: Colors.black12),
+          ),
+        ),
+        body: ListView(
+          padding: const EdgeInsets.all(20),
+          children: [
+            // Reading Speed Section
+            _buildSettingCard(
+              title: 'Okuma Hizi',
+              children: [
+                _buildSliderSetting(
+                  label: 'Kelime/Dakika (WPM)',
+                  value: _currentSettings.wordsPerMinute.toDouble(),
+                  min: 100,
+                  max: 800,
+                  divisions: 14,
+                  displayValue: '${_currentSettings.wordsPerMinute} WPM',
+                  onChanged: (value) {
+                    _updateSettings(_currentSettings.copyWith(wordsPerMinute: value.round()));
+                  },
+                ),
+                const SizedBox(height: 20),
+                _buildSwitchSetting(
+                  title: 'Adaptif Hiz',
+                  subtitle: 'Kisa kelimeler hizli, uzun kelimeler yavas',
+                  value: _currentSettings.adaptiveSpeed,
+                  onChanged: (value) {
+                    _updateSettings(_currentSettings.copyWith(adaptiveSpeed: value));
+                  },
+                ),
+              ],
+            ),
 
-          const SizedBox(height: 32),
-        ],
-      ),
-    );
-  }
+            const SizedBox(height: 16),
 
-  Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-          color: Theme.of(context).colorScheme.primary,
+            // Chunk Settings
+            _buildSettingCard(
+              title: 'Kelime Gruplama',
+              children: [
+                _buildSliderSetting(
+                  label: 'Chunk Boyutu',
+                  value: _currentSettings.chunkSize.toDouble(),
+                  min: 1,
+                  max: 3,
+                  divisions: 2,
+                  displayValue: '${_currentSettings.chunkSize} kelime',
+                  onChanged: (value) {
+                    _updateSettings(_currentSettings.copyWith(chunkSize: value.round()));
+                  },
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Display Settings
+            _buildSettingCard(
+              title: 'Gorunum',
+              children: [
+                _buildSliderSetting(
+                  label: 'Font Boyutu',
+                  value: _currentSettings.fontSize,
+                  min: 20,
+                  max: 60,
+                  divisions: 8,
+                  displayValue: '${_currentSettings.fontSize.round()} pt',
+                  onChanged: (value) {
+                    _updateSettings(_currentSettings.copyWith(fontSize: value));
+                  },
+                ),
+                const SizedBox(height: 20),
+                _buildSwitchSetting(
+                  title: 'ORP Vurgulama',
+                  subtitle: 'Odak noktasini kirmizi ile vurgula',
+                  value: _currentSettings.showORPHighlight,
+                  onChanged: (value) {
+                    _updateSettings(_currentSettings.copyWith(showORPHighlight: value));
+                  },
+                ),
+                const SizedBox(height: 12),
+                _buildSwitchSetting(
+                  title: 'Odak Cizgileri',
+                  subtitle: 'Dikey hizalama cizgilerini goster',
+                  value: _currentSettings.showFocusGuides,
+                  onChanged: (value) {
+                    _updateSettings(_currentSettings.copyWith(showFocusGuides: value));
+                  },
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Font Family Settings
+            _buildSettingCard(
+              title: 'Font Ailesi',
+              children: [
+                _buildFontOption('Roboto Mono', 'Monospace - Sabit genislik'),
+                const SizedBox(height: 8),
+                _buildFontOption('Roboto', 'Sans-serif - Modern'),
+                const SizedBox(height: 8),
+                _buildFontOption('Open Sans', 'Sans-serif - Okunabilir'),
+                const SizedBox(height: 8),
+                _buildFontOption('Noto Sans', 'Sans-serif - Cok dilli'),
+                const SizedBox(height: 8),
+                _buildFontOption('Lato', 'Sans-serif - Zarif'),
+                const SizedBox(height: 8),
+                _buildFontOption('Montserrat', 'Sans-serif - Cesur'),
+                const SizedBox(height: 8),
+                _buildFontOption('Merriweather', 'Serif - Klasik'),
+                const SizedBox(height: 8),
+                _buildFontOption('Roboto Slab', 'Slab Serif - Guclu'),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Theme Settings
+            _buildSettingCard(
+              title: 'Tema',
+              children: [
+                _buildThemeOption('Karanlik', RSVPSettings.darkTheme),
+                const SizedBox(height: 8),
+                _buildThemeOption('Aydinlik', RSVPSettings.lightTheme),
+                const SizedBox(height: 8),
+                _buildThemeOption('Sepia', RSVPSettings.sepiaTheme),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Micro-pause Settings
+            _buildSettingCard(
+              title: 'Bilissel Duraklama',
+              children: [
+                _buildSwitchSetting(
+                  title: 'Mikro-Duraklama',
+                  subtitle: _currentSettings.microPauseInterval > 0
+                      ? 'Her ${_currentSettings.microPauseInterval} cumlede bir duraklama'
+                      : 'Devre disi',
+                  value: _currentSettings.microPauseInterval > 0,
+                  onChanged: (value) {
+                    _updateSettings(_currentSettings.copyWith(
+                      microPauseInterval: value ? 7 : 0,
+                    ));
+                  },
+                ),
+                if (_currentSettings.microPauseInterval > 0) ...[
+                  const SizedBox(height: 20),
+                  _buildSliderSetting(
+                    label: 'Duraklama Araligi',
+                    value: _currentSettings.microPauseInterval.toDouble(),
+                    min: 3,
+                    max: 15,
+                    divisions: 12,
+                    displayValue: '${_currentSettings.microPauseInterval} cumle',
+                    onChanged: (value) {
+                      _updateSettings(_currentSettings.copyWith(microPauseInterval: value.round()));
+                    },
+                  ),
+                ],
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
+            // Reset button
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  _updateSettings(const RSVPSettings());
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black12),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.refresh, size: 18, color: Colors.black45),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Varsayilanlara Sifirla',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 32),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildSliderTile({
+  Widget _buildSettingCard({
     required String title,
+    required List<Widget> children,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(color: Colors.black.withOpacity(0.08)),
+      ),
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: Colors.black87,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0.5,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Container(height: 0.5, width: 40, color: Colors.black12),
+          const SizedBox(height: 20),
+          ...children,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSliderSetting({
+    required String label,
     required double value,
     required double min,
     required double max,
     required int divisions,
-    required String label,
+    required String displayValue,
     required ValueChanged<double> onChanged,
   }) {
-    return ListTile(
-      title: Text(title),
-      subtitle: Slider(
-        value: value,
-        min: min,
-        max: max,
-        divisions: divisions,
-        label: label,
-        onChanged: onChanged,
-      ),
-      trailing: Text(
-        label,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 13,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+            Text(
+              displayValue,
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            activeTrackColor: Colors.black54,
+            inactiveTrackColor: Colors.black12,
+            thumbColor: Colors.black87,
+            overlayColor: Colors.black.withOpacity(0.1),
+            trackHeight: 2,
+            thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
+          ),
+          child: Slider(
+            value: value,
+            min: min,
+            max: max,
+            divisions: divisions,
+            onChanged: onChanged,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSwitchSetting({
+    required String title,
+    required String subtitle,
+    required bool value,
+    required ValueChanged<bool> onChanged,
+  }) {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  color: Colors.black38,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Switch(
+          value: value,
+          onChanged: onChanged,
+          activeColor: Colors.black87,
+          activeTrackColor: Colors.black38,
+          inactiveThumbColor: Colors.black26,
+          inactiveTrackColor: Colors.black12,
+        ),
+      ],
     );
   }
 
   Widget _buildThemeOption(String title, RSVPSettings preset) {
-    final isSelected = _settings.darkMode == preset.darkMode &&
-        _settings.backgroundColor == preset.backgroundColor;
+    final isSelected = _currentSettings.darkMode == preset.darkMode &&
+        _currentSettings.backgroundColor == preset.backgroundColor;
 
-    return ListTile(
-      title: Text(title),
-      leading: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: Color(preset.backgroundColor),
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Center(
-          child: Text(
-            'Aa',
-            style: TextStyle(
-              color: Color(preset.textColor),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
-      trailing: isSelected ? const Icon(Icons.check, color: Colors.green) : null,
+    return GestureDetector(
       onTap: () {
-        _updateSettings(_settings.copyWith(
+        _updateSettings(_currentSettings.copyWith(
           darkMode: preset.darkMode,
           textColor: preset.textColor,
           backgroundColor: preset.backgroundColor,
           orpHighlightColor: preset.orpHighlightColor,
         ));
       },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.grey[50] : Colors.white,
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(
+            color: isSelected ? Colors.black38 : Colors.black.withOpacity(0.08),
+            width: 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: Color(preset.backgroundColor),
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: Colors.black12),
+              ),
+              child: Center(
+                child: Text(
+                  'Aa',
+                  style: TextStyle(
+                    color: Color(preset.textColor),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: isSelected ? Colors.black87 : Colors.black54,
+                  fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+            if (isSelected)
+              Icon(Icons.check, color: Colors.black54, size: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFontOption(String fontFamily, String description) {
+    final isSelected = _currentSettings.fontFamily == fontFamily;
+
+    return GestureDetector(
+      onTap: () {
+        _updateSettings(_currentSettings.copyWith(fontFamily: fontFamily));
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.grey[50] : Colors.white,
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(
+            color: isSelected ? Colors.black38 : Colors.black.withOpacity(0.08),
+            width: 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 44,
+              height: 36,
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Center(
+                child: Text(
+                  'Ag',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontFamily: fontFamily,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    fontFamily,
+                    style: TextStyle(
+                      color: isSelected ? Colors.black87 : Colors.black54,
+                      fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    description,
+                    style: TextStyle(
+                      color: Colors.black38,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (isSelected)
+              Icon(Icons.check, color: Colors.black54, size: 20),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -6,9 +6,10 @@ library;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'core/services/ad_service.dart';
 import 'presentation/screens/home_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Set preferred orientations
@@ -16,6 +17,9 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  // Initialize ads
+  await AdService().initialize();
 
   runApp(const RapidReaderApp());
 }

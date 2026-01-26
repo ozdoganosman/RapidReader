@@ -1,118 +1,99 @@
-/// Book model for storing imported books
+/// Book Model
+///
+/// Represents a book in the pre-loaded library.
 library;
 
-import 'package:equatable/equatable.dart';
-
-/// Supported book formats
-enum BookFormat {
-  txt,
-  pdf,
-  epub,
-  manual, // Manually entered text
-}
-
-/// Book entity for library management
-class Book extends Equatable {
+/// A book with its content and metadata
+class Book {
   /// Unique identifier
   final String id;
 
   /// Book title
   final String title;
 
-  /// Author name (optional)
-  final String? author;
+  /// Author name
+  final String author;
 
-  /// File path (null for manual text)
-  final String? filePath;
+  /// Category (e.g., "Hikaye", "Bilim")
+  final String category;
 
-  /// Book format
-  final BookFormat format;
+  /// Cover color as hex string (e.g., "#FF5722")
+  final String coverColor;
 
-  /// When the book was imported
-  final DateTime importedAt;
+  /// Full text content
+  final String content;
 
-  /// Total word count
-  final int totalWords;
+  /// Optional cover image as base64 string (for custom books)
+  final String? imageBase64;
 
-  /// Current reading position (word index)
-  final int currentWordIndex;
+  /// Series name (e.g., "Dönüşüm" for "Dönüşüm 1", "Dönüşüm 2", etc.)
+  final String? seriesName;
 
-  /// Last read timestamp
-  final DateTime? lastReadAt;
-
-  /// Cover image path (optional)
-  final String? coverImagePath;
-
-  /// Raw text content (for manual entries or cached content)
-  final String? textContent;
+  /// Chapter number (e.g., 1, 2, 3)
+  final int? chapterNumber;
 
   const Book({
     required this.id,
     required this.title,
-    this.author,
-    this.filePath,
-    required this.format,
-    required this.importedAt,
-    this.totalWords = 0,
-    this.currentWordIndex = 0,
-    this.lastReadAt,
-    this.coverImagePath,
-    this.textContent,
+    required this.author,
+    required this.category,
+    required this.coverColor,
+    required this.content,
+    this.imageBase64,
+    this.seriesName,
+    this.chapterNumber,
   });
 
-  /// Reading progress as percentage (0.0 to 1.0)
-  double get progress {
-    if (totalWords == 0) return 0.0;
-    return currentWordIndex / totalWords;
-  }
-
-  /// Whether reading has started
-  bool get hasStarted => currentWordIndex > 0;
-
-  /// Whether reading is complete
-  bool get isComplete => totalWords > 0 && currentWordIndex >= totalWords;
-
-  /// Create a copy with modified fields
-  Book copyWith({
-    String? id,
-    String? title,
-    String? author,
-    String? filePath,
-    BookFormat? format,
-    DateTime? importedAt,
-    int? totalWords,
-    int? currentWordIndex,
-    DateTime? lastReadAt,
-    String? coverImagePath,
-    String? textContent,
-  }) {
+  /// Create a Book from JSON
+  factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      author: author ?? this.author,
-      filePath: filePath ?? this.filePath,
-      format: format ?? this.format,
-      importedAt: importedAt ?? this.importedAt,
-      totalWords: totalWords ?? this.totalWords,
-      currentWordIndex: currentWordIndex ?? this.currentWordIndex,
-      lastReadAt: lastReadAt ?? this.lastReadAt,
-      coverImagePath: coverImagePath ?? this.coverImagePath,
-      textContent: textContent ?? this.textContent,
+      id: json['id'] as String,
+      title: json['title'] as String,
+      author: json['author'] as String,
+      category: json['category'] as String,
+      coverColor: json['coverColor'] as String,
+      content: json['content'] as String,
+      imageBase64: json['imageBase64'] as String?,
+      seriesName: json['seriesName'] as String?,
+      chapterNumber: json['chapterNumber'] as int?,
     );
   }
 
-  @override
-  List<Object?> get props => [
-        id,
-        title,
-        author,
-        filePath,
-        format,
-        importedAt,
-        totalWords,
-        currentWordIndex,
-        lastReadAt,
-        coverImagePath,
-        textContent,
-      ];
+  /// Convert to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'author': author,
+      'category': category,
+      'coverColor': coverColor,
+      'content': content,
+      if (imageBase64 != null) 'imageBase64': imageBase64,
+      if (seriesName != null) 'seriesName': seriesName,
+      if (chapterNumber != null) 'chapterNumber': chapterNumber,
+    };
+  }
+
+  /// Check if this is a custom book (has custom_ prefix)
+  bool get isCustomBook => id.startsWith('custom_');
+
+  /// Check if this book is part of a series
+  bool get isSeries => seriesName != null && chapterNumber != null;
+
+  /// Get word count
+  int get wordCount {
+    if (content.isEmpty) return 0;
+    return content.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
+  }
+
+  /// Get estimated reading time in minutes (based on 200 WPM)
+  int get estimatedMinutes {
+    return (wordCount / 200).ceil();
+  }
+
+  /// Parse cover color to int for Color constructor
+  int get coverColorValue {
+    final hex = coverColor.replaceAll('#', '');
+    return int.parse('FF$hex', radix: 16);
+  }
 }

@@ -11,10 +11,8 @@ import '../../core/utils/orp_calculator.dart';
 
 /// Widget that displays a word with ORP highlighting
 ///
-/// The word is split into three parts:
-/// - Before ORP: normal style, right-aligned
-/// - ORP character: highlighted (colored/bold), centered
-/// - After ORP: normal style, left-aligned
+/// Uses a simpler approach: RichText with colored ORP character
+/// This avoids character clipping issues from width calculations
 class ORPTextWidget extends StatelessWidget {
   /// The word to display
   final String word;
@@ -60,7 +58,7 @@ class ORPTextWidget extends StatelessWidget {
 
     final parts = ORPCalculator.splitForDisplay(word);
 
-    // Base text style - use Google Fonts for proper web support
+    // Base text style
     final baseStyle = _getTextStyle(
       fontSize: fontSize,
       color: textColor,
@@ -74,45 +72,17 @@ class ORPTextWidget extends StatelessWidget {
       fontWeight: showHighlight ? orpFontWeight : fontWeight,
     );
 
-    // Calculate character width for monospace alignment
-    final charWidth = _measureCharWidth(context, baseStyle);
-
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        // Before ORP - right aligned to the center point
-        SizedBox(
-          width: parts.before.length * charWidth,
-          child: Text(
-            parts.before,
-            style: baseStyle,
-            textAlign: TextAlign.right,
-            maxLines: 1,
-            overflow: TextOverflow.visible,
-          ),
-        ),
-
-        // ORP character - the center point
-        Text(
-          parts.orp,
-          style: orpStyle,
-          maxLines: 1,
-        ),
-
-        // After ORP - left aligned from the center point
-        SizedBox(
-          width: parts.after.length * charWidth,
-          child: Text(
-            parts.after,
-            style: baseStyle,
-            textAlign: TextAlign.left,
-            maxLines: 1,
-            overflow: TextOverflow.visible,
-          ),
-        ),
-      ],
+    // Simple approach: Use RichText with three spans
+    // This naturally handles character widths without clipping
+    return RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        children: [
+          TextSpan(text: parts.before, style: baseStyle),
+          TextSpan(text: parts.orp, style: orpStyle),
+          TextSpan(text: parts.after, style: baseStyle),
+        ],
+      ),
     );
   }
 
@@ -123,35 +93,72 @@ class ORPTextWidget extends StatelessWidget {
     required FontWeight fontWeight,
   }) {
     // Use Google Fonts for proper web support with Turkish characters
-    if (fontFamily.toLowerCase().contains('mono')) {
-      return GoogleFonts.robotoMono(
-        fontSize: fontSize,
-        color: color,
-        fontWeight: fontWeight,
-        height: 1.2,
-      );
+    switch (fontFamily) {
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          color: color,
+          fontWeight: fontWeight,
+          height: 1.2,
+        );
+      case 'Roboto':
+        return GoogleFonts.roboto(
+          fontSize: fontSize,
+          color: color,
+          fontWeight: fontWeight,
+          height: 1.2,
+        );
+      case 'Open Sans':
+        return GoogleFonts.openSans(
+          fontSize: fontSize,
+          color: color,
+          fontWeight: fontWeight,
+          height: 1.2,
+        );
+      case 'Noto Sans':
+        return GoogleFonts.notoSans(
+          fontSize: fontSize,
+          color: color,
+          fontWeight: fontWeight,
+          height: 1.2,
+        );
+      case 'Lato':
+        return GoogleFonts.lato(
+          fontSize: fontSize,
+          color: color,
+          fontWeight: fontWeight,
+          height: 1.2,
+        );
+      case 'Montserrat':
+        return GoogleFonts.montserrat(
+          fontSize: fontSize,
+          color: color,
+          fontWeight: fontWeight,
+          height: 1.2,
+        );
+      case 'Merriweather':
+        return GoogleFonts.merriweather(
+          fontSize: fontSize,
+          color: color,
+          fontWeight: fontWeight,
+          height: 1.2,
+        );
+      case 'Roboto Slab':
+        return GoogleFonts.robotoSlab(
+          fontSize: fontSize,
+          color: color,
+          fontWeight: fontWeight,
+          height: 1.2,
+        );
+      default:
+        // Fallback to Roboto Mono
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          color: color,
+          fontWeight: fontWeight,
+          height: 1.2,
+        );
     }
-
-    // Fallback to system font
-    return TextStyle(
-      fontSize: fontSize,
-      fontFamily: fontFamily,
-      color: color,
-      fontWeight: fontWeight,
-      height: 1.2,
-    );
-  }
-
-  /// Measure the width of a single character in the given style
-  double _measureCharWidth(BuildContext context, TextStyle style) {
-    // Always measure actual character width using TextPainter
-    // This ensures correct width for Google Fonts and Turkish characters
-    final textPainter = TextPainter(
-      text: TextSpan(text: 'M', style: style),
-      textDirection: TextDirection.ltr,
-    )..layout();
-
-    return textPainter.width;
   }
 }
 
@@ -219,14 +226,17 @@ class RSVPDisplay extends StatelessWidget {
 
             if (showFocusGuides) const SizedBox(height: 12),
 
-            // Word display
-            ORPTextWidget(
-              word: word,
-              fontSize: fontSize,
-              textColor: textColor,
-              orpColor: orpColor,
-              fontFamily: fontFamily,
-              showHighlight: showHighlight,
+            // Word display - with padding to prevent any edge clipping
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: ORPTextWidget(
+                word: word,
+                fontSize: fontSize,
+                textColor: textColor,
+                orpColor: orpColor,
+                fontFamily: fontFamily,
+                showHighlight: showHighlight,
+              ),
             ),
 
             if (showFocusGuides) const SizedBox(height: 12),
