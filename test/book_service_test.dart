@@ -9,7 +9,7 @@ void main() {
   test('loads every bundled chapter with its series cover', () async {
     final books = await BookService.loadBooks();
 
-    expect(books, hasLength(162));
+    expect(books, hasLength(166));
 
     final attc = books.where((b) => b.seriesName == 'ATTC').toList();
     expect(attc, hasLength(45));
@@ -18,6 +18,11 @@ void main() {
     final donusum = books.where((b) => b.seriesName == 'Donusum').toList();
     expect(donusum, hasLength(3));
     expect(donusum.every((b) => b.coverAsset == 'assets/books/Donusum.jpg'), isTrue);
+
+    final omerSeyfettin = books.where((b) => b.seriesName == 'OmerSeyfettin').toList();
+    expect(omerSeyfettin, hasLength(4));
+    expect(omerSeyfettin.every((b) => b.coverAsset == 'assets/books/OmerSeyfettin.jpg'), isTrue);
+    expect(omerSeyfettin.every((b) => b.author == 'Ömer Seyfettin'), isTrue);
 
     final kuran = books.where((b) => b.seriesName == 'Kuran').toList();
     expect(kuran, hasLength(114));
@@ -55,6 +60,7 @@ void main() {
     expect(BookService.seriesDisplayName('ATTC'), 'İki Şehrin Hikâyesi');
     expect(BookService.seriesDisplayName('Donusum'), 'Dönüşüm');
     expect(BookService.seriesDisplayName('Kuran'), "Kur'an-ı Kerim");
+    expect(BookService.seriesDisplayName('OmerSeyfettin'), 'Ömer Seyfettin Hikâyeleri');
     expect(BookService.seriesDisplayName('Yeni Seri'), 'Yeni Seri');
   });
 }

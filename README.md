@@ -10,7 +10,8 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
 
 ## Özellikler
 
-- **Hazır kütüphane:** İki Şehrin Hikâyesi (45 bölüm), Dönüşüm, Kur'an-ı Kerim.
+- **Hazır kütüphane:** İki Şehrin Hikâyesi (45 bölüm), Dönüşüm, Kur'an-ı Kerim ve Ömer Seyfettin
+  hikâyeleri (Pembe İncili Kaftan, Bomba, Perili Köşk, Yüz Akı).
   Kitaplar bölüm listesiyle açılır; bölüm bitince "Sonraki Bölüm" ile devam edilir.
 - **Kendi metnin:** Başlık, metin ve isteğe bağlı kapak resmiyle kütüphaneye eklenir
   (cihazda Hive ile, web'de IndexedDB'de saklanır; uzun kitaplar da sığar).
@@ -112,6 +113,10 @@ test/                                Birim ve widget testleri
   metni) yapay zekâ desteğiyle çevrilmiş ve ayet ayet ikinci kez gözden
   geçirilmiştir; yayından önce ehil bir kişiye okutulmalıdır. Sureler iniş
   sırasıyla dizilidir (`Kuran_1.txt` = Alak Suresi).
+- **Ömer Seyfettin** (ö. 1920) hikâyeleri kamu malıdır. Metinler Vikikaynak'ın
+  sadeleştirilmemiş aktarımlarıdır (GitHub'daki bir derlemeden alındı; sadeleştirme ve
+  kısaltma yapılmadığı kontrol edildi). Yayından önce Dergâh'ın *Bütün Eserleri*
+  baskısıyla karşılaştırılması önerilir.
 - **Arapça Kur'an metni** (`assets/quran/`) Tanzil Projesi'nin "Simple" metnidir
   (tanzil.net, CC BY 3.0); değiştirilmeden kullanılır, kaynak uygulamada belirtilir
   (`assets/quran/SOURCE.txt`).

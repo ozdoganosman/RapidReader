@@ -16,6 +16,7 @@ class BookService {
     'kuran': "Kur'an-ı Kerim",
     'attc': 'İki Şehrin Hikâyesi',
     'donusum': 'Dönüşüm',
+    'omerseyfettin': 'Ömer Seyfettin Hikâyeleri',
   };
 
   /// Name to show for a series, e.g. "ATTC" -> "İki Şehrin Hikâyesi"
