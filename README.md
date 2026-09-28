@@ -89,6 +89,12 @@ sürümünü derleyip `gh-pages` dalına yayınlar; siteyi elle güncellemek ger
 yoktur (bilerek; `android/.gitignore`). Release APK/AAB üretmek için bu iki dosyanın
 yerel kopyası gerekir. Bu dosyaları kaybetmeyin ve paylaşmayın.
 
+**Google Play:** `flutter build appbundle --release` ile
+`build/app/outputs/bundle/release/app-release.aab` üretilir (imza için yukarıdaki iki
+dosya gerekir). Her yüklemede `pubspec.yaml`'daki `version`'ın `+` sonrasındaki sayı
+artırılmalıdır. Mağaza metinleri, Uygulama içeriği formlarının cevapları ve mağaza
+görselleri `store/` klasöründedir (`store/listing.md`).
+
 **Çökme raporları (Crashlytics, henüz kurulu değil):** Firebase Crashlytics için bir
 Firebase projesi gerekir; yapılandırma dosyaları projeye özeldir ve repoda yoktur.
 Kurmak için:
