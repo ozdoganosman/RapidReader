@@ -351,6 +351,7 @@ class RSVPEngine extends ChangeNotifier {
       config: _config,
       word: token.word,
       isParagraphEnd: token.isParagraphEnd,
+      isSentenceEnd: token.hasSentenceEndPunctuation,
     );
 
     // Start slower after play/resume, reaching full speed after a few words

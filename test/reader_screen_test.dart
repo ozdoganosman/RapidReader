@@ -6,7 +6,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rapid_reader/core/models/book.dart';
 import 'package:rapid_reader/core/models/rsvp_settings.dart';
 import 'package:rapid_reader/core/services/ad_service.dart';
+import 'package:rapid_reader/core/services/reading_storage.dart';
 import 'package:rapid_reader/presentation/screens/reader_screen.dart';
+import 'package:rapid_reader/presentation/widgets/orp_text_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Non-mono family keeps the test offline (no font download)
@@ -81,6 +83,41 @@ void main() {
     // 60 words at 300 WPM, shown as 30 groups of two
     expect(find.text('Kalan: 0 dk 12 sn / Toplam: 0 dk 12 sn'), findsOneWidget);
     expect(find.text('1 / 30'), findsOneWidget);
+  });
+
+  test('word positions map to the token holding the word', () {
+    // tokens of 2, 2, 1 and 3 words
+    const wordsBefore = [0, 2, 4, 5, 8];
+    expect([for (var w = 0; w < 8; w++) ReaderScreen.tokenIndexOfWord(wordsBefore, w)], [0, 0, 1, 1, 2, 3, 3, 3]);
+    expect(ReaderScreen.tokenIndexOfWord(wordsBefore, 99), 3);
+    expect(ReaderScreen.tokenIndexOfWord(const [0], 5), 0);
+  });
+
+  testWidgets('the reading position survives a chunk size change', (tester) async {
+    _mockPlatform(tester);
+    final text = List.generate(30, (i) => 'k$i').join(' ');
+    final book = Book(id: 'b', title: 'B', author: '', category: '', coverColor: '#000000', content: text);
+    // word 13 ("k13"), saved while reading word by word
+    await ReadingStorage.saveProgress('b', const ReadingProgress(index: 13, total: 30));
+
+    await tester.pumpWidget(MaterialApp(
+      home: ReaderScreen(content: text, settings: _settings.copyWith(chunkSize: 3), currentBook: book),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('5 / 10'), findsOneWidget); // the group "k12 k13 k14"
+  });
+
+  testWidgets('on a short window the controls stay above the word', (tester) async {
+    tester.view.physicalSize = const Size(640, 360);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await _pumpReader(tester, 'Birinci Bölüm');
+
+    final word = tester.getRect(find.byType(RSVPDisplay));
+    final wordTop = tester.getRect(find.byType(ORPTextWidget)).top;
+    expect(tester.getRect(find.textContaining('Kalan:')).bottom, lessThan(wordTop));
+    expect(tester.getRect(find.byIcon(Icons.play_circle)).bottom, lessThan(wordTop));
+    expect(word.height, greaterThan(0));
   });
 
   group('completion', () {

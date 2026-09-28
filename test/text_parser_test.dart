@@ -82,6 +82,30 @@ void main() {
     });
   });
 
+  group('TextParser abbreviations and ordinals', () {
+    List<bool> ends(String text) => TextParser.parse(text).map((t) => t.hasSentenceEndPunctuation).toList();
+
+    test('an ordinal or abbreviation before a lowercase word is no sentence end', () {
+      expect(ends('19. yüzyılda geldi.'), [false, false, true]);
+      expect(ends('elma, armut vb. meyveler'), [false, false, false, false]);
+    });
+
+    test('titles before a name are no sentence end', () {
+      expect(ends('Dr. Ahmet geldi.'), [false, false, true]);
+      expect(ends('St. Honoré sokağı'), [false, false, false]);
+    });
+
+    test('a period before a capital letter still ends the sentence', () {
+      expect(ends('Geldi. Sonra gitti.'), [true, false, true]);
+      expect(ends('1919. Sonra'), [true, false]);
+      expect(ends('bekledi... ve gitti'), [true, false, false]); // ellipsis keeps its pause
+    });
+
+    test('word groups do not break at an ordinal', () {
+      expect(_words('19. yüzyılda bir kent', chunkSize: 3), ['19. yüzyılda bir', 'kent']);
+    });
+  });
+
   group('TimingCalculator.detectPunctuation', () {
     test('looks past closing quotes and brackets', () {
       expect(TimingCalculator.detectPunctuation('dedi."'), PunctuationType.sentenceEnd);

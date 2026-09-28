@@ -94,6 +94,25 @@ class ReaderScreen extends StatefulWidget {
     replace ? await navigator.pushReplacement(route) : await navigator.push(route);
   }
 
+  /// Index of the token that holds word number [word] (0-based), given the
+  /// number of words before each token
+  @visibleForTesting
+  static int tokenIndexOfWord(List<int> wordsBefore, int word) {
+    // The last token starting at or before the word
+    var low = 0;
+    var high = wordsBefore.length - 2;
+    if (high < 0) return 0;
+    while (low < high) {
+      final mid = (low + high + 1) >> 1;
+      if (wordsBefore[mid] <= word) {
+        low = mid;
+      } else {
+        high = mid - 1;
+      }
+    }
+    return low;
+  }
+
   @override
   State<ReaderScreen> createState() => _ReaderScreenState();
 }
@@ -237,11 +256,15 @@ class _ReaderScreenState extends State<ReaderScreen> {
     if (!mounted || saved == null || saved.isComplete || state.totalTokens == 0) return;
     if (state.isPlaying || state.currentIndex != 0) return;
 
-    // Scale the position if the text is split differently now (chunk size)
-    var index = saved.index;
-    if (saved.total > 0 && saved.total != state.totalTokens) {
-      index = index * state.totalTokens ~/ saved.total;
+    // The position is saved in words, so a changed chunk size keeps it; a
+    // text that changed length (or a position saved in word groups by an
+    // older version) is scaled
+    final totalWords = _wordsBefore.last;
+    var word = saved.index;
+    if (saved.total > 0 && saved.total != totalWords) {
+      word = word * totalWords ~/ saved.total;
     }
+    final index = ReaderScreen.tokenIndexOfWord(_wordsBefore, word);
     _lastSavedIndex = index;
     _engine.seekToIndex(index);
   }
@@ -313,9 +336,10 @@ class _ReaderScreenState extends State<ReaderScreen> {
     if (index == _lastSavedIndex) return;
 
     _lastSavedIndex = index;
+    // Saved in words (not word groups), so it survives a chunk size change
     ReadingStorage.saveProgress(
       book.id,
-      ReadingProgress(index: index, total: state.totalTokens),
+      ReadingProgress(index: _wordsBefore[index.clamp(0, _tokens.length)], total: _wordsBefore.last),
     );
   }
 
@@ -468,6 +492,34 @@ class _ReaderScreenState extends State<ReaderScreen> {
     Color textColor,
     Color accentColor,
   ) {
+    final playButton = IconButton(
+      iconSize: _compactControls ? 44 : 64,
+      icon: Icon(
+        state.isPlaying ? Icons.pause_circle : Icons.play_circle,
+        color: accentColor,
+      ),
+      onPressed: _handleTap,
+    );
+
+    // A short window (a phone in landscape, split screen): one row without
+    // the title, so the controls stay above the word in the middle
+    if (_compactControls) {
+      return SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              playButton,
+              const SizedBox(width: 8),
+              _buildSpeedControl(textColor, accentColor),
+            ],
+          ),
+        ),
+      );
+    }
+
     return SafeArea(
       child: Column(
         children: [
@@ -491,14 +543,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                   ),
 
                 // Play/Pause button
-                IconButton(
-                  iconSize: 64,
-                  icon: Icon(
-                    state.isPlaying ? Icons.pause_circle : Icons.play_circle,
-                    color: accentColor,
-                  ),
-                  onPressed: _handleTap,
-                ),
+                playButton,
 
                 const SizedBox(height: 8),
 
@@ -527,6 +572,10 @@ class _ReaderScreenState extends State<ReaderScreen> {
       ),
     );
   }
+
+  /// Whether the window is too short for the stacked controls above the
+  /// word
+  bool get _compactControls => MediaQuery.sizeOf(context).height < 500;
 
   /// Format seconds to "X dk Y sn" format
   String _formatTime(int seconds) {

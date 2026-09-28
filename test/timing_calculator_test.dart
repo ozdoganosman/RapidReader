@@ -28,4 +28,11 @@ void main() {
     expect(_duration('kitap.'), 400);
     expect(_duration('bir kitap,'), 550);
   });
+
+  test('no sentence pause after a period that is not a sentence end', () {
+    const config = TimingConfig(baseWPM: 300, adaptiveSpeed: false);
+    expect(TimingCalculator.calculateDuration(config: config, word: '19.', isSentenceEnd: false), 200);
+    expect(TimingCalculator.calculateDuration(config: config, word: 'geldi.', isSentenceEnd: true), 400);
+    expect(TimingCalculator.calculateDuration(config: config, word: 'geldi.'), 400);
+  });
 }

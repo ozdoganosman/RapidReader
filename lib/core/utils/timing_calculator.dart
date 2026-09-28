@@ -195,12 +195,15 @@ class TimingCalculator {
   /// [config] - Timing configuration
   /// [word] - The word to calculate duration for
   /// [isParagraphEnd] - Whether this word ends a paragraph
+  /// [isSentenceEnd] - Whether the word ends a sentence, when known (a
+  /// period after "Dr" or "19" does not)
   ///
   /// Returns duration in milliseconds
   static int calculateDuration({
     required TimingConfig config,
     required String word,
     bool isParagraphEnd = false,
+    bool? isSentenceEnd,
   }) {
     // Base duration from WPM (milliseconds per word); a chunk of several
     // words is shown as long as its words together
@@ -220,9 +223,12 @@ class TimingCalculator {
       duration = (baseDuration * multiplier).round();
     }
 
-    // Add punctuation pause
+    // Add punctuation pause (none for a period that the parser found to
+    // be an abbreviation or ordinal: [isSentenceEnd] false)
     final punctuation = detectPunctuation(word);
-    duration += _punctuationPauses[punctuation]!;
+    if (punctuation != PunctuationType.sentenceEnd || isSentenceEnd != false) {
+      duration += _punctuationPauses[punctuation]!;
+    }
 
     // Add paragraph pause
     if (isParagraphEnd) {

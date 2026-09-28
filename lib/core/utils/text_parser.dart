@@ -41,7 +41,8 @@ class TextParser {
 
       for (int i = 0; i < words.length; i++) {
         final word = words[i];
-        final hasSentenceEnd = _endsWithSentencePunct(word);
+        final hasSentenceEnd =
+            _endsWithSentencePunct(word) && !_isAbbreviation(word, i + 1 < words.length ? words[i + 1] : null);
         if (hasSentenceEnd) sentenceCount++;
 
         tokens.add(WordToken(
@@ -115,6 +116,24 @@ class TextParser {
   static bool _endsWithSentencePunct(String word) {
     final type = TimingCalculator.detectPunctuation(word);
     return type == PunctuationType.sentenceEnd || type == PunctuationType.ellipsis;
+  }
+
+  /// Titles written with a period ("Dr. Ahmet")
+  static const _titles = {
+    'Dr.', 'Prof.', 'Doç.', 'Yrd.', 'Av.', 'Op.', 'Uzm.', 'Sn.', 'Bkz.', //
+    'Mr.', 'Mrs.', 'Ms.', 'St.', 'Mt.',
+  };
+
+  static final _lowercaseStart = RegExp(r'^[^\p{L}\p{N}]*\p{Ll}', unicode: true);
+
+  /// Whether the period of [word] marks an abbreviation or ordinal rather
+  /// than a sentence end: a title ("Dr. Ahmet"), or a single period before
+  /// a word in lowercase ("19. yüzyılda", "vb. şeyler"), since a new
+  /// sentence starts with a capital letter
+  static bool _isAbbreviation(String word, String? next) {
+    if (_titles.contains(word)) return true;
+    if (!word.endsWith('.') || word.endsWith('..') || next == null) return false;
+    return _lowercaseStart.hasMatch(next);
   }
 
   /// Check if word ends with mid-sentence punctuation
