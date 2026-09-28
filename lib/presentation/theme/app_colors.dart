@@ -1,6 +1,6 @@
 /// App Colors
 ///
-/// Text colors of the light screens (home, lists, settings, stats, tests),
+/// Text colors of the light screens (home, lists, settings, dialogs),
 /// chosen for a contrast of at least 4.5:1 on white even at small sizes.
 library;
 

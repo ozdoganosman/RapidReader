@@ -20,7 +20,6 @@ import '../../core/models/word_token.dart';
 import '../../core/services/ad_service.dart';
 import '../../core/services/book_service.dart';
 import '../../core/services/narrator.dart';
-import '../../core/services/reading_stats.dart';
 import '../../core/services/reading_storage.dart';
 import '../../core/services/rsvp_engine.dart';
 import '../../core/services/speech_narrator.dart';
@@ -139,14 +138,6 @@ class _ReaderScreenState extends State<ReaderScreen> {
   int _previewIndex = 0;
   bool _showContextView = false;
 
-  /// Start of the current reading session (while playing), for the stats
-  DateTime? _sessionStart;
-  int _sessionStartIndex = 0;
-
-  /// Last word shown while playing (a seek has already moved the engine
-  /// away from it when the session ends)
-  int _sessionLastIndex = 0;
-
   /// The voice for read-aloud, created when it is first turned on
   SpeechNarrator? _narrator;
 
@@ -217,17 +208,6 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
       // Report progress
       widget.onProgressChanged?.call(_engine.state.currentIndex);
-
-      // Reading time and words for the stats
-      if (_engine.state.isPlaying) {
-        if (_sessionStart == null) {
-          _sessionStart = DateTime.now();
-          _sessionStartIndex = _engine.state.currentIndex;
-        }
-        _sessionLastIndex = _engine.state.currentIndex;
-      } else {
-        _endSession();
-      }
 
       // Count finished chapters for the interstitial ad (every 3rd one)
       final isComplete = _engine.state.isComplete;
@@ -313,18 +293,6 @@ class _ReaderScreenState extends State<ReaderScreen> {
     widget.onSettingsChanged?.call(settings);
   }
 
-  /// Add the words read since playback started to the reading stats
-  void _endSession() {
-    final start = _sessionStart;
-    if (start == null) return;
-    _sessionStart = null;
-
-    final end = _engine.state.isComplete ? _tokens.length : _sessionLastIndex.clamp(0, _tokens.length);
-    if (end <= _sessionStartIndex) return;
-    final words = _wordsBefore[end] - _wordsBefore[_sessionStartIndex];
-    ReadingStats.addReading(words: words, time: DateTime.now().difference(start));
-  }
-
   /// Save the reading position of the current book
   void _saveProgress() {
     final book = widget.currentBook;
@@ -345,7 +313,6 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
   @override
   void dispose() {
-    _endSession();
     _saveProgress();
     _lifecycleListener.dispose();
     _engine.removeListener(_onEngineStateChanged);
@@ -408,9 +375,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
     final textColor = Color(_settings.textColor);
     final orpColor = Color(_settings.orpHighlightColor);
 
-    // Leaving with the system back button stops reading first, like the back
-    // arrow, so the reading time is counted before the previous screen
-    // reloads its stats
+    // Leaving with the system back button stops reading first, like the
+    // back arrow
     return PopScope(
       onPopInvokedWithResult: (didPop, _) {
         if (didPop) _engine.pause();

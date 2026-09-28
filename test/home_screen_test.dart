@@ -55,7 +55,7 @@ void main() {
     await pumpApp(tester, size: const Size(320, 640));
 
     expect(tester.takeException(), isNull); // no overflow
-    expect(find.text('Sınav Modu'), findsOneWidget);
+    expect(find.text('Kitaplık'), findsOneWidget);
     await CustomBookService.reset();
   });
 

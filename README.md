@@ -20,13 +20,6 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
   metin, bağlantı ya da dosya doğrudan RapidReader'a gönderilebilir. "Kaydetmeden Oku" ile
   metin kütüphaneye eklenmeden okunur. (Web sürümünde tarayıcı kuralları çoğu sitenin
   okunmasını engeller; orada metni kopyalayıp yapıştırmak gerekir.)
-- **İstatistik, günlük hedef ve seri:** Okunan kelime ve süre günlük tutulur; son 7 gün,
-  toplam süre, ortalama hız ve hedefin art arda tutturulduğu gün sayısı (seri) gösterilir.
-- **Okuma hızı testi:** Kısa bir metin normal okunur, ardından 4 anlama sorusu gelir.
-  Dakikadaki kelime, anlama oranı ve önerilen hızlı okuma başlangıç hızı gösterilir.
-- **Sınav modu:** LGS, TYT ve KPSS için süreli paragraf antrenmanı (her sınav için 40
-  özgün soru; ÖSYM/MEB sorusu değildir). Cevaptan sonra doğru şık ve açıklama gösterilir,
-  oturum sonunda yanlış yapılan soru türleri listelenir.
 - **Kaldığın yerden devam:** Her kitabın ve bölümün okuma konumu ile ayarlar cihazda saklanır.
 - **Okuma ekranı:** Dokun-oynat/duraklat, kaydırarak 10 kelime ileri/geri, konum çubuğu
   ve önizleme, sayfa görünümü, kalan/toplam süre, okurken ekranın kapanmaması (Android).

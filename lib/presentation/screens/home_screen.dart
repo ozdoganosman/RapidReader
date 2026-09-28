@@ -19,17 +19,13 @@ import '../../core/services/article_extractor.dart';
 import '../../core/services/book_service.dart';
 import '../../core/services/custom_book_service.dart';
 import '../../core/services/document_importer.dart';
-import '../../core/services/reading_stats.dart';
 import '../../core/services/reading_storage.dart';
 import '../../core/services/text_cleaner.dart';
 import '../theme/app_colors.dart';
 import '../widgets/banner_ad_widget.dart';
 import 'chapter_list_screen.dart';
-import 'exam_screen.dart';
 import 'reader_screen.dart';
 import 'settings_screen.dart';
-import 'speed_test_screen.dart';
-import 'stats_screen.dart';
 
 /// Home screen with book library
 class HomeScreen extends StatefulWidget {
@@ -50,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _loadBooks();
     _loadSettings();
-    _loadStats();
     _listenForShares();
   }
 
@@ -128,18 +123,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return '$name.${extensions[file.mimeType] ?? 'txt'}';
   }
 
-  /// Today's reading and the streak, shown under the speed card
-  StatsSummary? _stats;
-
-  Future<void> _loadStats() async {
-    try {
-      final stats = await ReadingStats.load();
-      if (mounted) setState(() => _stats = stats);
-    } catch (e) {
-      debugPrint('ReadingStats error: $e'); // the library still works without stats
-    }
-  }
-
   /// Restore the settings saved on this device
   Future<void> _loadSettings() async {
     final settings = await ReadingStorage.loadSettings();
@@ -205,27 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
       title: book.title,
       settings: _settings,
       onSettingsChanged: _saveSettings,
-    ).then((_) => _loadStats());
-  }
-
-  void _openStats() {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(
-          builder: (context) => StatsScreen(settings: _settings, onSettingsChanged: _saveSettings),
-        ))
-        .then((_) => _loadStats());
-  }
-
-  void _openExam() {
-    Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) => const ExamScreen()));
-  }
-
-  void _openSpeedTest() {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(
-          builder: (context) => SpeedTestScreen(settings: _settings, onSettingsChanged: _saveSettings),
-        ))
-        .then((_) => _loadStats());
+    );
   }
 
   void _openSeries(String seriesName, List<Book> chapters) {
@@ -237,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onSettingsChanged: _saveSettings,
       ),
     );
-    Navigator.of(context).push(route).then((_) => _loadStats());
+    Navigator.of(context).push(route);
   }
 
   void _openSettings() async {
@@ -471,83 +434,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-
-          const SizedBox(height: 12),
-
-          // Today's reading, the speed test and exam practice (equal heights:
-          // on narrow phones the labels take two lines)
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: _buildShortcut(
-                    icon: Icons.local_fire_department_outlined,
-                    title: _stats == null ? 'Bugün' : '${_stats!.today.minutes}/${_stats!.goalMinutes} dk',
-                    subtitle: _stats == null ? 'İstatistik' : '${_stats!.streak} gün seri',
-                    onTap: _openStats,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: _buildShortcut(
-                    icon: Icons.timer_outlined,
-                    title: 'Hız Testi',
-                    subtitle: 'Hız ve anlama',
-                    onTap: _openSpeedTest,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: _buildShortcut(
-                    icon: Icons.school_outlined,
-                    title: 'Sınav Modu',
-                    subtitle: 'LGS · TYT · KPSS',
-                    onTap: _openExam,
-                  ),
-                ),
-              ],
-            ),
-          )
         ],
-      ),
-    );
-  }
-
-  Widget _buildShortcut({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required VoidCallback onTap,
-  }) {
-    return Material(
-      color: Colors.grey[50],
-      borderRadius: BorderRadius.circular(4),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(4),
-        child: Container(
-          padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            border: Border.all(color: Colors.black.withValues(alpha: 0.1)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(icon, size: 20, color: Colors.black45),
-              const SizedBox(height: 8),
-              Text(title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 13, color: Colors.black87)),
-              Text(subtitle,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 11, color: AppColors.secondaryText)),
-            ],
-          ),
-        ),
       ),
     );
   }
@@ -1320,16 +1207,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   /// Open a text in the reader without adding it to the library
   void _readWithoutSaving(String title, String content) {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(
-          builder: (context) => ReaderScreen(
-            content: content,
-            title: title,
-            settings: _settings,
-            onSettingsChanged: _saveSettings,
-          ),
-        ))
-        .then((_) => _loadStats());
+    Navigator.of(context).push(MaterialPageRoute<void>(
+      builder: (context) => ReaderScreen(
+        content: content,
+        title: title,
+        settings: _settings,
+        onSettingsChanged: _saveSettings,
+      ),
+    ));
   }
 
   void _deleteCustomBook(Book book) {
