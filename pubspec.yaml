@@ -59,3 +59,6 @@ flutter:
   assets:
     - assets/books.json
     - assets/books/
+    # Default reading font, bundled so it works offline (google_fonts uses
+    # these files instead of downloading RobotoMono-Regular/Bold)
+    - assets/google_fonts/
