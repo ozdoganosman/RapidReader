@@ -4,11 +4,13 @@
 /// - Turkish apostrophes (') - keeps words together
 /// - Hyphens (-) - keeps words together
 /// - Slashes (/) - splits words
-/// - Parentheses, brackets, quotes - separate tokens
+/// - Parentheses, brackets, quotes - stay attached to the word
+/// - Standalone punctuation - attached to the neighbouring word
 /// - URLs and emails - single tokens
 library;
 
 import '../models/word_token.dart';
+import 'timing_calculator.dart';
 
 /// Parser for converting raw text into RSVP tokens
 class TextParser {
@@ -16,15 +18,14 @@ class TextParser {
   static final _urlPattern = RegExp(r'https?://\S+|www\.\S+');
   static final _emailPattern = RegExp(r'\S+@\S+\.\S+');
 
-  /// Characters that become separate tokens but stay attached visually
-  static const _separateTokens = {
-    '(', ')', '[', ']', '{', '}',
-    '"', // double quote
-    "'", // single quote
-    '\u201C', '\u201D', // curly double quotes
-    '\u2018', '\u2019', // curly single quotes
-    '\u00AB', '\u00BB', // guillemets
-  };
+  /// A token made of punctuation only, e.g. a quote or dash between spaces
+  static final _punctuationOnly = RegExp(r'^\p{P}+$', unicode: true);
+
+  /// Opening brackets and quotes: ( [ { “ ‘ « „
+  static final _openingPunctuation = RegExp(r'^[\p{Ps}\p{Pi}]+$', unicode: true);
+
+  /// Dashes: - – —
+  static final _dashPunctuation = RegExp(r'^\p{Pd}+$', unicode: true);
 
   /// Parse text into a list of word tokens
   ///
@@ -128,66 +129,62 @@ class TextParser {
       tokens.addAll(_processWord(word));
     }
 
-    return tokens;
+    return _attachPunctuation(tokens);
   }
 
-  /// Process a single word, handling special punctuation
+  /// Split a word at slashes and backslashes
+  ///
+  /// Everything else (apostrophes, hyphens, quotes, brackets, punctuation)
+  /// stays attached to the word.
   static List<String> _processWord(String word) {
-    final results = <String>[];
+    return word.split(RegExp(r'[/\\]')).where((part) => part.isNotEmpty).toList();
+  }
 
-    // Extract leading separate tokens
-    String remaining = word;
-    while (remaining.isNotEmpty && _separateTokens.contains(remaining[0])) {
-      results.add(remaining[0]);
-      remaining = remaining.substring(1);
-    }
+  /// Attach standalone punctuation to a neighbouring word
+  ///
+  /// A quote, bracket or dash surrounded by spaces would otherwise be shown
+  /// as a word of its own. Opening quotes/brackets go to the next word,
+  /// everything else to the previous one; dashes keep their space.
+  /// Straight double quotes alternate between opening and closing.
+  static List<String> _attachPunctuation(List<String> words) {
+    final result = <String>[];
+    var prefix = '';
+    var doubleQuotes = 0;
 
-    if (remaining.isEmpty) return results;
+    for (final word in words) {
+      if (!_punctuationOnly.hasMatch(word)) {
+        result.add('$prefix$word');
+        prefix = '';
+        doubleQuotes += '"'.allMatches(word).length;
+        continue;
+      }
 
-    // Extract trailing separate tokens (but keep sentence punctuation attached)
-    final trailing = <String>[];
-    while (remaining.isNotEmpty) {
-      final lastChar = remaining[remaining.length - 1];
-      if (_separateTokens.contains(lastChar)) {
-        trailing.insert(0, lastChar);
-        remaining = remaining.substring(0, remaining.length - 1);
+      final bool opening;
+      if (word == '"') {
+        opening = doubleQuotes.isEven;
+        doubleQuotes++;
       } else {
-        break;
+        opening = _openingPunctuation.hasMatch(word);
+      }
+      final isDash = _dashPunctuation.hasMatch(word);
+
+      if (opening || result.isEmpty) {
+        prefix += isDash ? '$word ' : word;
+      } else {
+        result[result.length - 1] += isDash ? ' $word' : word;
       }
     }
 
-    if (remaining.isEmpty) {
-      results.addAll(trailing);
-      return results;
-    }
-
-    // Handle slashes - split the word
-    if (remaining.contains('/')) {
-      final parts = remaining.split('/');
-      for (int i = 0; i < parts.length; i++) {
-        if (parts[i].isNotEmpty) {
-          results.add(parts[i]);
-        }
+    // Opening punctuation at the very end has no following word
+    if (prefix.isNotEmpty) {
+      if (result.isEmpty) {
+        result.add(prefix.trim());
+      } else {
+        result[result.length - 1] += ' ${prefix.trim()}';
       }
     }
-    // Handle backslashes - split the word
-    else if (remaining.contains('\\')) {
-      final parts = remaining.split('\\');
-      for (int i = 0; i < parts.length; i++) {
-        if (parts[i].isNotEmpty) {
-          results.add(parts[i]);
-        }
-      }
-    }
-    // Normal word (apostrophes and hyphens stay intact)
-    else {
-      results.add(remaining);
-    }
 
-    // Add trailing tokens
-    results.addAll(trailing);
-
-    return results;
+    return result;
   }
 
   /// Apply chunking to group multiple words together
@@ -231,23 +228,18 @@ class TextParser {
   }
 
   /// Check if string is just punctuation
-  static bool _isPunctuation(String s) {
-    if (s.isEmpty) return false;
-    return _separateTokens.contains(s) || '.!?,;:'.contains(s);
-  }
+  static bool _isPunctuation(String s) => _punctuationOnly.hasMatch(s);
 
-  /// Check if word ends with sentence punctuation
+  /// Check if word ends with sentence punctuation (also before a closing
+  /// quote or bracket, as in 'dedi."')
   static bool _endsWithSentencePunct(String word) {
-    if (word.isEmpty) return false;
-    final last = word[word.length - 1];
-    return '.!?'.contains(last) || word.endsWith('...');
+    final type = TimingCalculator.detectPunctuation(word);
+    return type == PunctuationType.sentenceEnd || type == PunctuationType.ellipsis;
   }
 
   /// Check if word ends with mid-sentence punctuation
   static bool _endsWithMidPunct(String word) {
-    if (word.isEmpty) return false;
-    final last = word[word.length - 1];
-    return ',;:'.contains(last);
+    return TimingCalculator.detectPunctuation(word) == PunctuationType.midSentence;
   }
 
   /// Check if word is a URL or email

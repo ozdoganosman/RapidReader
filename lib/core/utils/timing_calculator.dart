@@ -96,40 +96,51 @@ class TimingCalculator {
   /// Extra time for URLs (they're long single tokens)
   static const int _urlExtraTime = 300;
 
-  /// Closing bracket characters
-  static const _closingBrackets = ')]\u0022\u00BB\u2019\u201D}';
+  /// Closing bracket and quote characters
+  static const _closingBrackets = ')]}\u0022\u0027\u00BB\u2019\u201D';
 
   /// Opening bracket characters
-  static const _openingBrackets = '([\u0022\u00AB\u2018\u201C{';
+  static const _openingBrackets = '([\u0022\u00AB\u2018\u201C\u201E{';
 
   /// Detect punctuation type at end of word
+  ///
+  /// Closing quotes and brackets are looked past, so 'dedi."' ends a
+  /// sentence and '(sessizce),' is a mid-sentence pause.
   static PunctuationType detectPunctuation(String word) {
     if (word.isEmpty) return PunctuationType.none;
 
+    var end = word.length;
+    while (end > 0 && _closingBrackets.contains(word[end - 1])) {
+      end--;
+    }
+    final core = word.substring(0, end);
+
     // Check for ellipsis
-    if (word.endsWith('...') || word.endsWith('\u2026')) {
+    if (core.endsWith('...') || core.endsWith('\u2026')) {
       return PunctuationType.ellipsis;
     }
 
-    final lastChar = word[word.length - 1];
+    if (core.isNotEmpty) {
+      final lastChar = core[core.length - 1];
 
-    // Sentence endings
-    if ('.!?'.contains(lastChar)) {
-      return PunctuationType.sentenceEnd;
-    }
+      // Sentence endings
+      if ('.!?'.contains(lastChar)) {
+        return PunctuationType.sentenceEnd;
+      }
 
-    // Mid-sentence pauses
-    if (',:;'.contains(lastChar)) {
-      return PunctuationType.midSentence;
-    }
+      // Mid-sentence pauses
+      if (',:;'.contains(lastChar)) {
+        return PunctuationType.midSentence;
+      }
 
-    // Long dash (em dash, en dash)
-    if (lastChar == '\u2014' || lastChar == '\u2013') {
-      return PunctuationType.longDash;
+      // Long dash (em dash, en dash)
+      if (lastChar == '\u2014' || lastChar == '\u2013') {
+        return PunctuationType.longDash;
+      }
     }
 
     // Closing brackets
-    if (_closingBrackets.contains(lastChar)) {
+    if (end < word.length) {
       return PunctuationType.closingBracket;
     }
 

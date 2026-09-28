@@ -43,7 +43,9 @@ class ORPCalculator {
     '(', '[', '{',
     '\u00AB', // left guillemet
     '\u201C', // left double quote
+    '\u201E', // low double quote
     '\u2018', // left single quote
+    '\u2014', '\u2013', ' ', // attached dialogue dash: "— Merhaba"
   };
 
   /// Trailing punctuation to strip before ORP calculation
@@ -56,6 +58,7 @@ class ORPCalculator {
     '\u2019', // right single quote
     '.', ',', '!', '?', ':', ';',
     '\u2026', // ellipsis
+    '\u2014', '\u2013', ' ', // attached dash: "bir —"
   };
 
   /// Calculate ORP index based on effective word length
