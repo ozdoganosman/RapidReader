@@ -1,72 +1,143 @@
-Yirmi Beşinci Bölüm
 Bir Görüş
-Endişeli bekleyişten bitkin düşen Bay Lorry görevinin başında uyuyakaldı. Belirsizliğinin onuncu sabahında, karanlık geceyken ağır bir uykunun onu yakaladığı odaya güneşin parlamasıyla uyandı.
-Gözlerini ovuşturdu ve kendine geldi; ama bunu yaptığında hâlâ uyuyor olmadığından şüphelendi. Çünkü Doktorun odasının kapısına gidip içeri bakınca, ayakkabıcının tezgahının ve aletlerinin tekrar bir kenara konduğunu ve Doktorun kendisinin pencerede oturarak okuduğunu algıladı. Her zamanki sabah kıyafetindeydi ve yüzü (Bay Lorry'nin açıkça görebildiği), hâlâ çok solgun olsa da, sakin bir şekilde çalışkan ve dikkatliydi.
-Uyanık olduğundan emin olduktan sonra bile, Bay Lorry birkaç dakika son ayakkabı yapımının kendi rahatsız bir rüyası olup olmadığından baş döndürücü bir şekilde emin değildi; çünkü gözleri ona arkadaşını alışılmış kıyafet ve görünümünde ve her zamanki gibi meşgul olarak göstermiyor muydu; ve onun hakkında çok güçlü bir izlenim edindiği değişikliğin gerçekten olduğuna dair görüş alanlarında herhangi bir işaret var mıydı?
-Bu sadece ilk kafa karışıklığı ve şaşkınlığının sorusuydu, cevap açıktı. Eğer izlenim gerçek karşılık gelen ve yeterli bir neden tarafından üretilmediyse, o, Jarvis Lorry, oraya nasıl geldi? Doktor Manette'in muayene odasındaki kanepeye kıyafetleriyle nasıl uyuyakaldı ve sabahın erken saatlerinde Doktorun yatak odası kapısının dışında bu noktaları nasıl tartışıyordu?
-Birkaç dakika içinde Matmazel Pross yanında fısıldayarak durdu. Bir parça şüphesi kalsaydı, konuşması onu zorunlu olarak çözerdi; ama o zamana kadar kafası netti ve hiç şüphesi yoktu. Normal kahvaltı saatine kadar zamanın geçmesine izin vermelerini ve sonra Doktorla olağandışı hiçbir şey olmamış gibi buluşmalarını tavsiye etti. Alışılmış zihin durumunda görünürse, Bay Lorry endişeyle elde etmeye çok istekli olduğu görüşten yön ve rehberlik aramaya ihtiyatla başlayacaktı.
-Matmazel Pross onun kararına boyun eğerek, plan dikkatle işlendi. Her zamanki metodik tuvaletine bolca zaman ayırarak, Bay Lorry kahvaltı saatinde her zamanki beyaz ketenlerinde ve her zamanki düzgün bacağıyla kendini sundu. Doktor her zamanki gibi çağrıldı ve kahvaltıya geldi.
-Bay Lorry'nin güvenli ilerleme olarak hissettiği hassas ve kademeli yaklaşımları aşmadan onu anlamak mümkün olduğu kadarıyla, ilk başta kızının evliliğinin dün gerçekleştiğini varsaydı. Kasten atılan tesadüfi bir gönderme, haftanın günü ve ayın günü hakkında, onu düşündürdü ve saydırdı ve belli ki onu huzursuz etti. Yine de diğer tüm açılardan o kadar sakin kendisiydi ki, Bay Lorry aradığı yardımı almaya karar verdi. Ve o yardım kendisinin olacaktı.
-Bu nedenle, kahvaltı bitip kaldırıldığında ve o ve Doktor yalnız kaldığında, Bay Lorry duygulu bir şekilde dedi:
-"Sevgili Manette'm, derinden ilgilendiğim çok ilginç bir dava hakkında gizlice görüşünüzü almak istiyorum; yani benim için çok ilginç; belki sizin daha iyi bilginiz için daha az olabilir."
-Son işinden lekelenmiş olan ellerine bakarak, Doktor rahatsız görünüyordu ve dikkatle dinledi. Ellerine birden fazla kez bakmıştı.
-"Doktor Manette," dedi Bay Lorry, koluna sevgiyle dokunarak, "dava özellikle sevgili bir arkadaşımın davası. Lütfen ona aklınızı verin ve onun iyiliği için bana iyi tavsiyeler verin - ve her şeyden önce kızı için - kızı için, sevgili Manette'm."
-"Anlıyorsam," dedi Doktor, alçak bir sesle, "bir zihinsel şok--?"
+Charles Dickens
+İkinci Kitap: Altın İplik, 19. Bölüm
+
+Kaygılı nöbetten bitap düşen Bay Lorry, nöbet yerinde uyuyakaldı. Bekleyişinin onuncu sabahı, zifirî karanlık bir gecede ağır bir uykunun kendisini yakaladığı odaya dolan güneşin parıltısıyla irkilerek uyandı.
+
+Gözlerini ovuşturup kendini toparladı; ama bunu yaptıktan sonra hâlâ uyuyor olup olmadığından kuşkulandı. Çünkü Doktor'un odasının kapısına gidip içeri baktığında, kunduracı tezgâhının ve aletlerinin yeniden bir kenara kaldırılmış olduğunu, Doktor'un da pencerenin önünde oturmuş kitap okuduğunu gördü. Her zamanki sabah giysilerini giymişti; yüzü de (Bay Lorry bunu açıkça görebiliyordu) hâlâ çok solgun olmakla birlikte, sakin bir dikkatle okumaya dalmıştı.
+
+Uyanık olduğuna kendini inandırdıktan sonra bile Bay Lorry birkaç an, başı dönercesine, son günlerdeki kunduracılığın kendi gördüğü karmakarışık bir rüya olup olmadığından emin olamadı; çünkü gözleri ona, dostunu karşısında her zamanki giysileri ve görünüşüyle, her zamanki işiyle uğraşırken göstermiyor muydu? Gözünün erimi içinde, o kadar güçlü bir izlenimini taşıdığı değişikliğin gerçekten yaşandığına dair herhangi bir belirti var mıydı?
+
+Bu, ilk şaşkınlığının ve hayretinin sorusundan başka bir şey değildi; yanıtı ortadaydı. Eğer bu izlenim, ona karşılık gelen gerçek ve yeterli bir nedenden doğmamışsa, o, Jarvis Lorry, orada ne arıyordu? Nasıl olmuştu da Doktor Manette'in muayene odasındaki kanepede üstü başıyla uyuyakalmış, sabahın erken saatinde Doktor'un yatak odasının kapısının önünde bu meseleleri tartıyordu?
+
+Birkaç dakika içinde Bayan Pross yanında belirmiş, fısıldıyordu. Bay Lorry'nin içinde en ufak bir kuşku kalmış olsaydı bile, Bayan Pross'un sözleri onu ister istemez giderirdi; ama o saatte artık kafası açılmıştı ve hiç kuşkusu kalmamıştı. Olağan kahvaltı saatine kadar beklemelerini, sonra Doktor'u hiçbir olağandışı şey olmamış gibi karşılamalarını öğütledi. Doktor her zamanki ruh hâlinde görünürse, Bay Lorry o zaman, kaygısı içinde edinmeye öylesine can attığı görüşten temkinle yol yordam istemeye girişecekti.
+
+Bayan Pross onun yargısına uyduğundan, plan özenle uygulandı. Her zamanki titiz giyinip kuşanmasına bol bol vakti kalan Bay Lorry, kahvaltı saatinde her zamanki beyaz ketenleri ve her zamanki biçimli bacağıyla göründü. Doktor her zamanki gibi çağrıldı ve kahvaltıya geldi.
+
+Bay Lorry'nin tek güvenli ilerleme yolu saydığı o ince, adım adım yaklaşımların sınırını aşmadan anlaşılabildiği kadarıyla, Doktor önce kızının evliliğinin dün gerçekleştiğini sanıyordu. Haftanın ve ayın hangi günü olduğuna dair, bilerek ortaya atılmış rastgele bir söz onu düşünmeye ve saymaya itti ve besbelli tedirgin etti. Ama öteki bütün bakımlardan öylesine sükûnetle kendisiydi ki, Bay Lorry aradığı yardımı almaya karar verdi. O yardım da Doktor'un kendisinden gelecekti.
+
+Bu yüzden kahvaltı bitip sofra kaldırıldıktan ve Doktor'la baş başa kaldıktan sonra Bay Lorry duygulu bir sesle şöyle dedi:
+
+"Sevgili Manette, benim çok yakından ilgilendiğim pek tuhaf bir vaka hakkında, aramızda kalmak kaydıyla görüşünüzü almak istiyorum; yani, bana çok tuhaf geliyor; sizin daha derin bilginize belki o kadar tuhaf gelmeyebilir."
+
+Son işinden rengi bozulmuş ellerine bir göz atan Doktor sıkıntılı göründü ve dikkatle dinledi. Ellerine daha önce de birkaç kez göz atmıştı.
+
+"Doktor Manette," dedi Bay Lorry, şefkatle onun koluna dokunarak, "vaka, çok sevdiğim bir dostumun vakası. Lütfen kafa yorun ve onun için bana iyi bir öğüt verin — hepsinden çok da kızı için — kızı için, sevgili Manette."
+
+"Anladığım kadarıyla," dedi Doktor, kısık bir sesle, "bir tür zihinsel sarsıntı — ?"
+
 "Evet!"
-"Açık olun," dedi Doktor. "Hiçbir ayrıntıyı saklamayın."
-Bay Lorry birbirlerini anladıklarını gördü ve devam etti.
-"Sevgili Manette'm, bu eski ve uzun süreli bir şokun davası, duygulara, hislere, --siz ifade ettiğiniz gibi-- zihne çok şiddetli ve ağır bir şok. Zihin. Bu, acı çekenin altında ezildiği bir şokun davası, ne kadar sürdüğü söylenemez, çünkü inanıyorum ki zamanı kendisi hesaplayamıyor ve ona ulaşmanın başka yolu yok. Bu, acı çekenin bir keresinde kamusal olarak çarpıcı bir şekilde anlattığını duyduğum gibi, kendisinin izleyemediği bir süreçle iyileştiği bir şokun davası. Bu, o kadar tamamen iyileştiği ki, yakın zihin uygulaması ve büyük beden çabası yapabilen ve zaten çok geniş olan bilgi dağarcığına sürekli yeni eklemeler yapan son derece zeki bir adam olan bir şokun davası. Ama ne yazık ki, bir oldu," durdu ve derin bir nefes aldı - "hafif bir nüks."
-Doktor alçak sesle sordu, "Ne kadar sürdü?"
-"Dokuz gün ve gece."
-"Nasıl kendini gösterdi? Sonuç çıkarıyorum," diye tekrar ellerine bakarak, "şokla bağlantılı eski bir uğraşın yeniden başlamasında mı?"
-"Gerçek bu."
-"Şimdi, onu hiç gördünüz mü," diye sordu Doktor, aynı alçak sesle olsa da açıkça ve topluca, "o uğraşla orijinal olarak meşgulken?"
+
+"Açık konuşun," dedi Doktor. "Hiçbir ayrıntıyı esirgemeyin."
+
+Bay Lorry birbirlerini anladıklarını gördü ve sürdürdü.
+
+"Sevgili Manette, bu, eski ve uzun süreli bir sarsıntının vakası; sevgi bağları, duygular, şey — şey — sizin deyişinizle — zihin üzerinde çok keskin ve çok ağır bir sarsıntının. Zihin. Hastanın altında ezildiği bir sarsıntının vakası; ne kadar süre ezildiği söylenemez, çünkü sanırım zamanı kendisi de hesaplayamıyor ve bunu öğrenmenin başka bir yolu da yok. Hastanın, kendisinin de izini süremediği bir süreçle iyileştiği bir sarsıntının vakası — bir keresinde onun bunu herkesin önünde çarpıcı bir biçimde anlattığını duymuştum. Hastanın öylesine tamamen iyileştiği bir sarsıntının vakası ki, son derece zeki, derin bir zihinsel yoğunlaşmaya ve büyük bedensel çabaya muktedir, zaten pek geniş olan bilgi dağarcığına durmadan yenilerini ekleyen bir adam olmuş. Ama ne yazık ki," — durdu ve derin bir nefes aldı — "hafif bir nüksetme oldu."
+
+Doktor alçak bir sesle sordu: "Ne kadar sürdü?"
+
+"Dokuz gün dokuz gece."
+
+"Kendini nasıl gösterdi? Tahminimce," — yine ellerine bakarak — "sarsıntıyla bağlantılı eski bir uğraşa geri dönülmesiyle, değil mi?"
+
+"Aynen öyle."
+
+"Peki, onu hiç," diye sordu Doktor, aynı alçak sesle de olsa açık seçik ve kendine hâkim bir hâlde, "ilk zamanlar o uğraşa dalmış hâlde gördünüz mü?"
+
 "Bir kez."
-"Ve nüks ona düştüğünde, çoğu açıdan - ya da tüm açılardan - o zaman olduğu gibi miydi?"
-"Sanırım tüm açılardan."
-"Kızından bahsettiniz. Kızı nüksü biliyor mu?"
-"Hayır. Ondan gizli tutuldu ve umarım her zaman gizli tutulacak. Sadece benim ve güvenilebilecek bir başkası tarafından biliniyor."
-Doktor elini kavradı ve mırıldandı, "Bu çok nazikti. Bu çok düşünceliydi!" Bay Lorry elini karşılık olarak kavradı ve ikisi de bir süre konuşmadı.
-"Şimdi, sevgili Manette'm," dedi Bay Lorry, sonunda, en düşünceli ve en sevgi dolu tarzıyla, "ben sadece bir iş adamıyım ve böyle karmaşık ve zor konularla başa çıkmaya uygun değilim. Gerekli türde bilgiye sahip değilim; gerekli türde zekaya sahip değilim; rehberliğe ihtiyacım var. Dünyada doğru rehberlik için güvenebileceğim sizden başka hiç kimse yok. Söyleyin, bu nüks nasıl oluyor? Bir başkasının tehlikesi var mı? Tekrarı engellenebilir mi? Tekrarı nasıl tedavi edilmeli? Nasıl oluyor? Arkadaşım için ne yapabilirim? Bir arkadaşına hizmet etmek için kalbinde benden daha istekli hiç kimse olmamıştır, nasıl yapacağımı bilsem.
-Ama böyle bir durumda nasıl başlayacağımı bilmiyorum. Eğer sizin keskinliğiniz, bilginiz ve deneyiminiz beni doğru yola sokabilirse, çok şey yapabilirim; aydınlatılmamış ve yönetilmemiş, çok az şey yapabilirim. Lütfen benimle tartışın; lütfen biraz daha açık görmemi sağlayın ve bana biraz daha faydalı olmayı öğretin."
-Doktor Manette bu içten sözler söylendikten sonra düşünerek oturdu ve Bay Lorry ona baskı yapmadı.
-"Bence muhtemelen," dedi Doktor, bir çabayla sessizliği bozarak, "tarif ettiğiniz nüks, sevgili dostum, konusu tarafından tamamen öngörülmemiş değildi."
-"Onun tarafından korkuluyor muydu?" Bay Lorry sormaya cesaret etti.
-"Çok." Bunu istemsiz bir ürpermeyle söyledi.
-"Böyle bir endişenin acı çekenin zihnine nasıl yüklendiğini ve onu ezen konuda bir kelime bile söylemeye kendini zorlamanın ne kadar zor - neredeyse imkansız - olduğunu hiç bilmezsiniz."
-"O," diye sordu Bay Lorry, "üzerindeyken o gizli kuruntuyu birine anlatmayı başarabilseydi, önemli ölçüde rahatlar mıydı?"
-"Sanırım öyle. Ama size söylediğim gibi, neredeyse imkansız. Hatta inanıyorum - bazı durumlarda - tamamen imkansız."
-"Şimdi," dedi Bay Lorry, her iki taraftan kısa bir sessizlikten sonra Doktorun koluna yeniden nazikçe elini koyarak, "bu saldırıyı neye atfedersiniz?"
-"İnanıyorum ki," diye karşılık verdi Doktor Manette, "hastalığın ilk nedeni olan düşünce ve hatıra dizisinin güçlü ve olağanüstü bir yeniden canlanması olmuştu. En sıkıntı verici nitelikteki bazı yoğun çağrışımlar canlı bir şekilde hatırlandı, sanırım. Muhtemelen uzun süredir aklında gizlenen bir korku vardı, o çağrışımların hatırlanacağı - diyelim ki belirli koşullar altında - diyelim ki belirli bir vesileyle. Kendini boşuna hazırlamaya çalıştı; belki de kendini hazırlama çabası onu taşımaya daha az muktedir kıldı."
-"Nükste olanları hatırlar mıydı?" diye sordu Bay Lorry, doğal bir tereddütle.
-Doktor ıssız bir şekilde odaya baktı, başını salladı ve alçak sesle cevapladı, "Hiç."
-"Şimdi, gelecek için," diye ima etti Bay Lorry.
-"Gelecek için," dedi Doktor, sağlamlığını kazanarak, "büyük umudumuz olmalı. Cennet merhametiyle onu bu kadar çabuk eski haline getirdiğine göre, büyük umudumuz olmalı. O, uzun zamandır korkulan ve uzun zamandır belirsizce öngörülen ve karşı konulan karmaşık bir şeyin baskısı altında teslim olarak ve bulut patladıktan ve geçtikten sonra iyileşerek, umarım en kötüsü bitmişti."
-"Peki, peki! Bu iyi bir teselli. Minnetarım!" dedi Bay Lorry.
-"Minnetarım!" diye tekrarladı Doktor, saygıyla başını eğerek.
-"İki nokta daha var," dedi Bay Lorry, "bunlar hakkında bilgilendirilmeye istekliyim. Devam edebilir miyim?"
-"Arkadaşınıza daha iyi bir hizmet yapamazsınız." Doktor ona elini verdi.
-"O zaman birincisine. O çalışma alışkanlığına sahip ve olağandışı derecede enerjik; mesleki bilgi edinmesine, deney yapmasına, birçok şeye büyük gayretle kendini veriyor. Şimdi, çok fazla mı yapıyor?"
-"Sanmıyorum. Zihninin karakteri, her zaman uğraşa tekil bir ihtiyaç içinde olması olabilir. Bu, kısmen ona doğal olabilir; kısmen ıstırabın sonucu. Sağlıklı şeylerle ne kadar az meşgul olursa, sağlıksız yöne dönme tehlikesi o kadar fazla olurdu. Kendini gözlemlemiş ve keşfi yapmış olabilir."
-"Çok fazla baskı altında olmadığından emin misiniz?"
-"Oldukça emin olduğumu düşünüyorum."
-"Sevgili Manette'm, şimdi fazla çalışırsa--"
-"Sevgili Lorry'm, bunun kolayca olabileceğinden şüpheliyim. Bir yönde şiddetli bir stres oldu ve bir karşı ağırlığa ihtiyacı var."
-"Affedersiniz, inatçı bir iş adamı olarak. Bir an için fazla çalıştığını varsayalım; bu bozukluğun bir yenilenmesinde kendini gösterir mi?"
-"Sanmıyorum. Düşünmüyorum," dedi Doktor Manette özinancının sağlamlığıyla, "tek çağrışım dizisinden başka hiçbir şey onu yenilemez. Düşünüyorum ki, bundan böyle, o telin olağanüstü bir sarsılmasından başka hiçbir şey onu yenileyemez. Olanlardan ve iyileşmesinden sonra, o telin böyle şiddetli bir sesini tekrar hayal etmekte zorlanıyorum. Güveniyorum ve neredeyse inanıyorum ki, onu yenileme olasılığı olan koşullar tükendi."
-Zihnin hassas organizasyonunu ne kadar küçük bir şeyin devirebileceğini bilen bir adamın çekingenliğiyle, ama yine de kişisel dayanıklılık ve sıkıntıdan yavaşça güvencesini kazanmış bir adamın güveniyle konuştu. Arkadaşının o güveni azaltması uygun değildi. Gerçekte olduğundan daha rahatlamış ve cesaretlenmiş olduğunu beyan etti ve ikinci ve son noktasına yaklaştı. Bunun en zor olduğunu hissetti; ama Matmazel Pross ile eski Pazar sabahı konuşmasını ve son dokuz günde gördüklerini hatırlayarak, ona yüzleşmesi gerektiğini biliyordu.
-"Bu mutlu bir şekilde atlatılan geçici ıstırabın etkisi altında yeniden başlanan uğraş," dedi Bay Lorry, boğazını temizleyerek, "diyeceğiz - Demirci işi, Demirci işi. Bir örnek vermek için ve gösterim amacıyla diyeceğiz ki, kötü zamanında küçük bir demirhanede çalışmaya alışmıştı. Beklenmedik bir şekilde tekrar demirhanesinde bulunduğunu söyleyeceğiz. Onu yanında tutması yazık değil mi?"
-Doktor alnını eliyle gölgeledi ve ayağını sinirli bir şekilde yere vurdu.
-"Onu her zaman yanında tuttu," dedi Bay Lorry, arkadaşına endişeli bir bakışla. "Şimdi, bırakması daha iyi olmaz mıydı?"
-Hâlâ Doktor, gölgeli alnıyla ayağını sinirli bir şekilde yere vurdu.
-"Bana tavsiye vermekte zorlanıyorsunuz?" dedi Bay Lorry. "Bunun hassas bir soru olduğunu tamamen anlıyorum. Ve yine de düşünüyorum--" Ve orada başını salladı ve durdu.
-"Görüyorsunuz," dedi Doktor Manette, huzursuz bir duraksama sonrası ona dönerek, "bu zavallı adamın zihninin en içteki işleyişini tutarlı bir şekilde açıklamak çok zor. Bir zamanlar o uğraşa öyle korkunç bir şekilde özlem duydu ve geldiğinde öyle hoş karşılandı; şüphesiz parmakların şaşkınlığını beynin şaşkınlığının yerine koyarak ve daha ustalaştıkça ellerin ustalığını zihinsel işkencenin ustalığının yerine koyarak acısını çok rahatlatıyordu; ki onu tamamen ulaşamayacağı bir yere koyma düşüncesine asla dayanamadı. Şimdi bile, kendisi hakkında şimdiye kadar olduğundan daha umutlu olduğuna inandığımda ve hatta kendisi hakkında bir tür güvenle konuştuğunda, o eski işe ihtiyaç duyabileceği ve bulamayacağı fikri, ona kayıp bir çocuğun kalbine vurduğunu hayal edebileceği bir ani terör hissi veriyor."
-Gözlerini Bay Lorry'nin yüzüne kaldırırken, örneğine benziyordu.
-"Ama olmayabilir mi - dikkat edin! Sadece gine, şilin ve banknot gibi maddi nesnelerle ilgilenen, azimli bir iş adamı olarak bilgi istiyorum - şeyin tutulması fikrin tutulmasını içermeyebilir mi? Şey gitse, sevgili Manette'm, korku onunla gitmeyebilir mi? Kısacası, demirhaneyi tutmak kuşkuya bir taviz değil mi?"
-Başka bir sessizlik oldu.
-"Siz de görüyorsunuz," dedi Doktor, titrek bir şekilde, "o kadar eski bir yoldaş."
-"Tutmazdım," dedi Bay Lorry, başını sallayarak; çünkü Doktoru huzursuz görerek sağlamlık kazandı. "Onu feda etmesini tavsiye ederdim. Sadece sizin yetkinizi istiyorum. Eminim hiç iyi gelmiyor. Hadi! Bana yetkinizi verin, iyi bir adam olarak. Kızı için, sevgili Manette'm!"
-İçinde ne kadar bir mücadele olduğunu görmek çok tuhaftı!
-"Onun adına, o zaman yapılsın; onaylıyorum. Ama o oradayken almam. O yokken kaldırılsın; bir yokluktan sonra eski yoldaşını arasın."
-Bay Lorry bunu seve seve üstlendi ve konferans sona erdi. Günü kırda geçirdiler ve Doktor tamamen eski haline döndü. Sonraki üç gün mükemmel bir şekilde iyi kaldı ve on dördüncü gün Lucie ve kocasına katılmak için gitti. Sessizliğini açıklamak için alınan önlemi Bay Lorry daha önce ona açıklamıştı ve buna uygun olarak Lucie'ye yazmıştı ve onun hiç şüphesi yoktu.
-Evden ayrıldığı günün gecesinde, Bay Lorry satır, testere, keski ve çekiçle odasına gitti, yanında ışık taşıyan Matmazel Pross eşlik ediyordu. Orada, kapalı kapılar ardında ve gizemli ve suçlu bir tavırla, Bay Lorry ayakkabıcının tezgahını parçalara ayırdı, Matmazel Pross mumu sanki bir cinayete yardım ediyormuş gibi tutuyordu - ki gerçekten, acımasızlığıyla, bunun için uygunsuz bir figür değildi. Cesedin yakılması (daha önce amaca uygun parçalara ayrılmış) mutfak ateşinde gecikmeden başladı; ve aletler, ayakkabılar ve deri bahçeye gömüldü. Yıkım ve gizlilik dürüst zihinlere öyle kötü görünür ki, Bay Lorry ve Matmazel Pross, eylemlerinin işlenmesinde ve izlerinin kaldırılmasında meşgulken, korkunç bir suçun suç ortakları gibi neredeyse hissettiler ve neredeyse göründüler.
+
+"Peki nüksetme başına geldiğinde, çoğu bakımdan — ya da her bakımdan — o zamanki gibi miydi?"
+
+"Bence her bakımdan."
+
+"Kızından söz ettiniz. Kızının bu nüksetmeden haberi var mı?"
+
+"Hayır. Ondan gizlendi, umarım her zaman da gizli kalır. Yalnızca ben ve güvenilir bir kişi daha biliyor."
+
+Doktor onun elini sımsıkı tuttu ve mırıldandı: "Çok iyi etmişsiniz. Çok düşünceli davranmışsınız!" Bay Lorry de onun elini sıktı ve bir süre ikisi de konuşmadı.
+
+"Şimdi, sevgili Manette," dedi Bay Lorry sonunda, en düşünceli ve en sevecen hâliyle, "ben sıradan bir iş adamıyım ve böyle karmaşık, çetrefil meselelerle başa çıkacak biri değilim. Gerekli türden bilgiye sahip değilim; gerekli türden kavrayışa sahip değilim; birinin bana yol göstermesi gerek. Bu dünyada doğru yolu göstermesi için sizin kadar güvenebileceğim kimse yok. Söyleyin bana, bu nüksetme nasıl oluyor? Yeniden olma tehlikesi var mı? Tekrarlanması önlenebilir mi? Tekrarlanırsa nasıl tedavi edilmeli? Zaten nasıl oluyor da oluyor? Dostum için ne yapabilirim? Ne yapacağımı bilseydim, hiç kimse bir dostuna yardım etmeyi, benim kendi dostuma yardım etmeyi istediğim kadar yürekten isteyemezdi.
+
+"Ama böyle bir durumda nereden başlayacağımı bilmiyorum. Sizin sağduyunuz, bilginiz ve deneyiminiz beni doğru yola sokabilirse, pek çok şey yapabilirim; aydınlatılmadan, yönlendirilmeden ise pek az şey yapabilirim. Lütfen bunu benimle konuşun; lütfen biraz daha açık görmemi sağlayın ve biraz daha yararlı olmayı bana öğretin."
+
+Bu içten sözler söylendikten sonra Doktor Manette oturduğu yerde düşüncelere daldı; Bay Lorry de onu sıkıştırmadı.
+
+"Bence," dedi Doktor, sessizliği güçlükle bozarak, "anlattığınız nüksetme, sevgili dostum, onu yaşayan kişi için pek de beklenmedik değildi."
+
+"Bundan korkuyor muydu?" diye sormaya cesaret etti Bay Lorry.
+
+"Hem de çok." Bunu elinde olmadan ürpererek söyledi.
+
+"Böyle bir korkunun hastanın zihnine nasıl çöktüğünü, onu ezen konu hakkında tek bir söz söylemek için kendini zorlamanın onun için ne kadar güç — neredeyse ne kadar imkânsız — olduğunu tahmin bile edemezsiniz."
+
+"Peki," diye sordu Bay Lorry, "bu gizli kara düşünceler üzerine çöktüğünde, bunları birine açmaya kendini razı edebilse, gözle görülür biçimde rahatlar mıydı?"
+
+"Sanırım. Ama size söylediğim gibi, bu neredeyse imkânsız. Hatta bunun — bazı durumlarda — büsbütün imkânsız olduğuna inanıyorum."
+
+"Peki," dedi Bay Lorry, iki taraflı kısa bir sessizlikten sonra elini yine yavaşça Doktor'un koluna koyarak, "bu krizi neye bağlarsınız?"
+
+"Bence," diye karşılık verdi Doktor Manette, "hastalığın ilk nedeni olan düşünce ve anı zincirinin güçlü ve olağanüstü bir biçimde yeniden canlanması söz konusu. Son derece acı veren türden bazı yoğun çağrışımlar canlı bir biçimde yeniden hatırlandı, sanırım. Zihninde uzun zamandır, bu çağrışımların — diyelim ki belli koşullarda — diyelim ki belli bir vesileyle — yeniden hatırlanacağına dair bir korkunun pusuda beklemesi olası. Kendini hazırlamaya boşuna çalıştı; belki de kendini hazırlama çabası, buna katlanma gücünü azalttı."
+
+"Nüksetme sırasında olanları hatırlar mı?" diye sordu Bay Lorry, doğal bir çekingenlikle.
+
+Doktor kederli bir bakışla odanın çevresine göz gezdirdi, başını iki yana salladı ve alçak bir sesle yanıt verdi: "Hiç hatırlamaz."
+
+"Şimdi, geleceğe gelince," diye usulca açtı konuyu Bay Lorry.
+
+"Geleceğe gelince," dedi Doktor, kararlılığını yeniden kazanarak, "büyük umut beslerdim. Tanrı merhametiyle onu bu kadar çabuk iyileştirmeyi uygun gördüğüne göre, büyük umut beslerdim. Uzun zamandır korktuğu, uzun zamandır belli belirsiz öngördüğü ve karşı koyduğu karmaşık bir şeyin baskısı altında boyun eğmiş ve bulut patlayıp geçtikten sonra iyileşmiş olduğuna göre, en kötüsünün geride kaldığını umardım."
+
+"İyi, iyi! Bu büyük bir teselli. Çok şükür!" dedi Bay Lorry.
+
+"Çok şükür!" diye tekrarladı Doktor, saygıyla başını eğerek.
+
+"Öğrenmek istediğim iki nokta daha var," dedi Bay Lorry. "Devam edebilir miyim?"
+
+"Dostunuza bundan daha iyi bir hizmette bulunamazsınız." Doktor elini ona uzattı.
+
+"Öyleyse birincisine geçelim. Çalışkan bir yapısı var ve alışılmadık derecede enerjik; mesleki bilgi edinmeye, deneyler yapmaya, pek çok şeye büyük bir hevesle kendini veriyor. Peki, fazla mı çalışıyor?"
+
+"Sanmıyorum. Zihninin, hep tuhaf bir biçimde meşguliyete ihtiyaç duyan bir yapıda olması mümkün. Bu kısmen onun doğasında olabilir, kısmen de çektiği acının sonucu. Sağlıklı şeylerle ne kadar az meşgul olursa, sağlıksız yöne dönme tehlikesi o kadar artar. Kendini gözlemlemiş ve bunu keşfetmiş olabilir."
+
+"Aşırı bir gerilim altında olmadığından emin misiniz?"
+
+"Bundan oldukça emin olduğumu sanıyorum."
+
+"Sevgili Manette, eğer şimdi aşırı çalışıyor olsaydı —"
+
+"Sevgili Lorry, bunun kolay kolay olabileceğinden kuşkuluyum. Tek bir yönde şiddetli bir baskı olmuş, bir karşı ağırlığa ihtiyacı var."
+
+"Kusura bakmayın, inatçı bir iş adamı olarak soruyorum. Bir an için gerçekten aşırı çalıştığını varsayalım; bu, bu bozukluğun yeniden baş göstermesiyle mi kendini belli ederdi?"
+
+"Hiç sanmıyorum. Sanmıyorum ki," dedi Doktor Manette, kendi inancının verdiği kararlılıkla, "o tek çağrışım zincirinden başka bir şey onu yeniden başlatsın. Bence bundan böyle, o telin olağanüstü bir biçimde sarsılmasından başka hiçbir şey onu yeniden başlatamaz. Olanlardan ve iyileşmesinden sonra, o telin yeniden böylesine şiddetle titreşeceğini düşünmek bana güç geliyor. Onu yeniden başlatabilecek koşulların tükendiğine güveniyorum, hatta neredeyse inanıyorum."
+
+Zihnin narin yapısını altüst etmeye ne kadar küçük bir şeyin yeteceğini bilen bir adamın çekingenliğiyle, ama yine de bu güveni kendi katlandıkları ve çektiği acılar sayesinde yavaş yavaş kazanmış bir adamın özgüveniyle konuşuyordu. Bu güveni sarsmak dostuna düşmezdi. Gerçekte olduğundan daha rahatlamış ve yüreklenmiş olduğunu söyledi ve ikinci ve son noktasına geçti. Bunun hepsinden güç olduğunu hissediyordu; ama Bayan Pross'la o eski pazar sabahı yaptığı konuşmayı hatırlayınca, son dokuz günde gördüklerini hatırlayınca, bununla yüzleşmesi gerektiğini biliyordu.
+
+"Böylesine mutlu bir sonla atlatılan bu geçici sıkıntının etkisiyle yeniden başlanan uğraşa," dedi Bay Lorry, boğazını temizleyerek, "biz — demircilik diyelim, demircilik. Bir örnek vermek ve durumu açıklamak için, kötü günlerinde küçük bir demirci ocağında çalışmaya alışmış olduğunu söyleyelim. Beklenmedik bir anda yeniden ocağının başında bulunduğunu söyleyelim. Ocağı yanında tutması yazık değil mi?"
+
+Doktor eliyle alnını gölgeledi ve ayağını sinirli sinirli yere vurdu.
+
+"Onu hep yanında tuttu," dedi Bay Lorry, dostuna kaygılı bir bakış atarak. "Peki, ondan vazgeçmesi daha iyi olmaz mı?"
+
+Doktor alnı hâlâ elinin gölgesinde, ayağını sinirli sinirli yere vurmayı sürdürdü.
+
+"Bana öğüt vermek size kolay gelmiyor, değil mi?" dedi Bay Lorry. "Bunun nazik bir soru olduğunu çok iyi anlıyorum. Yine de bence —" Ve orada başını salladı ve sustu.
+
+"Görüyorsunuz," dedi Doktor Manette, huzursuz bir sessizlikten sonra ona dönerek, "bu zavallı adamın zihninin en derin işleyişini tutarlı bir biçimde açıklamak çok güç. Bir zamanlar o uğraşı öyle korkunç bir biçimde özlemişti ve o uğraş geldiğinde ona öyle iyi gelmişti ki; beynin karmaşası yerine parmakların karmaşasını koyarak ve alıştıkça zihinsel işkencenin marifeti yerine ellerin marifetini koyarak acısını hiç kuşkusuz öylesine hafifletmişti ki, onu büsbütün erişemeyeceği bir yere koyma düşüncesine hiçbir zaman katlanamadı. Şimdi bile, sanırım kendinden her zamankinden daha umutlu olduğu ve hatta kendinden bir tür güvenle söz ettiği şu sıralarda bile, o eski uğraşa ihtiyaç duyabileceği ve onu bulamayabileceği düşüncesi, yolunu kaybetmiş bir çocuğun yüreğine saplandığını düşünebileceğimiz türden ani bir dehşete kapılmasına yol açıyor."
+
+Gözlerini Bay Lorry'nin yüzüne kaldırdığında, verdiği örneğe benziyordu.
+
+"Ama olamaz mı ki — dikkat edin! Yalnızca gine, şilin ve banknot gibi maddi nesnelerle uğraşan, ağır aksak ilerleyen bir iş adamı olarak bilgi almak için soruyorum — olamaz mı ki o şeyi elde tutmak, o düşünceyi de elde tutmak anlamına gelsin? O şey ortadan kalkarsa, sevgili Manette, korku da onunla birlikte gidemez mi? Kısacası, ocağı tutmak o kaygıya verilmiş bir taviz değil mi?"
+
+Yine bir sessizlik oldu.
+
+"Bir de şu var ki," dedi Doktor titrek bir sesle, "o çok eski bir yoldaş."
+
+"Ben onu tutmazdım," dedi Bay Lorry, başını sallayarak; çünkü Doktor'un tedirgin olduğunu gördükçe kararlılığı artıyordu. "Ondan vazgeçmesini öğütlerdim. Yalnızca sizin onayınızı istiyorum. Bir yararı olmadığından eminim. Haydi! İyi yürekli, sevgili bir dost gibi onayınızı verin bana. Kızı için, sevgili Manette!"
+
+İçinde nasıl bir savaş koptuğunu görmek pek tuhaftı!
+
+"Onun adına öyleyse, yapılsın; onaylıyorum. Ama o oradayken almazdım. O yokken kaldırılsın; eski yoldaşının eksikliğini bir süre uzakta kaldıktan sonra fark etsin."
+
+Bay Lorry bunu seve seve üstlendi ve görüşme sona erdi. Günü kırlarda geçirdiler ve Doktor tamamen kendine geldi. Sonraki üç gün boyunca tamamen iyi kaldı ve on dördüncü gün Lucie ile kocasına katılmak üzere yola çıktı. Bay Lorry, onun sessizliğini açıklamak için alınmış olan önlemi daha önce kendisine anlatmıştı; o da Lucie'ye buna uygun olarak yazmıştı ve Lucie hiçbir şeyden kuşkulanmamıştı.
+
+Doktor'un evden ayrıldığı günün gecesi Bay Lorry, elinde bir el baltası, testere, keski ve çekiçle, arkasında ışık tutan Bayan Pross olduğu hâlde onun odasına girdi. Orada kapılar kapalı, esrarengiz ve suçlu bir tavırla Bay Lorry kunduracı tezgâhını parça parça etti; bu sırada Bayan Pross mumu bir cinayete yardım ediyormuşçasına tutuyordu — ki o sert hâliyle bu role hiç de yakışmayan biri değildi. Cesedin (önceden bu işe uygun parçalara ayrılmıştı) yakılmasına vakit geçirmeden mutfak ocağında başlandı; aletler, ayakkabılar ve deri de bahçeye gömüldü. Namuslu kafalara yıkım ve gizlilik öylesine kötü görünür ki, Bay Lorry ile Bayan Pross eylemlerini gerçekleştirirken ve izlerini ortadan kaldırırken kendilerini neredeyse korkunç bir suçun suç ortakları gibi hissettiler, neredeyse de öyle göründüler.

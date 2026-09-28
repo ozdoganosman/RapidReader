@@ -1,84 +1,167 @@
-Yirminci Bölüm
 Dürüst Esnaf
-Fleet-street'te taburede oturan Bay Jeremiah Cruncher'ın gözlerine, yanında korkunç çocuğu varken, her gün hareket halinde çok sayıda ve çeşitlilikte nesne sunuluyordu. Günün yoğun saatlerinde Fleet-street'te herhangi bir şeyin üzerinde oturup, biri güneşle birlikte batıya, diğeri güneşten doğuya, ikisi de her zaman güneşin battığı kırmızı ve mor aralığının ötesindeki ovalara yönelen iki muazzam alay tarafından sersemletilip sağır edilmeden kim oturabilirdi!
-Ağzında samanıyla, Bay Cruncher, birkaç yüzyıldır tek bir akıntıyı izlemekle görevli pagan köylü gibi iki akıntıyı izleyerek oturuyordu - Jerry'nin onların kuruyacağı beklentisi olmaması dışında. Ve bu umutlu türden bir beklenti olmazdı, çünkü gelirinin küçük bir kısmı, korkak kadınları (çoğunlukla dolgun yapılı ve orta yaşı geçmiş) Tellson's tarafından karşı kıyıya kılavuzluktan geliyordu. Her ayrı durumda bu tür arkadaşlık ne kadar kısa olursa olsun, Bay Cruncher hanımefendiye o kadar ilgi duyuyordu ki sağlığına içme onuruna duyduğu güçlü arzuyu ifade etmekten asla geri durmuyordu. Ve bu hayırsever amacın gerçekleştirilmesine yönelik ona verilen hediyelerden, az önce gözlemlendiği gibi, mali durumunu toparladı.
-Bir zamanlar, bir şair halka açık bir yerde taburede oturup insanların gözü önünde düşünürdü. Bay Cruncher, halka açık bir yerde taburede oturuyordu ama şair olmadığından, mümkün olduğunca az düşündü ve etrafına bakındı.
-Öyle oldu ki, kalabalıkların az, gecikmis kadınların az olduğu ve genel işlerinin Bay Cruncher'ın göğsünde Bayan Cruncher'ın sivri bir şekilde "yere kapanmış" olması gerektiğine dair güçlü bir şüphe uyandıracak kadar berbat olduğu bir mevsimde bu şekilde meşgulken, Fleet-street'ten batıya dökülen olağandışı bir kalabalık dikkatini çekti. O tarafa bakarak, Bay Cruncher bir tür cenaze alayının geldiğini ve bu cenaze törenine popüler bir itiraz olduğunu ve bunun kargaşaya yol açtığını anladı.
-"Genç Jerry," dedi Bay Cruncher, yavrusuna dönerek, "bu bir gömü."
-"Yaşasın, baba!" diye bağırdı Genç Jerry.
-Genç beyefendi bu coşkulu sesi gizemli bir anlam ile çıkardı. Yaşlı beyefendi çığlığı o kadar kötü aldı ki, fırsatını kolladı ve genç beyefendinin kulağına vurdu.
-"Ne demek istiyorsun? Neye yaşasın diyorsun? Kendi babanına ne iletmek istiyorsun, seni genç hayta? Bu çocuk benim için fazla oluyor!" dedi Bay Cruncher, onu süzerek. "O ve yaşasınları! Bir daha seni duymayayım, yoksa benden daha fazla hissedeceksin. Duydun mu?"
-"Kötülük yapmıyordum," diye itiraz etti Genç Jerry, yanağını ovuşturarak.
-"O zaman bırak," dedi Bay Cruncher; "senin hiç kötülük yapmıyorumlarından istemiyorum. Şu koltuğun üstüne çık ve kalabalığa bak."
-Oğlu itaat etti ve kalabalık yaklaştı; kirli bir cenaze arabasının ve kirli yas arabasının etrafında bağırıyor ve ıslıklıyorlardı, yas arabasında pozisyonun onuru için gerekli sayılan kirli süslerle giyinmiş sadece bir yas tutan vardı. Ancak pozisyon onu hiç memnun ediyor görünmüyordu, arabayı çevreleyen artan ayaktakımı onu alaya alıyor, ona yüz buruşturuyor ve durmaksızın inleyip bağırıyordu: "Ya! Casuslar! Tst! Yaha! Casuslar!" tekrarlanamayacak kadar çok sayıda ve güçlü iltifatlarla birlikte.
-Cenaze törenleri Bay Cruncher için her zaman dikkat çekici bir çekim gücüne sahipti; bir cenaze Tellson's'ı geçtiğinde her zaman duyularını dikiyordu ve heyecanlanıyordu. Doğal olarak, bu alışılmadık katılımlı cenaze onu çok heyecanlandırdı ve kendisine çarpan ilk adama sordu:
-"Ne bu, kardeş? Ne oluyor?"
-"Bilmiyorum," dedi adam. "Casuslar! Yaha! Tst! Casuslar!"
-Başka bir adama sordu. "Kim bu?"
-"Bilmiyorum," diye karşılık verdi adam, yine de ellerini ağzına götürüp şaşırtıcı bir ateşle ve en büyük coşkuyla haykırarak, "Casuslar! Yaha! Tst, tst! Casuslar!"
-Sonunda, davanın esasları hakkında daha iyi bilgilendirilmiş biri ona çarptı ve bu kişiden cenaze töreninin Roger Cly adlı birinin cenazesi olduğunu öğrendi.
+Charles Dickens
+İkinci Kitap: Altın İplik, 14. Bölüm
+
+Fleet Street'te taburesine oturmuş, yanında o ürkünç yumurcağıyla bekleyen Bay Jeremiah Cruncher'ın gözleri önünden her gün sayısız ve türlü türlü hareketli nesne geçerdi. Günün kalabalık saatlerinde Fleet Street'te herhangi bir şeyin üstüne oturup da, biri durmadan güneşle birlikte batıya, öteki durmadan güneşe sırtını dönüp doğuya akan, ikisi de durmadan güneşin battığı o kızıl ve mor renk kuşağının ötesindeki ovalara doğru akıp giden iki muazzam kalabalık karşısında sersemleyip sağırlaşmayan kim vardı ki!
+
+Bay Cruncher ağzında samanıyla oturmuş, bu iki akıntıyı seyrediyordu; tıpkı birkaç yüzyıldır tek bir ırmağı gözlemekle görevli o putperest köylü gibi — şu farkla ki Jerry bu akıntıların bir gün kuruyacağını hiç ummuyordu. Zaten bu, umut verici türden bir beklenti de olmazdı; çünkü gelirinin küçük bir kısmı, ürkek kadınlara (çoğunlukla dolgun yapılı ve orta yaşı geçkin kadınlara) Tellson'ın bulunduğu yakadan karşı kıyıya kılavuzluk etmekten geliyordu. Her seferinde bu yol arkadaşlığı ne kadar kısa sürse de Bay Cruncher hanımefendiyle öylesine ilgilenmekten geri durmazdı ki, sonunda onun sağlığına içme şerefine nail olmayı yürekten arzuladığını dile getirirdi. İşte az önce belirtildiği gibi, maliyesini de bu hayırsever amacın yerine getirilmesi için kendisine bahşedilen armağanlarla takviye ediyordu.
+
+Bir zamanlar şairler halkın ortasında bir tabureye oturur, insanların gözü önünde düşüncelere dalarlardı. Bay Cruncher da halkın ortasında bir taburede oturuyordu ama şair olmadığı için olabildiğince az düşünüyor, çevresine bakınıyordu.
+
+Kalabalıkların seyrek, yolda gecikmiş kadınların az olduğu, genel olarak işlerinin de öylesine kötü gittiği bir mevsimdi ki, Bayan Cruncher'ın doğrudan onu hedef alarak "yere kapanıyor" olması gerektiğinden kuvvetle kuşkulanmaya başlamıştı; işte böyle bir mevsimde yine bu uğraşla meşgulken, Fleet Street boyunca batıya doğru akan alışılmadık bir kalabalık dikkatini çekti. O tarafa bakan Bay Cruncher, bir tür cenaze alayının gelmekte olduğunu, halkın bu cenazeye itiraz ettiğini ve bunun da bir kargaşaya yol açtığını fark etti.
+
+"Küçük Jerry," dedi Bay Cruncher, oğluna dönerek, "cenaze geçiyor."
+
+"Hurraa, baba!" diye bağırdı küçük Jerry.
+
+Genç beyefendi bu zafer çığlığını esrarengiz bir anlam yükleyerek atmıştı. Yaşlı beyefendi bu çığlığa öylesine içerledi ki fırsat kollayıp genç beyefendinin kulağına bir tane patlattı.
+
+"Ne demek oluyor bu? Neye hurra çekiyorsun? Öz babana ne anlatmaya çalışıyorsun, seni küçük hergele? Bu oğlan artık benim bile baş edemeyeceğim hale geliyor!" dedi Bay Cruncher, onu tepeden tırnağa süzerek. "Hele şunun hurralarına bak! Bir daha senden ses duymayayım, yoksa benden bir tane daha yersin. Duydun mu?"
+
+"Ben bir kötülük yapmıyordum ki," diye itiraz etti küçük Jerry, yanağını ovuşturarak.
+
+"Kes öyleyse," dedi Bay Cruncher; "senin o kötülük yapmıyordumlarını hiç istemem. Çık şu tabureye de kalabalığa bak."
+
+Oğlu söz dinledi, kalabalık da yaklaştı; köhne bir cenaze arabasıyla köhne bir yas arabasının çevresinde bağırıp çağırıyor, ıslıklıyorlardı. Yas arabasında yalnızca bir yaslı vardı ve o da bu mevkiin saygınlığı için vazgeçilmez sayılan köhne yas giysilerine bürünmüştü. Ne var ki arabanın çevresinde gitgide büyüyen, onunla alay eden, ona yüz göz eden, durmadan homurdanıp "Yuh! Casuslar! Tıss! Yuhaa! Casuslar!" diye bağıran ve burada tekrarlanamayacak kadar çok ve ağır başka iltifatlar yağdıran bir ayaktakımı sürüsü düşünülürse, bu mevki onu hiç de memnun etmişe benzemiyordu.
+
+Cenazeler Bay Cruncher için her zaman olağanüstü bir çekiciliğe sahipti; Tellson'ın önünden bir cenaze geçtiğinde bütün duyuları kulak kesilir, heyecanlanırdı. Dolayısıyla böyle alışılmadık bir kalabalığın eşlik ettiği bir cenaze onu doğal olarak pek heyecanlandırdı ve kendisine çarpan ilk adama sordu:
+
+"Ne oluyor, birader? Mesele ne?"
+
+"Ben nereden bileyim," dedi adam. "Casuslar! Yuhaa! Tıss! Casuslar!"
+
+Bir başka adama sordu. "Kim bu?"
+
+"Ben nereden bileyim," diye karşılık verdi adam, ama yine de ellerini ağzına siper edip şaşırtıcı bir hararetle ve büyük bir şevkle haykırdı: "Casuslar! Yuhaa! Tıss, tıss! Casu-uslar!"
+
+Sonunda, davanın esası hakkında daha iyi bilgi sahibi biri gelip ona tosladı ve Bay Cruncher cenazenin Roger Cly adında birine ait olduğunu bu kişiden öğrendi.
+
 "Casus muydu?" diye sordu Bay Cruncher.
-"Old Bailey casusu," diye karşılık verdi muhbiri. "Yaha! Tst! Ya! Old Bailey Casusları!"
-"Elbette ki!" diye ünledi Jerry, yardımcı olduğu Duruşmayı hatırlayarak. "Onu gördüm. Ölü mü?"
-"Koyun eti kadar ölü," diye karşılık verdi diğeri, "ve yeteri kadar ölü olamaz. Çıkarın onları, orada! Casuslar! Çekin onları, orada! Casuslar!"
-Fikir, herhangi bir fikrin yaygın yokluğunda o kadar kabul edilebilirdi ki, kalabalık onu hevesle yakaladı ve çıkarın onları ve çekin onları önerisini yüksek sesle tekrarlayarak, iki aracı öyle yakından kuşattılar ki durdular. Kalabalık araba kapılarını açınca, tek yas tutan kendiliğinden dışarı fırladı ve bir an onların ellerinde kaldı; ama o kadar tetikti ve zamanını o kadar iyi kullandı ki, bir sonraki anda pelerin, şapka, uzun şapka bandı, beyaz cep mendili ve diğer sembolik gözyaşlarını döktükten sonra bir ara sokaktan yukarı kaçıyordu.
-Bunları insanlar parçalara ayırdı ve büyük bir zevkle uzak mesafelere saçtı, esnaf aceleyle dükkânlarını kapatırken; çünkü o zamanlarda kalabalık hiçbir şeyde durmuyordu ve çok korkulan bir canavardı. Tabutu çıkarmak için cenaze arabasını açmaya başlamışlardı ki, daha parlak bir dahi bunun yerine genel sevinç içinde varış yerine kadar eşlik edilmesini önerdi. Pratik önerilere çok ihtiyaç duyulduğundan, bu öneri de alkışlarla karşılandı ve araba derhal içinde sekiz ve dışında bir düzine kişiyle dolduruldu, cenaze arabasının çatısına da herhangi bir ustalık uygulamasıyla yapışabilecek kadar çok insan bindi. Bu gönüllülerin ilkleri arasında Bay Cruncher kendisi de vardı, dikenli başını yas arabasının uzak köşesinde Tellson's'ın gözleminden mütevazıca sakladı.
-Görevli cenaze kaldırıcıları törenlerdeki bu değişikliklere biraz itiraz ettiler; ama nehir endişe verici şekilde yakın olduğundan ve birkaç ses mesleğin inatçı üyelerini akla getirmekte soğuk suyun etkinliğine dikkat çektiğinden, itiraz zayıf ve kısaydı. Yeniden şekillendirilmiş alay başladı, bir baca temizleyicisi cenaze arabasını sürüyordu - amaç için yanına tünemiş normal sürücü tarafından yakın denetim altında tavsiye edilen - ve bir turtacı, o da kabine bakanı tarafından eşlik edilen, yas arabasını sürüyordu. Bir ayı oynatıcısı, dönemin popüler sokak karakteri, kafile Strand'dan fazla aşağı inmeden önce ek bir süs olarak görevlendirildi; ve siyah ve çok uyuz olan ayısı, yürüdüğü alayın o kısmına oldukça cenaze kaldırma havası verdi.
-Böylece, bira içme, pipo tüttürme, şarkı bağırma ve kederin sonsuz karikatürize edilmesiyle, düzensiz alay yoluna devam etti, her adımda adam toplayarak ve önündeki tüm dükkânlar kapanarak. Varış yeri, tarlaların uzağındaki eski Saint Pancras kilisesiydi. Oraya zamanla vardı; gömütlüğe dalmakta ısrar etti; sonunda merhum Roger Cly'nin gömülmesini kendi yöntemiyle ve kendi memnuniyetine son derece uygun şekilde gerçekleştirdi.
-Ölü adam bertaraf edilip ve kalabalık kendisi için başka bir eğlence sağlamak zorunda kalınca, başka bir parlak dahi (ya da belki aynısı) rastgele geçenleri Old Bailey casusları olarak suçlama ve onlardan intikam alma şakasını tasarladı. Bu fantezinin gerçekleştirilmesinde hayatlarında asla Old Bailey'e yaklaşmamış düzinelerce zararsız kişi kovalandı ve kaba bir şekilde itilip kakıldı ve kötü muamele gördü. Cam kırma sporuna ve oradan birahane yağmalamaya geçiş kolay ve doğaldı. Sonunda, birkaç saat sonra, birkaç yazlık ev yıkılmış ve daha kavgacı ruhları silahlandırmak için bazı alan parmaklıkları sökülmüşken, Muhafızların geldiğine dair bir söylenti yayıldı. Bu söylentiden önce, kalabalık yavaş yavaş eridi ve belki Muhafızlar geldi ve belki hiç gelmediler ve bu bir ayaktakımının olağan ilerleyişiydi.
-Bay Cruncher kapanış sporlarına katılmadı, cenaze görevlileriyle istişare etmek ve baş sağlığı dilemek için mezarlıkta kaldı. Yerin üzerinde yatıştırıcı bir etkisi oldu. Komşu bir birahaneden bir pipo temin etti ve parmaklıklara bakarak ve yeri olgunca düşünerek tüttürdü.
-"Jerry," dedi Bay Cruncher, her zamanki şekilde kendine hitap ederek, "o gün o Cly'yi gördün ve kendi gözlerinle onun genç ve düzgün yapılı olduğunu gördün."
-Piposunu bitirdikten ve biraz daha düşündükten sonra, kapanış saatinden önce Tellson's'taki istasyonunda görünmek için döndü. Ölüm üzerine meditasyonlarının karaciğerini etkileyip etkilemediği, yoksa genel sağlığının daha önce biraz bozuk olup olmadığı, yoksa seçkin bir adama biraz ilgi göstermek isteyip istemediği, amaç açısından pek önemli değil, dönüş yolunda tıbbi danışmanı - seçkin bir cerrah - kısa bir ziyaret yaptı.
-Genç Jerry babasını görevli bir ilgiyle rahatlattı ve yokluğunda İş Yok bildirdi. Banka kapandı, antika kâtipler dışarı çıktı, her zamanki nöbet kuruldu ve Bay Cruncher ve oğlu çay içmeye eve gittiler.
-"Şimdi, sana durumu söyleyeyim!" dedi Bay Cruncher karısına, girerken. "Eğer dürüst bir esnaf olarak girişimlerim bu gece ters giderse, tekrar bana karşı dua ettiğinden emin olacağım ve seni yaptığını görseydim de aynı şekilde döveceğim."
-Çökkün Bayan Cruncher başını salladı.
-"Ya, yüzümün önünde yapıyorsun!" dedi Bay Cruncher, kızgın endişe işaretleriyle.
-"Hiçbir şey söylemiyorum."
-"Peki o zaman; hiçbir şey düşünme. Düşünmek yerine yere kapanabilirsin. Bana karşı bir şekilde ya da başka şekilde gidebilirsin. Tamamen bırak."
-"Evet, Jerry."
-"Evet, Jerry," diye tekrarladı Bay Cruncher, çaya otururken. "Ah! Evet, Jerry. Yaklaşık öyle. Evet, Jerry diyebilirsin."
-Bay Cruncher'ın bu somurtkan doğrulamalarda özel bir anlamı yoktu, ama insanların nadiren yapmadığı gibi, genel ironik memnuniyetsizliği ifade etmek için kullandı.
-"Sen ve evet, Jerry'n," dedi Bay Cruncher, ekmek ve tereyağından bir ısırık alarak ve tabağından büyük görünmez bir istridye ile yutar gibi görünerek. "Ah! Öyle düşünüyorum. Sana inanıyorum."
-"Bu gece çıkacak mısın?" diye sordu namuslu karısı, başka bir ısırık aldığında.
-"Evet, çıkacağım."
-"Seninle gelebilir miyim, baba?" diye sordu oğlu, canlıca.
-"Hayır, gidemezsin. Ben gidiyorum - annenin bildiği gibi - balık tutmaya. Gideceğim yer orası. Balık tutmaya gidiyorum."
-"Olta'n biraz paslanıyor, değil mi baba?"
+
+"Old Bailey casusu," diye karşılık verdi bilgi veren kişi. "Yuhaa! Tıss! Yuh! Old Bailey casu-u-usları!"
+
+"Ha, elbette ya!" diye haykırdı Jerry, hazır bulunduğu o Duruşmayı hatırlayarak. "Onu görmüştüm. Ölmüş, öyle mi?"
+
+"Kesilmiş koyun gibi ölmüş," diye karşılık verdi öteki, "ne kadar ölse yeridir. Çıkarın onları oradan! Casuslar! Sürükleyin çıkarın! Casuslar!"
+
+Ortada başka hiçbir fikrin bulunmadığı bir sırada bu fikir öylesine makbule geçti ki kalabalık onu hevesle kaptı ve "çıkarın onları", "sürükleyin çıkarın onları" önerisini yüksek sesle tekrarlayarak iki arabanın çevresine öylesine sıkı üşüştü ki arabalar durmak zorunda kaldı. Kalabalık yas arabasının kapılarını açınca tek yaslı, tek başına boğuşarak dışarı çıktı ve bir anlığına onların eline düştü; ama öylesine çevikti, zamanını öylesine iyi değerlendirdi ki bir sonraki anda pelerinini, şapkasını, şapkasının uzun kurdelesini, beyaz mendilini ve öteki simgesel gözyaşlarını geride bırakıp bir ara sokaktan tabanları yağlamıştı bile.
+
+Halk bunları büyük bir keyifle paramparça edip dört bir yana saçarken dükkân sahipleri de aceleyle kepenklerini indirdi; çünkü o zamanlar bir kalabalık hiçbir şeyden çekinmezdi ve pek korkulan bir canavardı. Tabutu çıkarmak için cenaze arabasını açmaya kadar varmışlardı ki daha parlak bir deha, bunun yerine tabutun genel bir şenlik havası içinde gideceği yere kadar uğurlanmasını önerdi. Pratik önerilere pek ihtiyaç duyulduğundan bu öneri de alkışlarla karşılandı; yas arabası hemen içeride sekiz, dışarıda bir düzine kişiyle doldu, cenaze arabasının damına da akla gelebilecek her türlü marifetle tutunabilecek kadar insan çıktı. Bu gönüllülerin ilklerinden biri de bizzat Jerry Cruncher'dı; yas arabasının dip köşesinde, diken diken saçlı başını Tellson'ın gözlerinden alçakgönüllülükle gizliyordu.
+
+Görevli cenaze kaldırıcıları törendeki bu değişikliklere biraz itiraz ettiler; ama ırmak ürkütücü derecede yakın olduğundan ve birkaç ses de meslekteki dik kafalıları yola getirmekte soğuk suya daldırmanın ne kadar etkili olduğunu hatırlattığından, itiraz cılız ve kısa kaldı. Yeniden düzenlenen alay yola çıktı: cenaze arabasını bir baca temizleyicisi sürüyordu — asıl sürücü de bu amaçla yanına tünemiş, sıkı bir gözetim altında ona akıl veriyordu — yas arabasını ise bir turta satıcısı sürüyordu, o da kendi kabine bakanının refakatindeydi. Kafile Strand'de pek ilerlemeden, o devrin sevilen sokak simalarından biri olan bir ayı oynatıcısı da ek bir süs olarak alaya zorla katıldı; kapkara ve pek uyuz olan ayısı, yürüdüğü bölüme adamakıllı Cenazeci bir hava verdi.
+
+Böylece bira içerek, pipo tüttürerek, avaz avaz şarkı söyleyerek ve kederin sayısız karikatürünü çizerek bu düzensiz alay, her adımda yeni katılımlarla büyüyüp önündeki bütün dükkânların kepenklerini indirterek yoluna devam etti. Varacağı yer, uzaklarda, kırların ortasındaki eski Saint Pancras kilisesiydi. Zamanı gelince oraya vardı; mezarlığa doluşmakta direndi; sonunda merhum Roger Cly'ın defin işini kendi bildiği gibi ve kendi büyük memnuniyetine uygun biçimde tamamladı.
+
+Ölü halledildikten sonra kendine başka bir eğlence bulmak zorunda kalan kalabalıkta bir başka parlak deha (belki de aynısı), gelip geçenleri Old Bailey casusu diye suçlayıp onlardan öç almak gibi bir şaka akıl etti. Bu hevesi gerçekleştirmek uğruna, hayatlarında Old Bailey'nin yakınından bile geçmemiş onlarca zararsız insan kovalandı, itilip kakıldı, hırpalandı. Buradan pencere kırma sporuna, oradan da meyhaneleri yağmalamaya geçmek kolay ve doğaldı. Sonunda, saatler sonra, birtakım çardaklar yıkılmış, daha kavgacı ruhları silahlandırmak için bazı bodrum parmaklıkları sökülmüşken, Muhafızların gelmekte olduğu söylentisi yayıldı. Bu söylenti karşısında kalabalık yavaş yavaş eriyip gitti; belki Muhafızlar geldi, belki de hiç gelmediler; bir güruhun olağan seyri de buydu.
+
+Bay Cruncher bu kapanış eğlencelerine katılmamış, cenaze kaldırıcılarıyla görüşüp dertleşmek için kilise mezarlığında kalmıştı. Bu yerin onun üzerinde yatıştırıcı bir etkisi vardı. Yakındaki bir meyhaneden bir pipo edinip tüttürdü; bir yandan da parmaklıklardan içeri bakıyor, yeri uzun uzun ve etraflıca süzüyordu.
+
+"Jerry," dedi Bay Cruncher, her zamanki gibi kendi kendine seslenerek, "o gün şu Cly'ı gördün, kendi gözlerinle gördün ki gençten bir herifti, hem de dal gibi bir herifti."
+
+Piposunu içip bitirdikten ve biraz daha kafa yorduktan sonra, kapanış saatinden önce Tellson'daki yerinde görünebilmek için döndü. Ölümlülük üzerine düşüncelerinin karaciğerine mi dokunduğu, genel sağlığında daha önceden bir aksaklık mı bulunduğu, yoksa seçkin bir adama biraz ilgi göstermek mi istediği pek önemli değildir; önemli olan, dönüş yolunda tıbbi danışmanına — ünlü bir cerraha — kısa bir ziyarette bulunmuş olmasıdır.
+
+Küçük Jerry, evlada yakışır bir özenle nöbeti babasına devretti ve onun yokluğunda hiç iş çıkmadığını bildirdi. Banka kapandı, yaşlı memurlar dışarı çıktı, her zamanki nöbetçi yerini aldı; Bay Cruncher ile oğlu da akşam çayı için eve gittiler.
+
+"Bak sana ne diyeceğim!" dedi Bay Cruncher, içeri girerken karısına. "Namuslu bir esnaf olarak bu gece işlerim ters giderse, bil ki yine aleyhime dua ettiğine hükmederim ve sanki seni kendi gözümle görmüşüm gibi bunun hesabını sorarım."
+
+Kederli Bayan Cruncher başını iki yana salladı.
+
+"Bak, gözümün önünde yine başladın!" dedi Bay Cruncher, öfkeli bir kaygının belirtilerini göstererek.
+
+"Hiçbir şey demiyorum ki."
+
+"Peki öyleyse, içinden de bir şey geçirme. İçinden geçirmekle yere kapanmak arasında hiç fark yok. Bana bu yoldan karşı gelmişsin, öbür yoldan karşı gelmişsin, ne fark eder. Bırak bu işleri tamamen."
+
+"Peki, Jerry."
+
+"Peki, Jerry," diye tekrarladı Bay Cruncher, çay sofrasına otururken. "Hah! Peki Jerry tabii. Aynen öyle. Peki Jerry dersin sen tabii."
+
+Bay Cruncher'ın bu somurtkan onaylamalarla özel bir şey kastettiği yoktu; insanların sıkça yaptığı gibi, genel ve alaycı bir hoşnutsuzluğu dile getirmek için bunlara başvuruyordu.
+
+"Sen ve senin o peki Jerry'lerin," dedi Bay Cruncher, tereyağlı ekmeğinden bir ısırık alıp onu fincan tabağından çıkardığı iri ve görünmez bir istiridyeyle midesine indiriyormuş gibi yaparak. "Hah! Ben de öyle düşünüyorum. İnandım sana."
+
+"Bu gece dışarı mı çıkıyorsun?" diye sordu edepli karısı, adam bir ısırık daha aldığında.
+
+"Evet, çıkıyorum."
+
+"Ben de seninle gelebilir miyim, baba?" diye sordu oğlu, canlı bir tavırla.
+
+"Hayır, gelemezsin. Ben — annen de bilir — balığa gidiyorum. İşte gideceğim yer orası. Balığa gidiyorum."
+
+"Oltan bayağı paslanmaya başladı ama, değil mi baba?"
+
 "Sen karışma."
+
 "Eve balık getirecek misin, baba?"
-"Getirmezsem, yarın kıt yiyecek yiyeceksiniz," diye karşılık verdi o beyefendi, başını sallayarak; "senin için yeterli soru bu; sen uzun süredir yatana kadar çıkmıyorum."
-Akşamın geri kalanını Bayan Cruncher'ı en dikkatli şekilde izlemeye ve onun aleyhine herhangi bir dilekte bulunmasını engellemek için onu somurtkan bir şekilde konuşturarak geçirdi. Bu amaçla, oğlunu da onu konuşturmaya teşvik etti ve zavallı kadını bir an bile kendi düşüncelerine bırakmaktansa, ona karşı getirebileceği her türlü şikâyet nedenine takılarak zor bir hayat yaşattı. En dindar kişi bile dürüst bir duanın etkinliğine, karısına olan bu güvensizliğinde onun yaptığından daha büyük bir saygı gösteremezdi. Sanki hayaletlere inanmadığını ilan eden biri bir hayalet hikâyesinden korkacaktı.
-"Ve dikkat et!" dedi Bay Cruncher. "Yarın oyun yok! Eğer dürüst bir esnaf olarak bir iki eklem et sağlamayı başarırsam, ona dokunmamak ve ekmeğe yapışmak yok. Eğer dürüst bir esnaf olarak biraz bira sağlayabilirsem, su ilan etmek yok. Roma'ya gittiğinde, Roma'nın yaptığı gibi yap. Yapmazsan Roma sana çirkin bir müşteri olur. Ben senin Roma'nım, biliyorsun."
-Sonra tekrar homurdanmaya başladı:
-"Kendi yiyeceğinin ve içeceğinin yüzüne uçmakla! Yere kapanma hilelerin ve duygusuz davranışınla buradaki yiyecek ve içeceği ne kadar kıt yapabileceğini bilmiyorum. Oğluna bak: o senin, değil mi? Bir çıta kadar zayıf. Kendine anne diyor ve bir annenin ilk görevinin oğlunu şişirmek olduğunu bilmiyor musun?"
-Bu Genç Jerry'yi hassas bir noktadan vurdu; annesine ilk görevini yerine getirmesi için yalvardı ve ne yaparsa yapsın veya ihmal etsin, her şeyden önce özellikle diğer ebeveyni tarafından bu kadar dokunaklı ve nazikçe belirtilen o anne işlevinin yerine getirilmesine özel vurgu yapmasını.
-Böylece akşam Cruncher ailesiyle geçti, Genç Jerry yatağa gönderilene ve annesi, benzer emirler altında, onlara itaat edene kadar. Bay Cruncher gecenin erken nöbetlerini yalnız pipolarla geçirdi ve gezintisine neredeyse saat bire kadar başlamadı. O küçük ve hayaletimsi saate doğru, sandalyesinden kalktı, cebinden bir anahtar çıkardı, kilitli bir dolabı açtı ve bir çuval, uygun büyüklükte bir levye, bir ip ve zincir ve o türden başka balıkçılık takımları çıkardı. Bu eşyaları ustaca bir şekilde üzerine yerleştirerek, Bayan Cruncher'a bir veda meydan okuması hediye etti, ışığı söndürdü ve dışarı çıktı.
-Yatağa gittiğinde sadece soyunur gibi yapan Genç Jerry, babasından çok sonra değildi. Karanlığın örtüsü altında odadan, merdivenlerden, avludan, sokaklara kadar onu takip etti. Eve tekrar girmek konusunda endişesi yoktu, çünkü ev kiracılarla doluydu ve kapı gece boyunca aralık duruyordu.
-Babasının dürüst mesleğinin sanatını ve gizemini incelemeye övgüye değer bir hırsla itilmiş, Genç Jerry, gözleri birbirine yakın olduğu kadar ev cephelerine, duvarlara ve kapı aralıklarına yakın tutarak, onurlu ebeveynini göz önünde tuttu. Kuzeye yönelen onurlu ebeveyn, uzağa gitmemişti ki, Izaak Walton'ın başka bir müridi ona katıldı ve ikisi birlikte yürüdü.
-İlk hareket etmeden yarım saat içinde, göz kırpan lambaların ve göz kırpmaktan fazlasını yapan bekçilerin ötesinde ve ıssız bir yoldaydılar. Burada başka bir balıkçı alındı - ve öyle sessizce ki, eğer Genç Jerry batıl inançlı olsaydı, nazik sanatın ikinci takipçisinin birdenbire kendini ikiye böldüğünü varsayabilirdi.
-Üçü ilerledi ve Genç Jerry ilerledi, üçü yolun üzerinde çıkıntı yapan bir kıyının altında durana kadar. Kıyının tepesinde demir parmaklıkla çevrilmiş alçak bir tuğla duvar vardı. Kıyı ve duvarın gölgesinde üçü yoldan dönüp, duvarın - orada sekiz on fit yükselen - bir tarafını oluşturduğu kör bir sokağa çıktılar. Bir köşede çömelerek, sokağa bakarak, Genç Jerry'nin gördüğü bir sonraki nesne, sulu ve bulutlu bir ayın karşısında oldukça iyi tanımlanmış, çevikçe demir bir kapıya tırmanan onurlu ebeveyninin siluetiydi. Kısa sürede aştı ve sonra ikinci balıkçı aştı ve sonra üçüncü. Hepsi kapının içindeki toprağa yumuşakça düştüler ve biraz yattılar - belki dinleyerek. Sonra, el ve dizlerinin üzerinde hareket ettiler.
-Şimdi kapıya yaklaşma sırası Genç Jerry'deydi: bunu nefesini tutarak yaptı. Bir köşede tekrar çömelerek ve içeri bakarak, üç balıkçının bazı yabani otların arasından süründüğünü gördü! ve mezarlıktaki tüm mezar taşları - içinde oldukları büyük bir mezarlıktı - beyaz hayaletler gibi bakıyordu, kilise kulesi ise dev bir canavarın hayaleti gibi bakıyordu. Durmadan ve ayakta dikilmeden önce fazla sürünmediler. Ve sonra balık tutmaya başladılar.
-İlk önce kürekle balık tuttular. Birazdan onurlu ebeveyn büyük bir tirbuşon gibi bir alet ayarlıyor gibiydi. Ne aletlerle çalıştılarsa, kilise saatinin korkunç çalması Genç Jerry'yi öyle korkutana kadar sıkı çalıştılar ki, saçları babasınınki kadar dik, oradan kaçtı.
-Ama bu konular hakkında daha fazla bilgi edinme uzun süredir beslenmiş arzusu, onu sadece kaçmasını durdurmakla kalmayıp, geri döndürdü. İkinci kez kapıdan gözetlediğinde hâlâ ısrarla balık tutuyorlardı; ama şimdi bir yem almış gibiydiler. Aşağıda vidalama ve şikâyet sesi vardı ve eğik figürleri, sanki bir ağırlıkla gerilmişti. Yavaş derecelerle ağırlık üzerindeki toprağı kırdı ve yüzeye çıktı. Genç Jerry ne olacağını çok iyi biliyordu; ama gördüğünde ve onurlu ebeveyninin onu açmak üzere olduğunu görünce, manzaraya yeni olduğundan öyle korktu ki, tekrar kaçtı ve bir mil veya daha fazla koşana kadar durmadı.
-Koştuğu hayaletimsi bir yarış türü olduğundan ve sonuna ulaşılması son derece arzu edilir olduğundan, nefes almaktan daha az gerekli hiçbir şey için durmazdı. Gördüğü tabutun peşinden koştuğuna dair güçlü bir fikri vardı; ve arkasında zıplayarak, dar ucunda dimdik, her zaman onu yakalamak ve yanında zıplamak üzere olarak - belki kolunu tutarak - resmedilen, kaçınılacak bir takipçiydi. Tutarsız ve her yerde mevcut bir iblis de, çünkü arkasındaki tüm geceyi korkunç yaparken, karanlık sokaklardan çıkıyor olmasından korkarak, kuyruksuz ve kanatsız damlalık bir çocuğun uçurtması gibi zıplayarak çıkmasından korkarak, yola fırladı. Kapı aralıklarında da saklandı, korkunç omuzlarını kapılara sürttü ve gülüyor gibi kulaklarına kadar çekti. Yoldaki gölgelerin içine girdi ve onu düşürmek için sırt üstü kurnazca yattı. Tüm bu süre boyunca durmaksızın arkasından zıplıyordu ve onu yakalıyordu, öyle ki çocuk kendi kapısına geldiğinde yarı ölü olmak için nedeni vardı. Ve o zaman bile onu bırakmadı, her basamakta bir gümbürtüyle yukarı merdiveni takip etti, onunla yatağa tırmandı ve uyuyakaldığında göğsüne ölü ve ağır gümbürdedi.
-Ezilen uykusundan, dolapındaki Genç Jerry şafaktan sonra ve gün doğmadan önce, babasının aile odasındaki varlığıyla uyandırıldı. Onunla bir şeyler ters gitmişti; en azından, Genç Jerry bunu Bayan Cruncher'ı kulaklarından tutup başının arkasını yatak başlığına vurmasından çıkardı.
-"Yapacağımı söyledim," dedi Bay Cruncher, "ve yaptım."
+
+"Getirmezsem yarın boğazından az şey geçer," diye karşılık verdi o beyefendi, başını sallayarak; "bu kadar soru sana yeter; sen yatalı epey olmadan ben dışarı çıkmam."
+
+Akşamın geri kalanını Bayan Cruncher'ı büyük bir dikkatle gözetim altında tutmaya ve aleyhine birtakım dualar tasarlamasının önüne geçmek için onu surat asarak lafa tutmaya adadı. Bu amaçla oğlunu da annesini lafa tutmaya kışkırttı; zavallı kadını bir an bile kendi düşünceleriyle baş başa bırakmaktansa, ona karşı öne sürebileceği her türlü şikâyet sebebi üzerinde durup onun hayatını zindan etti. En dindar kişi bile içten bir duanın etkisine, onun karısına duyduğu bu güvensizlikle gösterdiğinden daha büyük bir saygı gösteremezdi. Bu, hayaletlere inanmadığını ilan eden birinin bir hayalet hikâyesinden korkmasına benziyordu.
+
+"Ve aklında olsun!" dedi Bay Cruncher. "Yarın oyun istemem! Namuslu bir esnaf olarak bir iki parça et getirmeyi başarırsam, sakın ona dokunmayıp kuru ekmekle yetinmeye kalkma. Namuslu bir esnaf olarak biraz bira bulabilirsem, sakın su içeceğim diye tutturma. Roma'ya gidersen Romalılar gibi davranırsın. Yoksa Roma senin başına bela olur. Senin Roma'n da benim, bilmiş ol."
+
+Sonra yine homurdanmaya başladı:
+
+"Bir de kendi yiyeceğine içeceğine tekme atıyorsun! Senin o yere kapanma numaraların ve o taş yürekli hareketlerinle buradaki yiyeceği içeceği ne kadar kıt edeceğini ben bilemem. Şu oğlana bak: seninki değil mi? Çıta gibi kalmış. Sen kendine ana mı diyorsun, bir ananın ilk görevinin oğlanın karnını tıka basa doyurmak olduğunu bilmeden?"
+
+Bu, küçük Jerry'nin hassas bir yerine dokundu; annesine ilk görevini yerine getirmesi için yalvardı ve başka ne yapar ya da neyi ihmal ederse etsin, her şeyden önce, öteki ebeveyninin böylesine dokunaklı ve incelikli bir biçimde işaret ettiği bu annelik görevini yerine getirmeye özellikle önem vermesini istedi.
+
+Cruncher ailesinde akşam böylece geçti; sonunda küçük Jerry'ye yatması emredildi, benzer bir buyruk alan annesi de ona uydu. Bay Cruncher gecenin ilk saatlerini tek başına pipo tüttürerek geçirdi ve saat bire yaklaşıncaya dek gezintisine çıkmadı. O küçük ve hayaletimsi saate doğru sandalyesinden kalktı, cebinden bir anahtar çıkardı, kilitli bir dolabı açtı ve içinden bir çuval, elverişli boyda bir levye, bir halatla bir zincir ve bu türden başka balıkçılık takımları çıkardı. Bu eşyaları ustaca üzerine yerleştirdikten sonra Bayan Cruncher'a veda niyetine meydan okuyan bir bakış fırlattı, ışığı söndürdü ve çıktı.
+
+Yatarken yalnızca soyunur gibi yapmış olan küçük Jerry babasının ardından pek gecikmedi. Karanlığın örtüsü altında peşinden odadan çıktı, peşinden merdivenleri indi, peşinden avluyu geçti, peşinden sokaklara çıktı. Eve yeniden girme konusunda hiç kaygısı yoktu, çünkü ev kiracılarla doluydu ve kapı bütün gece aralık dururdu.
+
+Babasının namuslu mesleğinin sanatını ve sırlarını öğrenmek gibi övgüye değer bir hırsla yola koyulan küçük Jerry, gözleri birbirine ne kadar yakınsa ev cephelerine, duvarlara ve kapı eşiklerine de o kadar yakın durarak saygıdeğer babasını gözden kaçırmadı. Kuzeye doğru yol alan saygıdeğer baba çok gitmemişti ki Izaak Walton'ın bir başka müridi ona katıldı ve ikisi birlikte ağır ağır yürümeyi sürdürdüler.
+
+Yola çıkışlarının üzerinden yarım saat geçmeden göz kırpan fenerleri ve göz kırpmaktan da öteye geçip uyuklayan bekçileri geride bırakmış, ıssız bir yola çıkmışlardı. Burada bir balıkçı daha aralarına katıldı — hem de öylesine sessizce ki, küçük Jerry batıl inançlı biri olsaydı, bu kibar zanaatın ikinci müridinin birdenbire ikiye bölündüğünü sanabilirdi.
+
+Üçü yürüdü, küçük Jerry de yürüdü; sonunda üçü, yolun üzerine sarkan bir toprak setin altında durdu. Setin tepesinde, üstü demir parmaklıklı alçak bir tuğla duvar vardı. Setin ve duvarın gölgesinde üçü yoldan saptı ve bir yanını duvarın — orada sekiz on ayak yüksekliğe ulaşan duvarın — oluşturduğu çıkmaz bir sokağa girdi. Bir köşeye çömelip sokağın yukarısına göz atan küçük Jerry'nin ardından gördüğü şey, sulu ve bulutlu bir ayın önünde oldukça belirgin biçimde seçilen saygıdeğer babasının bir demir kapıya çevik bir şekilde tırmanan siluetiydi. Çok geçmeden kapının öbür yanına geçti, ardından ikinci balıkçı geçti, ardından da üçüncüsü. Hepsi kapının iç tarafına usulca atlayıp orada bir süre yattılar — belki de kulak kabartarak. Sonra dört ayak üzerinde uzaklaştılar.
+
+Şimdi kapıya yaklaşma sırası küçük Jerry'deydi; nefesini tutarak yaklaştı. Orada da bir köşeye çömelip içeri bakınca üç balıkçının gür yabani otların arasında süründüğünü seçti! Bütün mezar taşları da — girdikleri yer büyük bir kilise mezarlığıydı — beyazlara bürünmüş hayaletler gibi onları seyrediyor, kilise kulesinin kendisi de korkunç bir devin hayaleti gibi onları seyrediyordu. Çok uzağa sürünmeden durup ayağa kalktılar. Ve sonra balık tutmaya başladılar.
+
+Önce bir belle balık tuttular. Çok geçmeden saygıdeğer baba, kocaman bir tirbuşona benzeyen bir aleti ayarlıyormuş gibi göründü. Hangi aletlerle çalışırlarsa çalışsınlar, sıkı çalıştılar; sonunda kilise saatinin ürkütücü çalışı küçük Jerry'yi öylesine dehşete düşürdü ki, saçları babasınınkiler gibi dimdik, tabanları yağladı.
+
+Ama bu işler hakkında daha fazlasını öğrenmek için uzun zamandır beslediği arzu, onu kaçışında durdurmakla kalmadı, yeniden geriye de çekti. İkinci kez kapıdan içeri göz attığında hâlâ azimle balık tutuyorlardı; ama şimdi oltaya bir şey takılmış gibiydi. Aşağıdan bir gıcırtı, bir inilti geliyordu; iki büklüm bedenleri, sanki bir ağırlık çekiyormuş gibi gerilmişti. Ağırlık yavaş yavaş üstündeki toprağı yarıp yüzeye çıktı. Küçük Jerry bunun ne olacağını çok iyi biliyordu; ama onu görünce, saygıdeğer babasının onu zorla açmak üzere olduğunu görünce, böyle bir manzaraya yabancı olduğundan öylesine korktu ki yeniden kaçtı ve bir mil ya da daha fazla koşana dek hiç durmadı.
+
+Soluk almak kadar zorunlu bir şey olmasa o zaman da durmazdı; çünkü koştuğu, hayaletimsi türden bir yarıştı ve sonuna bir an önce varmak pek arzu edilen bir yarıştı. Gördüğü tabutun peşinden koştuğuna kuvvetle inanıyordu; dar ucunun üstünde dimdik, arkasından seke seke gelen, hep onu yakalamak, yanına varıp seke seke yanında ilerlemek — belki de koluna girmek — üzereymiş gibi gözünde canlanan bu tabut, kaçılması gereken bir takipçiydi. Üstelik tutarsız ve her yerde birden bulunan bir iblisti de; çünkü arkasındaki bütün geceyi dehşetle doldurduğu halde, oğlan onun karanlık ara sokaklardan, kuyruğu ve kanatları olmayan, su toplamışçasına şişkin bir çocuk uçurtması gibi seke seke çıkıp gelmesinden korktuğu için o sokaklardan kaçıyor, yolun ortasına fırlıyordu. Kapı eşiklerinde de saklanıyor, korkunç omuzlarını kapılara sürtüyor ve sanki gülüyormuş gibi omuzlarını kulaklarına kadar kaldırıyordu. Yoldaki gölgelere giriyor, oğlana çelme takmak için sinsice sırtüstü yatıyordu. Bütün bu süre boyunca durmadan arkasından seke seke geliyor ve ona yetişiyordu; öyle ki oğlan kendi kapısına vardığında yarı ölü olmakta haklıydı. Ve o zaman bile peşini bırakmadı; her basamakta bir güm sesiyle onu yukarıya kadar izledi, onunla birlikte yatağa tırmandı ve oğlan uykuya dalınca, ölü ve ağır, göğsüne çöküverdi.
+
+Küçük Jerry, bitişikteki odacığında sürdürdüğü sıkıntılı uykusundan, gün ağardıktan sonra ama güneş doğmadan önce, babasının aile odasına gelmesiyle uyandı. Babasının işleri ters gitmişti; en azından küçük Jerry, onun Bayan Cruncher'ı kulaklarından tutup başının arkasını yatağın başlığına vurmasından böyle bir sonuç çıkardı.
+
+"Yapacağım demiştim," dedi Bay Cruncher, "ve yaptım."
+
 "Jerry, Jerry, Jerry!" diye yalvardı karısı.
-"İşin kârına karşı çıkıyorsun," dedi Jerry, "ve ben ve ortaklarım zarar görüyoruz. Saymak ve itaat etmek zorundaydın; neden şeytan etmiyorsun?"
-"İyi bir eş olmaya çalışıyorum, Jerry," diye itiraz etti zavallı kadın, gözyaşlarıyla.
-"Kocanın işine karşı çıkmak iyi bir eş olmak mı? Kocanın işini onursuzlaştırmak kocana saygı göstermek mi? İşinin hayati konusunda kocana itaatsizlik etmek kocana itaat etmek mi?"
-"O korkunç işe o zaman başlamamıştın, Jerry."
-"Senin için yeterli," diye karşılık verdi Bay Cruncher, "dürüst bir esnafın karısı olmak ve kadın aklını işine ne zaman başladığı veya başlamadığı hesaplarıyla meşgul etmemek. Saygılı ve itaatkâr bir karı işini tamamen rahat bırakır. Kendine dindar kadın mı diyorsun? Eğer dindar bir kadınsan, bana dinsiz birini ver! Senin bu Thames nehrinin yatağının bir kazığa sahip olmadığı kadar doğal görev duygun yok ve benzer şekilde sana çakılması gerekiyor."
-Münakaşa alçak bir sesle yürütüldü ve dürüst esnafın kilden kirlenmiş çizmelerini tekmeleyip zemine boylu boyunca uzanmasıyla sona erdi. Paslı elleri yastık olarak başının altında sırt üstü yatarken ona ürkek bir bakış attıktan sonra, oğlu da yattı ve tekrar uyuyakaldı.
-Kahvaltıda balık yoktu ve başka fazla bir şey de yoktu. Bay Cruncher moralsiz ve huysuzdu ve Bayan Cruncher'ın herhangi bir Şükran belirtisi gözlemlerse düzeltme için mermi olarak yanında demir tencere kapağı tuttu. Her zamanki saatte fırçalandı ve yıkandı ve görünürdeki mesleğini sürdürmek için oğluyla yola koyuldu.
-Babasının yanında güneşli ve kalabalık Fleet-street boyunca kolunun altında tabureyle yürüyen Genç Jerry, karanlık ve yalnızlık içinde korkunç takipçisinden eve koşan önceki geceden çok farklı bir Genç Jerry'ydi. Kurnazlığı günle tazelenmiş ve endişeleri geceyle gitmişti - bu bakımdan Fleet-street'te ve Londra Şehrinde yoldaşları olması muhtemel değildi, o güzel sabah.
-"Baba," dedi Genç Jerry, yürürlerken: kol mesafesinde kalmaya ve taburenin aralarında iyi olmasına dikkat ederek: "Diriliş Adamı ne?"
-Bay Cruncher cevaplamadan önce kaldırımda durdu, "Ben nereden bileyim?"
-"Her şeyi biliyorsun sandım, baba," dedi saf çocuk.
-"Hım! Peki," diye karşılık verdi Bay Cruncher, tekrar yürüyerek ve dikenlerine serbestlik vermek için şapkasını kaldırarak, "o bir esnaf."
-"Malı ne, baba?" diye sordu canlı Genç Jerry.
-"Malı," dedi Bay Cruncher, aklında çevirdikten sonra, "Bilimsel malların bir dalıdır."
-"İnsanların bedenleri, değil mi baba?" diye sordu canlı çocuk.
+
+"Sen işin kârına karşı çıkıyorsun," dedi Jerry, "ben de ortaklarım da zarar görüyoruz. Sen kocana saygı gösterip itaat edecektin; ne halt etmeye etmiyorsun?"
+
+"İyi bir eş olmaya çalışıyorum, Jerry," diye yakındı zavallı kadın, gözyaşları içinde.
+
+"Kocanın işine karşı çıkmak iyi bir eş olmak mı? Kocanın işine saygısızlık etmek kocana saygı göstermek mi? Kocanın işinin hayati meselesinde ona itaatsizlik etmek kocana itaat etmek mi?"
+
+"O zamanlar o korkunç işe başlamamıştın ama, Jerry."
+
+"Sana düşen," diye karşılık verdi Bay Cruncher, "namuslu bir esnafın karısı olmaktır; adam ne zaman bu mesleğe başladı, ne zaman başlamadı diye kadın aklınla hesap kitap yapmak değil. Kocasına saygı gösteren, itaat eden bir kadın onun mesleğine hiç karışmaz. Kendine dindar bir kadın mı diyorsun? Sen dindar bir kadınsan, bana dinsizini ver! Şu Thames ırmağının yatağında kendiliğinden ne kadar kazık varsa sende de doğuştan o kadar görev duygusu var; kazık gibi onu da sana çakmak gerek."
+
+Kavga alçak sesle sürdü ve namuslu esnafın kil bulaşmış çizmelerini tekmeleyerek ayağından fırlatıp boylu boyunca yere uzanmasıyla sona erdi. Oğlu, sırtüstü yatmış, paslı ellerini başının altına yastık yapmış babasına ürkek bir göz attıktan sonra o da uzandı ve yeniden uykuya daldı.
+
+Kahvaltıda balık yoktu, başka bir şey de pek yoktu. Bay Cruncher'ın keyfi kaçmış, tepesi atmıştı; Bayan Cruncher'ın yemek duası ettiğine dair en ufak bir belirti görürse onu yola getirmek üzere fırlatmak için yanında demir bir tencere kapağı tutuyordu. Her zamanki saatte fırçalanıp yıkandı ve görünürdeki mesleğini sürdürmek için oğluyla birlikte yola çıktı.
+
+Taburesini koltuğunun altına almış, güneşli ve kalabalık Fleet Street boyunca babasının yanında yürüyen küçük Jerry, bir önceki gece korkunç takipçisinden kaçarak karanlığın ve ıssızlığın içinden eve koşan küçük Jerry'den çok farklıydı. Kurnazlığı günle birlikte tazelenmiş, korkuları geceyle birlikte gitmişti — bu bakımlardan, o güzel sabah Fleet Street'te ve Londra City'sinde onun gibi başkalarının da bulunması hiç de olmayacak şey değildi.
+
+"Baba," dedi küçük Jerry yürürlerken, bir kol boyu uzakta durmaya ve tabureyi aralarında iyice tutmaya dikkat ederek, "ceset hırsızı ne demek?"
+
+Bay Cruncher yanıt vermeden önce kaldırımda durdu. "Ben nereden bileyim?"
+
+"Ben de senin her şeyi bildiğini sanırdım, baba," dedi saf çocuk.
+
+"Hım! Şey," diye karşılık verdi Bay Cruncher, yeniden yürümeye başlayıp diken diken saçları rahatça dikilebilsin diye şapkasını çıkararak, "o bir esnaftır."
+
+"Ne malı satar, baba?" diye sordu çevik küçük Jerry.
+
+"Malı," dedi Bay Cruncher, bunu kafasında evirip çevirdikten sonra, "Bilimsel mallar kolundandır."
+
+"İnsan cesetleri, değil mi baba?" diye sordu neşeli çocuk.
+
 "Sanırım o türden bir şey," dedi Bay Cruncher.
-"Ah, baba, tamamen büyüdüğümde çok bir Diriliş Adamı olmak isterdim!"
-Bay Cruncher yatıştı ama şüpheli ve ahlaki bir şekilde başını salladı. "Bu yeteneklerini nasıl geliştirdiğine bağlı. Yeteneklerini geliştirmeye dikkat et ve kimseye yapabileceğinden fazla bir şey söyleme ve şu anda neye uygun olabileceğin söylenemez." Genç Jerry, bu şekilde cesaretlendirilerek, taburenin Bar'ın gölgesine yerleştirmek için birkaç metre ileriye giderken, Bay Cruncher kendi kendine ekledi: "Jerry, seni dürüst esnaf, o çocuğun henüz sana bir nimet ve annesi için bir ödül olacağına dair umutlar var!"
+
+"Ah, baba, iyice büyüyünce ceset hırsızı olmayı öyle çok isterdim ki!"
+
+Bay Cruncher'ın gönlü okşanmıştı ama kuşkulu ve ahlakçı bir tavırla başını iki yana salladı. "O, kabliyetlerini nasıl geliştireceğine bağlı. Kabliyetlerini geliştirmeye dikkat et, kimseye mecbur kalmadıkça tek laf etme; o zaman şu an için neye layık olacağın hiç belli olmaz." Bu sözlerle cesaretlenen küçük Jerry, tabureyi Temple Bar'ın gölgesine yerleştirmek için birkaç yarda önden gidince Bay Cruncher kendi kendine ekledi: "Jerry, seni namuslu esnaf seni, bu oğlanın bir gün senin için bir nimet olacağına, anasının açtığı dertlerin acısını sana unutturacağına dair umut var!"
