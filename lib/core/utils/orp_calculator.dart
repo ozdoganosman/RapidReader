@@ -34,6 +34,7 @@ class ORPCalculator {
     "'", // apostrophe
     "\u2019", // right single quote
     "-", // hyphen
+    " ", // space between words of a chunk
   };
 
   /// Leading punctuation to strip before ORP calculation
@@ -116,40 +117,37 @@ class ORPCalculator {
   }
 
   /// Get the actual character index for ORP in the original word
-  /// accounting for leading punctuation
+  ///
+  /// Leading/trailing punctuation is skipped, and the ORP always lands on a
+  /// letter that counts toward the length - never on an apostrophe, hyphen
+  /// or space ("O'na" -> "n", not "'").
   static int getActualORPIndex(String word) {
     if (word.isEmpty) return 0;
 
-    // Count leading punctuation
-    int leadingCount = 0;
-    for (final char in word.runes) {
-      final c = String.fromCharCode(char);
-      if (_leadingPunctuation.contains(c)) {
-        leadingCount++;
-      } else {
-        break;
-      }
+    // Bounds of the word without leading and trailing punctuation
+    var start = 0;
+    var end = word.length;
+    while (start < end && _leadingPunctuation.contains(word[start])) {
+      start++;
+    }
+    while (end > start && _trailingPunctuation.contains(word[end - 1])) {
+      end--;
+    }
+    if (start == end) return 0;
+
+    final orpIndex = calculateORPIndex(getEffectiveLength(word));
+
+    // Find the orpIndex-th counted character
+    var counted = 0;
+    var lastCounted = start;
+    for (var i = start; i < end; i++) {
+      if (_ignoredInLength.contains(word[i])) continue;
+      if (counted == orpIndex) return i;
+      lastCounted = i;
+      counted++;
     }
 
-    // Get clean word and calculate ORP
-    final cleanWord = _getCleanWord(word);
-    final effectiveLength = getEffectiveLength(cleanWord);
-    final orpIndex = calculateORPIndex(effectiveLength);
-
-    // Find actual position accounting for ignored characters
-    int actualIndex = leadingCount;
-    int effectiveIndex = 0;
-
-    for (int i = leadingCount; i < word.length && effectiveIndex < orpIndex; i++) {
-      final c = word[i];
-      if (!_ignoredInLength.contains(c) && !_trailingPunctuation.contains(c)) {
-        effectiveIndex++;
-      }
-      actualIndex = i + 1;
-    }
-
-    // Clamp to valid range
-    return actualIndex.clamp(0, word.length - 1);
+    return lastCounted;
   }
 
   /// Split word into three parts for ORP display
