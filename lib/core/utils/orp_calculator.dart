@@ -156,7 +156,8 @@ class ORPCalculator {
   ///
   /// Examples:
   /// - "kitap" -> before: "k", orp: "i", after: "tap"
-  /// - "Turkiye'nin" -> before: "Tu", orp: "r", after: "kiye'nin"
+  /// - "Türkiye'nin" -> before: "Tür", orp: "k", after: "iye'nin"
+  /// - "O'na" -> before: "O'", orp: "n", after: "a"
   static ORPWordParts splitForDisplay(String word) {
     if (word.isEmpty) {
       return const ORPWordParts(before: '', orp: '', after: '');

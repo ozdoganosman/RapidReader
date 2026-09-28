@@ -5,6 +5,14 @@ String _orp(String word) => ORPCalculator.splitForDisplay(word).toString();
 
 void main() {
   group('ORPCalculator.splitForDisplay', () {
+    test('examples from the documentation', () {
+      final parts = ORPCalculator.splitForDisplay("Türkiye'nin");
+      expect([parts.before, parts.orp, parts.after], ['Tür', 'k', "iye'nin"]);
+      expect(ORPCalculator.getEffectiveLength("Türkiye'nin"), 10);
+      expect(ORPCalculator.getEffectiveLength('e-posta'), 6);
+      expect(ORPCalculator.getEffectiveLength('covid-19'), 7);
+    });
+
     test('plain words', () {
       expect(_orp('kitap'), 'k[i]tap');
       expect(_orp('ve'), 'v[e]');
