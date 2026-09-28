@@ -14,7 +14,11 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
   Kitaplar bölüm listesiyle açılır; bölüm bitince "Sonraki Bölüm" ile devam edilir.
 - **Kendi metnin:** Başlık, metin ve isteğe bağlı kapak resmiyle kütüphaneye eklenir
   (cihazda Hive ile, web'de IndexedDB'de saklanır; uzun kitaplar da sığar).
-  Metin yazılabilir, yapıştırılabilir ya da TXT, PDF veya EPUB dosyasından yüklenebilir.
+  Metin yazılabilir, panodan yapıştırılabilir, TXT/PDF/EPUB dosyasından yüklenebilir ya da
+  bir web adresindeki makale getirilebilir. Android'de başka bir uygulamanın "Paylaş" menüsünden
+  metin, bağlantı ya da dosya doğrudan RapidReader'a gönderilebilir. "Kaydetmeden Oku" ile
+  metin kütüphaneye eklenmeden okunur. (Web sürümünde tarayıcı kuralları çoğu sitenin
+  okunmasını engeller; orada metni kopyalayıp yapıştırmak gerekir.)
 - **İstatistik, günlük hedef ve seri:** Okunan kelime ve süre günlük tutulur; son 7 gün,
   toplam süre, ortalama hız ve hedefin art arda tutturulduğu gün sayısı (seri) gösterilir.
 - **Okuma hızı testi:** Kısa bir metin normal okunur, ardından 4 anlama sorusu gelir.

@@ -3,15 +3,20 @@
 /// Main entry point showing pre-loaded books in a beautiful grid.
 library;
 
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io' show File;
 import 'dart:typed_data';
 
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
+import '../../core/services/article_extractor.dart';
 import '../../core/services/book_service.dart';
 import '../../core/services/custom_book_service.dart';
 import '../../core/services/document_importer.dart';
@@ -20,10 +25,10 @@ import '../../core/services/reading_storage.dart';
 import '../widgets/banner_ad_widget.dart';
 import 'chapter_list_screen.dart';
 import 'exam_screen.dart';
-import 'speed_test_screen.dart';
-import 'stats_screen.dart';
 import 'reader_screen.dart';
 import 'settings_screen.dart';
+import 'speed_test_screen.dart';
+import 'stats_screen.dart';
 
 /// Home screen with book library
 class HomeScreen extends StatefulWidget {
@@ -45,7 +50,81 @@ class _HomeScreenState extends State<HomeScreen> {
     _loadBooks();
     _loadSettings();
     _loadStats();
+    _listenForShares();
   }
+
+  StreamSubscription<List<SharedMediaFile>>? _shareSubscription;
+
+  @override
+  void dispose() {
+    _shareSubscription?.cancel();
+    super.dispose();
+  }
+
+  /// Texts, links and files shared from other apps (Android "Share" menu)
+  void _listenForShares() {
+    if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) return;
+    // Sharing is optional: never let it break the library (e.g. in tests)
+    ReceiveSharingIntent.instance.getInitialMedia().then((files) {
+      _handleShared(files);
+      ReceiveSharingIntent.instance.reset();
+    }).catchError((Object e) => debugPrint('Share error: $e'));
+    _shareSubscription = ReceiveSharingIntent.instance
+        .getMediaStream()
+        .listen(_handleShared, onError: (Object e) => debugPrint('Share error: $e'));
+  }
+
+  /// Put a shared text, the article of a shared link or a shared document
+  /// into the add dialog
+  Future<void> _handleShared(List<SharedMediaFile> files) async {
+    if (files.isEmpty || !mounted) return;
+    final shared = files.first;
+    String? title;
+    String? author;
+    String content;
+    try {
+      if (shared.type == SharedMediaType.file) {
+        final bytes = await File(shared.path).readAsBytes();
+        final document = await DocumentImporter.read(_sharedFileName(shared), bytes);
+        title = document.title;
+        author = document.author;
+        content = document.content;
+      } else if (shared.type == SharedMediaType.text || shared.type == SharedMediaType.url) {
+        final text = shared.path.trim();
+        final link = ArticleExtractor.linkInSharedText(text);
+        if (link != null) {
+          final article = await ArticleExtractor.fetch(link);
+          title = article.title;
+          content = article.text;
+        } else {
+          content = text;
+        }
+      } else {
+        return;
+      }
+    } catch (e) {
+      if (mounted) {
+        final message = e is ArticleException || e is DocumentImportException ? e.toString() : 'Paylaşılan içerik okunamadı';
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: Colors.red[400]));
+      }
+      return;
+    }
+    if (!mounted || content.trim().isEmpty) return;
+    _showAddBookDialog(
+      initialTitle: title == null || title.isEmpty ? _titleFromText(content) : title,
+      initialAuthor: author,
+      initialContent: content,
+    );
+  }
+
+  /// File name with an extension DocumentImporter understands
+  static String _sharedFileName(SharedMediaFile file) {
+    final name = file.path.split('/').last;
+    if (name.contains('.')) return name;
+    const extensions = {'application/pdf': 'pdf', 'application/epub+zip': 'epub', 'text/plain': 'txt'};
+    return '$name.${extensions[file.mimeType] ?? 'txt'}';
+  }
+
 
   /// Today's reading and the streak, shown under the speed card
   StatsSummary? _stats;
@@ -767,10 +846,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showAddBookDialog() {
-    final titleController = TextEditingController();
-    final authorController = TextEditingController();
-    final contentController = TextEditingController();
+  void _showAddBookDialog({String? initialTitle, String? initialAuthor, String? initialContent}) {
+    final titleController = TextEditingController(text: initialTitle);
+    final authorController = TextEditingController(text: initialAuthor);
+    final contentController = TextEditingController(text: initialContent);
     String? selectedImageBase64;
     bool importing = false;
 
@@ -957,6 +1036,58 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 8),
+                  // Paste the clipboard or read a web article
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _dialogButton(
+                          icon: Icons.content_paste,
+                          label: 'Panodan',
+                          onPressed: importing
+                              ? null
+                              : () async {
+                                  final data = await Clipboard.getData(Clipboard.kTextPlain);
+                                  final text = data?.text?.trim() ?? '';
+                                  if (!context.mounted) return;
+                                  if (text.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text('Panoda metin yok')),
+                                    );
+                                    return;
+                                  }
+                                  if (ArticleExtractor.isUrl(text)) {
+                                    // A copied link: read the page it points to
+                                    setDialogState(() => importing = true);
+                                    await _fillFromArticle(context, text, titleController, contentController);
+                                    if (context.mounted) setDialogState(() => importing = false);
+                                    return;
+                                  }
+                                  contentController.text = text;
+                                  if (titleController.text.trim().isEmpty) {
+                                    titleController.text = _titleFromText(text);
+                                  }
+                                },
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: _dialogButton(
+                          icon: Icons.link,
+                          label: 'Web Adresi',
+                          onPressed: importing
+                              ? null
+                              : () async {
+                                  final url = await _askUrl(context);
+                                  if (url == null || !context.mounted) return;
+                                  setDialogState(() => importing = true);
+                                  await _fillFromArticle(context, url, titleController, contentController);
+                                  if (context.mounted) setDialogState(() => importing = false);
+                                },
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 12),
                   // Content field
                   TextField(
@@ -994,6 +1125,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 'İptal',
                 style: TextStyle(color: Colors.black45),
               ),
+            ),
+            TextButton(
+              onPressed: () {
+                final content = contentController.text.trim();
+                if (content.isEmpty) return;
+                final title = titleController.text.trim();
+                Navigator.of(context).pop();
+                _readWithoutSaving(title.isEmpty ? _titleFromText(content) : title, content);
+              },
+              child: const Text('Kaydetmeden Oku', style: TextStyle(color: Colors.black54)),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -1054,6 +1195,95 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Widget _dialogButton({required IconData icon, required String label, VoidCallback? onPressed}) {
+    return OutlinedButton.icon(
+      onPressed: onPressed,
+      icon: Icon(icon, size: 18),
+      label: Text(label),
+      style: OutlinedButton.styleFrom(
+        foregroundColor: Colors.black54,
+        side: BorderSide(color: Colors.black12),
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+      ),
+    );
+  }
+
+  /// A title for a text without one: its first line, shortened
+  static String _titleFromText(String text) {
+    final firstLine = text.trim().split('\n').first.trim();
+    return firstLine.length <= 60 ? firstLine : '${firstLine.substring(0, 57)}…';
+  }
+
+  Future<String?> _askUrl(BuildContext context) async {
+    final clipboard = (await Clipboard.getData(Clipboard.kTextPlain))?.text?.trim() ?? '';
+    if (!context.mounted) return null;
+    final controller = TextEditingController(text: ArticleExtractor.isUrl(clipboard) ? clipboard : '');
+    return showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: const Text('Web makalesi', style: TextStyle(fontWeight: FontWeight.w400)),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          keyboardType: TextInputType.url,
+          decoration: const InputDecoration(hintText: 'https://...'),
+          onSubmitted: (value) => Navigator.of(context).pop(value.trim()),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('İptal', style: TextStyle(color: Colors.black45)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(controller.text.trim()),
+            child: const Text('Getir'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Download [url] and put its article into the add dialog
+  Future<void> _fillFromArticle(
+    BuildContext context,
+    String url,
+    TextEditingController titleController,
+    TextEditingController contentController,
+  ) async {
+    try {
+      final article = await ArticleExtractor.fetch(url);
+      contentController.text = article.text;
+      if (titleController.text.trim().isEmpty) {
+        titleController.text = article.title.isNotEmpty ? article.title : _titleFromText(article.text);
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e is ArticleException ? e.message : 'Sayfa okunamadı: $e'),
+            backgroundColor: Colors.red[400],
+          ),
+        );
+      }
+    }
+  }
+
+  /// Open a text in the reader without adding it to the library
+  void _readWithoutSaving(String title, String content) {
+    Navigator.of(context)
+        .push(MaterialPageRoute<void>(
+          builder: (context) => ReaderScreen(
+            content: content,
+            title: title,
+            settings: _settings,
+            onSettingsChanged: _saveSettings,
+          ),
+        ))
+        .then((_) => _loadStats());
   }
 
   void _deleteCustomBook(Book book) {

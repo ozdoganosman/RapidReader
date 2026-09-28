@@ -13,6 +13,16 @@ void main() {
       (message) async => const StandardMethodCodec().encodeSuccessEnvelope(null),
     );
 
+    // Android "Share" plugin: nothing shared
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      const MethodChannel('receive_sharing_intent/messages'),
+      (call) async => null,
+    );
+    tester.binding.defaultBinaryMessenger.setMockStreamHandler(
+      const EventChannel('receive_sharing_intent/events-media'),
+      MockStreamHandler.inline(onListen: (arguments, events) {}),
+    );
+
     // Build the app
     await tester.pumpWidget(const RapidReaderApp());
 
