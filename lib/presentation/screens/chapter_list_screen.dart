@@ -17,11 +17,15 @@ class ChapterListScreen extends ConsumerStatefulWidget {
   final List<Book> chapters;
   final RSVPSettings settings;
 
+  /// Callback when settings change in the reader (e.g. speed)
+  final ValueChanged<RSVPSettings>? onSettingsChanged;
+
   const ChapterListScreen({
     super.key,
     required this.seriesName,
     required this.chapters,
     required this.settings,
+    this.onSettingsChanged,
   });
 
   @override
@@ -29,6 +33,13 @@ class ChapterListScreen extends ConsumerStatefulWidget {
 }
 
 class _ChapterListScreenState extends ConsumerState<ChapterListScreen> {
+  /// Settings, updated when the speed is changed while reading a chapter
+  late RSVPSettings _settings = widget.settings;
+
+  void _onSettingsChanged(RSVPSettings settings) {
+    _settings = settings;
+    widget.onSettingsChanged?.call(settings);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,9 +103,10 @@ class _ChapterListScreenState extends ConsumerState<ChapterListScreen> {
                 builder: (context) => ReaderScreen(
                   content: chapter.content,
                   title: '${widget.seriesName} - ${chapter.title}',
-                  settings: widget.settings,
+                  settings: _settings,
                   currentBook: chapter,
                   seriesChapters: widget.chapters,
+                  onSettingsChanged: _onSettingsChanged,
                 ),
               ),
             );

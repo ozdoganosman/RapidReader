@@ -16,6 +16,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
 import '../../core/models/word_token.dart';
+import '../../core/services/reading_storage.dart';
 import '../../core/services/rsvp_engine.dart';
 import '../../core/utils/text_parser.dart';
 import '../../core/utils/timing_calculator.dart';
@@ -44,6 +45,9 @@ class ReaderScreen extends StatefulWidget {
   /// All chapters in the series (for next chapter button)
   final List<Book>? seriesChapters;
 
+  /// Callback when settings change in the reader (e.g. speed)
+  final ValueChanged<RSVPSettings>? onSettingsChanged;
+
   const ReaderScreen({
     super.key,
     required this.content,
@@ -53,6 +57,7 @@ class ReaderScreen extends StatefulWidget {
     this.onProgressChanged,
     this.currentBook,
     this.seriesChapters,
+    this.onSettingsChanged,
   });
 
   @override
@@ -60,7 +65,12 @@ class ReaderScreen extends StatefulWidget {
 }
 
 class _ReaderScreenState extends State<ReaderScreen> {
+  /// Words read between progress saves while playing
+  static const _progressSaveInterval = 25;
+
   late final RSVPEngine _engine;
+  late final AppLifecycleListener _lifecycleListener;
+  int? _lastSavedIndex;
   late RSVPSettings _settings;
   late List<WordToken> _tokens;
   bool _showControls = true;
@@ -88,9 +98,16 @@ class _ReaderScreenState extends State<ReaderScreen> {
       ),
       startIndex: widget.startIndex,
     );
+    _lastSavedIndex = _engine.state.currentIndex;
 
     // Listen for progress changes
     _engine.addListener(_onEngineStateChanged);
+
+    // Stop reading (and save the position) when the app goes to background
+    _lifecycleListener = AppLifecycleListener(onHide: _engine.pause);
+
+    // Continue where this book was left off
+    _restoreProgress();
 
     // Enter immersive mode
     _enterImmersiveMode();
@@ -118,11 +135,59 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
       // Report progress
       widget.onProgressChanged?.call(_engine.state.currentIndex);
+
+      // Save when playback stops, and periodically while playing
+      final state = _engine.state;
+      final lastIndex = _lastSavedIndex;
+      if (!state.isPlaying ||
+          lastIndex == null ||
+          (state.currentIndex - lastIndex).abs() >= _progressSaveInterval) {
+        _saveProgress();
+      }
     }
+  }
+
+  /// Jump to the saved position of the current book, if there is one
+  Future<void> _restoreProgress() async {
+    final book = widget.currentBook;
+    if (book == null || widget.startIndex != 0) return;
+
+    final saved = await ReadingStorage.loadProgress(book.id);
+    final state = _engine.state;
+    // Don't jump if the reader already started or moved on its own
+    if (!mounted || saved == null || saved.isComplete || state.totalTokens == 0) return;
+    if (state.isPlaying || state.currentIndex != 0) return;
+
+    // Scale the position if the text is split differently now (chunk size)
+    var index = saved.index;
+    if (saved.total > 0 && saved.total != state.totalTokens) {
+      index = index * state.totalTokens ~/ saved.total;
+    }
+    _lastSavedIndex = index;
+    _engine.seekToIndex(index);
+  }
+
+  /// Save the reading position of the current book
+  void _saveProgress() {
+    final book = widget.currentBook;
+    final state = _engine.state;
+    if (book == null || state.totalTokens == 0) return;
+
+    // A finished book is saved as index == total and restarts next time
+    final index = state.isComplete ? state.totalTokens : state.currentIndex;
+    if (index == _lastSavedIndex) return;
+
+    _lastSavedIndex = index;
+    ReadingStorage.saveProgress(
+      book.id,
+      ReadingProgress(index: index, total: state.totalTokens),
+    );
   }
 
   @override
   void dispose() {
+    _saveProgress();
+    _lifecycleListener.dispose();
     _engine.removeListener(_onEngineStateChanged);
     _engine.dispose();
     _exitImmersiveMode();
@@ -162,6 +227,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
     setState(() {
       _settings = _settings.copyWith(wordsPerMinute: _engine.state.wordsPerMinute);
     });
+    widget.onSettingsChanged?.call(_settings);
   }
 
   @override
@@ -603,6 +669,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
           settings: _settings,
           currentBook: nextChapter,
           seriesChapters: widget.seriesChapters,
+          onSettingsChanged: widget.onSettingsChanged,
         ),
       ),
     );

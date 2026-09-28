@@ -13,6 +13,7 @@ import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
 import '../../core/services/book_service.dart';
 import '../../core/services/custom_book_service.dart';
+import '../../core/services/reading_storage.dart';
 import '../widgets/banner_ad_widget.dart';
 import 'chapter_list_screen.dart';
 import 'reader_screen.dart';
@@ -36,6 +37,19 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _loadBooks();
+    _loadSettings();
+  }
+
+  /// Restore the settings saved on this device
+  Future<void> _loadSettings() async {
+    final settings = await ReadingStorage.loadSettings();
+    if (mounted) setState(() => _settings = settings);
+  }
+
+  /// Apply and save settings (from the settings screen or the reader)
+  void _saveSettings(RSVPSettings settings) {
+    setState(() => _settings = settings);
+    ReadingStorage.saveSettings(settings);
   }
 
   Future<void> _loadBooks() async {
@@ -91,6 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
           content: book.content,
           title: book.title,
           settings: _settings,
+          currentBook: book,
+          onSettingsChanged: _saveSettings,
         ),
       ),
     );
@@ -103,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
           seriesName: seriesName,
           chapters: chapters,
           settings: _settings,
+          onSettingsChanged: _saveSettings,
         ),
       ),
     );
@@ -116,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     if (newSettings != null) {
-      setState(() => _settings = newSettings);
+      _saveSettings(newSettings);
     }
   }
 

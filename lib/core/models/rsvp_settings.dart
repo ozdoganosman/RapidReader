@@ -98,6 +98,55 @@ class RSVPSettings extends Equatable {
     orpHighlightColor: 0xFFBF360C, // Deep orange
   );
 
+  /// Serialize for local storage
+  Map<String, dynamic> toMap() => {
+        'wordsPerMinute': wordsPerMinute,
+        'chunkSize': chunkSize,
+        'adaptiveSpeed': adaptiveSpeed,
+        'showORPHighlight': showORPHighlight,
+        'fontSize': fontSize,
+        'fontFamily': fontFamily,
+        'darkMode': darkMode,
+        'microPauseInterval': microPauseInterval,
+        'microPauseDuration': microPauseDuration,
+        'orpHighlightColor': orpHighlightColor,
+        'textColor': textColor,
+        'backgroundColor': backgroundColor,
+        'showFocusGuides': showFocusGuides,
+      };
+
+  /// Restore from local storage
+  ///
+  /// Missing or invalid values fall back to defaults, and numbers are clamped
+  /// to the ranges the settings screen supports.
+  factory RSVPSettings.fromMap(Map<dynamic, dynamic> map) {
+    const d = RSVPSettings.defaults;
+
+    T read<T>(String key, T fallback) {
+      final value = map[key];
+      return value is T ? value : fallback;
+    }
+
+    final microPauseInterval = read<int>('microPauseInterval', d.microPauseInterval);
+
+    return RSVPSettings(
+      wordsPerMinute: read<int>('wordsPerMinute', d.wordsPerMinute)
+          .clamp(minWordsPerMinute, maxWordsPerMinute),
+      chunkSize: read<int>('chunkSize', d.chunkSize).clamp(1, 3),
+      adaptiveSpeed: read<bool>('adaptiveSpeed', d.adaptiveSpeed),
+      showORPHighlight: read<bool>('showORPHighlight', d.showORPHighlight),
+      fontSize: read<num>('fontSize', d.fontSize).toDouble().clamp(20.0, 60.0),
+      fontFamily: read<String>('fontFamily', d.fontFamily),
+      darkMode: read<bool>('darkMode', d.darkMode),
+      microPauseInterval: microPauseInterval <= 0 ? 0 : microPauseInterval.clamp(3, 15),
+      microPauseDuration: read<int>('microPauseDuration', d.microPauseDuration),
+      orpHighlightColor: read<int>('orpHighlightColor', d.orpHighlightColor),
+      textColor: read<int>('textColor', d.textColor),
+      backgroundColor: read<int>('backgroundColor', d.backgroundColor),
+      showFocusGuides: read<bool>('showFocusGuides', d.showFocusGuides),
+    );
+  }
+
   /// Create a copy with modified fields
   RSVPSettings copyWith({
     int? wordsPerMinute,
