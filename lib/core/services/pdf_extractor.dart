@@ -56,40 +56,4 @@ class PdfExtractor {
         .replaceAllMapped(_hyphenatedLineBreak, (m) => '${m[1]}${m[2]}')
         .replaceAll('\u00AD', '');
   }
-
-  /// Extract text from specific page range
-  ///
-  /// [bytes] - PDF file as bytes
-  /// [startPage] - Starting page index (0-based)
-  /// [endPage] - Ending page index (inclusive)
-  static String extractTextFromPages(
-    Uint8List bytes, {
-    required int startPage,
-    required int endPage,
-  }) {
-    final document = PdfDocument(inputBytes: bytes);
-
-    try {
-      final extractor = PdfTextExtractor(document);
-      final maxPage = document.pages.count - 1;
-
-      // Clamp page indices
-      final start = startPage.clamp(0, maxPage);
-      final end = endPage.clamp(0, maxPage);
-
-      return extractor.extractText(startPageIndex: start, endPageIndex: end);
-    } finally {
-      document.dispose();
-    }
-  }
-
-  /// Get the number of pages in a PDF document
-  static int getPageCount(Uint8List bytes) {
-    final document = PdfDocument(inputBytes: bytes);
-    try {
-      return document.pages.count;
-    } finally {
-      document.dispose();
-    }
-  }
 }
