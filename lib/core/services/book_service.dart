@@ -88,8 +88,8 @@ class BookService {
         final coverAsset = (seriesName != null ? coverFor(seriesName) : null) ??
             coverFor(fileNameWithoutExt);
 
-        // Read author from second line if available
-        String author = 'Franz Kafka'; // Default
+        // Read author from second line if available (empty if unknown)
+        String author = '';
         if (lines.length > 1) {
           final secondLine = lines[1].trim();
           if (secondLine.isNotEmpty && !secondLine.startsWith('http') && secondLine.length < 100) {
