@@ -46,6 +46,8 @@ flutter:
     - assets/books/
     # Arabic Quran text (Tanzil Project), one file per surah
     - assets/quran/
+    # Speed test passages and exam practice paragraphs
+    - assets/content/
     # Default reading font, bundled so it works offline (google_fonts uses
     # these files instead of downloading RobotoMono-Regular/Bold)
     - assets/google_fonts/

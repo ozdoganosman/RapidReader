@@ -1,9 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rapid_reader/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   testWidgets('App launches and shows the library', (WidgetTester tester) async {
+    SharedPreferences.setMockInitialValues({});
+
     // The banner ad talks to the native AdMob plugin; answer its calls
     tester.binding.defaultBinaryMessenger.setMockMessageHandler(
       'plugins.flutter.io/google_mobile_ads',

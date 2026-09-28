@@ -15,6 +15,10 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
 - **Kendi metnin:** Başlık, metin ve isteğe bağlı kapak resmiyle kütüphaneye eklenir
   (cihazda Hive ile, web'de IndexedDB'de saklanır; uzun kitaplar da sığar).
   Metin yazılabilir, yapıştırılabilir ya da TXT, PDF veya EPUB dosyasından yüklenebilir.
+- **İstatistik, günlük hedef ve seri:** Okunan kelime ve süre günlük tutulur; son 7 gün,
+  toplam süre, ortalama hız ve hedefin art arda tutturulduğu gün sayısı (seri) gösterilir.
+- **Okuma hızı testi:** Kısa bir metin normal okunur, ardından 4 anlama sorusu gelir.
+  Dakikadaki kelime, anlama oranı ve önerilen hızlı okuma başlangıç hızı gösterilir.
 - **Kaldığın yerden devam:** Her kitabın ve bölümün okuma konumu ile ayarlar cihazda saklanır.
 - **Okuma ekranı:** Dokun-oynat/duraklat, kaydırarak 10 kelime ileri/geri, konum çubuğu
   ve önizleme, sayfa görünümü, kalan/toplam süre, okurken ekranın kapanmaması (Android).

@@ -18,6 +18,7 @@ import '../../core/models/rsvp_settings.dart';
 import '../../core/models/word_token.dart';
 import '../../core/services/ad_service.dart';
 import '../../core/services/book_service.dart';
+import '../../core/services/reading_stats.dart';
 import '../../core/services/reading_storage.dart';
 import '../../core/services/rsvp_engine.dart';
 import '../../core/utils/text_parser.dart';
@@ -111,6 +112,10 @@ class _ReaderScreenState extends State<ReaderScreen> {
   int _previewIndex = 0;
   bool _showContextView = false;
 
+  /// Start of the current reading session (while playing), for the stats
+  DateTime? _sessionStart;
+  int _sessionStartIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -170,6 +175,14 @@ class _ReaderScreenState extends State<ReaderScreen> {
       // Report progress
       widget.onProgressChanged?.call(_engine.state.currentIndex);
 
+      // Reading time and words for the stats
+      if (_engine.state.isPlaying && _sessionStart == null) {
+        _sessionStart = DateTime.now();
+        _sessionStartIndex = _engine.state.currentIndex;
+      } else if (!_engine.state.isPlaying) {
+        _endSession();
+      }
+
       // Count finished chapters for the interstitial ad (every 3rd one)
       final isComplete = _engine.state.isComplete;
       if (isComplete && !_wasComplete) {
@@ -208,6 +221,22 @@ class _ReaderScreenState extends State<ReaderScreen> {
     _engine.seekToIndex(index);
   }
 
+  /// Add the words read since playback started to the reading stats
+  void _endSession() {
+    final start = _sessionStart;
+    if (start == null) return;
+    _sessionStart = null;
+
+    final state = _engine.state;
+    final end = state.isComplete ? _tokens.length : state.currentIndex;
+    if (end <= _sessionStartIndex) return;
+    var words = 0;
+    for (var i = _sessionStartIndex; i < end && i < _tokens.length; i++) {
+      words += _tokens[i].word.split(' ').length; // a token can be a word group
+    }
+    ReadingStats.addReading(words: words, time: DateTime.now().difference(start));
+  }
+
   /// Save the reading position of the current book
   void _saveProgress() {
     final book = widget.currentBook;
@@ -227,6 +256,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
   @override
   void dispose() {
+    _endSession();
     _saveProgress();
     _lifecycleListener.dispose();
     _engine.removeListener(_onEngineStateChanged);
