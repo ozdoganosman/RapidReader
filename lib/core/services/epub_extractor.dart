@@ -26,77 +26,114 @@ class EpubExtractor {
     }
 
     // Extract text from chapters
+    final chapterBuffer = StringBuffer();
     if (book.Chapters != null) {
+      final seenFiles = <String>{};
       for (final chapter in book.Chapters!) {
-        _extractChapterText(chapter, buffer);
+        _extractChapterText(chapter, chapterBuffer, seenFiles);
       }
     }
 
     // If no chapters, try to extract from content
-    if (buffer.isEmpty && book.Content != null) {
+    if (chapterBuffer.toString().trim().isEmpty && book.Content != null) {
       final html = book.Content!.Html;
       if (html != null) {
         for (final entry in html.entries) {
           final text = stripHtml(entry.value.Content ?? '');
           if (text.isNotEmpty) {
-            buffer.writeln(text);
-            buffer.writeln();
+            chapterBuffer.writeln(text);
+            chapterBuffer.writeln();
           }
         }
       }
     }
 
+    buffer.write(chapterBuffer);
     return buffer.toString().trim();
   }
 
   /// Recursively extract text from a chapter and its subchapters
-  static void _extractChapterText(EpubChapter chapter, StringBuffer buffer) {
-    // Add chapter title
-    if (chapter.Title != null && chapter.Title!.isNotEmpty) {
-      buffer.writeln();
-      buffer.writeln(chapter.Title);
-      buffer.writeln();
-    }
+  static void _extractChapterText(
+    EpubChapter chapter,
+    StringBuffer buffer,
+    Set<String> seenFiles,
+  ) {
+    // Sub-chapters that point to an anchor inside an already extracted file
+    // carry the whole file again as HtmlContent; skip them to avoid duplicates
+    final fileName = chapter.ContentFileName;
+    final isNewFile = fileName == null || seenFiles.add(fileName);
 
-    // Add chapter content
-    if (chapter.HtmlContent != null && chapter.HtmlContent!.isNotEmpty) {
-      final text = stripHtml(chapter.HtmlContent!);
-      if (text.isNotEmpty) {
-        buffer.writeln(text);
+    if (isNewFile) {
+      // Add chapter title
+      if (chapter.Title != null && chapter.Title!.isNotEmpty) {
+        buffer.writeln();
+        buffer.writeln(chapter.Title);
+        buffer.writeln();
+      }
+
+      // Add chapter content
+      if (chapter.HtmlContent != null && chapter.HtmlContent!.isNotEmpty) {
+        final text = stripHtml(chapter.HtmlContent!);
+        if (text.isNotEmpty) {
+          buffer.writeln(text);
+          buffer.writeln();
+        }
       }
     }
 
     // Process subchapters
     if (chapter.SubChapters != null) {
       for (final subChapter in chapter.SubChapters!) {
-        _extractChapterText(subChapter, buffer);
+        _extractChapterText(subChapter, buffer, seenFiles);
       }
     }
   }
 
-  /// Remove HTML tags and decode entities
+  /// Convert XHTML to plain text, keeping paragraph structure
+  ///
+  /// Block elements (p, div, h1-h6, li, ...) become paragraph breaks (blank
+  /// line), `<br>` becomes a line break, inline tags are removed without
+  /// adding spaces and entities are decoded.
   @visibleForTesting
   static String stripHtml(String html) {
-    // Remove script and style tags with their content
+    // Drop <head> (holds <title>) and script/style blocks with their content
     var result = html.replaceAll(
-      RegExp(r'<(script|style)[^>]*>.*?</\1>', caseSensitive: false, dotAll: true),
+      RegExp(r'<(head|script|style)\b[^>]*>.*?</\1\s*>', caseSensitive: false, dotAll: true),
       '',
     );
 
-    // Remove all HTML tags
-    result = result.replaceAll(RegExp(r'<[^>]+>'), ' ');
+    // Line breaks in the source are ordinary whitespace in HTML
+    result = result.replaceAll(RegExp(r'\s+'), ' ');
+
+    // Block-level elements separate paragraphs, <br> breaks a line
+    result = result.replaceAll(
+      RegExp(
+        r'</?(?:p|div|h[1-6]|li|ul|ol|dl|dt|dd|blockquote|section|article|aside|header|footer|figure|figcaption|table|tr|pre|hr|body)\b[^>]*>',
+        caseSensitive: false,
+      ),
+      '\n\n',
+    );
+    result = result.replaceAll(RegExp(r'<br\b[^>]*>', caseSensitive: false), '\n');
+    result = result.replaceAll(RegExp(r'</?(?:td|th)\b[^>]*>', caseSensitive: false), ' ');
+
+    // Remove remaining (inline) tags without adding spaces, so drop caps
+    // like <span>B</span>ir stay a single word
+    result = result.replaceAll(RegExp(r'<[^>]*>'), '');
 
     // Decode common HTML entities
     result = decodeHtmlEntities(result);
 
-    // Normalize whitespace
-    result = result.replaceAll(RegExp(r'\s+'), ' ');
+    // Tidy up: trim lines, drop empty lines and paragraphs
+    final paragraphs = <String>[];
+    for (final paragraph in result.split(RegExp(r'\n[ \t]*\n'))) {
+      final lines = paragraph
+          .split('\n')
+          .map((line) => line.replaceAll(RegExp(r'[ \t\u00A0]+'), ' ').trim())
+          .where((line) => line.isNotEmpty);
+      if (lines.isNotEmpty) paragraphs.add(lines.join('\n'));
+    }
 
-    // Split into lines and trim each
-    final lines = result.split(RegExp(r'\n+'));
-    final cleanedLines = lines.map((line) => line.trim()).where((line) => line.isNotEmpty);
-
-    return cleanedLines.join('\n');
+    return paragraphs.join('\n\n');
   }
 
   /// Decode HTML entities to regular characters
