@@ -13,6 +13,7 @@ const _settings = RSVPSettings(fontFamily: 'sans');
 Future<void> _pumpReader(
   WidgetTester tester,
   String content, {
+  RSVPSettings settings = _settings,
   ValueChanged<RSVPSettings>? onSettingsChanged,
 }) async {
   // wakelock_plus talks to the platform through a pigeon channel
@@ -23,7 +24,7 @@ Future<void> _pumpReader(
   );
 
   await tester.pumpWidget(MaterialApp(
-    home: ReaderScreen(content: content, settings: _settings, onSettingsChanged: onSettingsChanged),
+    home: ReaderScreen(content: content, settings: settings, onSettingsChanged: onSettingsChanged),
   ));
 }
 
@@ -64,6 +65,14 @@ void main() {
     await tester.pump(const Duration(seconds: 10));
 
     expect(AdService().readingSessionCount, (before + 1) % 3);
+  });
+
+  testWidgets('with word groups the time estimate still counts words', (tester) async {
+    await _pumpReader(tester, List.filled(60, 'kelime').join(' '), settings: _settings.copyWith(chunkSize: 2));
+
+    // 60 words at 300 WPM, shown as 30 groups of two
+    expect(find.text('Kalan: 0 dk 12 sn / Toplam: 0 dk 12 sn'), findsOneWidget);
+    expect(find.text('1 / 30'), findsOneWidget);
   });
 
   group('read-aloud', () {

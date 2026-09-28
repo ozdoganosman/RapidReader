@@ -72,7 +72,7 @@ class ORPCalculator {
   /// Split word into three parts for ORP display
   ///
   /// Returns before, orp character, and after parts
-  /// For chunks (multi-word), calculates ORP on the middle word
+  /// For chunks (multi-word), the ORP is near the middle of the chunk
   static ORPWordParts splitForDisplay(String text) {
     if (text.isEmpty) {
       return const ORPWordParts(before: '', orp: '', after: '');
@@ -99,42 +99,48 @@ class ORPCalculator {
     );
   }
 
-  /// Split a chunk (multi-word text) for ORP display
-  /// ORP is calculated on the middle word of the chunk
+  /// Split a chunk (several words) for ORP display
+  ///
+  /// The ORP is the letter nearest to the middle of the chunk (but not the
+  /// first letter of a later word), so the chunk is centered and the eye
+  /// rests between its words. A token that is one
+  /// word with a spaced dash ("kelime —") keeps the word's own ORP.
   static ORPWordParts _splitChunkForDisplay(String text, List<String> words) {
-    // Find the target word index (middle word, or slightly right of center)
-    // For 2 words: use word index 1 (second word)
-    // For 3 words: use word index 1 (middle word)
-    final targetWordIndex = words.length ~/ 2;
-    final targetWord = words[targetWordIndex];
-
-    // Calculate ORP for the target word
-    final safeWordOrpIndex = orpIndexOf(targetWord);
-
-    // Build the before part: all words before target + beginning of target word
-    final beforeWords = words.sublist(0, targetWordIndex);
-    final beforePart = beforeWords.isNotEmpty
-        ? '${beforeWords.join(' ')} ${targetWord.substring(0, safeWordOrpIndex)}'
-        : targetWord.substring(0, safeWordOrpIndex);
-
-    // The ORP character
-    final orpChar = targetWord[safeWordOrpIndex];
-
-    // Build the after part: rest of target word + all words after target
-    final afterTargetWord = safeWordOrpIndex + 1 < targetWord.length
-        ? targetWord.substring(safeWordOrpIndex + 1)
-        : '';
-    final afterWords = words.sublist(targetWordIndex + 1);
-    final afterPart = afterWords.isNotEmpty
-        ? '$afterTargetWord ${afterWords.join(' ')}'
-        : afterTargetWord;
+    final int index;
+    final realWords = words.where(hasLetter).length;
+    if (realWords <= 1) {
+      var offset = 0;
+      for (final word in words) {
+        if (hasLetter(word) || realWords == 0) break;
+        offset += word.length + 1;
+      }
+      final word = text.substring(offset).split(' ').first;
+      index = offset + orpIndexOf(word);
+    } else {
+      final middle = (text.length - 1) / 2;
+      var best = 0;
+      for (var i = 0; i < text.length; i++) {
+        // Not the first letter of a later word: the space before it would
+        // end the right-aligned part and not be drawn
+        if (!_isLetter(text[i]) || (i > 0 && text[i - 1] == ' ')) continue;
+        if (!_isLetter(text[best]) || (i - middle).abs() < (best - middle).abs()) best = i;
+      }
+      index = best;
+    }
 
     return ORPWordParts(
-      before: beforePart,
-      orp: orpChar,
-      after: afterPart,
+      before: text.substring(0, index),
+      orp: text[index],
+      after: index + 1 < text.length ? text.substring(index + 1) : '',
     );
   }
+
+  static final _letterOrDigit = RegExp(r'[\p{L}\p{N}]', unicode: true);
+
+  static bool _isLetter(String char) => _letterOrDigit.hasMatch(char);
+
+  /// Whether [word] has a letter or digit (is not only punctuation)
+  static bool hasLetter(String word) => _letterOrDigit.hasMatch(word);
 
   /// Index of the ORP character in a single [word]
   ///

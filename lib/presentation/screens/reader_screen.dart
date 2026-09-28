@@ -110,6 +110,10 @@ class _ReaderScreenState extends State<ReaderScreen> {
   bool _wasComplete = false;
   late RSVPSettings _settings;
   late List<WordToken> _tokens;
+
+  /// Number of words before each token (a chunk holds several words), with
+  /// the total at the end
+  late List<int> _wordsBefore;
   bool _showControls = true;
   bool _isDraggingSlider = false;
   int _previewIndex = 0;
@@ -133,6 +137,10 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
     // Parse text into tokens
     _tokens = TextParser.parse(widget.content, chunkSize: _settings.chunkSize);
+    _wordsBefore = [0];
+    for (final token in _tokens) {
+      _wordsBefore.add(_wordsBefore.last + token.chunkSize);
+    }
 
     // Initialize engine
     _engine.initialize(
@@ -281,12 +289,9 @@ class _ReaderScreenState extends State<ReaderScreen> {
     _sessionStart = null;
 
     final state = _engine.state;
-    final end = state.isComplete ? _tokens.length : state.currentIndex;
+    final end = state.isComplete ? _tokens.length : state.currentIndex.clamp(0, _tokens.length);
     if (end <= _sessionStartIndex) return;
-    var words = 0;
-    for (var i = _sessionStartIndex; i < end && i < _tokens.length; i++) {
-      words += _tokens[i].word.split(' ').length; // a token can be a word group
-    }
+    final words = _wordsBefore[end] - _wordsBefore[_sessionStartIndex];
     ReadingStats.addReading(words: words, time: DateTime.now().difference(start));
   }
 
@@ -529,9 +534,10 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
   Widget _buildSpeedControl(Color textColor, Color accentColor) {
     // Calculate estimated reading time in seconds
-    final remainingWords = _tokens.length - _engine.state.currentIndex;
+    final totalWords = _wordsBefore.last;
+    final remainingWords = totalWords - _wordsBefore[_engine.state.currentIndex.clamp(0, _tokens.length)];
     final wordsPerMinute = _effectiveWordsPerMinute;
-    final totalSeconds = (_tokens.length / wordsPerMinute * 60).round();
+    final totalSeconds = (totalWords / wordsPerMinute * 60).round();
     final remainingSeconds = (remainingWords / wordsPerMinute * 60).round();
     final aloud = _readingAloud;
 

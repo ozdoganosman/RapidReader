@@ -65,6 +65,9 @@ class ORPTextWidget extends StatelessWidget {
 
     final parts = ORPCalculator.splitForDisplay(word);
     final textScaler = MediaQuery.maybeTextScalerOf(context) ?? TextScaler.noScaling;
+    // The parts are drawn with the inherited text style merged in (the
+    // theme's letter spacing, for one), so they are measured with it too
+    final inherited = DefaultTextStyle.of(context).style;
 
     // Measure again once a font has loaded (the first word is often shown
     // before the reading font is ready; its old widths would clip it)
@@ -73,14 +76,14 @@ class ORPTextWidget extends StatelessWidget {
       builder: (context, _) => LayoutBuilder(
         builder: (context, constraints) {
           var size = fontSize;
-          var layout = _measure(parts, size, textScaler);
+          var layout = _measure(parts, size, textScaler, inherited);
 
           // Shrink long words (or chunks) so they fit instead of wrapping.
           // Leave room for the rounding (< 1px) and padding on each side.
           final maxWidth = constraints.maxWidth;
           for (var i = 0; i < 3 && maxWidth.isFinite && maxWidth > 8 && layout.totalWidth > maxWidth; i++) {
             size *= (maxWidth - 2 * (1 + _sidePadding)) / layout.contentWidth;
-            layout = _measure(parts, size, textScaler);
+            layout = _measure(parts, size, textScaler, inherited);
           }
 
           final baseStyle = _baseStyle(size);
@@ -100,6 +103,7 @@ class ORPTextWidget extends StatelessWidget {
                   style: baseStyle,
                   textAlign: TextAlign.right,
                   maxLines: 1,
+                  softWrap: false,
                 ),
               ),
 
@@ -108,6 +112,7 @@ class ORPTextWidget extends StatelessWidget {
                 parts.orp,
                 style: orpStyle,
                 maxLines: 1,
+                softWrap: false,
               ),
 
               // After ORP - left aligned against the ORP character
@@ -118,6 +123,7 @@ class ORPTextWidget extends StatelessWidget {
                   style: baseStyle,
                   textAlign: TextAlign.left,
                   maxLines: 1,
+                  softWrap: false,
                 ),
               ),
             ],
@@ -143,11 +149,11 @@ class ORPTextWidget extends StatelessWidget {
       );
 
   /// Measure the rendered widths of the three word parts at [size]
-  _ORPLayout _measure(ORPWordParts parts, double size, TextScaler textScaler) {
-    final baseStyle = _baseStyle(size);
+  _ORPLayout _measure(ORPWordParts parts, double size, TextScaler textScaler, TextStyle inherited) {
+    final baseStyle = inherited.merge(_baseStyle(size));
 
     final before = _textWidth(parts.before, baseStyle, textScaler);
-    final orp = _textWidth(parts.orp, _orpStyle(size), textScaler);
+    final orp = _textWidth(parts.orp, inherited.merge(_orpStyle(size)), textScaler);
     final after = _textWidth(parts.after, baseStyle, textScaler);
 
     final longestSide = before > after ? before : after;

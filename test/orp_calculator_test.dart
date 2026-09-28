@@ -27,10 +27,33 @@ void main() {
       expect(_orp('«Evet»'), '«E[v]et»');
     });
 
-    test('chunks use the middle word', () {
-      expect(_orp('bir iki'), 'bir i[k]i');
-      expect(_orp('bu bir kitap'), 'bu b[i]r kitap');
-      expect(_orp("ve O'na"), "ve O'[n]a");
+    test('chunks are focused on the letter nearest their middle', () {
+      expect(_orp('bir iki'), 'bi[r] iki');
+      expect(_orp('bu bir kitap'), 'bu bi[r] kitap');
+      expect(_orp('huzursuz düşlerden'), 'huzursu[z] düşlerden');
+      expect(_orp('uyandığında, kendini'), 'uyandığın[d]a, kendini');
+      // never on a space, apostrophe or punctuation, nor on the first letter
+      // of a later word (the space before it would not be drawn)
+      expect(_orp("ve O'na"), "v[e] O'na");
+      expect(_orp('Gregor Samsa bir'), 'Gregor S[a]msa bir');
+      expect(_orp('ah! ne'), 'a[h]! ne');
+    });
+
+    test('the part before the ORP of a chunk never ends with a space', () {
+      const text = 'Gregor Samsa bir sabah huzursuz düşlerden uyandığında o bu ve';
+      final words = text.split(' ');
+      for (var size = 2; size <= 3; size++) {
+        for (var i = 0; i + size <= words.length; i++) {
+          final parts = ORPCalculator.splitForDisplay(words.sublist(i, i + size).join(' '));
+          expect(parts.before.endsWith(' '), isFalse, reason: parts.toString());
+          expect(parts.orp, isNot(' '));
+        }
+      }
+    });
+
+    test('a word with a spaced dash keeps the word\'s own ORP', () {
+      expect(_orp('kelime —'), 'ke[l]ime —');
+      expect(_orp('— kitap'), '— k[i]tap');
     });
 
     test('punctuation-only tokens do not crash', () {

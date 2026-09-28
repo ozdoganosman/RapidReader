@@ -202,14 +202,20 @@ class TimingCalculator {
     required String word,
     bool isParagraphEnd = false,
   }) {
-    // Base duration from WPM (milliseconds per word)
-    final baseDuration = (60000 / config.baseWPM).round();
+    // Base duration from WPM (milliseconds per word); a chunk of several
+    // words is shown as long as its words together
+    final words = word.split(' ').where(ORPCalculator.hasLetter).toList();
+    final wordCount = words.length > 1 ? words.length : 1;
+    final baseDuration = (60000 / config.baseWPM).round() * wordCount;
 
     int duration = baseDuration;
 
-    // Apply length multiplier if adaptive speed is enabled
+    // Apply length multiplier if adaptive speed is enabled (for a chunk,
+    // by the average length of its words)
     if (config.adaptiveSpeed) {
-      final effectiveLength = ORPCalculator.getEffectiveLength(word);
+      final effectiveLength = wordCount > 1
+          ? (words.fold<int>(0, (sum, w) => sum + ORPCalculator.getEffectiveLength(w)) / wordCount).round()
+          : ORPCalculator.getEffectiveLength(word);
       final multiplier = _getLengthMultiplier(effectiveLength);
       duration = (baseDuration * multiplier).round();
     }

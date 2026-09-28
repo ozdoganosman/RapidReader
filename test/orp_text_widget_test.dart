@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rapid_reader/presentation/widgets/orp_text_widget.dart';
 
@@ -29,6 +30,8 @@ Future<void> _pumpDisplay(
 }
 
 void main() {
+  _themedTests();
+
   const screenCenter = 400.0;
 
   final focusGuide = find.byWidgetPredicate(
@@ -83,4 +86,23 @@ void main() {
     expect(orp.style?.fontFamily, 'OpenDyslexic');
     expect(tester.getCenter(find.text('i')).dx, moreOrLessEquals(screenCenter, epsilon: 0.5));
   });
+}
+
+/// Whether every part of the shown word fits its box (nothing wraps away
+/// or is cut off)
+bool _allPartsFit(WidgetTester tester) => tester
+    .renderObjectList<RenderParagraph>(find.descendant(of: find.byType(ORPTextWidget), matching: find.byType(RichText)))
+    .every((paragraph) => paragraph.getMaxIntrinsicWidth(double.infinity) <= paragraph.size.width + 0.01);
+
+void _themedTests() {
+  // In the app the text inherits the theme's text style (Material 3 body
+  // text has letter spacing); the parts must still fit their boxes
+  for (final word in ['huzursuz düşlerden', 'uyandığında, kendini', 'Birinci', 'bir sabah uyandı']) {
+    testWidgets('"$word" fits inside the app theme', (tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(body: RSVPDisplay(word: word, fontFamily: 'sans')),
+      ));
+      expect(_allPartsFit(tester), isTrue);
+    });
+  }
 }
