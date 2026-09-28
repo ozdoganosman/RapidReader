@@ -21,10 +21,8 @@ class AdService {
   // Real Ad IDs
   static const String _bannerAdUnitId = 'ca-app-pub-9234283093562204/3791543255';
 
-  // Real interstitial ad unit: create one in AdMob and put its id here.
-  // While it is empty, release builds show no interstitials (showing
-  // Google's test ads to real users would earn nothing).
-  static const String _interstitialAdUnitId = '';
+  // Real interstitial ad unit (empty: release builds show no interstitials)
+  static const String _interstitialAdUnitId = 'ca-app-pub-9234283093562204/3238738478';
 
   // Google's test interstitial, used in debug builds
   static const String _testInterstitialAdUnitId = 'ca-app-pub-3940256099942544/1033173712';
