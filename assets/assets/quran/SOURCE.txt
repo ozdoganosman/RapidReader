@@ -1,0 +1,15 @@
+Arapça Kur'an metni / Arabic Quran text
+
+Tanzil Quran Text (Simple)
+Copyright (C) Tanzil Project - https://tanzil.net
+License: Creative Commons Attribution 3.0
+
+The text is used verbatim. Tanzil's terms of use: verbatim copies may be
+copied and distributed but the text must not be changed; applications
+using it must clearly indicate the source (Tanzil Project) and link to
+tanzil.net so users can keep track of changes; the copyright notice must
+be included with the text. Updates: https://tanzil.net/updates/
+
+Files: ar_<surah number>.txt, one verse per line. The basmala that some
+distributions prefix to the first verse of each surah is shown by the app
+as a heading instead (as in Tanzil's own layout).
