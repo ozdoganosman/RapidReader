@@ -25,4 +25,27 @@ void main() {
     expect(text, contains('First page text.'));
     expect(text, contains('Second page text.'));
   });
+
+  group('PdfExtractor.joinHyphenatedLineBreaks', () {
+    test('joins words split across lines', () {
+      expect(PdfExtractor.joinHyphenatedLineBreaks('Kitap oku-\nmayı sever.'), 'Kitap okumayı sever.');
+      expect(PdfExtractor.joinHyphenatedLineBreaks('ağır bir bas-  \n  kı altında'), 'ağır bir baskı altında');
+      expect(PdfExtractor.joinHyphenatedLineBreaks('ka-\r\nlem'), 'kalem');
+    });
+
+    test('removes soft hyphens', () {
+      expect(PdfExtractor.joinHyphenatedLineBreaks('oku\u00AD\nma ve ya\u00ADzı'), 'okuma ve yazı');
+    });
+
+    test('keeps dashes that are not line-break hyphenation', () {
+      for (final text in [
+        'Doğu-\nBatı ilişkileri', // next line starts uppercase
+        'bir kelime -\nbaşka', // dash after a space
+        'son satır-\n\nyeni paragraf', // paragraph break
+        'e-posta adresi', // no line break
+      ]) {
+        expect(PdfExtractor.joinHyphenatedLineBreaks(text), text);
+      }
+    });
+  });
 }

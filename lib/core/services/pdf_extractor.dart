@@ -6,6 +6,7 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 /// Service for extracting text from PDF documents
@@ -32,10 +33,28 @@ class PdfExtractor {
         }
       }
 
-      return buffer.toString().trim();
+      return joinHyphenatedLineBreaks(buffer.toString().trim());
     } finally {
       document.dispose();
     }
+  }
+
+  /// Words hyphenated at a line break: "oku-" + newline + "ma"
+  static final _hyphenatedLineBreak = RegExp(
+    r'(\p{L})[-\u00AD][ \t]*\r?\n[ \t]*(\p{Ll})',
+    unicode: true,
+  );
+
+  /// Join words that the PDF layout hyphenated at the end of a line
+  ///
+  /// "oku-\nma" becomes "okuma". Only joined when the next line continues
+  /// with a lowercase letter, so "Doğu-\nBatı" and dashes before a new
+  /// sentence or list item are kept. Remaining soft hyphens are removed.
+  @visibleForTesting
+  static String joinHyphenatedLineBreaks(String text) {
+    return text
+        .replaceAllMapped(_hyphenatedLineBreak, (m) => '${m[1]}${m[2]}')
+        .replaceAll('\u00AD', '');
   }
 
   /// Extract text from specific page range
