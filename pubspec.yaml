@@ -10,9 +10,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # State Management
-  flutter_riverpod: ^2.5.1
-
   # File import (TXT/PDF/EPUB) for custom texts
   file_picker: ^8.0.0
   epubx: ^4.0.0

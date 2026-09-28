@@ -3,6 +3,7 @@
 /// Automatically scans and loads books from assets/books/ folder.
 library;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../models/book.dart';
@@ -111,7 +112,7 @@ class BookService {
         ));
       }
     } catch (e) {
-      print('BookService error: $e');
+      debugPrint('BookService error: $e');
     }
 
     return books;

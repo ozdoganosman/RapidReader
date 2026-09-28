@@ -3,16 +3,13 @@
 /// Shows all chapters in a book series.
 library;
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
 import 'reader_screen.dart';
 
-class ChapterListScreen extends ConsumerStatefulWidget {
+class ChapterListScreen extends StatefulWidget {
   final String seriesName;
   final List<Book> chapters;
   final RSVPSettings settings;
@@ -29,10 +26,10 @@ class ChapterListScreen extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<ChapterListScreen> createState() => _ChapterListScreenState();
+  State<ChapterListScreen> createState() => _ChapterListScreenState();
 }
 
-class _ChapterListScreenState extends ConsumerState<ChapterListScreen> {
+class _ChapterListScreenState extends State<ChapterListScreen> {
   /// Settings, updated when the speed is changed while reading a chapter
   late RSVPSettings _settings = widget.settings;
 
