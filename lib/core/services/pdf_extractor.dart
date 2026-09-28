@@ -13,7 +13,8 @@ class PdfExtractor {
   /// Extract all text content from a PDF document
   ///
   /// [bytes] - PDF file as bytes (works on web and mobile)
-  /// Returns extracted text as a single string
+  /// Returns extracted text as a single string. Pure Dart, so it can run
+  /// in a background isolate via `compute`.
   static String extractText(Uint8List bytes) {
     final document = PdfDocument(inputBytes: bytes);
 
