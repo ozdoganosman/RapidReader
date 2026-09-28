@@ -7,6 +7,7 @@ library;
 import 'dart:typed_data';
 
 import 'package:epubx/epubx.dart';
+import 'package:flutter/foundation.dart' show visibleForTesting;
 
 /// Service for extracting text from EPUB documents
 class EpubExtractor {
@@ -36,7 +37,7 @@ class EpubExtractor {
       final html = book.Content!.Html;
       if (html != null) {
         for (final entry in html.entries) {
-          final text = _stripHtml(entry.value.Content ?? '');
+          final text = stripHtml(entry.value.Content ?? '');
           if (text.isNotEmpty) {
             buffer.writeln(text);
             buffer.writeln();
@@ -59,7 +60,7 @@ class EpubExtractor {
 
     // Add chapter content
     if (chapter.HtmlContent != null && chapter.HtmlContent!.isNotEmpty) {
-      final text = _stripHtml(chapter.HtmlContent!);
+      final text = stripHtml(chapter.HtmlContent!);
       if (text.isNotEmpty) {
         buffer.writeln(text);
       }
@@ -74,7 +75,8 @@ class EpubExtractor {
   }
 
   /// Remove HTML tags and decode entities
-  static String _stripHtml(String html) {
+  @visibleForTesting
+  static String stripHtml(String html) {
     // Remove script and style tags with their content
     var result = html.replaceAll(
       RegExp(r'<(script|style)[^>]*>.*?</\1>', caseSensitive: false, dotAll: true),
@@ -85,7 +87,7 @@ class EpubExtractor {
     result = result.replaceAll(RegExp(r'<[^>]+>'), ' ');
 
     // Decode common HTML entities
-    result = _decodeHtmlEntities(result);
+    result = decodeHtmlEntities(result);
 
     // Normalize whitespace
     result = result.replaceAll(RegExp(r'\s+'), ' ');
@@ -98,7 +100,8 @@ class EpubExtractor {
   }
 
   /// Decode HTML entities to regular characters
-  static String _decodeHtmlEntities(String text) {
+  @visibleForTesting
+  static String decodeHtmlEntities(String text) {
     return text
         .replaceAll('&nbsp;', ' ')
         .replaceAll('&amp;', '&')
@@ -110,10 +113,10 @@ class EpubExtractor {
         .replaceAll('&mdash;', '—')
         .replaceAll('&ndash;', '–')
         .replaceAll('&hellip;', '...')
-        .replaceAll('&lsquo;', ''')
-        .replaceAll('&rsquo;', ''')
-        .replaceAll('&ldquo;', '"')
-        .replaceAll('&rdquo;', '"')
+        .replaceAll('&lsquo;', '\u2018')
+        .replaceAll('&rsquo;', '\u2019')
+        .replaceAll('&ldquo;', '\u201C')
+        .replaceAll('&rdquo;', '\u201D')
         .replaceAll('&bull;', '•')
         .replaceAll('&copy;', '©')
         .replaceAll('&reg;', '®')
