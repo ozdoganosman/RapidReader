@@ -73,21 +73,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         title: Text(
-          'Kaydedilmemis Degisiklikler',
+          'Kaydedilmemiş Değişiklikler',
           style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w400),
         ),
         content: Text(
-          'Ayarlarda yaptiginiz degisiklikler kaydedilmedi. Ne yapmak istersiniz?',
+          'Ayarlarda yaptığınız değişiklikler kaydedilmedi. Ne yapmak istersiniz?',
           style: TextStyle(color: Colors.black54),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop('cancel'),
-            child: Text('Iptal', style: TextStyle(color: Colors.black38)),
+            child: Text('İptal', style: TextStyle(color: Colors.black38)),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop('discard'),
-            child: Text('Cikis (Kaydetme)', style: TextStyle(color: Colors.red[400])),
+            child: Text('Çıkış (Kaydetme)', style: TextStyle(color: Colors.red[400])),
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop('save'),
@@ -96,7 +96,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
             ),
-            child: const Text('Kaydet ve Cik'),
+            child: const Text('Kaydet ve Çık'),
           ),
         ],
       ),
@@ -160,7 +160,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             // Reading Speed Section
             _buildSettingCard(
-              title: 'Okuma Hizi',
+              title: 'Okuma Hızı',
               children: [
                 _buildSliderSetting(
                   label: 'Kelime/Dakika (WPM)',
@@ -176,8 +176,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(height: 20),
                 _buildSwitchSetting(
-                  title: 'Adaptif Hiz',
-                  subtitle: 'Kisa kelimeler hizli, uzun kelimeler yavas',
+                  title: 'Adaptif Hız',
+                  subtitle: 'Kısa kelimeler hızlı, uzun kelimeler yavaş',
                   value: _currentSettings.adaptiveSpeed,
                   onChanged: (value) {
                     _updateSettings(_currentSettings.copyWith(adaptiveSpeed: value));
@@ -210,7 +210,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             // Display Settings
             _buildSettingCard(
-              title: 'Gorunum',
+              title: 'Görünüm',
               children: [
                 _buildSliderSetting(
                   label: 'Font Boyutu',
@@ -226,7 +226,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(height: 20),
                 _buildSwitchSetting(
                   title: 'ORP Vurgulama',
-                  subtitle: 'Odak noktasini kirmizi ile vurgula',
+                  subtitle: 'Odak noktasını kırmızı ile vurgula',
                   value: _currentSettings.showORPHighlight,
                   onChanged: (value) {
                     _updateSettings(_currentSettings.copyWith(showORPHighlight: value));
@@ -234,8 +234,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(height: 12),
                 _buildSwitchSetting(
-                  title: 'Odak Cizgileri',
-                  subtitle: 'Dikey hizalama cizgilerini goster',
+                  title: 'Odak Çizgileri',
+                  subtitle: 'Dikey hizalama çizgilerini göster',
                   value: _currentSettings.showFocusGuides,
                   onChanged: (value) {
                     _updateSettings(_currentSettings.copyWith(showFocusGuides: value));
@@ -250,13 +250,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildSettingCard(
               title: 'Font Ailesi',
               children: [
-                _buildFontOption('Roboto Mono', 'Monospace - Sabit genislik'),
+                _buildFontOption('Roboto Mono', 'Monospace - Sabit genişlik'),
                 const SizedBox(height: 8),
                 _buildFontOption('Roboto', 'Sans-serif - Modern'),
                 const SizedBox(height: 8),
                 _buildFontOption('Open Sans', 'Sans-serif - Okunabilir'),
                 const SizedBox(height: 8),
-                _buildFontOption('Noto Sans', 'Sans-serif - Cok dilli'),
+                _buildFontOption('Noto Sans', 'Sans-serif - Çok dilli'),
                 const SizedBox(height: 8),
                 _buildFontOption('Lato', 'Sans-serif - Zarif'),
                 const SizedBox(height: 8),
@@ -264,7 +264,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(height: 8),
                 _buildFontOption('Merriweather', 'Serif - Klasik'),
                 const SizedBox(height: 8),
-                _buildFontOption('Roboto Slab', 'Slab Serif - Guclu'),
+                _buildFontOption('Roboto Slab', 'Slab Serif - Güçlü'),
               ],
             ),
 
@@ -274,9 +274,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildSettingCard(
               title: 'Tema',
               children: [
-                _buildThemeOption('Karanlik', RSVPSettings.darkTheme),
+                _buildThemeOption('Karanlık', RSVPSettings.darkTheme),
                 const SizedBox(height: 8),
-                _buildThemeOption('Aydinlik', RSVPSettings.lightTheme),
+                _buildThemeOption('Aydınlık', RSVPSettings.lightTheme),
                 const SizedBox(height: 8),
                 _buildThemeOption('Sepia', RSVPSettings.sepiaTheme),
               ],
@@ -286,13 +286,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             // Micro-pause Settings
             _buildSettingCard(
-              title: 'Bilissel Duraklama',
+              title: 'Bilişsel Duraklama',
               children: [
                 _buildSwitchSetting(
                   title: 'Mikro-Duraklama',
                   subtitle: _currentSettings.microPauseInterval > 0
-                      ? 'Her ${_currentSettings.microPauseInterval} cumlede bir duraklama'
-                      : 'Devre disi',
+                      ? 'Her ${_currentSettings.microPauseInterval} cümlede bir duraklama'
+                      : 'Devre dışı',
                   value: _currentSettings.microPauseInterval > 0,
                   onChanged: (value) {
                     _updateSettings(_currentSettings.copyWith(
@@ -303,12 +303,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 if (_currentSettings.microPauseInterval > 0) ...[
                   const SizedBox(height: 20),
                   _buildSliderSetting(
-                    label: 'Duraklama Araligi',
+                    label: 'Duraklama Aralığı',
                     value: _currentSettings.microPauseInterval.toDouble(),
                     min: 3,
                     max: 15,
                     divisions: 12,
-                    displayValue: '${_currentSettings.microPauseInterval} cumle',
+                    displayValue: '${_currentSettings.microPauseInterval} cümle',
                     onChanged: (value) {
                       _updateSettings(_currentSettings.copyWith(microPauseInterval: value.round()));
                     },
@@ -337,7 +337,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Icon(Icons.refresh, size: 18, color: Colors.black45),
                       const SizedBox(width: 8),
                       Text(
-                        'Varsayilanlara Sifirla',
+                        'Varsayılanlara Sıfırla',
                         style: TextStyle(
                           color: Colors.black54,
                           fontSize: 13,
