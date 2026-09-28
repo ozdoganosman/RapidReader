@@ -150,65 +150,86 @@ class EpubExtractor {
     return paragraphs.join('\n\n');
   }
 
+  /// Named, decimal (&#305;) and hex (&#x131;) character references
+  static final _entityPattern = RegExp(r'&(#[0-9]+|#[xX][0-9a-fA-F]+|[a-zA-Z][a-zA-Z0-9]*);');
+
+  /// Named entities common in EPUB files, including Turkish letters
+  static const _namedEntities = {
+    'nbsp': ' ',
+    'amp': '&',
+    'lt': '<',
+    'gt': '>',
+    'quot': '"',
+    'apos': "'",
+    'mdash': '\u2014',
+    'ndash': '\u2013',
+    'hellip': '...',
+    'lsquo': '\u2018',
+    'rsquo': '\u2019',
+    'sbquo': '\u201A',
+    'ldquo': '\u201C',
+    'rdquo': '\u201D',
+    'bdquo': '\u201E',
+    'laquo': '\u00AB',
+    'raquo': '\u00BB',
+    'bull': '\u2022',
+    'middot': '\u00B7',
+    'copy': '\u00A9',
+    'reg': '\u00AE',
+    'trade': '\u2122',
+    'deg': '\u00B0',
+    'shy': '', // soft hyphen
+    'zwnj': '',
+    'zwj': '',
+    'ensp': ' ',
+    'emsp': ' ',
+    'thinsp': ' ',
+    // Turkish letters
+    'ccedil': 'ç',
+    'Ccedil': 'Ç',
+    'ouml': 'ö',
+    'Ouml': 'Ö',
+    'uuml': 'ü',
+    'Uuml': 'Ü',
+    'gbreve': 'ğ',
+    'Gbreve': 'Ğ',
+    'scedil': 'ş',
+    'Scedil': 'Ş',
+    'imath': 'ı',
+    'inodot': 'ı',
+    'Idot': 'İ',
+    'acirc': 'â',
+    'Acirc': 'Â',
+    'icirc': 'î',
+    'Icirc': 'Î',
+    'ucirc': 'û',
+    'Ucirc': 'Û',
+    'eacute': 'é',
+    'Eacute': 'É',
+  };
+
   /// Decode HTML entities to regular characters
+  ///
+  /// Every reference is decoded exactly once, so "&amp;lt;" becomes the
+  /// text "&lt;" rather than "<". Unknown entities are left as they are.
   @visibleForTesting
   static String decodeHtmlEntities(String text) {
-    return text
-        .replaceAll('&nbsp;', ' ')
-        .replaceAll('&amp;', '&')
-        .replaceAll('&lt;', '<')
-        .replaceAll('&gt;', '>')
-        .replaceAll('&quot;', '"')
-        .replaceAll('&apos;', "'")
-        .replaceAll('&#39;', "'")
-        .replaceAll('&mdash;', '—')
-        .replaceAll('&ndash;', '–')
-        .replaceAll('&hellip;', '...')
-        .replaceAll('&lsquo;', '\u2018')
-        .replaceAll('&rsquo;', '\u2019')
-        .replaceAll('&ldquo;', '\u201C')
-        .replaceAll('&rdquo;', '\u201D')
-        .replaceAll('&bull;', '•')
-        .replaceAll('&copy;', '©')
-        .replaceAll('&reg;', '®')
-        .replaceAll('&trade;', '™')
-        // Turkish characters
-        .replaceAll('&#305;', 'ı')
-        .replaceAll('&#287;', 'ğ')
-        .replaceAll('&#252;', 'ü')
-        .replaceAll('&#351;', 'ş')
-        .replaceAll('&#246;', 'ö')
-        .replaceAll('&#231;', 'ç')
-        .replaceAll('&#304;', 'İ')
-        .replaceAll('&#286;', 'Ğ')
-        .replaceAll('&#220;', 'Ü')
-        .replaceAll('&#350;', 'Ş')
-        .replaceAll('&#214;', 'Ö')
-        .replaceAll('&#199;', 'Ç')
-        // Numeric entities
-        .replaceAllMapped(
-          RegExp(r'&#(\d+);'),
-          (match) {
-            final code = int.tryParse(match.group(1) ?? '');
-            if (code != null && code > 0 && code < 65536) {
-              return String.fromCharCode(code);
-            }
-            return match.group(0) ?? '';
-          },
-        )
-        // Hex entities
-        .replaceAllMapped(
-          RegExp(r'&#x([0-9a-fA-F]+);'),
-          (match) {
-            final code = int.tryParse(match.group(1) ?? '', radix: 16);
-            if (code != null && code > 0 && code < 65536) {
-              return String.fromCharCode(code);
-            }
-            return match.group(0) ?? '';
-          },
-        );
-  }
+    return text.replaceAllMapped(_entityPattern, (match) {
+      final entity = match.group(1)!;
 
+      if (entity.startsWith('#')) {
+        final isHex = entity.length > 1 && (entity[1] == 'x' || entity[1] == 'X');
+        final code = isHex ? int.tryParse(entity.substring(2), radix: 16) : int.tryParse(entity.substring(1));
+        final isValid = code != null &&
+            code > 0 &&
+            code <= 0x10FFFF &&
+            (code < 0xD800 || code > 0xDFFF); // not a lone surrogate
+        return isValid ? String.fromCharCode(code) : match.group(0)!;
+      }
+
+      return _namedEntities[entity] ?? match.group(0)!;
+    });
+  }
 }
 
 /// Text and metadata extracted from an EPUB file

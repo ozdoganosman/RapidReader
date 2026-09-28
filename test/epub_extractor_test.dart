@@ -84,6 +84,23 @@ void main() {
     test('decodes numeric and hex entities', () {
       expect(EpubExtractor.decodeHtmlEntities('&#305;&#x15F;'), 'ış');
     });
+
+    test('decodes each entity only once', () {
+      expect(EpubExtractor.decodeHtmlEntities('&amp;lt;p&amp;gt;'), '&lt;p&gt;');
+      expect(EpubExtractor.decodeHtmlEntities('Tom &amp; Jerry'), 'Tom & Jerry');
+    });
+
+    test('decodes characters outside the Basic Multilingual Plane', () {
+      expect(EpubExtractor.decodeHtmlEntities('&#128512;&#x1F600;'), '😀😀');
+    });
+
+    test('decodes Turkish named entities and drops soft hyphens', () {
+      expect(EpubExtractor.decodeHtmlEntities('&Gbreve;&scedil;&inodot;&Idot; oku&shy;ma'), 'Ğşıİ okuma');
+    });
+
+    test('leaves unknown or invalid entities unchanged', () {
+      expect(EpubExtractor.decodeHtmlEntities('&foo; &#xD800; &#0;'), '&foo; &#xD800; &#0;');
+    });
   });
 
   group('EpubExtractor.stripHtml', () {
