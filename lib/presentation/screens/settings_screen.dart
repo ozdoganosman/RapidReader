@@ -6,11 +6,13 @@
 /// - Font settings
 /// - Theme/colors
 /// - Micro-pause settings
+/// - Read-aloud
 library;
 
 import 'package:flutter/material.dart';
 
 import '../../core/models/rsvp_settings.dart';
+import '../../core/services/narrator.dart';
 
 /// Settings screen for RSVP configuration
 class SettingsScreen extends StatefulWidget {
@@ -176,6 +178,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   value: _currentSettings.speedWarmUp,
                   onChanged: (value) {
                     _updateSettings(_currentSettings.copyWith(speedWarmUp: value));
+                  },
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Read-aloud
+            _buildSettingCard(
+              title: 'Sesli Okuma',
+              children: [
+                _buildSwitchSetting(
+                  title: 'Sesli Oku',
+                  subtitle: 'Metni cihazın Türkçe sesiyle okur; kelimeler sesle birlikte ilerler',
+                  value: _currentSettings.readAloud,
+                  onChanged: (value) {
+                    _updateSettings(_currentSettings.copyWith(readAloud: value));
+                  },
+                ),
+                const SizedBox(height: 20),
+                _buildSliderSetting(
+                  label: 'Konuşma Hızı',
+                  value: _currentSettings.speechRate,
+                  min: RSVPSettings.minSpeechRate,
+                  max: RSVPSettings.maxSpeechRate,
+                  divisions: (RSVPSettings.maxSpeechRate - RSVPSettings.minSpeechRate) ~/
+                      RSVPSettings.speechRateStep,
+                  displayValue: speechRateLabel(_currentSettings.speechRate),
+                  onChanged: (value) {
+                    final rate = (value / RSVPSettings.speechRateStep).round() * RSVPSettings.speechRateStep;
+                    _updateSettings(_currentSettings.copyWith(speechRate: rate));
                   },
                 ),
               ],

@@ -5,6 +5,7 @@
 /// - Adaptive timing
 /// - Progress tracking
 /// - Micro-pause insertion
+/// - Read-aloud playback, where a [Narrator] moves the words
 library;
 
 import 'dart:async';
@@ -14,6 +15,7 @@ import 'package:flutter/foundation.dart';
 import '../models/rsvp_settings.dart';
 import '../models/word_token.dart';
 import '../utils/timing_calculator.dart';
+import 'narrator.dart';
 
 /// Playback state for the RSVP engine
 enum PlaybackStatus {
@@ -118,8 +120,34 @@ class RSVPEngine extends ChangeNotifier {
   /// time to refocus); this keeps that word from being counted twice.
   int _countedSentenceIndex = -1;
 
+  /// Speech that moves the words while playing (read-aloud); null for timed
+  /// playback
+  Narrator? _narrator;
+
+  /// Number of the current narration; callbacks of older ones are ignored
+  int _narration = 0;
+
   /// Current playback state
   RSVPPlaybackState get state => _state;
+
+  /// The narrator used while playing, if read-aloud is on
+  Narrator? get narrator => _narrator;
+
+  /// Use [narrator] for playback (null: timed playback); pauses first
+  void setNarrator(Narrator? narrator) {
+    if (identical(narrator, _narrator)) return;
+    pause();
+    _narrator = narrator;
+  }
+
+  /// Cancel the word timer and stop the narration
+  void _halt() {
+    _timer?.cancel();
+    if (_narrator != null) {
+      _narration++;
+      _narrator!.stop();
+    }
+  }
 
   /// Initialize the engine with tokens and configuration
   void initialize({
@@ -127,7 +155,7 @@ class RSVPEngine extends ChangeNotifier {
     TimingConfig config = const TimingConfig(),
     int startIndex = 0,
   }) {
-    _timer?.cancel();
+    _halt();
     _countedSentenceIndex = -1;
     _tokens = tokens;
     _config = config;
@@ -172,14 +200,18 @@ class RSVPEngine extends ChangeNotifier {
     _state = _state.copyWith(status: PlaybackStatus.playing);
     _wordsSincePlay = 0;
     notifyListeners();
-    _scheduleNextWord();
+    if (_narrator != null) {
+      _startNarration();
+    } else {
+      _scheduleNextWord();
+    }
   }
 
   /// Pause playback
   void pause() {
     if (_state.status != PlaybackStatus.playing) return;
 
-    _timer?.cancel();
+    _halt();
     _state = _state.copyWith(status: PlaybackStatus.paused);
     notifyListeners();
   }
@@ -195,7 +227,7 @@ class RSVPEngine extends ChangeNotifier {
 
   /// Stop and reset to beginning
   void stop() {
-    _timer?.cancel();
+    _halt();
     _countedSentenceIndex = -1;
 
     if (_tokens.isEmpty) {
@@ -226,7 +258,7 @@ class RSVPEngine extends ChangeNotifier {
     if (_tokens.isEmpty) return;
 
     final wasPlaying = _state.isPlaying;
-    _timer?.cancel();
+    _halt();
 
     final newIndex = index.clamp(0, _tokens.length - 1);
 
@@ -284,6 +316,31 @@ class RSVPEngine extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Speak from the current word on, showing each word as it is spoken
+  void _startNarration() {
+    final narration = ++_narration;
+    _narrator!.speak(
+      _tokens,
+      _state.currentIndex,
+      onWord: (index) {
+        if (narration != _narration || !_state.isPlaying) return;
+        final i = index.clamp(0, _tokens.length - 1);
+        _state = _state.copyWith(currentIndex: i, currentToken: _tokens[i], progress: i / _tokens.length);
+        notifyListeners();
+      },
+      onDone: () {
+        if (narration != _narration || !_state.isPlaying) return;
+        _state = _state.copyWith(
+          status: PlaybackStatus.completed,
+          currentIndex: _tokens.length - 1,
+          currentToken: _tokens.last,
+          progress: 1.0,
+        );
+        notifyListeners();
+      },
+    );
+  }
+
   /// Schedule display of the next word
   void _scheduleNextWord() {
     final token = _tokens[_state.currentIndex];
@@ -339,7 +396,7 @@ class RSVPEngine extends ChangeNotifier {
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _halt();
     super.dispose();
   }
 }

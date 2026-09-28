@@ -1,4 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rapid_reader/core/models/word_token.dart';
+import 'package:rapid_reader/core/services/narrator.dart';
 import 'package:rapid_reader/core/services/rsvp_engine.dart';
 import 'package:rapid_reader/core/utils/text_parser.dart';
 import 'package:rapid_reader/core/utils/timing_calculator.dart';
@@ -110,5 +112,88 @@ void main() {
       expect(await wordsAfter(true, const Duration(seconds: 2)), lessThan(9));
     });
   });
+
+  group('narrator', () {
+    late _FakeNarrator narrator;
+    late RSVPEngine engine;
+
+    setUp(() {
+      narrator = _FakeNarrator();
+      engine = RSVPEngine()
+        ..initialize(tokens: TextParser.parse('Bir iki üç dört beş altı.'))
+        ..setNarrator(narrator);
+    });
+
+    tearDown(() => engine.dispose());
+
+    test('play speaks from the current word and shows the spoken words', () {
+      engine.seekToIndex(2);
+      engine.play();
+      expect(narrator.starts, [2]);
+
+      narrator.onWord!(4);
+      expect(engine.state.currentIndex, 4);
+      expect(engine.state.currentToken?.word, 'beş');
+      expect(engine.state.isPlaying, isTrue);
+
+      narrator.onDone!();
+      expect(engine.state.isComplete, isTrue);
+      expect(engine.state.progress, 1.0);
+    });
+
+    test('pause stops the speech and ignores its late callbacks', () {
+      engine.play();
+      final lateWord = narrator.onWord!;
+      engine.pause();
+      expect(narrator.stops, greaterThan(0));
+
+      lateWord(5);
+      expect(engine.state.currentIndex, 0);
+      expect(engine.state.status, PlaybackStatus.paused);
+    });
+
+    test('seeking while speaking restarts the speech at the new word', () {
+      engine.play();
+      final oldWord = narrator.onWord!;
+      engine.skipForward(3);
+
+      expect(narrator.starts, [0, 3]);
+      expect(engine.state.isPlaying, isTrue);
+      oldWord(1); // from the first speech: ignored
+      expect(engine.state.currentIndex, 3);
+    });
+
+    test('removing the narrator pauses and returns to timed playback', () {
+      engine.play();
+      engine.setNarrator(null);
+      expect(engine.state.isPlaying, isFalse);
+      expect(engine.narrator, isNull);
+      expect(narrator.stops, greaterThan(0));
+    });
+  });
 }
 
+class _FakeNarrator implements Narrator {
+  final starts = <int>[];
+  var stops = 0;
+  void Function(int index)? onWord;
+  void Function()? onDone;
+
+  @override
+  void speak(
+    List<WordToken> tokens,
+    int start, {
+    required void Function(int index) onWord,
+    required void Function() onDone,
+  }) {
+    starts.add(start);
+    this.onWord = onWord;
+    this.onDone = onDone;
+  }
+
+  @override
+  void stop() => stops++;
+
+  @override
+  void dispose() {}
+}

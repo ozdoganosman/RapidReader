@@ -33,6 +33,10 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
 - **Ayarlar:** Hız (100–1000 kelime/dakika), uyarlanabilir hız, kelime gruplama (1–3),
   mikro-duraklama, hız ısınması (yavaş başlayıp seçilen hıza çıkma), font ailesi ve boyutu
   (disleksi dostu OpenDyslexic dahil), ORP vurgusu, odak çizgileri, temalar (yüksek kontrast dahil).
+- **Sesli okuma:** Kulaklık düğmesiyle metin cihazın Türkçe sesiyle okunur; ekrandaki kelime
+  sesle birlikte ilerler (kelime bilgisi göndermeyen seslerde tahmini zamanla). Konuşma hızı
+  0,5x–2x arasında ayarlanır. Android'de cihazda Türkçe ses verisi olmalıdır (Ayarlar >
+  Metin okuma çıkışı); web'de tarayıcının Türkçe sesi kullanılır.
 - **Kur'an-ı Kerim:** Sure adına ya da numarasına göre arama, iniş sırası ile mushaf
   sırası arasında geçiş, her surenin Arapça metni (Tanzil Projesi, Amiri Quran yazı tipiyle).
 - **Türkçe desteği:** Kesme işaretli kelimeler (Türkiye'nin) tek kelime kalır; odak harfi
@@ -88,6 +92,8 @@ lib/
       custom_book_service.dart       Kullanıcının eklediği metinler
       reading_storage.dart           Ayarlar ve okuma konumları
       rsvp_engine.dart               Oynatma motoru (zamanlama, ilerleme)
+      narrator.dart, speech_narrator.dart
+                                     Sesli okuma (flutter_tts, cümle cümle)
       ad_service.dart                AdMob banner ve geçiş reklamı
       epub_extractor.dart, pdf_extractor.dart, text_file_decoder.dart,
       text_cleaner.dart,
