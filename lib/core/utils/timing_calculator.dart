@@ -197,6 +197,9 @@ class TimingCalculator {
   /// [isParagraphEnd] - Whether this word ends a paragraph
   /// [isSentenceEnd] - Whether the word ends a sentence, when known (a
   /// period after "Dr" or "19" does not)
+  /// [pauseScale] - Share of the punctuation and paragraph pauses to keep
+  /// (guided reading, where the whole sentence stays in view, needs only a
+  /// short one)
   ///
   /// Returns duration in milliseconds
   static int calculateDuration({
@@ -204,6 +207,7 @@ class TimingCalculator {
     required String word,
     bool isParagraphEnd = false,
     bool? isSentenceEnd,
+    double pauseScale = 1,
   }) {
     // Base duration from WPM (milliseconds per word); a chunk of several
     // words is shown as long as its words together
@@ -212,6 +216,7 @@ class TimingCalculator {
     final baseDuration = (60000 / config.baseWPM).round() * wordCount;
 
     int duration = baseDuration;
+    var pause = 0;
 
     // Apply length multiplier if adaptive speed is enabled (for a chunk,
     // by the average length of its words)
@@ -227,13 +232,14 @@ class TimingCalculator {
     // be an abbreviation or ordinal: [isSentenceEnd] false)
     final punctuation = detectPunctuation(word);
     if (punctuation != PunctuationType.sentenceEnd || isSentenceEnd != false) {
-      duration += _punctuationPauses[punctuation]!;
+      pause += _punctuationPauses[punctuation]!;
     }
 
     // Add paragraph pause
     if (isParagraphEnd) {
-      duration += _paragraphPause;
+      pause += _paragraphPause;
     }
+    duration += (pause * pauseScale).round();
 
     // Add extra time for URLs
     if (isUrl(word)) {

@@ -35,4 +35,14 @@ void main() {
     expect(TimingCalculator.calculateDuration(config: config, word: 'geldi.', isSentenceEnd: true), 400);
     expect(TimingCalculator.calculateDuration(config: config, word: 'geldi.'), 400);
   });
+
+  test('guided reading keeps a share of the pauses', () {
+    const config = TimingConfig(baseWPM: 300, adaptiveSpeed: false);
+    expect(TimingCalculator.calculateDuration(config: config, word: 'geldi.', pauseScale: 0.25), 250);
+    expect(
+      TimingCalculator.calculateDuration(config: config, word: 'geldi.', isParagraphEnd: true, pauseScale: 0.25),
+      350,
+    );
+    expect(TimingCalculator.calculateDuration(config: config, word: 'geldi.', isParagraphEnd: true), 800);
+  });
 }

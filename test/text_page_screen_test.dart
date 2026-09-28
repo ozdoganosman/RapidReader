@@ -182,10 +182,12 @@ void main() {
     await tester.pump();
     expect(highlighted(tester), ['Birinci']);
 
-    // 300 WPM: 200 ms a word (+ the paragraph pause)
+    // 300 WPM: 200 ms a word, + a quarter of the 400 ms paragraph pause
     await tester.pump(const Duration(milliseconds: 210));
     expect(highlighted(tester), ['Bölüm']);
-    await tester.pump(const Duration(milliseconds: 610));
+    await tester.pump(const Duration(milliseconds: 280));
+    expect(highlighted(tester), ['Bölüm']);
+    await tester.pump(const Duration(milliseconds: 30));
     expect(highlighted(tester), ['Bir']);
 
     await tester.tap(find.byIcon(Icons.pause_circle));

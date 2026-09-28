@@ -260,7 +260,9 @@ class _TextPageScreenState extends State<TextPageScreen> {
     setState(() {});
   }
 
-  /// Show the current word as long as the speed reader would
+  /// Show the current word as long as the speed reader would, with shorter
+  /// stops at sentence and paragraph ends: the page shows where the
+  /// sentence goes on
   void _schedulePace() {
     final spans = _wordSpans[_paceParagraph];
     final (start, end) = spans[_paceWord];
@@ -268,6 +270,7 @@ class _TextPageScreenState extends State<TextPageScreen> {
       config: TimingConfig(baseWPM: _settings.wordsPerMinute, adaptiveSpeed: _settings.adaptiveSpeed),
       word: _paragraphs[_paceParagraph].substring(start, end),
       isParagraphEnd: _paceWord == spans.length - 1,
+      pauseScale: 0.25,
     );
     _pacer = Timer(Duration(milliseconds: duration), _paceNext);
   }
