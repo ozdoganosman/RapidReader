@@ -12,7 +12,7 @@ library;
 import 'package:flutter/material.dart';
 
 import '../../core/models/rsvp_settings.dart';
-import '../../core/services/narrator.dart';
+import '../../core/services/read_aloud_player.dart';
 import '../theme/app_colors.dart';
 import '../widgets/orp_text_widget.dart';
 
@@ -191,15 +191,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildSettingCard(
               title: 'Sesli Okuma',
               children: [
-                _buildSwitchSetting(
-                  title: 'Sesli Oku',
-                  subtitle: 'Metni cihazın Türkçe sesiyle okur; kelimeler sesle birlikte ilerler',
-                  value: _currentSettings.readAloud,
-                  onChanged: (value) {
-                    _updateSettings(_currentSettings.copyWith(readAloud: value));
-                  },
-                ),
-                const SizedBox(height: 20),
                 _buildSliderSetting(
                   label: 'Konuşma Hızı',
                   value: _currentSettings.speechRate,

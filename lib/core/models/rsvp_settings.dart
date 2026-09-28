@@ -49,11 +49,7 @@ class RSVPSettings extends Equatable {
   /// Start each play slower and speed up to [wordsPerMinute]
   final bool speedWarmUp;
 
-  /// Read the text aloud with the device's Turkish voice; the words follow
-  /// the speech instead of [wordsPerMinute]
-  final bool readAloud;
-
-  /// Speech speed in read-aloud mode (1.0 is the voice's normal speed)
+  /// Speech speed in the listening mode (1.0 is the voice's normal speed)
   final double speechRate;
 
   const RSVPSettings({
@@ -72,7 +68,6 @@ class RSVPSettings extends Equatable {
     this.backgroundColor = 0xFF121212, // Dark gray
     this.showFocusGuides = true,
     this.speedWarmUp = true,
-    this.readAloud = false,
     this.speechRate = 1.0,
   });
 
@@ -141,7 +136,6 @@ class RSVPSettings extends Equatable {
         'backgroundColor': backgroundColor,
         'showFocusGuides': showFocusGuides,
         'speedWarmUp': speedWarmUp,
-        'readAloud': readAloud,
         'speechRate': speechRate,
       };
 
@@ -160,8 +154,7 @@ class RSVPSettings extends Equatable {
     final microPauseInterval = read<int>('microPauseInterval', d.microPauseInterval);
 
     return RSVPSettings(
-      wordsPerMinute: read<int>('wordsPerMinute', d.wordsPerMinute)
-          .clamp(minWordsPerMinute, maxWordsPerMinute),
+      wordsPerMinute: read<int>('wordsPerMinute', d.wordsPerMinute).clamp(minWordsPerMinute, maxWordsPerMinute),
       chunkSize: read<int>('chunkSize', d.chunkSize).clamp(1, 3),
       adaptiveSpeed: read<bool>('adaptiveSpeed', d.adaptiveSpeed),
       showORPHighlight: read<bool>('showORPHighlight', d.showORPHighlight),
@@ -175,7 +168,6 @@ class RSVPSettings extends Equatable {
       backgroundColor: read<int>('backgroundColor', d.backgroundColor),
       showFocusGuides: read<bool>('showFocusGuides', d.showFocusGuides),
       speedWarmUp: read<bool>('speedWarmUp', d.speedWarmUp),
-      readAloud: read<bool>('readAloud', d.readAloud),
       speechRate: read<num>('speechRate', d.speechRate).toDouble().clamp(minSpeechRate, maxSpeechRate),
     );
   }
@@ -196,7 +188,6 @@ class RSVPSettings extends Equatable {
     int? backgroundColor,
     bool? showFocusGuides,
     bool? speedWarmUp,
-    bool? readAloud,
     double? speechRate,
   }) {
     return RSVPSettings(
@@ -214,7 +205,6 @@ class RSVPSettings extends Equatable {
       backgroundColor: backgroundColor ?? this.backgroundColor,
       showFocusGuides: showFocusGuides ?? this.showFocusGuides,
       speedWarmUp: speedWarmUp ?? this.speedWarmUp,
-      readAloud: readAloud ?? this.readAloud,
       speechRate: speechRate ?? this.speechRate,
     );
   }
@@ -235,7 +225,6 @@ class RSVPSettings extends Equatable {
         backgroundColor,
         showFocusGuides,
         speedWarmUp,
-        readAloud,
         speechRate,
       ];
 }

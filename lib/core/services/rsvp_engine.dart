@@ -5,7 +5,6 @@
 /// - Adaptive timing
 /// - Progress tracking
 /// - Micro-pause insertion
-/// - Read-aloud playback, where a [Narrator] moves the words
 library;
 
 import 'dart:async';
@@ -15,7 +14,6 @@ import 'package:flutter/foundation.dart';
 import '../models/rsvp_settings.dart';
 import '../models/word_token.dart';
 import '../utils/timing_calculator.dart';
-import 'narrator.dart';
 
 /// Playback state for the RSVP engine
 enum PlaybackStatus {
@@ -118,37 +116,11 @@ class RSVPEngine extends ChangeNotifier {
   /// time to refocus); this keeps that word from being counted twice.
   int _countedSentenceIndex = -1;
 
-  /// Speech that moves the words while playing (read-aloud); null for timed
-  /// playback
-  Narrator? _narrator;
-
-  /// Number of the current narration; callbacks of older ones are ignored
-  int _narration = 0;
-
   /// Current playback state
   RSVPPlaybackState get state => _state;
 
-  /// The narrator used while playing, if read-aloud is on
-  Narrator? get narrator => _narrator;
-
-  /// Use [narrator] for playback (null: timed playback); playback that
-  /// was running goes on with the new one
-  void setNarrator(Narrator? narrator) {
-    if (identical(narrator, _narrator)) return;
-    final wasPlaying = _state.isPlaying;
-    pause();
-    _narrator = narrator;
-    if (wasPlaying) play();
-  }
-
-  /// Cancel the word timer and stop the narration
-  void _halt() {
-    _timer?.cancel();
-    if (_narrator != null) {
-      _narration++;
-      _narrator!.stop();
-    }
-  }
+  /// Cancel the word timer
+  void _halt() => _timer?.cancel();
 
   /// Initialize the engine with tokens and configuration
   void initialize({
@@ -201,11 +173,7 @@ class RSVPEngine extends ChangeNotifier {
     _state = _state.copyWith(status: PlaybackStatus.playing);
     _wordsSincePlay = 0;
     notifyListeners();
-    if (_narrator != null) {
-      _startNarration();
-    } else {
-      _scheduleNextWord();
-    }
+    _scheduleNextWord();
   }
 
   /// Pause playback
@@ -315,31 +283,6 @@ class RSVPEngine extends ChangeNotifier {
     _config = config;
     _state = _state.copyWith(wordsPerMinute: config.baseWPM);
     notifyListeners();
-  }
-
-  /// Speak from the current word on, showing each word as it is spoken
-  void _startNarration() {
-    final narration = ++_narration;
-    _narrator!.speak(
-      _tokens,
-      _state.currentIndex,
-      onWord: (index) {
-        if (narration != _narration || !_state.isPlaying) return;
-        final i = index.clamp(0, _tokens.length - 1);
-        _state = _state.copyWith(currentIndex: i, currentToken: _tokens[i], progress: i / _tokens.length);
-        notifyListeners();
-      },
-      onDone: () {
-        if (narration != _narration || !_state.isPlaying) return;
-        _state = _state.copyWith(
-          status: PlaybackStatus.completed,
-          currentIndex: _tokens.length - 1,
-          currentToken: _tokens.last,
-          progress: 1.0,
-        );
-        notifyListeners();
-      },
-    );
   }
 
   /// Schedule display of the next word

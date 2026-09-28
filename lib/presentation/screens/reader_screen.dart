@@ -6,7 +6,6 @@
 /// - Swipe to seek
 /// - Speed controls
 /// - Progress indicator
-/// - Read-aloud with the device's Turkish voice
 library;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -19,13 +18,13 @@ import '../../core/models/rsvp_settings.dart';
 import '../../core/models/word_token.dart';
 import '../../core/services/ad_service.dart';
 import '../../core/services/book_service.dart';
-import '../../core/services/narrator.dart';
 import '../../core/services/reading_storage.dart';
 import '../../core/services/rsvp_engine.dart';
-import '../../core/services/speech_narrator.dart';
 import '../../core/utils/text_parser.dart';
 import '../../core/utils/timing_calculator.dart';
 import '../widgets/orp_text_widget.dart';
+import 'reading_mode_sheet.dart';
+import 'text_page_screen.dart';
 
 /// Main RSVP reader screen
 class ReaderScreen extends StatefulWidget {
@@ -66,8 +65,9 @@ class ReaderScreen extends StatefulWidget {
     this.onSettingsChanged,
   });
 
-  /// Open [book] in the reader, loading its text first (bundled texts are
-  /// only loaded when they are opened)
+  /// Open [book]: ask how to read it (speed reading, the plain text or
+  /// listening) unless [mode] is given, load its text (bundled texts are
+  /// only loaded when they are opened) and show it
   static Future<void> open(
     BuildContext context, {
     required Book book,
@@ -75,19 +75,57 @@ class ReaderScreen extends StatefulWidget {
     required RSVPSettings settings,
     List<Book>? seriesChapters,
     ValueChanged<RSVPSettings>? onSettingsChanged,
+    ReadingMode? mode,
     bool replace = false,
   }) async {
+    final chosen = mode ?? await showReadingModeSheet(context);
+    if (chosen == null || !context.mounted) return;
     final content = await BookService.loadContent(book);
     if (!context.mounted) return;
+    await openText(
+      context,
+      content: content,
+      title: title,
+      settings: settings,
+      book: book,
+      seriesChapters: seriesChapters,
+      onSettingsChanged: onSettingsChanged,
+      mode: chosen,
+      replace: replace,
+    );
+  }
+
+  /// Show [content] in the screen of [mode]
+  static Future<void> openText(
+    BuildContext context, {
+    required String content,
+    required String title,
+    required RSVPSettings settings,
+    required ReadingMode mode,
+    Book? book,
+    List<Book>? seriesChapters,
+    ValueChanged<RSVPSettings>? onSettingsChanged,
+    bool replace = false,
+  }) async {
     final route = MaterialPageRoute<void>(
-      builder: (context) => ReaderScreen(
-        content: content,
-        title: title,
-        settings: settings,
-        currentBook: book,
-        seriesChapters: seriesChapters,
-        onSettingsChanged: onSettingsChanged,
-      ),
+      builder: (context) => mode == ReadingMode.speed
+          ? ReaderScreen(
+              content: content,
+              title: title,
+              settings: settings,
+              currentBook: book,
+              seriesChapters: seriesChapters,
+              onSettingsChanged: onSettingsChanged,
+            )
+          : TextPageScreen(
+              content: content,
+              title: title,
+              settings: settings,
+              currentBook: book,
+              seriesChapters: seriesChapters,
+              onSettingsChanged: onSettingsChanged,
+              listen: mode == ReadingMode.listen,
+            ),
     );
     final navigator = Navigator.of(context);
     replace ? await navigator.pushReplacement(route) : await navigator.push(route);
@@ -138,12 +176,6 @@ class _ReaderScreenState extends State<ReaderScreen> {
   int _previewIndex = 0;
   bool _showContextView = false;
 
-  /// The voice for read-aloud, created when it is first turned on
-  SpeechNarrator? _narrator;
-
-  /// Whether the text is being read aloud (the voice moves the words)
-  bool get _readingAloud => _engine.narrator != null;
-
   @override
   void initState() {
     super.initState();
@@ -179,8 +211,6 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
     // Continue where this book was left off
     _restoreProgress();
-
-    if (_settings.readAloud) _setReadAloud(true);
 
     // Enter immersive mode
     _enterImmersiveMode();
@@ -249,44 +279,6 @@ class _ReaderScreenState extends State<ReaderScreen> {
     _engine.seekToIndex(index);
   }
 
-  /// Turn read-aloud on or off (on needs a Turkish voice on the device)
-  Future<void> _setReadAloud(bool on) async {
-    if (!on) {
-      _engine
-        ..pause()
-        ..setNarrator(null);
-      _changeSettings(_settings.copyWith(readAloud: false));
-      return;
-    }
-
-    final narrator = _narrator ??= SpeechNarrator(rate: _settings.speechRate, onError: _onSpeechError);
-    final available = await narrator.isAvailable();
-    if (!mounted) return;
-    if (!available) {
-      _changeSettings(_settings.copyWith(readAloud: false));
-      _showMessage(kIsWeb
-          ? 'Tarayıcıda Türkçe ses bulunamadı. Başka bir tarayıcı deneyin ya da Android uygulamasını kullanın.'
-          : 'Cihazda Türkçe ses bulunamadı. Android ayarlarında "Metin okuma çıkışı" bölümünden '
-              'Türkçe ses verisini indirin.');
-      return;
-    }
-    _engine.setNarrator(narrator);
-    _changeSettings(_settings.copyWith(readAloud: true));
-  }
-
-  void _onSpeechError(String message) {
-    if (!mounted) return;
-    _engine.pause();
-    setState(() => _showControls = true);
-    _showMessage('Sesli okuma durdu. Tekrar başlatmak için oynat\'a dokunun.');
-  }
-
-  void _showMessage(String message) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text(message)));
-  }
-
   void _changeSettings(RSVPSettings settings) {
     if (settings == _settings) return;
     setState(() => _settings = settings);
@@ -317,7 +309,6 @@ class _ReaderScreenState extends State<ReaderScreen> {
     _lifecycleListener.dispose();
     _engine.removeListener(_onEngineStateChanged);
     _engine.dispose();
-    _narrator?.dispose();
     _exitImmersiveMode();
     super.dispose();
   }
@@ -354,19 +345,6 @@ class _ReaderScreenState extends State<ReaderScreen> {
     // Show the speed the engine actually uses (it clamps to the valid range)
     _changeSettings(_settings.copyWith(wordsPerMinute: _engine.state.wordsPerMinute));
   }
-
-  /// Change the speech speed in read-aloud mode (applies from the next sentence)
-  void _changeSpeechRate(int steps) {
-    final rate = (_settings.speechRate + steps * RSVPSettings.speechRateStep)
-        .clamp(RSVPSettings.minSpeechRate, RSVPSettings.maxSpeechRate)
-        .toDouble();
-    _narrator?.rate = rate;
-    _changeSettings(_settings.copyWith(speechRate: rate));
-  }
-
-  /// Words per minute of the current mode, for the reading time estimate
-  int get _effectiveWordsPerMinute =>
-      _readingAloud ? (SpeechNarrator.normalWordsPerMinute * _settings.speechRate).round() : _settings.wordsPerMinute;
 
   @override
   Widget build(BuildContext context) {
@@ -424,28 +402,16 @@ class _ReaderScreenState extends State<ReaderScreen> {
                 ),
               ),
 
-              // Read-aloud and context view buttons (top right)
+              // Context view button (top right)
               Positioned(
                 top: MediaQuery.of(context).padding.top + 8,
                 right: 8,
-                child: Row(
-                  children: [
-                    IconButton(
-                      tooltip: _readingAloud ? 'Sesli okumayı kapat' : 'Sesli oku',
-                      icon: Icon(
-                        _readingAloud ? Icons.headphones : Icons.headphones_outlined,
-                        color: _readingAloud ? orpColor : textColor.withValues(alpha: 0.7),
-                      ),
-                      onPressed: () => _setReadAloud(!_readingAloud),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.article, color: textColor.withValues(alpha: 0.7)),
-                      onPressed: () {
-                        _engine.pause();
-                        setState(() => _showContextView = true);
-                      },
-                    ),
-                  ],
+                child: IconButton(
+                  icon: Icon(Icons.article, color: textColor.withValues(alpha: 0.7)),
+                  onPressed: () {
+                    _engine.pause();
+                    setState(() => _showContextView = true);
+                  },
                 ),
               ),
 
@@ -562,10 +528,9 @@ class _ReaderScreenState extends State<ReaderScreen> {
     // Calculate estimated reading time in seconds
     final totalWords = _wordsBefore.last;
     final remainingWords = totalWords - _wordsBefore[_engine.state.currentIndex.clamp(0, _tokens.length)];
-    final wordsPerMinute = _effectiveWordsPerMinute;
+    final wordsPerMinute = _settings.wordsPerMinute;
     final totalSeconds = (totalWords / wordsPerMinute * 60).round();
     final remainingSeconds = (remainingWords / wordsPerMinute * 60).round();
-    final aloud = _readingAloud;
 
     return Column(
       children: [
@@ -574,9 +539,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
           children: [
             IconButton(
               icon: Icon(Icons.remove_circle_outline, color: textColor),
-              onPressed: aloud
-                  ? () => _changeSpeechRate(-1)
-                  : () => _updateSpeed(_settings.wordsPerMinute - RSVPSettings.wordsPerMinuteStep),
+              onPressed: () => _updateSpeed(_settings.wordsPerMinute - RSVPSettings.wordsPerMinuteStep),
             ),
             const SizedBox(width: 16),
             Container(
@@ -586,7 +549,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                aloud ? 'Ses ${speechRateLabel(_settings.speechRate)}' : '${_settings.wordsPerMinute} WPM',
+                '${_settings.wordsPerMinute} WPM',
                 style: TextStyle(
                   color: textColor,
                   fontSize: 18,
@@ -597,15 +560,13 @@ class _ReaderScreenState extends State<ReaderScreen> {
             const SizedBox(width: 16),
             IconButton(
               icon: Icon(Icons.add_circle_outline, color: textColor),
-              onPressed: aloud
-                  ? () => _changeSpeechRate(1)
-                  : () => _updateSpeed(_settings.wordsPerMinute + RSVPSettings.wordsPerMinuteStep),
+              onPressed: () => _updateSpeed(_settings.wordsPerMinute + RSVPSettings.wordsPerMinuteStep),
             ),
           ],
         ),
         const SizedBox(height: 8),
         Text(
-          '${aloud ? 'Sesli okuma · ' : ''}Kalan: ${_formatTime(remainingSeconds)} / Toplam: ${_formatTime(totalSeconds)}',
+          'Kalan: ${_formatTime(remainingSeconds)} / Toplam: ${_formatTime(totalSeconds)}',
           style: TextStyle(
             color: textColor.withValues(alpha: 0.75),
             fontSize: 13,
@@ -855,6 +816,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
       settings: _settings,
       seriesChapters: widget.seriesChapters,
       onSettingsChanged: widget.onSettingsChanged,
+      mode: ReadingMode.speed,
       replace: true,
     );
   }

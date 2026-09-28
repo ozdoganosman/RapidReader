@@ -25,6 +25,7 @@ import '../theme/app_colors.dart';
 import '../widgets/banner_ad_widget.dart';
 import 'chapter_list_screen.dart';
 import 'reader_screen.dart';
+import 'reading_mode_sheet.dart';
 import 'settings_screen.dart';
 
 /// Home screen with book library
@@ -1206,15 +1207,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   /// Open a text in the reader without adding it to the library
-  void _readWithoutSaving(String title, String content) {
-    Navigator.of(context).push(MaterialPageRoute<void>(
-      builder: (context) => ReaderScreen(
-        content: content,
-        title: title,
-        settings: _settings,
-        onSettingsChanged: _saveSettings,
-      ),
-    ));
+  Future<void> _readWithoutSaving(String title, String content) async {
+    final mode = await showReadingModeSheet(context);
+    if (mode == null || !mounted) return;
+    await ReaderScreen.openText(
+      context,
+      content: content,
+      title: title,
+      settings: _settings,
+      mode: mode,
+      onSettingsChanged: _saveSettings,
+    );
   }
 
   void _deleteCustomBook(Book book) {
