@@ -67,4 +67,25 @@ class ReadingStorage {
       ['${progress.index}', '${progress.total}'],
     );
   }
+
+  static const _lastReadKey = 'last_read';
+
+  /// Remember the book opened last and how it was read (a reading mode's
+  /// name), for "Devam Et"
+  static Future<void> saveLastRead(String bookId, String mode) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_lastReadKey, [bookId, mode]);
+  }
+
+  /// The book opened last and its reading mode, if any
+  static Future<({String bookId, String mode})?> loadLastRead() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final values = prefs.getStringList(_lastReadKey);
+      if (values == null || values.length != 2) return null;
+      return (bookId: values[0], mode: values[1]);
+    } catch (_) {
+      return null;
+    }
+  }
 }

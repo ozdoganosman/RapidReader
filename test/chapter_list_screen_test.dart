@@ -40,7 +40,11 @@ void main() {
   group('Quran', () {
     // The first three surahs in order of revelation: al-Alaq (96), al-Qalam (68), al-Muzzammil (73)
     final surahs = [
-      for (final (n, name) in [(1, 'Alak Suresi (العلق)'), (2, 'Kalem Suresi (القلم)'), (3, 'Müzzemmil Suresi (المزمل)')])
+      for (final (n, name) in [
+        (1, 'Alak Suresi (العلق)'),
+        (2, 'Kalem Suresi (القلم)'),
+        (3, 'Müzzemmil Suresi (المزمل)')
+      ])
         Book(
           id: 'kuran_$n',
           title: name,
@@ -61,11 +65,21 @@ void main() {
       await tester.pumpAndSettle();
     }
 
-    List<String> listedTitles(WidgetTester tester) => tester
-        .widgetList<Text>(find.byType(Text))
-        .map((t) => t.data ?? '')
-        .where((t) => t.contains('Suresi'))
-        .toList();
+    List<String> listedTitles(WidgetTester tester) =>
+        tester.widgetList<Text>(find.byType(Text)).map((t) => t.data ?? '').where((t) => t.contains('Suresi')).toList();
+
+    testWidgets('shows how far each surah was read', (tester) async {
+      SharedPreferences.setMockInitialValues({
+        'reading_progress_kuran_1': ['10', '10'], // done
+        'reading_progress_kuran_2': ['5', '20'], // a quarter
+      });
+      await tester.pumpWidget(MaterialApp(
+        home: ChapterListScreen(seriesName: "Kur'an-ı Kerim", chapters: surahs, settings: const RSVPSettings()),
+      ));
+      await tester.pumpAndSettle();
+      expect(find.byIcon(Icons.check_circle), findsOneWidget);
+      expect(find.text('%25'), findsOneWidget);
+    });
 
     testWidgets('search by name without circumflexes or by number', (tester) async {
       await pumpList(tester);

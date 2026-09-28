@@ -9,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/data/quran.dart';
 import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
+import '../../core/services/reading_storage.dart';
+import '../route_observer.dart';
 import '../theme/app_colors.dart';
 import 'arabic_surah_screen.dart';
 import 'reader_screen.dart';
@@ -33,9 +35,12 @@ class ChapterListScreen extends StatefulWidget {
   State<ChapterListScreen> createState() => _ChapterListScreenState();
 }
 
-class _ChapterListScreenState extends State<ChapterListScreen> {
+class _ChapterListScreenState extends State<ChapterListScreen> with RouteAware {
   /// Settings, updated when the speed is changed while reading a chapter
   late RSVPSettings _settings = widget.settings;
+
+  /// How far each chapter was read (0-1), by book id
+  Map<String, double> _progress = {};
 
   /// Remembers whether the Quran is listed in mushaf order
   static const _mushafOrderKey = 'quran_mushaf_order';
@@ -50,6 +55,33 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
   void initState() {
     super.initState();
     if (_isQuran) _loadOrder();
+    _loadProgress();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route != null) routeObserver.subscribe(this, route);
+  }
+
+  /// Back from reading a chapter
+  @override
+  void didPopNext() => _loadProgress();
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  Future<void> _loadProgress() async {
+    final progress = <String, double>{};
+    for (final chapter in widget.chapters) {
+      final saved = await ReadingStorage.loadProgress(chapter.id);
+      if (saved != null && saved.total > 0) progress[chapter.id] = (saved.index / saved.total).clamp(0.0, 1.0);
+    }
+    if (mounted) setState(() => _progress = progress);
   }
 
   Future<void> _loadOrder() async {
@@ -292,6 +324,21 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
                       MaterialPageRoute<void>(
                         builder: (context) => ArabicSurahScreen(mushafNumber: mushafNumber, title: chapter.title),
                       ),
+                    ),
+                  ),
+
+                // How far it was read: done, or a percentage
+                if ((_progress[chapter.id] ?? 0) >= 1)
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Icon(Icons.check_circle, size: 18, color: Colors.green),
+                  )
+                else if ((_progress[chapter.id] ?? 0) > 0)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text(
+                      '%${((_progress[chapter.id] ?? 0) * 100).round()}',
+                      style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
                     ),
                   ),
 

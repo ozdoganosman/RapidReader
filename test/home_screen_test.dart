@@ -7,6 +7,7 @@ import 'package:hive_ce/hive.dart';
 import 'package:rapid_reader/core/services/custom_book_service.dart';
 import 'package:rapid_reader/main.dart';
 import 'package:rapid_reader/presentation/screens/home_screen.dart';
+import 'package:rapid_reader/presentation/screens/text_page_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// The field of the add-text dialog with [label]
@@ -27,6 +28,11 @@ void main() {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
+    // wakelock_plus (the plain text page keeps the screen on)
+    tester.binding.defaultBinaryMessenger.setMockMessageHandler(
+      'dev.flutter.pigeon.wakelock_plus_platform_interface.WakelockPlusApi.toggle',
+      (message) async => const StandardMessageCodec().encodeMessage(<Object?>[null]),
+    );
     tester.binding.defaultBinaryMessenger.setMockMessageHandler(
       'plugins.flutter.io/google_mobile_ads',
       (message) async => const StandardMethodCodec().encodeSuccessEnvelope(null),
@@ -56,6 +62,25 @@ void main() {
 
     expect(tester.takeException(), isNull); // no overflow
     expect(find.text('Kitaplık'), findsOneWidget);
+    await CustomBookService.reset();
+  });
+
+  testWidgets('"Devam Et" opens the book read last in its mode', (tester) async {
+    SharedPreferences.setMockInitialValues({
+      'last_read': ['donusum_2', 'plain'],
+      'reading_progress_donusum_2': ['2567', '5135'],
+    });
+    await pumpApp(tester);
+    await settle(tester, () => find.text('Devam Et').evaluate().isNotEmpty);
+
+    expect(find.text('Devam Et'), findsOneWidget);
+    expect(find.text('Dönüşüm · İkinci Bölüm'), findsOneWidget);
+    expect(find.text('%50 · Düz Metin'), findsOneWidget);
+
+    await tester.tap(find.text('Devam Et'));
+    await settle(tester, () => find.byType(TextPageScreen).evaluate().isNotEmpty);
+    expect(find.byType(TextPageScreen), findsOneWidget); // no mode question
+    expect(find.text('Dönüşüm - İkinci Bölüm'), findsOneWidget);
     await CustomBookService.reset();
   });
 

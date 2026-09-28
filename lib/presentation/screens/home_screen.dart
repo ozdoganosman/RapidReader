@@ -21,6 +21,7 @@ import '../../core/services/custom_book_service.dart';
 import '../../core/services/document_importer.dart';
 import '../../core/services/reading_storage.dart';
 import '../../core/services/text_cleaner.dart';
+import '../route_observer.dart';
 import '../theme/app_colors.dart';
 import '../widgets/banner_ad_widget.dart';
 import 'chapter_list_screen.dart';
@@ -36,11 +37,14 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with RouteAware {
   RSVPSettings _settings = const RSVPSettings();
   List<Book> _books = []; // Books from assets/books/
   List<Book> _customBooks = []; // Custom books from SharedPreferences
   bool _isLoading = true;
+
+  /// The book opened last, its reading mode and how far it was read
+  ({Book book, ReadingMode mode, double progress})? _continue;
 
   @override
   void initState() {
@@ -53,9 +57,124 @@ class _HomeScreenState extends State<HomeScreen> {
   StreamSubscription<List<SharedMediaFile>>? _shareSubscription;
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route != null) routeObserver.subscribe(this, route);
+  }
+
+  /// Back from reading: "Devam Et" shows the new position
+  @override
+  void didPopNext() => _loadContinue();
+
+  @override
   void dispose() {
+    routeObserver.unsubscribe(this);
     _shareSubscription?.cancel();
     super.dispose();
+  }
+
+  Future<void> _loadContinue() async {
+    final last = await ReadingStorage.loadLastRead();
+    final book = last == null ? null : _allBooks.where((b) => b.id == last.bookId).firstOrNull;
+    if (last == null || book == null) {
+      if (mounted) setState(() => _continue = null);
+      return;
+    }
+    final saved = await ReadingStorage.loadProgress(book.id);
+    final mode = ReadingMode.values.where((m) => m.name == last.mode).firstOrNull ?? ReadingMode.speed;
+    final progress = saved == null || saved.total <= 0 ? 0.0 : (saved.index / saved.total).clamp(0.0, 1.0);
+    if (mounted) setState(() => _continue = (book: book, mode: mode, progress: progress));
+  }
+
+  /// The chapters of [book]'s series in order (null for a single text)
+  List<Book>? _chaptersOf(Book book) {
+    final series = book.seriesName;
+    if (!book.isSeries || series == null) return null;
+    return _allBooks.where((b) => b.seriesName == series).toList()
+      ..sort((a, b) => (a.chapterNumber ?? 0).compareTo(b.chapterNumber ?? 0));
+  }
+
+  void _openContinue() {
+    final item = _continue;
+    if (item == null) return;
+    final book = item.book;
+    final chapters = _chaptersOf(book);
+    ReaderScreen.open(
+      context,
+      book: book,
+      title: chapters == null ? book.title : '${BookService.seriesDisplayName(book.seriesName!)} - ${book.title}',
+      settings: _settings,
+      seriesChapters: chapters,
+      onSettingsChanged: _saveSettings,
+      mode: item.mode,
+    );
+  }
+
+  Widget _buildContinueCard() {
+    final item = _continue!;
+    final book = item.book;
+    final series = _chaptersOf(book) == null ? null : BookService.seriesDisplayName(book.seriesName!);
+    final (icon, modeName) = switch (item.mode) {
+      ReadingMode.speed => (Icons.bolt, 'Hızlı Okuma'),
+      ReadingMode.plain => (Icons.article_outlined, 'Düz Metin'),
+      ReadingMode.listen => (Icons.headphones_outlined, 'Sesli Okuma'),
+    };
+    final percent = (item.progress * 100).round();
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+      child: Material(
+        color: Colors.grey[50],
+        borderRadius: BorderRadius.circular(4),
+        child: InkWell(
+          onTap: _openContinue,
+          borderRadius: BorderRadius.circular(4),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: Colors.black.withValues(alpha: 0.1)),
+            ),
+            child: Row(
+              children: [
+                Icon(icon, color: Colors.black54),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Devam Et', style: TextStyle(fontSize: 12, color: AppColors.secondaryText)),
+                      const SizedBox(height: 2),
+                      Text(
+                        series == null ? book.title : '$series · ${book.title}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 15, color: Colors.black87),
+                      ),
+                      const SizedBox(height: 6),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(2),
+                        child: LinearProgressIndicator(
+                          value: item.progress,
+                          minHeight: 3,
+                          backgroundColor: Colors.black12,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text('%$percent · $modeName',
+                          style: const TextStyle(fontSize: 12, color: AppColors.secondaryText)),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                const Icon(Icons.play_arrow, color: Colors.black54),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   /// Texts, links and files shared from other apps (Android "Share" menu)
@@ -148,6 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _customBooks = customBooks;
       _isLoading = false;
     });
+    await _loadContinue();
   }
 
   List<Book> get _allBooks => [..._books, ..._customBooks]; // Combine asset and custom books
@@ -236,6 +356,9 @@ class _HomeScreenState extends State<HomeScreen> {
         SliverToBoxAdapter(
           child: _buildHeader(),
         ),
+
+        // The book read last
+        if (_continue != null) SliverToBoxAdapter(child: _buildContinueCard()),
 
         // Section title with thin line
         SliverToBoxAdapter(

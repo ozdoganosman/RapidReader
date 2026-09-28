@@ -21,6 +21,8 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
   metin kütüphaneye eklenmeden okunur. (Web sürümünde tarayıcı kuralları çoğu sitenin
   okunmasını engeller; orada metni kopyalayıp yapıştırmak gerekir.)
 - **Kaldığın yerden devam:** Her kitabın ve bölümün okuma konumu ile ayarlar cihazda saklanır.
+  Ana ekrandaki "Devam Et" kartı en son okunan bölümü son kullanılan modda açar; bölüm
+  listesinde okunan bölümler işaretli, yarım kalanların yüzdesi yazılı.
 - **Okuma ekranı:** Dokun-oynat/duraklat, kaydırarak 10 kelime ileri/geri, konum çubuğu
   ve önizleme, sayfa görünümü, kalan/toplam süre, okurken ekranın kapanmaması (Android).
 - **Hızlı okuma ekranı:** Sol kenara dokununca cümlenin başına döner. Kelime grupları anlama
@@ -126,7 +128,7 @@ lib/
     screens/                         Ana ekran, bölüm listesi, okuma ekranı, ayarlar
     widgets/                         Odak harfi ortalanmış kelime gösterimi, banner reklam
 assets/books/                        Hazır kitaplar ve kapakları
-assets/google_fonts/                 Varsayılan font (Roboto Mono), çevrimdışı çalışsın diye
+assets/google_fonts/                 Varsayılan fontlar (Roboto Mono, sayfa için Literata), çevrimdışı çalışsın diye
 test/                                Birim ve widget testleri
 ```
 

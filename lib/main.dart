@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 
 import 'core/data/quran.dart';
 import 'core/services/ad_service.dart';
+import 'presentation/route_observer.dart';
 import 'presentation/screens/home_screen.dart';
 
 /// Fonts for characters the theme's font lacks: Arabic words in titles
@@ -25,6 +26,8 @@ void main() async {
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(const ['Roboto Mono'], license);
+    final literata = await rootBundle.loadString('assets/google_fonts/Literata-OFL.txt');
+    yield LicenseEntryWithLineBreaks(const ['Literata'], literata);
     final amiri = await rootBundle.loadString('assets/fonts/AmiriQuran-OFL.txt');
     yield LicenseEntryWithLineBreaks(const ['Amiri Quran'], amiri);
     final openDyslexic = await rootBundle.loadString('assets/fonts/OpenDyslexic-LICENSE.txt');
@@ -50,6 +53,7 @@ class RapidReaderApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [routeObserver],
       title: 'RapidReader',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

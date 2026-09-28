@@ -109,6 +109,7 @@ class ReaderScreen extends StatefulWidget {
     ValueChanged<RSVPSettings>? onSettingsChanged,
     bool replace = false,
   }) async {
+    if (book != null) ReadingStorage.saveLastRead(book.id, mode.name);
     final route = MaterialPageRoute<void>(
       builder: (context) => mode == ReadingMode.speed
           ? ReaderScreen(
