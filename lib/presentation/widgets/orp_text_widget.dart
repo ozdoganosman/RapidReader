@@ -66,61 +66,64 @@ class ORPTextWidget extends StatelessWidget {
     final parts = ORPCalculator.splitForDisplay(word);
     final textScaler = MediaQuery.maybeTextScalerOf(context) ?? TextScaler.noScaling;
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        var size = fontSize;
-        var layout = _measure(parts, size, textScaler);
+    // Measure again once a font has loaded (the first word is often shown
+    // before the reading font is ready; its old widths would clip it)
+    return ListenableBuilder(
+      listenable: PaintingBinding.instance.systemFonts,
+      builder: (context, _) => LayoutBuilder(
+        builder: (context, constraints) {
+          var size = fontSize;
+          var layout = _measure(parts, size, textScaler);
 
-        // Shrink long words (or chunks) so they fit instead of wrapping.
-        // Leave room for the rounding (< 1px) and padding on each side.
-        final maxWidth = constraints.maxWidth;
-        for (var i = 0;
-            i < 3 && maxWidth.isFinite && maxWidth > 8 && layout.totalWidth > maxWidth;
-            i++) {
-          size *= (maxWidth - 2 * (1 + _sidePadding)) / layout.contentWidth;
-          layout = _measure(parts, size, textScaler);
-        }
+          // Shrink long words (or chunks) so they fit instead of wrapping.
+          // Leave room for the rounding (< 1px) and padding on each side.
+          final maxWidth = constraints.maxWidth;
+          for (var i = 0; i < 3 && maxWidth.isFinite && maxWidth > 8 && layout.totalWidth > maxWidth; i++) {
+            size *= (maxWidth - 2 * (1 + _sidePadding)) / layout.contentWidth;
+            layout = _measure(parts, size, textScaler);
+          }
 
-        final baseStyle = _baseStyle(size);
-        final orpStyle = _orpStyle(size);
+          final baseStyle = _baseStyle(size);
+          final orpStyle = _orpStyle(size);
 
-        // Both sides get the same width, so the ORP character is always
-        // exactly in the middle of the row (and on the focus guides).
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Before ORP - right aligned against the ORP character
-            SizedBox(
-              width: layout.sideWidth,
-              child: Text(
-                parts.before,
-                style: baseStyle,
-                textAlign: TextAlign.right,
+          // Both sides get the same width, so the ORP character is always
+          // exactly in the middle of the row (and on the focus guides).
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Before ORP - right aligned against the ORP character
+              SizedBox(
+                width: layout.sideWidth,
+                child: Text(
+                  parts.before,
+                  style: baseStyle,
+                  textAlign: TextAlign.right,
+                  maxLines: 1,
+                ),
+              ),
+
+              // ORP character - the center point
+              Text(
+                parts.orp,
+                style: orpStyle,
                 maxLines: 1,
               ),
-            ),
 
-            // ORP character - the center point
-            Text(
-              parts.orp,
-              style: orpStyle,
-              maxLines: 1,
-            ),
-
-            // After ORP - left aligned against the ORP character
-            SizedBox(
-              width: layout.sideWidth,
-              child: Text(
-                parts.after,
-                style: baseStyle,
-                textAlign: TextAlign.left,
-                maxLines: 1,
+              // After ORP - left aligned against the ORP character
+              SizedBox(
+                width: layout.sideWidth,
+                child: Text(
+                  parts.after,
+                  style: baseStyle,
+                  textAlign: TextAlign.left,
+                  maxLines: 1,
+                ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 
