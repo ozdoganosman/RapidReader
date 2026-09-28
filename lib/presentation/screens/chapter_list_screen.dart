@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/data/quran.dart';
 import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
+import '../theme/app_colors.dart';
 import 'arabic_surah_screen.dart';
 import 'reader_screen.dart';
 
@@ -40,8 +41,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
   static const _mushafOrderKey = 'quran_mushaf_order';
 
   /// The meal gets surah search, an order switch and the Arabic text
-  late final bool _isQuran =
-      widget.chapters.isNotEmpty && widget.chapters.first.seriesName == quranSeriesName;
+  late final bool _isQuran = widget.chapters.isNotEmpty && widget.chapters.first.seriesName == quranSeriesName;
 
   bool _mushafOrder = false;
   String _query = '';
@@ -143,8 +143,8 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
             onChanged: (value) => setState(() => _query = value),
             decoration: InputDecoration(
               hintText: 'Sure ara (ad ya da numara)',
-              hintStyle: const TextStyle(color: Colors.black38, fontWeight: FontWeight.w300),
-              prefixIcon: const Icon(Icons.search, color: Colors.black38),
+              hintStyle: const TextStyle(color: AppColors.secondaryText, fontWeight: FontWeight.w300),
+              prefixIcon: const Icon(Icons.search, color: Colors.black45),
               isDense: true,
               filled: true,
               fillColor: Colors.black.withValues(alpha: 0.03),
@@ -166,7 +166,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
             style: SegmentedButton.styleFrom(
               selectedBackgroundColor: Colors.black87,
               selectedForegroundColor: Colors.white,
-              foregroundColor: Colors.black54,
+              foregroundColor: AppColors.secondaryText,
             ),
           ),
         ],
@@ -214,9 +214,9 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
                     child: Text(
                       '${_isQuran && _mushafOrder ? mushafNumber : chapter.chapterNumber}',
                       style: TextStyle(
-                        color: Colors.black54,
+                        color: AppColors.secondaryText,
                         fontSize: 16,
-                        fontWeight: FontWeight.w300,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
@@ -244,9 +244,9 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
                           Text(
                             '${chapter.wordCount} kelime',
                             style: TextStyle(
-                              color: Colors.black38,
+                              color: AppColors.secondaryText,
                               fontSize: 12,
-                              fontWeight: FontWeight.w300,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           Container(
@@ -261,9 +261,9 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
                           Text(
                             _formatReadingTime(chapter.wordCount, _settings.wordsPerMinute),
                             style: TextStyle(
-                              color: Colors.black38,
+                              color: AppColors.secondaryText,
                               fontSize: 12,
-                              fontWeight: FontWeight.w300,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           // The surah's number in the other order
@@ -271,9 +271,9 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
                             Text(
                               _mushafOrder ? '  ·  İniş ${chapter.chapterNumber}' : '  ·  Mushaf $mushafNumber',
                               style: const TextStyle(
-                                color: Colors.black38,
+                                color: AppColors.secondaryText,
                                 fontSize: 12,
-                                fontWeight: FontWeight.w300,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                         ],
@@ -286,7 +286,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
                 if (mushafNumber != null)
                   IconButton(
                     tooltip: 'Arapça metin',
-                    icon: const Text('ع', style: TextStyle(fontSize: 20, color: Colors.black45)),
+                    icon: const Text('ع', style: TextStyle(fontSize: 20, color: AppColors.secondaryText)),
                     onPressed: () => Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (context) => ArabicSurahScreen(mushafNumber: mushafNumber, title: chapter.title),
@@ -297,7 +297,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
                 // Arrow icon
                 Icon(
                   Icons.chevron_right,
-                  color: Colors.black26,
+                  color: Colors.black38,
                   size: 20,
                 ),
               ],

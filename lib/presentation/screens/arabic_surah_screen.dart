@@ -6,6 +6,7 @@ library;
 import 'package:flutter/material.dart';
 
 import '../../core/data/quran.dart';
+import '../theme/app_colors.dart';
 
 class ArabicSurahScreen extends StatefulWidget {
   /// Surah number in mushaf order
@@ -71,14 +72,15 @@ class _ArabicSurahScreenState extends State<ArabicSurahScreen> {
                     '${verses[i]} ﴿${arabicDigits(i + 1)}﴾',
                     textAlign: TextAlign.right,
                     textDirection: TextDirection.rtl,
-                    style: const TextStyle(fontFamily: quranArabicFont, fontSize: 26, height: 2.0, color: Colors.black87),
+                    style:
+                        const TextStyle(fontFamily: quranArabicFont, fontSize: 26, height: 2.0, color: Colors.black87),
                   ),
                 ),
               const SizedBox(height: 16),
               const Text(
                 quranArabicSource,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 11, color: Colors.black38),
+                style: TextStyle(fontSize: 11, color: AppColors.secondaryText),
               ),
             ],
           );

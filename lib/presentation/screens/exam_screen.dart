@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../theme/app_colors.dart';
+
 /// One exam's question set
 class ExamSet {
   final String id;
@@ -194,7 +196,7 @@ class _ExamScreenState extends State<ExamScreen> {
                   '${_index + 1}/${_questions.length}  ·  ${_remaining}s',
                   style: TextStyle(
                     fontSize: 14,
-                    color: _remaining <= 10 && !_revealed ? Colors.red : Colors.black54,
+                    color: _remaining <= 10 && !_revealed ? Colors.red : AppColors.secondaryText,
                   ),
                 ),
               ),
@@ -215,12 +217,12 @@ class _ExamScreenState extends State<ExamScreen> {
       children: [
         const Text(
           'Her soru için süre sınırı var. Paragrafı oku, soruyu cevapla; cevaptan sonra doğru şık ve açıklaması gösterilir.',
-          style: TextStyle(fontSize: 15, height: 1.5, color: Colors.black87, fontWeight: FontWeight.w300),
+          style: TextStyle(fontSize: 15, height: 1.5, color: Colors.black87, fontWeight: FontWeight.w400),
         ),
         const SizedBox(height: 8),
         const Text(
           'Sorular bu uygulama için özgün olarak yazılmıştır; ÖSYM veya MEB sorusu değildir.',
-          style: TextStyle(fontSize: 12, color: Colors.black45),
+          style: TextStyle(fontSize: 12, color: AppColors.secondaryText),
         ),
         const SizedBox(height: 24),
         for (final set in ExamSet.all) ...[
@@ -246,12 +248,12 @@ class _ExamScreenState extends State<ExamScreen> {
                           const SizedBox(height: 4),
                           Text(
                             '${set.description} · ${ExamScreen.questionsPerSession} soru, soru başına ${set.seconds} sn',
-                            style: const TextStyle(fontSize: 12, color: Colors.black45),
+                            style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
                           ),
                         ],
                       ),
                     ),
-                    const Icon(Icons.chevron_right, color: Colors.black26),
+                    const Icon(Icons.chevron_right, color: Colors.black38),
                   ],
                 ),
               ),
@@ -294,7 +296,7 @@ class _ExamScreenState extends State<ExamScreen> {
             ),
           ),
           const SizedBox(height: 6),
-          Text(question.explanation, style: const TextStyle(fontSize: 14, height: 1.5, color: Colors.black54)),
+          Text(question.explanation, style: const TextStyle(fontSize: 14, height: 1.5, color: AppColors.secondaryText)),
           const SizedBox(height: 20),
           SizedBox(
             width: double.infinity,
@@ -367,16 +369,16 @@ class _ExamScreenState extends State<ExamScreen> {
       children: [
         Text(
           '$correct / ${_results.length} doğru',
-          style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w200),
+          style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w300),
         ),
         const SizedBox(height: 8),
         Text(
           'Soru başına ortalama $averageSeconds sn (süre: ${_set!.seconds} sn)',
-          style: const TextStyle(fontSize: 14, color: Colors.black54),
+          style: const TextStyle(fontSize: 14, color: AppColors.secondaryText),
         ),
         if (wrongTypes.isNotEmpty) ...[
           const SizedBox(height: 20),
-          const Text('Yanlış yapılan soru türleri', style: TextStyle(fontSize: 13, color: Colors.black45)),
+          const Text('Yanlış yapılan soru türleri', style: TextStyle(fontSize: 13, color: AppColors.secondaryText)),
           const SizedBox(height: 6),
           for (final entry in wrongTypes.entries)
             Text('• ${entry.key}: ${entry.value}', style: const TextStyle(fontSize: 14, height: 1.6)),
@@ -398,7 +400,7 @@ class _ExamScreenState extends State<ExamScreen> {
         ),
         TextButton(
           onPressed: () => setState(() => _set = null),
-          child: const Text('Başka sınav seç', style: TextStyle(color: Colors.black54)),
+          child: const Text('Başka sınav seç', style: TextStyle(color: AppColors.secondaryText)),
         ),
       ],
     );

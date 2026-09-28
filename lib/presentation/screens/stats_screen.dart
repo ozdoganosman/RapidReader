@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/models/rsvp_settings.dart';
 import '../../core/services/reading_stats.dart';
+import '../theme/app_colors.dart';
 import 'speed_test_screen.dart';
 
 class StatsScreen extends StatefulWidget {
@@ -98,12 +99,12 @@ class _StatsScreenState extends State<StatsScreen> {
       decoration: BoxDecoration(
         color: Colors.grey[50],
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
+        border: Border.all(color: Colors.black.withValues(alpha: 0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontSize: 12, color: Colors.black45, letterSpacing: 0.5)),
+          Text(title, style: const TextStyle(fontSize: 12, color: AppColors.secondaryText, letterSpacing: 0.5)),
           const SizedBox(height: 12),
           ...children,
         ],
@@ -121,12 +122,12 @@ class _StatsScreenState extends State<StatsScreen> {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            Text('$minutes', style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w200)),
-            Text(' / ${stats.goalMinutes} dk', style: const TextStyle(fontSize: 14, color: Colors.black45)),
+            Text('$minutes', style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w300)),
+            Text(' / ${stats.goalMinutes} dk', style: const TextStyle(fontSize: 14, color: AppColors.secondaryText)),
             const Spacer(),
             const Icon(Icons.local_fire_department_outlined, size: 20, color: Colors.deepOrange),
             const SizedBox(width: 4),
-            Text('${stats.streak} gün seri', style: const TextStyle(fontSize: 14, color: Colors.black54)),
+            Text('${stats.streak} gün seri', style: const TextStyle(fontSize: 14, color: AppColors.secondaryText)),
           ],
         ),
         const SizedBox(height: 12),
@@ -144,7 +145,7 @@ class _StatsScreenState extends State<StatsScreen> {
           stats.goalMetToday
               ? 'Günlük hedefe ulaştın.'
               : 'Hedefe ${stats.goalMinutes - minutes} dk kaldı · bugün ${stats.today.words} kelime',
-          style: const TextStyle(fontSize: 12, color: Colors.black45),
+          style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
         ),
       ],
     );
@@ -165,7 +166,7 @@ class _StatsScreenState extends State<StatsScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text('${day.minutes}', style: const TextStyle(fontSize: 10, color: Colors.black45)),
+                      Text('${day.minutes}', style: const TextStyle(fontSize: 10, color: AppColors.secondaryText)),
                       const SizedBox(height: 4),
                       Container(
                         height: 80 * day.seconds / maxSeconds,
@@ -176,7 +177,7 @@ class _StatsScreenState extends State<StatsScreen> {
                         ),
                       ),
                       const SizedBox(height: 6),
-                      Text(_weekdays[day.day.weekday - 1], style: const TextStyle(fontSize: 11, color: Colors.black45)),
+                      Text(_weekdays[day.day.weekday - 1], style: const TextStyle(fontSize: 11, color: AppColors.secondaryText)),
                     ],
                   ),
                 ),
@@ -207,7 +208,7 @@ class _StatsScreenState extends State<StatsScreen> {
         if (stats.speedTests.isEmpty)
           const Text(
             'Henüz test yapmadın. Normal okuma hızını ve anlamanı ölç, sana uygun hızı öğren.',
-            style: TextStyle(fontSize: 13, color: Colors.black54, height: 1.4),
+            style: TextStyle(fontSize: 13, color: AppColors.secondaryText, height: 1.4),
           )
         else
           for (final result in stats.speedTests.take(5))
@@ -256,7 +257,7 @@ class _StatsScreenState extends State<StatsScreen> {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          Expanded(child: Text(label, style: const TextStyle(fontSize: 14, color: Colors.black54))),
+          Expanded(child: Text(label, style: const TextStyle(fontSize: 14, color: AppColors.secondaryText))),
           Text(value, style: const TextStyle(fontSize: 14, color: Colors.black87)),
         ],
       ),

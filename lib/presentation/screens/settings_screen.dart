@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/models/rsvp_settings.dart';
 import '../../core/services/narrator.dart';
+import '../theme/app_colors.dart';
 
 /// Settings screen for RSVP configuration
 class SettingsScreen extends StatefulWidget {
@@ -66,12 +67,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         content: Text(
           'Ayarlarda yaptığınız değişiklikler kaydedilmedi. Ne yapmak istersiniz?',
-          style: TextStyle(color: Colors.black54),
+          style: TextStyle(color: AppColors.secondaryText),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop('cancel'),
-            child: Text('İptal', style: TextStyle(color: Colors.black38)),
+            child: Text('İptal', style: TextStyle(color: AppColors.secondaryText)),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop('discard'),
@@ -203,8 +204,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   value: _currentSettings.speechRate,
                   min: RSVPSettings.minSpeechRate,
                   max: RSVPSettings.maxSpeechRate,
-                  divisions: (RSVPSettings.maxSpeechRate - RSVPSettings.minSpeechRate) ~/
-                      RSVPSettings.speechRateStep,
+                  divisions: (RSVPSettings.maxSpeechRate - RSVPSettings.minSpeechRate) ~/ RSVPSettings.speechRateStep,
                   displayValue: speechRateLabel(_currentSettings.speechRate),
                   onChanged: (value) {
                     final rate = (value / RSVPSettings.speechRateStep).round() * RSVPSettings.speechRateStep;
@@ -371,7 +371,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Text(
                         'Varsayılanlara Sıfırla',
                         style: TextStyle(
-                          color: Colors.black54,
+                          color: AppColors.secondaryText,
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
                         ),
@@ -439,9 +439,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Text(
               label,
               style: TextStyle(
-                color: Colors.black54,
+                color: AppColors.secondaryText,
                 fontSize: 13,
-                fontWeight: FontWeight.w300,
+                fontWeight: FontWeight.w400,
               ),
             ),
             Text(
@@ -500,9 +500,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Text(
                 subtitle,
                 style: TextStyle(
-                  color: Colors.black38,
+                  color: AppColors.secondaryText,
                   fontSize: 12,
-                  fontWeight: FontWeight.w300,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ],
@@ -512,7 +512,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           value: value,
           onChanged: onChanged,
           activeThumbColor: Colors.black87,
-          activeTrackColor: Colors.black38,
+          activeTrackColor: Colors.black54,
           inactiveThumbColor: Colors.black26,
           inactiveTrackColor: Colors.black12,
         ),
@@ -570,14 +570,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Text(
                 title,
                 style: TextStyle(
-                  color: isSelected ? Colors.black87 : Colors.black54,
+                  color: isSelected ? Colors.black87 : AppColors.secondaryText,
                   fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
                   fontSize: 14,
                 ),
               ),
             ),
-            if (isSelected)
-              Icon(Icons.check, color: Colors.black54, size: 20),
+            if (isSelected) Icon(Icons.check, color: Colors.black54, size: 20),
           ],
         ),
       ),
@@ -630,7 +629,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Text(
                     fontFamily,
                     style: TextStyle(
-                      color: isSelected ? Colors.black87 : Colors.black54,
+                      color: isSelected ? Colors.black87 : AppColors.secondaryText,
                       fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
                       fontSize: 14,
                     ),
@@ -639,16 +638,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Text(
                     description,
                     style: TextStyle(
-                      color: Colors.black38,
+                      color: AppColors.secondaryText,
                       fontSize: 11,
-                      fontWeight: FontWeight.w300,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
             ),
-            if (isSelected)
-              Icon(Icons.check, color: Colors.black54, size: 20),
+            if (isSelected) Icon(Icons.check, color: Colors.black54, size: 20),
           ],
         ),
       ),

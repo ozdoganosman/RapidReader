@@ -212,9 +212,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
       // Save when playback stops, and periodically while playing
       final state = _engine.state;
       final lastIndex = _lastSavedIndex;
-      if (!state.isPlaying ||
-          lastIndex == null ||
-          (state.currentIndex - lastIndex).abs() >= _progressSaveInterval) {
+      if (!state.isPlaying || lastIndex == null || (state.currentIndex - lastIndex).abs() >= _progressSaveInterval) {
         _saveProgress();
       }
     }
@@ -367,9 +365,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
   }
 
   /// Words per minute of the current mode, for the reading time estimate
-  int get _effectiveWordsPerMinute => _readingAloud
-      ? (SpeechNarrator.normalWordsPerMinute * _settings.speechRate).round()
-      : _settings.wordsPerMinute;
+  int get _effectiveWordsPerMinute =>
+      _readingAloud ? (SpeechNarrator.normalWordsPerMinute * _settings.speechRate).round() : _settings.wordsPerMinute;
 
   @override
   Widget build(BuildContext context) {
@@ -398,8 +395,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
             ),
 
             // Controls overlay
-            if (_showControls || !state.isPlaying)
-              _buildControlsOverlay(state, textColor, orpColor),
+            if (_showControls || !state.isPlaying) _buildControlsOverlay(state, textColor, orpColor),
 
             // Progress slider at bottom
             Positioned(
@@ -448,12 +444,10 @@ class _ReaderScreenState extends State<ReaderScreen> {
             ),
 
             // Context view overlay
-            if (_showContextView)
-              _buildContextViewOverlay(state, textColor, orpColor, backgroundColor),
+            if (_showContextView) _buildContextViewOverlay(state, textColor, orpColor, backgroundColor),
 
             // Completion overlay (shown when reading finishes)
-            if (state.isComplete)
-              _buildCompletionOverlay(textColor, orpColor),
+            if (state.isComplete) _buildCompletionOverlay(textColor, orpColor),
           ],
         ),
       ),
@@ -581,7 +575,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
         Text(
           '${aloud ? 'Sesli okuma · ' : ''}Kalan: ${_formatTime(remainingSeconds)} / Toplam: ${_formatTime(totalSeconds)}',
           style: TextStyle(
-            color: textColor.withValues(alpha: 0.6),
+            color: textColor.withValues(alpha: 0.75),
             fontSize: 13,
           ),
         ),
@@ -592,6 +586,9 @@ class _ReaderScreenState extends State<ReaderScreen> {
   Widget _buildProgressSlider(RSVPPlaybackState state, Color textColor, Color accentColor) {
     final maxIndex = state.totalTokens > 0 ? state.totalTokens - 1 : 0;
     final displayIndex = (_isDraggingSlider ? _previewIndex : state.currentIndex).clamp(0, maxIndex);
+    // Fade into the theme's own background, so the text stays readable in
+    // light themes too
+    final backgroundColor = Color(_settings.backgroundColor);
 
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
@@ -600,8 +597,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.transparent,
-            Colors.black.withValues(alpha: 0.7),
+            backgroundColor.withValues(alpha: 0),
+            backgroundColor.withValues(alpha: 0.9),
           ],
         ),
       ),
@@ -614,11 +611,12 @@ class _ReaderScreenState extends State<ReaderScreen> {
               margin: const EdgeInsets.only(bottom: 12),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
-                color: Colors.black87,
+                color: Color.alphaBlend(textColor.withValues(alpha: 0.08), backgroundColor),
+                border: Border.all(color: textColor.withValues(alpha: 0.2)),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Text(
-                _getContextPreview(_previewIndex),
+              child: Text.rich(
+                _contextPreview(_previewIndex, accentColor),
                 style: TextStyle(
                   color: textColor,
                   fontSize: 14,
@@ -635,7 +633,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
             child: Text(
               '${displayIndex + 1} / ${state.totalTokens}',
               style: TextStyle(
-                color: textColor.withValues(alpha: 0.7),
+                color: textColor.withValues(alpha: 0.8),
                 fontSize: 12,
               ),
             ),
@@ -645,7 +643,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
               activeTrackColor: accentColor,
-              inactiveTrackColor: Colors.white24,
+              inactiveTrackColor: textColor.withValues(alpha: 0.24),
               thumbColor: accentColor,
               overlayColor: accentColor.withValues(alpha: 0.2),
               trackHeight: 4,
@@ -680,23 +678,24 @@ class _ReaderScreenState extends State<ReaderScreen> {
     );
   }
 
-  /// Get context preview showing surrounding words
-  String _getContextPreview(int index) {
-    if (_tokens.isEmpty) return '';
+  /// The words around [index], with the word at [index] highlighted
+  TextSpan _contextPreview(int index, Color highlightColor) {
+    if (_tokens.isEmpty) return const TextSpan();
 
     final start = (index - 3).clamp(0, _tokens.length - 1);
     final end = (index + 4).clamp(0, _tokens.length);
 
-    final words = <String>[];
-    for (int i = start; i < end; i++) {
-      if (i == index) {
-        words.add('【${_tokens[i].word}】');
-      } else {
-        words.add(_tokens[i].word);
-      }
-    }
-
-    return words.join(' ');
+    return TextSpan(children: [
+      for (int i = start; i < end; i++) ...[
+        if (i > start) const TextSpan(text: ' '),
+        i == index
+            ? TextSpan(
+                text: _tokens[i].word,
+                style: TextStyle(color: highlightColor, fontWeight: FontWeight.bold),
+              )
+            : TextSpan(text: _tokens[i].word),
+      ],
+    ]);
   }
 
   /// Build context view overlay showing full page with current word highlighted
@@ -838,7 +837,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
     final nextChapter = _getNextChapter();
 
     return Container(
-      color: Colors.black.withValues(alpha: 0.85),
+      // The theme's background (a fixed black made dark text unreadable)
+      color: Color(_settings.backgroundColor).withValues(alpha: 0.95),
       child: SafeArea(
         child: Center(
           child: Column(
@@ -864,7 +864,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
                   label: const Text('Sonraki Bölüm'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: accentColor,
-                    foregroundColor: Colors.white,
+                    // Dark text on a light accent (the yellow of high contrast)
+                    foregroundColor: accentColor.computeLuminance() > 0.5 ? Colors.black : Colors.white,
                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                     textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),

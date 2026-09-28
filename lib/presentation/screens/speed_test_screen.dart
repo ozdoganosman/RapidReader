@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
 import '../../core/services/reading_stats.dart';
+import '../theme/app_colors.dart';
 
 /// One passage with its questions (assets/content/speed_tests.json)
 class SpeedTest {
@@ -182,17 +183,17 @@ class _SpeedTestScreenState extends State<SpeedTestScreen> {
         Text(
           'Kısa bir metni her zamanki gibi, anlayarak oku. Bitirince "Bitirdim"e dokun; '
           'ardından metinle ilgili ${test.questions.length} soru gelecek.',
-          style: const TextStyle(fontSize: 16, height: 1.5, color: Colors.black87, fontWeight: FontWeight.w300),
+          style: const TextStyle(fontSize: 16, height: 1.5, color: Colors.black87, fontWeight: FontWeight.w400),
         ),
         const SizedBox(height: 16),
         Text(
           'Metin: ${test.title} · ${test.wordCount} kelime',
-          style: const TextStyle(fontSize: 13, color: Colors.black45),
+          style: const TextStyle(fontSize: 13, color: AppColors.secondaryText),
         ),
         const SizedBox(height: 8),
         const Text(
           'Sonuçta dakikadaki kelime sayın, anlama oranın ve hızlı okuma için önerilen başlangıç hızı gösterilir.',
-          style: TextStyle(fontSize: 13, color: Colors.black45, height: 1.4),
+          style: TextStyle(fontSize: 13, color: AppColors.secondaryText, height: 1.4),
         ),
         const SizedBox(height: 32),
         _primaryButton('Başla', _startReading),
@@ -287,7 +288,7 @@ class _SpeedTestScreenState extends State<SpeedTestScreen> {
         const SizedBox(height: 8),
         Text(
           'Hızlı okuma için önerilen başlangıç: $suggested kelime/dk',
-          style: const TextStyle(fontSize: 15, color: Colors.black54),
+          style: const TextStyle(fontSize: 15, color: AppColors.secondaryText),
         ),
         const SizedBox(height: 24),
         _primaryButton(
@@ -302,7 +303,7 @@ class _SpeedTestScreenState extends State<SpeedTestScreen> {
         const SizedBox(height: 12),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Kapat', style: TextStyle(color: Colors.black54)),
+          child: const Text('Kapat', style: TextStyle(color: AppColors.secondaryText)),
         ),
       ],
     );
@@ -322,16 +323,16 @@ class _SpeedTestScreenState extends State<SpeedTestScreen> {
       decoration: BoxDecoration(
         color: Colors.grey[50],
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
+        border: Border.all(color: Colors.black.withValues(alpha: 0.1)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.baseline,
         textBaseline: TextBaseline.alphabetic,
         children: [
-          Expanded(child: Text(label, style: const TextStyle(fontSize: 13, color: Colors.black45))),
+          Expanded(child: Text(label, style: const TextStyle(fontSize: 13, color: AppColors.secondaryText))),
           Text(value, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w300, color: Colors.black87)),
           const SizedBox(width: 6),
-          Text(unit, style: const TextStyle(fontSize: 12, color: Colors.black38)),
+          Text(unit, style: const TextStyle(fontSize: 12, color: AppColors.secondaryText)),
         ],
       ),
     );

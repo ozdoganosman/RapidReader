@@ -21,6 +21,7 @@ import '../../core/services/custom_book_service.dart';
 import '../../core/services/document_importer.dart';
 import '../../core/services/reading_stats.dart';
 import '../../core/services/reading_storage.dart';
+import '../theme/app_colors.dart';
 import '../widgets/banner_ad_widget.dart';
 import 'chapter_list_screen.dart';
 import 'exam_screen.dart';
@@ -103,7 +104,8 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     } catch (e) {
       if (mounted) {
-        final message = e is ArticleException || e is DocumentImportException ? e.toString() : 'Paylaşılan içerik okunamadı';
+        final message =
+            e is ArticleException || e is DocumentImportException ? e.toString() : 'Paylaşılan içerik okunamadı';
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: Colors.red[400]));
       }
       return;
@@ -123,7 +125,6 @@ class _HomeScreenState extends State<HomeScreen> {
     const extensions = {'application/pdf': 'pdf', 'application/epub+zip': 'epub', 'text/plain': 'txt'};
     return '$name.${extensions[file.mimeType] ?? 'txt'}';
   }
-
 
   /// Today's reading and the streak, shown under the speed card
   StatsSummary? _stats;
@@ -293,8 +294,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       '${_displayItems.length}',
                       style: TextStyle(
                         fontSize: 14,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black38,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.secondaryText,
                       ),
                     ),
                   ],
@@ -368,7 +369,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     'RapidReader',
                     style: TextStyle(
                       fontSize: 24,
-                      fontWeight: FontWeight.w200,
+                      fontWeight: FontWeight.w300,
                       color: Colors.black87,
                       letterSpacing: 2,
                     ),
@@ -392,13 +393,13 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: BoxDecoration(
               color: Colors.grey[50],
               borderRadius: BorderRadius.circular(4),
-              border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
+              border: Border.all(color: Colors.black.withValues(alpha: 0.1)),
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.speed_outlined,
-                  color: Colors.black38,
+                  color: Colors.black45,
                   size: 24,
                 ),
                 const SizedBox(width: 16),
@@ -410,8 +411,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         'Okuma Hızı',
                         style: TextStyle(
                           fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black45,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.secondaryText,
                           letterSpacing: 0.5,
                         ),
                       ),
@@ -424,7 +425,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             '${_settings.wordsPerMinute}',
                             style: TextStyle(
                               fontSize: 28,
-                              fontWeight: FontWeight.w200,
+                              fontWeight: FontWeight.w300,
                               color: Colors.black87,
                             ),
                           ),
@@ -433,8 +434,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             'kelime/dk',
                             style: TextStyle(
                               fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.secondaryText,
                             ),
                           ),
                         ],
@@ -455,7 +456,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
-                        color: Colors.black54,
+                        color: AppColors.secondaryText,
                       ),
                     ),
                   ),
@@ -518,7 +519,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
-            border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
+            border: Border.all(color: Colors.black.withValues(alpha: 0.1)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -532,7 +533,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(subtitle,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 11, color: Colors.black45)),
+                  style: const TextStyle(fontSize: 11, color: AppColors.secondaryText)),
             ],
           ),
         ),
@@ -559,7 +560,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Icon(
           placeholderIcon,
           size: 40,
-          color: Colors.black26,
+          color: Colors.black38,
         ),
       );
     }
@@ -610,7 +611,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   border: Border(
-                    top: BorderSide(color: Colors.black.withValues(alpha: 0.05)),
+                    top: BorderSide(color: Colors.black.withValues(alpha: 0.1)),
                   ),
                 ),
                 child: Column(
@@ -635,8 +636,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           author,
                           style: TextStyle(
                             fontSize: 11,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black45,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.secondaryText,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -651,8 +652,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             '${chapters.length} bölüm · ${_formatTotalTime(totalWords)}',
                             style: TextStyle(
                               fontSize: 10,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.secondaryText,
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -660,7 +661,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Icon(
                           Icons.arrow_forward,
                           size: 14,
-                          color: Colors.black26,
+                          color: Colors.black38,
                         ),
                       ],
                     ),
@@ -708,7 +709,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       border: Border(
-                        top: BorderSide(color: Colors.black.withValues(alpha: 0.05)),
+                        top: BorderSide(color: Colors.black.withValues(alpha: 0.1)),
                       ),
                     ),
                     child: Column(
@@ -733,8 +734,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               book.author,
                               style: TextStyle(
                                 fontSize: 11,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black45,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.secondaryText,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -748,14 +749,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               '${book.wordCount} kelime',
                               style: TextStyle(
                                 fontSize: 10,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black38,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.secondaryText,
                               ),
                             ),
                             Icon(
                               Icons.play_arrow,
                               size: 14,
-                              color: Colors.black26,
+                              color: Colors.black38,
                             ),
                           ],
                         ),
@@ -818,7 +819,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Icon(
                 Icons.add,
                 size: 32,
-                color: Colors.black38,
+                color: Colors.black45,
               ),
             ),
             const SizedBox(height: 12),
@@ -827,7 +828,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w400,
-                color: Colors.black54,
+                color: AppColors.secondaryText,
               ),
             ),
             const SizedBox(height: 4),
@@ -835,8 +836,8 @@ class _HomeScreenState extends State<HomeScreen> {
               'Kendi metnini ekle',
               style: TextStyle(
                 fontSize: 11,
-                fontWeight: FontWeight.w300,
-                color: Colors.black38,
+                fontWeight: FontWeight.w400,
+                color: AppColors.secondaryText,
               ),
             ),
           ],
@@ -918,13 +919,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Icon(
                                   Icons.add_photo_alternate_outlined,
                                   size: 40,
-                                  color: Colors.black26,
+                                  color: Colors.black38,
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
                                   'Kapak Resmi Ekle (Opsiyonel)',
                                   style: TextStyle(
-                                    color: Colors.black38,
+                                    color: AppColors.secondaryText,
                                     fontSize: 13,
                                   ),
                                 ),
@@ -939,7 +940,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(color: Colors.black87),
                     decoration: InputDecoration(
                       labelText: 'Başlık *',
-                      labelStyle: TextStyle(color: Colors.black45),
+                      labelStyle: TextStyle(color: AppColors.secondaryText),
                       filled: true,
                       fillColor: Colors.grey[50],
                       border: OutlineInputBorder(
@@ -963,7 +964,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(color: Colors.black87),
                     decoration: InputDecoration(
                       labelText: 'Yazar (Opsiyonel)',
-                      labelStyle: TextStyle(color: Colors.black45),
+                      labelStyle: TextStyle(color: AppColors.secondaryText),
                       filled: true,
                       fillColor: Colors.grey[50],
                       border: OutlineInputBorder(
@@ -1026,7 +1027,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           : const Icon(Icons.upload_file, size: 18),
                       label: Text(importing ? 'Dosya okunuyor…' : 'Dosyadan Yükle (TXT, PDF, EPUB)'),
                       style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.black54,
+                        foregroundColor: AppColors.secondaryText,
                         side: BorderSide(color: Colors.black12),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
@@ -1096,7 +1097,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: InputDecoration(
                       labelText: 'Metin İçeriği *',
                       alignLabelWithHint: true,
-                      labelStyle: TextStyle(color: Colors.black45),
+                      labelStyle: TextStyle(color: AppColors.secondaryText),
                       filled: true,
                       fillColor: Colors.grey[50],
                       border: OutlineInputBorder(
@@ -1122,7 +1123,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
                 'İptal',
-                style: TextStyle(color: Colors.black45),
+                style: TextStyle(color: AppColors.secondaryText),
               ),
             ),
             TextButton(
@@ -1133,12 +1134,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.of(context).pop();
                 _readWithoutSaving(title.isEmpty ? _titleFromText(content) : title, content);
               },
-              child: const Text('Kaydetmeden Oku', style: TextStyle(color: Colors.black54)),
+              child: const Text('Kaydetmeden Oku', style: TextStyle(color: AppColors.secondaryText)),
             ),
             ElevatedButton(
               onPressed: () async {
-                if (titleController.text.trim().isEmpty ||
-                    contentController.text.trim().isEmpty) {
+                if (titleController.text.trim().isEmpty || contentController.text.trim().isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Başlık ve içerik zorunludur'),
@@ -1152,9 +1152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   await CustomBookService.saveCustomBook(
                     title: titleController.text.trim(),
                     content: contentController.text.trim(),
-                    author: authorController.text.trim().isNotEmpty
-                        ? authorController.text.trim()
-                        : null,
+                    author: authorController.text.trim().isNotEmpty ? authorController.text.trim() : null,
                     imageBase64: selectedImageBase64,
                   );
                 } catch (e) {
@@ -1202,7 +1200,7 @@ class _HomeScreenState extends State<HomeScreen> {
       icon: Icon(icon, size: 18),
       label: Text(label),
       style: OutlinedButton.styleFrom(
-        foregroundColor: Colors.black54,
+        foregroundColor: AppColors.secondaryText,
         side: BorderSide(color: Colors.black12),
         padding: const EdgeInsets.symmetric(vertical: 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
@@ -1235,7 +1233,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('İptal', style: TextStyle(color: Colors.black45)),
+            child: const Text('İptal', style: TextStyle(color: AppColors.secondaryText)),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(controller.text.trim()),
@@ -1299,14 +1297,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         content: Text(
           '"${book.title}" metnini silmek istediğinize emin misiniz?',
-          style: TextStyle(color: Colors.black54),
+          style: TextStyle(color: AppColors.secondaryText),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
               'İptal',
-              style: TextStyle(color: Colors.black45),
+              style: TextStyle(color: AppColors.secondaryText),
             ),
           ),
           ElevatedButton(
