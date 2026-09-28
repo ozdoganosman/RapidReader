@@ -52,6 +52,51 @@ Uint8List _buildEpub(String chapterXhtml) {
   return Uint8List.fromList(ZipEncoder().encode(archive)!);
 }
 
+/// Build an EPUB whose spine lists [spine] (manifest hrefs, possibly
+/// URL-encoded) while the table of contents lists only [toc]
+Uint8List _buildSplitEpub({required List<String> spine, required List<String> toc}) {
+  final archive = Archive();
+  void add(String name, String content) {
+    final bytes = utf8.encode(content);
+    archive.addFile(ArchiveFile(name, bytes.length, bytes));
+  }
+
+  String page(String href) => '<html xmlns="http://www.w3.org/1999/xhtml"><body>'
+      '<p>Metin ${Uri.decodeFull(href).replaceAll('.xhtml', '')}.</p></body></html>';
+
+  add('mimetype', 'application/epub+zip');
+  add('META-INF/container.xml', '''<?xml version="1.0"?>
+<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
+  <rootfiles><rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/></rootfiles>
+</container>''');
+  add('OEBPS/content.opf', '''<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="id" version="2.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>Bölünmüş</dc:title><dc:identifier id="id">test-2</dc:identifier>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+    ${[
+    for (var i = 0; i < spine.length; i++) '<item id="c$i" href="${spine[i]}" media-type="application/xhtml+xml"/>'
+  ].join('\n    ')}
+  </manifest>
+  <spine toc="ncx">${[for (var i = 0; i < spine.length; i++) '<itemref idref="c$i"/>'].join()}</spine>
+</package>''');
+  add('OEBPS/toc.ncx', '''<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head><meta name="dtb:uid" content="test-2"/></head>
+  <docTitle><text>Bölünmüş</text></docTitle>
+  <navMap>${[
+    for (var i = 0; i < toc.length; i++)
+      '<navPoint id="n$i" playOrder="${i + 1}"><navLabel><text>B$i</text></navLabel><content src="${toc[i]}"/></navPoint>'
+  ].join()}</navMap>
+</ncx>''');
+  for (final href in spine) {
+    add('OEBPS/${Uri.decodeFull(href)}', page(href));
+  }
+  return Uint8List.fromList(ZipEncoder().encode(archive)!);
+}
+
 const _chapter = '''<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head><title>Sayfa Başlığı</title><style>p { margin: 0; }</style></head>
@@ -169,6 +214,22 @@ void main() {
 
     test('does not include the XHTML <title>', () {
       expect(text, isNot(contains('Sayfa Başlığı')));
+    });
+  });
+
+  group('EpubExtractor.extract follows the spine', () {
+    test('includes files the table of contents leaves out, in reading order', () async {
+      final epub = await EpubExtractor.extract(
+        _buildSplitEpub(spine: ['ch1.xhtml', 'ch1_split.xhtml', 'ch3.xhtml'], toc: ['ch1.xhtml', 'ch3.xhtml']),
+      );
+      expect(epub.text, 'Bölünmüş\n\nMetin ch1.\n\nMetin ch1_split.\n\nMetin ch3.');
+      expect(epub.metadata.chapterCount, 3);
+    });
+
+    test('reads URL-encoded file names (spaces, Turkish letters)', () async {
+      const href = 'Birinci%20B%C3%B6l%C3%BCm.xhtml';
+      final epub = await EpubExtractor.extract(_buildSplitEpub(spine: [href], toc: [href]));
+      expect(epub.text, contains('Metin Birinci Bölüm.'));
     });
   });
 }

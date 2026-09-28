@@ -45,4 +45,13 @@ void main() {
       '“A” – €…',
     );
   });
+
+  test('a few stray bytes in a UTF-8 file do not turn it into mojibake', () {
+    final bytes = <int>[
+      ...utf8.encode('Güzel bir gün. Şimdi'),
+      0x92, // a Windows-1254 right quote pasted in
+      ...utf8.encode('s ağaçlar çiçek açtı.'),
+    ];
+    expect(TextFileDecoder.decode(Uint8List.fromList(bytes)), 'Güzel bir gün. Şimdi’s ağaçlar çiçek açtı.');
+  });
 }

@@ -72,11 +72,13 @@ class DocumentImporter {
       case 'txt':
         document = ImportedDocument(
           title: baseName,
-          content: TextCleaner.clean(TextFileDecoder.decode(bytes)),
+          // Lines of a hard-wrapped file are joined into paragraphs
+          content: TextCleaner.joinWrappedLines(TextCleaner.clean(TextFileDecoder.decode(bytes)), onlyIfWrapped: true),
         );
       case 'pdf':
         final text = await compute(PdfExtractor.extractText, bytes);
-        document = ImportedDocument(title: baseName, content: TextCleaner.clean(text));
+        // PDF text comes line by line as laid out on the page
+        document = ImportedDocument(title: baseName, content: TextCleaner.joinWrappedLines(TextCleaner.clean(text)));
       case 'epub':
         final epub = await compute(EpubExtractor.extract, bytes);
         final title = epub.metadata.title;

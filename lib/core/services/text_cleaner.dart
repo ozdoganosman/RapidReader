@@ -32,8 +32,9 @@ class TextCleaner {
   /// Metadata line patterns, matched against the folded (lowercase,
   /// dotless/dotted i normalized to "i") trimmed line.
   static final _metadataPatterns = [
-    // © 2020 ..., (c) 2020 ..., Copyright ..., Telif hakkı ...
-    RegExp(r'^(?:©|\(c\)|copyright\b|telif hakk)'),
+    // © 2020 ..., (c) 2020 ..., Copyright ..., Telif hakkı ... (not a list
+    // item "(c) ...")
+    RegExp(r'^(?:©|\(c\)\s*(?:\d{4}|copyright\b)|copyright\b|telif hakk)'),
     // All rights reserved / Tüm hakları saklıdır / Her hakkı saklıdır
     RegExp(r'all rights reserved|(?:hakki|haklari) saklidir'),
     // ISBN 978-...
@@ -82,6 +83,68 @@ class TextCleaner {
     final folded = _fold(trimmed);
     return _metadataPatterns.any((p) => p.hasMatch(folded));
   }
+
+  /// Join the lines of paragraphs that a fixed-width layout broke (PDF
+  /// pages, hard-wrapped text files), so each paragraph is one line again:
+  /// the reader pauses at every line end and reads a line as a paragraph.
+  ///
+  /// A line ends its paragraph when an empty line follows, when it is
+  /// clearly shorter than the usual line (the last line of a paragraph, a
+  /// heading) or ends a sentence while somewhat shorter, or when the next
+  /// line starts a dialog line or list item. Paragraphs are separated by an
+  /// empty line.
+  ///
+  /// With [onlyIfWrapped], text that does not look hard-wrapped (most
+  /// lines of a similar length of 50-120 characters) is returned as it is,
+  /// so one-line-per-paragraph texts and poems are kept.
+  static String joinWrappedLines(String text, {bool onlyIfWrapped = false}) {
+    final lines = text.replaceAll('\r\n', '\n').replaceAll('\r', '\n').split('\n');
+    final lengths = [
+      for (final line in lines)
+        if (line.trim().isNotEmpty) line.trim().length
+    ]..sort();
+    if (lengths.length < 3) return text;
+
+    // The usual length of a full line
+    final typical = lengths[(lengths.length * 0.8).floor().clamp(0, lengths.length - 1)];
+    if (onlyIfWrapped) {
+      final full = lengths.where((length) => length >= typical * 0.7).length;
+      if (typical < 50 || typical > 120 || full < lengths.length * 0.6) return text;
+    }
+
+    final paragraphs = <String>[];
+    final current = <String>[];
+    void flush() {
+      if (current.isNotEmpty) paragraphs.add(current.join(' '));
+      current.clear();
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+      final line = lines[i].trim();
+      if (line.isEmpty) {
+        flush();
+        continue;
+      }
+      current.add(line);
+
+      final next = i + 1 < lines.length ? lines[i + 1].trim() : '';
+      final endsParagraph = next.isEmpty ||
+          line.length < typical * 0.6 ||
+          (_endsSentence(line) && line.length < typical * 0.85) ||
+          _startsBlock.hasMatch(next);
+      if (endsParagraph) flush();
+    }
+    flush();
+    return paragraphs.join('\n\n');
+  }
+
+  /// A sentence end (also before closing quotes or brackets) or a colon
+  static final _sentenceEnd = RegExp('[.!?\u2026:][)\\]"\'\u00BB\u201D\u2019]*\$');
+
+  static bool _endsSentence(String line) => _sentenceEnd.hasMatch(line);
+
+  /// A dialog dash, bullet or numbered item at the start of a line
+  static final _startsBlock = RegExp(r'^(?:[—–\-•*]\s|\d+[.)]\s)');
 
   /// Lowercase with Turkish I/İ/ı/i all folded to "i", so patterns match
   /// both "BASKI" and "baskı" as well as English words like "PUBLISHED".

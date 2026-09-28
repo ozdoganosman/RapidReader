@@ -12,7 +12,9 @@ import 'dart:typed_data';
 class TextFileDecoder {
   /// Decode [bytes] detecting the encoding:
   /// - UTF-8 / UTF-16 LE / UTF-16 BE with a byte order mark (BOM removed)
-  /// - UTF-8 without BOM when the bytes are valid UTF-8
+  /// - UTF-8 without BOM when the bytes are valid UTF-8, or mostly so (a
+  ///   few stray bytes, e.g. a Windows quote pasted into a UTF-8 file, are
+  ///   read as Windows-1254 instead of turning the whole file into mojibake)
   /// - Windows-1254 (Turkish) otherwise
   static String decode(Uint8List bytes) {
     if (_startsWith(bytes, const [0xEF, 0xBB, 0xBF])) {
@@ -28,23 +30,63 @@ class TextFileDecoder {
     try {
       return utf8.decode(bytes);
     } on FormatException {
-      return decodeWindows1254(bytes);
+      return _decodeMostlyUtf8(bytes) ?? decodeWindows1254(bytes);
     }
+  }
+
+  /// UTF-8 with its invalid bytes read as Windows-1254; null when the
+  /// bytes are not mostly UTF-8 (few valid multibyte characters, many
+  /// invalid bytes: a Windows-1254 file)
+  static String? _decodeMostlyUtf8(Uint8List bytes) {
+    final buffer = StringBuffer();
+    var valid = 0;
+    var invalid = 0;
+    var i = 0;
+    while (i < bytes.length) {
+      final byte = bytes[i];
+      if (byte < 0x80) {
+        buffer.writeCharCode(byte);
+        i++;
+        continue;
+      }
+      final length = byte >= 0xC2 && byte <= 0xDF
+          ? 2
+          : byte >= 0xE0 && byte <= 0xEF
+              ? 3
+              : byte >= 0xF0 && byte <= 0xF4
+                  ? 4
+                  : 0;
+      if (length > 0 && i + length <= bytes.length) {
+        try {
+          buffer.write(utf8.decode(bytes.sublist(i, i + length)));
+          valid++;
+          i += length;
+          continue;
+        } on FormatException {
+          // not a valid sequence: read the byte on its own below
+        }
+      }
+      buffer.writeCharCode(_windows1254Char(byte));
+      invalid++;
+      i++;
+    }
+    if (valid == 0 || invalid > valid ~/ 10 + 2) return null;
+    return buffer.toString();
   }
 
   /// Decode Windows-1254 (a superset of ISO-8859-9 / Latin-5)
   static String decodeWindows1254(Uint8List bytes) {
     final buffer = StringBuffer();
     for (final byte in bytes) {
-      if (byte < 0x80) {
-        buffer.writeCharCode(byte);
-      } else if (byte < 0xA0) {
-        buffer.writeCharCode(_cp1254High[byte - 0x80]);
-      } else {
-        buffer.writeCharCode(_latin5[byte] ?? byte);
-      }
+      buffer.writeCharCode(_windows1254Char(byte));
     }
     return buffer.toString();
+  }
+
+  static int _windows1254Char(int byte) {
+    if (byte < 0x80) return byte;
+    if (byte < 0xA0) return _cp1254High[byte - 0x80];
+    return _latin5[byte] ?? byte;
   }
 
   static bool _startsWith(Uint8List bytes, List<int> prefix) {

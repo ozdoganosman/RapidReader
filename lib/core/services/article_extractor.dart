@@ -94,14 +94,23 @@ class ArticleExtractor {
     for (final element in document.querySelectorAll(_noise)) {
       element.remove();
     }
+    // A <br> separates words (and lines of a poem); .text would drop it and
+    // glue them together
+    for (final br in document.querySelectorAll('br')) {
+      br.replaceWith(Text('\n'));
+    }
 
     final container = _mainContainer(document);
     final paragraphs = <String>[];
     for (final element in container?.querySelectorAll('h1, h2, h3, p, blockquote, li') ?? <Element>[]) {
       // Skip list items that only wrap paragraphs (their text is taken from the <p>)
       if (element.localName == 'li' && element.querySelector('p') != null) continue;
-      final text = element.text.replaceAll(RegExp(r'\s+'), ' ').trim();
-      if (text.split(' ').length < 2 && element.localName != 'h1') continue;
+      final text = element.text
+          .split('\n')
+          .map((line) => line.replaceAll(RegExp(r'\s+'), ' ').trim())
+          .where((line) => line.isNotEmpty)
+          .join('\n');
+      if (text.split(RegExp(r'\s')).length < 2 && element.localName != 'h1') continue;
       if (paragraphs.isNotEmpty && paragraphs.last == text) continue;
       paragraphs.add(text);
     }

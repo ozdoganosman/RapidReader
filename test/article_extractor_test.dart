@@ -43,8 +43,26 @@ void main() {
       // "Işık ve gölge üzerine uzun bir yazı." in Windows-1254 inside a paragraph
       final body = <int>[
         ...latin1.encode('<html><body><article><p>'),
-        0x49, 0xFE, 0xFD, 0x6B, ...latin1.encode(' ve g'), 0xF6, 0x6C, 0x67, 0x65, ...latin1.encode(' '),
-        0xFC, 0x7A, 0x65, 0x72, 0x69, 0x6E, 0x65, ...latin1.encode(' uzun bir yaz'), 0xFD, ...latin1.encode('.</p></article></body></html>'),
+        0x49,
+        0xFE,
+        0xFD,
+        0x6B,
+        ...latin1.encode(' ve g'),
+        0xF6,
+        0x6C,
+        0x67,
+        0x65,
+        ...latin1.encode(' '),
+        0xFC,
+        0x7A,
+        0x65,
+        0x72,
+        0x69,
+        0x6E,
+        0x65,
+        ...latin1.encode(' uzun bir yaz'),
+        0xFD,
+        ...latin1.encode('.</p></article></body></html>'),
       ];
       return http.Response.bytes(body, 200);
     });
@@ -55,7 +73,8 @@ void main() {
 
   test('reports errors as messages', () async {
     final notFound = MockClient((_) async => http.Response('yok', 404));
-    await expectLater(ArticleExtractor.fetch('https://ornek.com/x', client: notFound), throwsA(isA<ArticleException>()));
+    await expectLater(
+        ArticleExtractor.fetch('https://ornek.com/x', client: notFound), throwsA(isA<ArticleException>()));
     await expectLater(ArticleExtractor.fetch('ornek', client: notFound), throwsA(isA<ArticleException>()));
   });
 
@@ -67,5 +86,13 @@ void main() {
     expect(ArticleExtractor.linkInSharedText('Güzel bir yazı https://ornek.com/yazi'), 'https://ornek.com/yazi');
     expect(ArticleExtractor.linkInSharedText('Bağlantı yok'), isNull);
     expect(ArticleExtractor.linkInSharedText('${'uzun metin ' * 30} https://ornek.com'), isNull);
+  });
+
+  test('a <br> separates words and lines', () {
+    final article = ArticleExtractor.parse('<html><body><article>'
+        '<p>İlk paragrafın sonu.<br><br>İkinci paragraf burada.</p>'
+        '<p>bir<br/>şiir satırı</p>'
+        '</article></body></html>');
+    expect(article.text, 'İlk paragrafın sonu.\nİkinci paragraf burada.\n\nbir\nşiir satırı');
   });
 }

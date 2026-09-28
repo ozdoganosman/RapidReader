@@ -21,6 +21,7 @@ import '../../core/services/custom_book_service.dart';
 import '../../core/services/document_importer.dart';
 import '../../core/services/reading_stats.dart';
 import '../../core/services/reading_storage.dart';
+import '../../core/services/text_cleaner.dart';
 import '../theme/app_colors.dart';
 import '../widgets/banner_ad_widget.dart';
 import 'chapter_list_screen.dart';
@@ -97,7 +98,8 @@ class _HomeScreenState extends State<HomeScreen> {
           title = article.title;
           content = article.text;
         } else {
-          content = text;
+          // Text shared from a PDF viewer comes line by line
+          content = TextCleaner.joinWrappedLines(text, onlyIfWrapped: true);
         }
       } else {
         return;
@@ -872,6 +874,9 @@ class _HomeScreenState extends State<HomeScreen> {
     // the dialog)
     bool titleMissing = false;
     bool contentMissing = false;
+    // Errors of the import buttons and of saving, shown in the dialog (a
+    // snack bar would be behind it)
+    String? notice;
 
     showDialog(
       context: context,
@@ -1029,13 +1034,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   }
                                 } catch (e) {
                                   if (context.mounted) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          e is DocumentImportException ? e.message : 'Dosya okunamadı: $e',
-                                        ),
-                                        backgroundColor: Colors.red[400],
-                                      ),
+                                    setDialogState(
+                                      () => notice = e is DocumentImportException ? e.message : 'Dosya okunamadı: $e',
                                     );
                                   }
                                 } finally {
@@ -1077,19 +1077,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                     final text = data?.text?.trim() ?? '';
                                     if (!context.mounted) return;
                                     if (text.isEmpty) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text('Panoda metin yok')),
-                                      );
+                                      setDialogState(() => notice = 'Panoda metin yok');
                                       return;
                                     }
                                     if (ArticleExtractor.isUrl(text)) {
                                       // A copied link: read the page it points to
                                       setDialogState(() => importing = true);
-                                      await _fillFromArticle(context, text, titleController, contentController);
-                                      if (context.mounted) setDialogState(() => importing = false);
+                                      final error = await _fillFromArticle(text, titleController, contentController);
+                                      if (context.mounted) {
+                                        setDialogState(() {
+                                          importing = false;
+                                          notice = error;
+                                        });
+                                      }
                                       return;
                                     }
-                                    contentController.text = text;
+                                    // Lines of text copied from a PDF are joined into paragraphs
+                                    contentController.text = TextCleaner.joinWrappedLines(text, onlyIfWrapped: true);
+                                    setDialogState(() {
+                                      notice = null;
+                                      contentMissing = false;
+                                    });
                                     if (titleController.text.trim().isEmpty) {
                                       titleController.text = _titleFromText(text);
                                     }
@@ -1107,13 +1115,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                     final url = await _askUrl(context);
                                     if (url == null || !context.mounted) return;
                                     setDialogState(() => importing = true);
-                                    await _fillFromArticle(context, url, titleController, contentController);
-                                    if (context.mounted) setDialogState(() => importing = false);
+                                    final error = await _fillFromArticle(url, titleController, contentController);
+                                    if (context.mounted) {
+                                      setDialogState(() {
+                                        importing = false;
+                                        notice = error;
+                                      });
+                                    }
                                   },
                           ),
                         ),
                       ],
                     ),
+                    if (notice != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Text(notice!, style: TextStyle(color: Colors.red[700], fontSize: 13)),
+                      ),
                     const SizedBox(height: 12),
                     // Content field
                     TextField(
@@ -1195,14 +1213,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             imageBase64: selectedImageBase64,
                           );
                         } catch (e) {
-                          // e.g. the browser's storage limit (about 5 MB) was reached
-                          if (context.mounted) setDialogState(() => saving = false);
-                          messenger.showSnackBar(
-                            SnackBar(
-                              content: Text('Metin kaydedilemedi. Cihazın depolama alanı için çok büyük olabilir.'),
-                              backgroundColor: Colors.red[400],
-                            ),
-                          );
+                          // e.g. the device's storage is full
+                          if (context.mounted) {
+                            setDialogState(() {
+                              saving = false;
+                              notice = 'Metin kaydedilemedi. Cihazın depolama alanı için çok büyük olabilir.';
+                            });
+                          }
                           return;
                         }
 
@@ -1282,9 +1299,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  /// Download [url] and put its article into the add dialog
-  Future<void> _fillFromArticle(
-    BuildContext context,
+  /// Download [url] and put its article into the add dialog; the error
+  /// message if the page could not be read
+  Future<String?> _fillFromArticle(
     String url,
     TextEditingController titleController,
     TextEditingController contentController,
@@ -1295,15 +1312,9 @@ class _HomeScreenState extends State<HomeScreen> {
       if (titleController.text.trim().isEmpty) {
         titleController.text = article.title.isNotEmpty ? article.title : _titleFromText(article.text);
       }
+      return null;
     } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e is ArticleException ? e.message : 'Sayfa okunamadı: $e'),
-            backgroundColor: Colors.red[400],
-          ),
-        );
-      }
+      return e is ArticleException ? e.message : 'Sayfa okunamadı: $e';
     }
   }
 

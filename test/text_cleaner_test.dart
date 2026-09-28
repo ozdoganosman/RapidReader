@@ -81,4 +81,48 @@ void main() {
       expect(TextCleaner.clean('A.\n\n\n\n\nB.'), 'A.\n\nB.');
     });
   });
+
+  test('a list item "(c)" is not taken for a copyright line', () {
+    const list = '(a) Başvuru yapılır.\n(b) Belge verilir.\n(c) Ücret yatırılır.';
+    expect(TextCleaner.clean(list), list);
+    expect(TextCleaner.clean('Metin.\n(c) 2020 Yayınevi\nDevam.'), 'Metin.\nDevam.');
+  });
+
+  group('TextCleaner.joinWrappedLines', () {
+    // A paragraph wrapped at about 60 characters, a heading and a dialog
+    const wrapped = 'BİRİNCİ BÖLÜM\n'
+        'Gregor Samsa bir sabah huzursuz düşlerden uyandığında,\n'
+        'kendini yatağında korkunç bir böceğe dönüşmüş buldu. Zırh\n'
+        'gibi sert sırtının üstünde yatıyordu ve başını biraz\n'
+        'kaldırınca kahverengi karnını gördü.\n'
+        '— Ne oldu bana? diye düşündü. Bir düş değildi bu, hayır\n'
+        'odası gerçekten de insan odasıydı, küçüktü ama gerçekti.';
+
+    test('joins the lines of each paragraph', () {
+      expect(TextCleaner.joinWrappedLines(wrapped).split('\n\n'), [
+        'BİRİNCİ BÖLÜM',
+        'Gregor Samsa bir sabah huzursuz düşlerden uyandığında, kendini yatağında korkunç bir böceğe '
+            'dönüşmüş buldu. Zırh gibi sert sırtının üstünde yatıyordu ve başını biraz kaldırınca '
+            'kahverengi karnını gördü.',
+        '— Ne oldu bana? diye düşündü. Bir düş değildi bu, hayır odası gerçekten de insan odasıydı, '
+            'küçüktü ama gerçekti.',
+      ]);
+    });
+
+    test('an empty line always ends a paragraph', () {
+      expect(TextCleaner.joinWrappedLines('Bir iki üç dört beş\naltı yedi\n\nsekiz dokuz on\nonbir'),
+          'Bir iki üç dört beş altı yedi\n\nsekiz dokuz on onbir');
+    });
+
+    test('only if wrapped: one-line paragraphs and poems stay as they are', () {
+      expect(TextCleaner.joinWrappedLines(wrapped, onlyIfWrapped: true), isNot(wrapped));
+      const paragraphs = 'Kısa bir paragraf.\n'
+          'Çok daha uzun bir paragraf; birkaç cümleden oluşuyor ve satır sonu olmadan yazılmış, '
+          'çünkü dosyada her paragraf tek satır. Burada da devam ediyor ve bitiyor.\n'
+          'Son.';
+      expect(TextCleaner.joinWrappedLines(paragraphs, onlyIfWrapped: true), paragraphs);
+      const poem = 'Ne içindeyim zamanın,\nNe büsbütün dışında;\nYekpare, geniş bir anın\nParçalanmaz akışında.';
+      expect(TextCleaner.joinWrappedLines(poem, onlyIfWrapped: true), poem);
+    });
+  });
 }

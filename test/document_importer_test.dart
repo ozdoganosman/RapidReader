@@ -76,6 +76,15 @@ void main() {
     expect(document.content, 'Işık ğüşöç');
   });
 
+  test('the lines of a PDF paragraph become one paragraph', () async {
+    // drawString wraps the paragraph into several lines at the 500 pt width
+    const paragraph = 'One morning Gregor Samsa woke from troubled dreams and found himself transformed in '
+        'his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a '
+        'little he could see his brown belly, slightly domed and divided by arches into stiff sections.';
+    final document = await DocumentImporter.read('book.pdf', await _buildPdf(paragraph));
+    expect(document.content, paragraph);
+  });
+
   test('reads the text of a PDF file', () async {
     final document = await DocumentImporter.read('rapor.pdf', await _buildPdf('PDF metni burada.'));
 

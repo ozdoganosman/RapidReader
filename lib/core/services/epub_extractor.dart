@@ -16,91 +16,53 @@ class EpubExtractor {
   /// [bytes] - EPUB file as bytes (works on web and mobile)
   /// The file is parsed once for both. Pure Dart, so it can run in a
   /// background isolate via `compute`.
+  ///
+  /// The text follows the spine (the book's reading order), not the table
+  /// of contents: a table of contents often lists only some of the files
+  /// (split chapters, parts), and epubx fails on file names it has to
+  /// URL-decode ("Birinci%20B%C3%B6l%C3%BCm.xhtml") when it reads it.
   static Future<EpubDocument> extract(Uint8List bytes) async {
-    final book = await EpubReader.readBook(bytes);
+    final book = await EpubReader.openBook(bytes);
+    final package = book.Schema?.Package;
+    final html = book.Content?.Html;
+    final manifest = {
+      for (final item in package?.Manifest?.Items ?? const <EpubManifestItem>[]) item.Id: item.Href,
+    };
 
-    return EpubDocument(
-      text: _extractText(book),
-      metadata: EpubMetadata(
-        title: book.Title ?? 'Bilinmeyen',
-        author: book.Author ?? 'Bilinmeyen Yazar',
-        chapterCount: book.Chapters?.length ?? 0,
-      ),
-    );
-  }
+    // Spine documents in reading order; all XHTML files if there is no spine
+    final hrefs = <String>[
+      for (final item in package?.Spine?.Items ?? const <EpubSpineItemRef>[])
+        if (manifest[item.IdRef] case final href?) href,
+    ];
+    if (hrefs.isEmpty) hrefs.addAll(html?.keys ?? const <String>[]);
 
-  /// Extract all text content from a parsed book as a single string
-  static String _extractText(EpubBook book) {
     final buffer = StringBuffer();
-
-    // Get book title if available
-    if (book.Title != null && book.Title!.isNotEmpty) {
-      buffer.writeln(book.Title);
+    final title = book.Title;
+    if (title != null && title.isNotEmpty) {
+      buffer.writeln(title);
       buffer.writeln();
     }
 
-    // Extract text from chapters
-    final chapterBuffer = StringBuffer();
-    if (book.Chapters != null) {
-      final seenFiles = <String>{};
-      for (final chapter in book.Chapters!) {
-        _extractChapterText(chapter, chapterBuffer, seenFiles);
-      }
+    final seen = <String>{};
+    var documents = 0;
+    for (final href in hrefs) {
+      final file = html?[href];
+      if (file == null || !seen.add(href)) continue;
+      final text = stripHtml(await file.readContentAsText());
+      if (text.isEmpty) continue;
+      buffer.writeln(text);
+      buffer.writeln();
+      documents++;
     }
 
-    // If no chapters, try to extract from content
-    if (chapterBuffer.toString().trim().isEmpty && book.Content != null) {
-      final html = book.Content!.Html;
-      if (html != null) {
-        for (final entry in html.entries) {
-          final text = stripHtml(entry.value.Content ?? '');
-          if (text.isNotEmpty) {
-            chapterBuffer.writeln(text);
-            chapterBuffer.writeln();
-          }
-        }
-      }
-    }
-
-    buffer.write(chapterBuffer);
-    return buffer.toString().trim();
-  }
-
-  /// Recursively extract text from a chapter and its subchapters
-  static void _extractChapterText(
-    EpubChapter chapter,
-    StringBuffer buffer,
-    Set<String> seenFiles,
-  ) {
-    // Sub-chapters that point to an anchor inside an already extracted file
-    // carry the whole file again as HtmlContent; skip them to avoid duplicates
-    final fileName = chapter.ContentFileName;
-    final isNewFile = fileName == null || seenFiles.add(fileName);
-
-    if (isNewFile) {
-      // Add chapter title
-      if (chapter.Title != null && chapter.Title!.isNotEmpty) {
-        buffer.writeln();
-        buffer.writeln(chapter.Title);
-        buffer.writeln();
-      }
-
-      // Add chapter content
-      if (chapter.HtmlContent != null && chapter.HtmlContent!.isNotEmpty) {
-        final text = stripHtml(chapter.HtmlContent!);
-        if (text.isNotEmpty) {
-          buffer.writeln(text);
-          buffer.writeln();
-        }
-      }
-    }
-
-    // Process subchapters
-    if (chapter.SubChapters != null) {
-      for (final subChapter in chapter.SubChapters!) {
-        _extractChapterText(subChapter, buffer, seenFiles);
-      }
-    }
+    return EpubDocument(
+      text: buffer.toString().trim(),
+      metadata: EpubMetadata(
+        title: (title == null || title.isEmpty) ? 'Bilinmeyen' : title,
+        author: (book.Author == null || book.Author!.isEmpty) ? 'Bilinmeyen Yazar' : book.Author!,
+        chapterCount: documents,
+      ),
+    );
   }
 
   /// Convert XHTML to plain text, keeping paragraph structure
@@ -220,10 +182,8 @@ class EpubExtractor {
       if (entity.startsWith('#')) {
         final isHex = entity.length > 1 && (entity[1] == 'x' || entity[1] == 'X');
         final code = isHex ? int.tryParse(entity.substring(2), radix: 16) : int.tryParse(entity.substring(1));
-        final isValid = code != null &&
-            code > 0 &&
-            code <= 0x10FFFF &&
-            (code < 0xD800 || code > 0xDFFF); // not a lone surrogate
+        final isValid =
+            code != null && code > 0 && code <= 0x10FFFF && (code < 0xD800 || code > 0xDFFF); // not a lone surrogate
         return isValid ? String.fromCharCode(code) : match.group(0)!;
       }
 

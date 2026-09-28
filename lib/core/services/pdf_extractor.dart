@@ -26,11 +26,9 @@ class PdfExtractor {
       // Extract text from each page
       for (int i = 0; i < document.pages.count; i++) {
         final pageText = extractor.extractText(startPageIndex: i, endPageIndex: i);
-        if (pageText.isNotEmpty) {
-          buffer.writeln(pageText);
-          // Add paragraph break between pages
-          buffer.writeln();
-        }
+        // No paragraph break between pages: a paragraph often goes on on
+        // the next page (the importer joins the lines into paragraphs)
+        if (pageText.isNotEmpty) buffer.writeln(pageText);
       }
 
       return joinHyphenatedLineBreaks(buffer.toString().trim());
@@ -52,8 +50,6 @@ class PdfExtractor {
   /// sentence or list item are kept. Remaining soft hyphens are removed.
   @visibleForTesting
   static String joinHyphenatedLineBreaks(String text) {
-    return text
-        .replaceAllMapped(_hyphenatedLineBreak, (m) => '${m[1]}${m[2]}')
-        .replaceAll('\u00AD', '');
+    return text.replaceAllMapped(_hyphenatedLineBreak, (m) => '${m[1]}${m[2]}').replaceAll('\u00AD', '');
   }
 }
