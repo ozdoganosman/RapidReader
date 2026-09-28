@@ -10,7 +10,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show compute, kIsWeb;
 import 'package:flutter/material.dart';
 
 import '../../core/models/book.dart';
@@ -100,7 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
             // PDF metin çıkarma (web ve mobilde çalışır)
             if (file.bytes != null) {
               try {
-                content = PdfExtractor.extractText(file.bytes!);
+                // Arka planda çıkar, arayüz donmasın
+                content = await compute(PdfExtractor.extractText, file.bytes!);
                 if (content.trim().isEmpty) {
                   _showError('PDF dosyasından metin çıkarılamadı');
                   return;
@@ -119,13 +120,15 @@ class _HomeScreenState extends State<HomeScreen> {
             // EPUB metin çıkarma (web ve mobilde çalışır)
             if (file.bytes != null) {
               try {
-                content = await EpubExtractor.extractText(file.bytes!);
+                // Arka planda ve tek seferde ayrıştır, arayüz donmasın
+                final epub = await compute(EpubExtractor.extract, file.bytes!);
+                content = epub.text;
                 if (content.trim().isEmpty) {
                   _showError('EPUB dosyasından metin çıkarılamadı');
                   return;
                 }
                 // EPUB başlığını dosya adı yerine kullan
-                final metadata = await EpubExtractor.getMetadata(file.bytes!);
+                final metadata = epub.metadata;
                 if (metadata.title.isNotEmpty && metadata.title != 'Bilinmeyen') {
                   title = metadata.title;
                 }

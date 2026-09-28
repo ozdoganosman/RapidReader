@@ -11,12 +11,26 @@ import 'package:flutter/foundation.dart' show visibleForTesting;
 
 /// Service for extracting text from EPUB documents
 class EpubExtractor {
-  /// Extract all text content from an EPUB document
+  /// Extract text and metadata from an EPUB document
   ///
   /// [bytes] - EPUB file as bytes (works on web and mobile)
-  /// Returns extracted text as a single string
-  static Future<String> extractText(Uint8List bytes) async {
+  /// The file is parsed once for both. Pure Dart, so it can run in a
+  /// background isolate via `compute`.
+  static Future<EpubDocument> extract(Uint8List bytes) async {
     final book = await EpubReader.readBook(bytes);
+
+    return EpubDocument(
+      text: _extractText(book),
+      metadata: EpubMetadata(
+        title: book.Title ?? 'Bilinmeyen',
+        author: book.Author ?? 'Bilinmeyen Yazar',
+        chapterCount: book.Chapters?.length ?? 0,
+      ),
+    );
+  }
+
+  /// Extract all text content from a parsed book as a single string
+  static String _extractText(EpubBook book) {
     final buffer = StringBuffer();
 
     // Get book title if available
@@ -195,16 +209,14 @@ class EpubExtractor {
         );
   }
 
-  /// Get metadata from EPUB
-  static Future<EpubMetadata> getMetadata(Uint8List bytes) async {
-    final book = await EpubReader.readBook(bytes);
+}
 
-    return EpubMetadata(
-      title: book.Title ?? 'Bilinmeyen',
-      author: book.Author ?? 'Bilinmeyen Yazar',
-      chapterCount: book.Chapters?.length ?? 0,
-    );
-  }
+/// Text and metadata extracted from an EPUB file
+class EpubDocument {
+  final String text;
+  final EpubMetadata metadata;
+
+  const EpubDocument({required this.text, required this.metadata});
 }
 
 /// EPUB metadata

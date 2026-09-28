@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rapid_reader/core/services/epub_extractor.dart';
 import 'package:rapid_reader/core/utils/text_parser.dart';
@@ -124,11 +124,19 @@ void main() {
     });
   });
 
-  group('EpubExtractor.extractText', () {
+  group('EpubExtractor.extract', () {
+    late EpubDocument epub;
     late String text;
 
     setUpAll(() async {
-      text = await EpubExtractor.extractText(_buildEpub(_chapter));
+      // Runs in a background isolate like in the app
+      epub = await compute(EpubExtractor.extract, _buildEpub(_chapter));
+      text = epub.text;
+    });
+
+    test('reads the metadata from the same parse', () {
+      expect(epub.metadata.title, 'Deneme Kitabı');
+      expect(epub.metadata.author, 'Yazar Adı');
     });
 
     test('extracts paragraphs with structure intact', () {
