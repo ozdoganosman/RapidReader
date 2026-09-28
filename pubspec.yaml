@@ -44,6 +44,15 @@ flutter:
   assets:
     - assets/books.json
     - assets/books/
+    # Arabic Quran text (Tanzil Project), one file per surah
+    - assets/quran/
     # Default reading font, bundled so it works offline (google_fonts uses
     # these files instead of downloading RobotoMono-Regular/Bold)
     - assets/google_fonts/
+    - assets/fonts/AmiriQuran-OFL.txt
+
+  fonts:
+    # Arabic Quran text and Arabic words in titles (SIL OFL 1.1, assets/fonts/AmiriQuran-OFL.txt)
+    - family: AmiriQuran
+      fonts:
+        - asset: assets/fonts/AmiriQuran-Regular.ttf

@@ -7,6 +7,8 @@ library;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../core/data/quran.dart';
+
 import '../../core/utils/orp_calculator.dart';
 
 /// Widget that displays a word with ORP highlighting
@@ -167,8 +169,17 @@ class ORPTextWidget extends StatelessWidget {
     return width;
   }
 
-  /// Get text style with proper font loading for web
+  /// Get text style with proper font loading for web; Arabic words (e.g.
+  /// surah names) fall back to the bundled Arabic font
   TextStyle _getTextStyle({
+    required double fontSize,
+    required Color color,
+    required FontWeight fontWeight,
+  }) =>
+      _fontStyle(fontSize: fontSize, color: color, fontWeight: fontWeight)
+          .copyWith(fontFamilyFallback: const [quranArabicFont]);
+
+  TextStyle _fontStyle({
     required double fontSize,
     required Color color,
     required FontWeight fontWeight,

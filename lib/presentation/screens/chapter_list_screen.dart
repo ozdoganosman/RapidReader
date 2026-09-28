@@ -4,9 +4,12 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/data/quran.dart';
 import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
+import 'arabic_surah_screen.dart';
 import 'reader_screen.dart';
 
 class ChapterListScreen extends StatefulWidget {
@@ -33,6 +36,46 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
   /// Settings, updated when the speed is changed while reading a chapter
   late RSVPSettings _settings = widget.settings;
 
+  /// Remembers whether the Quran is listed in mushaf order
+  static const _mushafOrderKey = 'quran_mushaf_order';
+
+  /// The meal gets surah search, an order switch and the Arabic text
+  late final bool _isQuran =
+      widget.chapters.isNotEmpty && widget.chapters.first.seriesName == quranSeriesName;
+
+  bool _mushafOrder = false;
+  String _query = '';
+
+  @override
+  void initState() {
+    super.initState();
+    if (_isQuran) _loadOrder();
+  }
+
+  Future<void> _loadOrder() async {
+    final prefs = await SharedPreferences.getInstance();
+    final mushafOrder = prefs.getBool(_mushafOrderKey) ?? false;
+    if (mounted && mushafOrder != _mushafOrder) setState(() => _mushafOrder = mushafOrder);
+  }
+
+  Future<void> _setMushafOrder(bool mushafOrder) async {
+    setState(() => _mushafOrder = mushafOrder);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_mushafOrderKey, mushafOrder);
+  }
+
+  /// Surah number in mushaf order (the meal files are in order of revelation)
+  int _mushafNumber(Book chapter) => quranMushafNumber(chapter.chapterNumber ?? 1);
+
+  /// Search by surah name or by its number in either order
+  bool _matchesQuery(Book chapter) {
+    final query = normalizeForSearch(_query.trim());
+    if (query.isEmpty) return true;
+    final number = int.tryParse(query);
+    if (number != null) return number == chapter.chapterNumber || number == _mushafNumber(chapter);
+    return normalizeForSearch(chapter.title).contains(query);
+  }
+
   void _onSettingsChanged(RSVPSettings settings) {
     // Rebuild so the reading times follow a speed change made in the reader
     if (mounted) setState(() => _settings = settings);
@@ -42,8 +85,13 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
   @override
   Widget build(BuildContext context) {
     // Sort chapters by chapter number
-    final sortedChapters = List<Book>.from(widget.chapters)
+    var sortedChapters = List<Book>.from(widget.chapters)
       ..sort((a, b) => (a.chapterNumber ?? 0).compareTo(b.chapterNumber ?? 0));
+    if (_isQuran) {
+      if (_mushafOrder) sortedChapters.sort((a, b) => _mushafNumber(a).compareTo(_mushafNumber(b)));
+      sortedChapters = sortedChapters.where(_matchesQuery).toList();
+    }
+    final header = _isQuran ? 1 : 0;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -74,16 +122,60 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        itemCount: sortedChapters.length,
+        itemCount: sortedChapters.length + header,
         itemBuilder: (context, index) {
-          final chapter = sortedChapters[index];
-          return _buildChapterCard(context, chapter, index);
+          if (index < header) return _buildQuranControls();
+          final chapter = sortedChapters[index - header];
+          return _buildChapterCard(context, chapter, index - header);
         },
       ),
     );
   }
 
+  /// Surah search and the order switch (Quran only)
+  Widget _buildQuranControls() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          TextField(
+            onChanged: (value) => setState(() => _query = value),
+            decoration: InputDecoration(
+              hintText: 'Sure ara (ad ya da numara)',
+              hintStyle: const TextStyle(color: Colors.black38, fontWeight: FontWeight.w300),
+              prefixIcon: const Icon(Icons.search, color: Colors.black38),
+              isDense: true,
+              filled: true,
+              fillColor: Colors.black.withValues(alpha: 0.03),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          SegmentedButton<bool>(
+            segments: const [
+              ButtonSegment(value: false, label: Text('İniş sırası')),
+              ButtonSegment(value: true, label: Text('Mushaf sırası')),
+            ],
+            selected: {_mushafOrder},
+            showSelectedIcon: false,
+            onSelectionChanged: (selection) => _setMushafOrder(selection.first),
+            style: SegmentedButton.styleFrom(
+              selectedBackgroundColor: Colors.black87,
+              selectedForegroundColor: Colors.white,
+              foregroundColor: Colors.black54,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildChapterCard(BuildContext context, Book chapter, int index) {
+    final mushafNumber = _isQuran ? _mushafNumber(chapter) : null;
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
       decoration: BoxDecoration(
@@ -120,7 +212,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
                   ),
                   child: Center(
                     child: Text(
-                      '${chapter.chapterNumber}',
+                      '${_isQuran && _mushafOrder ? mushafNumber : chapter.chapterNumber}',
                       style: TextStyle(
                         color: Colors.black54,
                         fontSize: 16,
@@ -174,11 +266,33 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
                               fontWeight: FontWeight.w300,
                             ),
                           ),
+                          // The surah's number in the other order
+                          if (mushafNumber != null)
+                            Text(
+                              _mushafOrder ? '  ·  İniş ${chapter.chapterNumber}' : '  ·  Mushaf $mushafNumber',
+                              style: const TextStyle(
+                                color: Colors.black38,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
                         ],
                       ),
                     ],
                   ),
                 ),
+
+                // Arabic text of the surah
+                if (mushafNumber != null)
+                  IconButton(
+                    tooltip: 'Arapça metin',
+                    icon: const Text('ع', style: TextStyle(fontSize: 20, color: Colors.black45)),
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (context) => ArabicSurahScreen(mushafNumber: mushafNumber, title: chapter.title),
+                      ),
+                    ),
+                  ),
 
                 // Arrow icon
                 Icon(

@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'core/data/quran.dart';
 import 'core/services/ad_service.dart';
 import 'presentation/screens/home_screen.dart';
 
@@ -17,6 +18,8 @@ void main() async {
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(const ['Roboto Mono'], license);
+    final amiri = await rootBundle.loadString('assets/fonts/AmiriQuran-OFL.txt');
+    yield LicenseEntryWithLineBreaks(const ['Amiri Quran'], amiri);
   });
 
   // Set preferred orientations
@@ -41,6 +44,8 @@ class RapidReaderApp extends StatelessWidget {
       title: 'RapidReader',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        // Arabic words in titles (surah names) use the bundled Arabic font
+        fontFamilyFallback: const [quranArabicFont],
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.red,
           brightness: Brightness.light,
@@ -58,6 +63,7 @@ class RapidReaderApp extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData(
+        fontFamilyFallback: const [quranArabicFont],
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.red,
           brightness: Brightness.dark,

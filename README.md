@@ -20,6 +20,8 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
   ve önizleme, sayfa görünümü, kalan/toplam süre, okurken ekranın kapanmaması (Android).
 - **Ayarlar:** Hız (100–1000 kelime/dakika), uyarlanabilir hız, kelime gruplama (1–3),
   mikro-duraklama, font ailesi ve boyutu, ORP vurgusu, odak çizgileri, temalar.
+- **Kur'an-ı Kerim:** Sure adına ya da numarasına göre arama, iniş sırası ile mushaf
+  sırası arasında geçiş, her surenin Arapça metni (Tanzil Projesi, Amiri Quran yazı tipiyle).
 - **Türkçe desteği:** Kesme işaretli kelimeler (Türkiye'nin) tek kelime kalır; odak harfi
   noktalamaya, kesme işaretine veya tireye düşmez.
 
@@ -98,6 +100,11 @@ test/                                Birim ve widget testleri
   metni) yapay zekâ desteğiyle çevrilmiş ve ayet ayet ikinci kez gözden
   geçirilmiştir; yayından önce ehil bir kişiye okutulmalıdır. Sureler iniş
   sırasıyla dizilidir (`Kuran_1.txt` = Alak Suresi).
+- **Arapça Kur'an metni** (`assets/quran/`) Tanzil Projesi'nin "Simple" metnidir
+  (tanzil.net, CC BY 3.0); değiştirilmeden kullanılır, kaynak uygulamada belirtilir
+  (`assets/quran/SOURCE.txt`).
+- **Amiri Quran** yazı tipi SIL Open Font License 1.1 ile lisanslıdır
+  (`assets/fonts/AmiriQuran-OFL.txt`).
 - **Roboto Mono** yazı tipi SIL Open Font License 1.1 ile lisanslıdır
   (`assets/google_fonts/OFL.txt`) ve uygulamanın lisanslar sayfasında listelenir.
 - **syncfusion_flutter_pdf** açık kaynak değildir; Syncfusion lisansına tabidir.
