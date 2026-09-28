@@ -11,6 +11,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
+import '../models/rsvp_settings.dart';
 import '../models/word_token.dart';
 import '../utils/timing_calculator.dart';
 
@@ -244,19 +245,22 @@ class RSVPEngine extends ChangeNotifier {
 
   /// Update reading speed (WPM)
   void setSpeed(int wpm) {
-    final clampedWPM = wpm.clamp(50, 1000);
+    final clampedWPM = wpm.clamp(
+      RSVPSettings.minWordsPerMinute,
+      RSVPSettings.maxWordsPerMinute,
+    );
     _config = _config.copyWith(baseWPM: clampedWPM);
     _state = _state.copyWith(wordsPerMinute: clampedWPM);
     notifyListeners();
   }
 
   /// Increase speed by increment
-  void increaseSpeed([int increment = 50]) {
+  void increaseSpeed([int increment = RSVPSettings.wordsPerMinuteStep]) {
     setSpeed(_state.wordsPerMinute + increment);
   }
 
   /// Decrease speed by increment
-  void decreaseSpeed([int increment = 50]) {
+  void decreaseSpeed([int increment = RSVPSettings.wordsPerMinuteStep]) {
     setSpeed(_state.wordsPerMinute - increment);
   }
 

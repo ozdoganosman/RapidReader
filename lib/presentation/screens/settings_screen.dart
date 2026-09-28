@@ -58,9 +58,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _buildSliderTile(
             title: 'Kelime/Dakika (WPM)',
             value: _settings.wordsPerMinute.toDouble(),
-            min: 100,
-            max: 800,
-            divisions: 14,
+            min: RSVPSettings.minWordsPerMinute.toDouble(),
+            max: RSVPSettings.maxWordsPerMinute.toDouble(),
+            divisions: (RSVPSettings.maxWordsPerMinute - RSVPSettings.minWordsPerMinute) ~/
+                RSVPSettings.wordsPerMinuteStep,
             label: '${_settings.wordsPerMinute} WPM',
             onChanged: (value) {
               _updateSettings(_settings.copyWith(wordsPerMinute: value.round()));

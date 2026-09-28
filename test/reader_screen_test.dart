@@ -32,4 +32,20 @@ void main() {
     expect(find.text('3 / 3'), findsOneWidget);
     expect(tester.widget<Slider>(find.byType(Slider)).value, 2);
   });
+
+  testWidgets('speed display stays within the supported range', (tester) async {
+    await _pumpReader(tester, 'Bir iki üç.');
+
+    for (var i = 0; i < 20; i++) {
+      await tester.tap(find.byIcon(Icons.remove_circle_outline));
+      await tester.pump();
+    }
+    expect(find.text('${RSVPSettings.minWordsPerMinute} WPM'), findsOneWidget);
+
+    for (var i = 0; i < 40; i++) {
+      await tester.tap(find.byIcon(Icons.add_circle_outline));
+      await tester.pump();
+    }
+    expect(find.text('${RSVPSettings.maxWordsPerMinute} WPM'), findsOneWidget);
+  });
 }
