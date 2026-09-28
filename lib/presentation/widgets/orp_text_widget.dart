@@ -11,8 +11,13 @@ import '../../core/utils/orp_calculator.dart';
 
 /// Widget that displays a word with ORP highlighting
 ///
-/// Uses a simpler approach: RichText with colored ORP character
-/// This avoids character clipping issues from width calculations
+/// The word is split into three parts:
+/// - Before ORP: normal style, right-aligned
+/// - ORP character: highlighted (colored/bold), exactly in the middle
+/// - After ORP: normal style, left-aligned
+///
+/// The parts are measured with their real rendered widths (not a fixed
+/// character width), so no characters are clipped with any font.
 class ORPTextWidget extends StatelessWidget {
   /// The word to display
   final String word;
@@ -57,33 +62,109 @@ class ORPTextWidget extends StatelessWidget {
     }
 
     final parts = ORPCalculator.splitForDisplay(word);
+    final textScaler = MediaQuery.maybeTextScalerOf(context) ?? TextScaler.noScaling;
 
-    // Base text style
-    final baseStyle = _getTextStyle(
-      fontSize: fontSize,
-      color: textColor,
-      fontWeight: fontWeight,
-    );
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        var size = fontSize;
+        var layout = _measure(parts, size, textScaler);
 
-    // ORP character style
-    final orpStyle = _getTextStyle(
-      fontSize: fontSize,
-      color: showHighlight ? orpColor : textColor,
-      fontWeight: showHighlight ? orpFontWeight : fontWeight,
-    );
+        // Shrink long words (or chunks) so they fit instead of wrapping.
+        // Leave room for the rounding (< 1px) and padding on each side.
+        final maxWidth = constraints.maxWidth;
+        for (var i = 0;
+            i < 3 && maxWidth.isFinite && maxWidth > 8 && layout.totalWidth > maxWidth;
+            i++) {
+          size *= (maxWidth - 2 * (1 + _sidePadding)) / layout.contentWidth;
+          layout = _measure(parts, size, textScaler);
+        }
 
-    // Simple approach: Use RichText with three spans
-    // This naturally handles character widths without clipping
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        children: [
-          TextSpan(text: parts.before, style: baseStyle),
-          TextSpan(text: parts.orp, style: orpStyle),
-          TextSpan(text: parts.after, style: baseStyle),
-        ],
-      ),
+        final baseStyle = _baseStyle(size);
+        final orpStyle = _orpStyle(size);
+
+        // Both sides get the same width, so the ORP character is always
+        // exactly in the middle of the row (and on the focus guides).
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Before ORP - right aligned against the ORP character
+            SizedBox(
+              width: layout.sideWidth,
+              child: Text(
+                parts.before,
+                style: baseStyle,
+                textAlign: TextAlign.right,
+                maxLines: 1,
+              ),
+            ),
+
+            // ORP character - the center point
+            Text(
+              parts.orp,
+              style: orpStyle,
+              maxLines: 1,
+            ),
+
+            // After ORP - left aligned against the ORP character
+            SizedBox(
+              width: layout.sideWidth,
+              child: Text(
+                parts.after,
+                style: baseStyle,
+                textAlign: TextAlign.left,
+                maxLines: 1,
+              ),
+            ),
+          ],
+        );
+      },
     );
+  }
+
+  /// Extra space added to each side so rounding never forces a line break
+  static const double _sidePadding = 1;
+
+  TextStyle _baseStyle(double size) => _getTextStyle(
+        fontSize: size,
+        color: textColor,
+        fontWeight: fontWeight,
+      );
+
+  TextStyle _orpStyle(double size) => _getTextStyle(
+        fontSize: size,
+        color: showHighlight ? orpColor : textColor,
+        fontWeight: showHighlight ? orpFontWeight : fontWeight,
+      );
+
+  /// Measure the rendered widths of the three word parts at [size]
+  _ORPLayout _measure(ORPWordParts parts, double size, TextScaler textScaler) {
+    final baseStyle = _baseStyle(size);
+
+    final before = _textWidth(parts.before, baseStyle, textScaler);
+    final orp = _textWidth(parts.orp, _orpStyle(size), textScaler);
+    final after = _textWidth(parts.after, baseStyle, textScaler);
+
+    final longestSide = before > after ? before : after;
+    return _ORPLayout(
+      sideWidth: longestSide.ceilToDouble() + _sidePadding,
+      orpWidth: orp,
+      contentWidth: longestSide * 2 + orp,
+    );
+  }
+
+  double _textWidth(String text, TextStyle style, TextScaler textScaler) {
+    if (text.isEmpty) return 0;
+
+    final painter = TextPainter(
+      text: TextSpan(text: text, style: style),
+      textDirection: TextDirection.ltr,
+      textScaler: textScaler,
+      maxLines: 1,
+    )..layout();
+    final width = painter.width;
+    painter.dispose();
+    return width;
   }
 
   /// Get text style with proper font loading for web
@@ -160,6 +241,27 @@ class ORPTextWidget extends StatelessWidget {
         );
     }
   }
+}
+
+/// Measured widths used to lay out a word around its ORP character
+class _ORPLayout {
+  /// Width given to both the before and after parts
+  final double sideWidth;
+
+  /// Width of the ORP character
+  final double orpWidth;
+
+  /// Width of the word content without rounding/padding
+  final double contentWidth;
+
+  const _ORPLayout({
+    required this.sideWidth,
+    required this.orpWidth,
+    required this.contentWidth,
+  });
+
+  /// Total width of the laid out row
+  double get totalWidth => sideWidth * 2 + orpWidth;
 }
 
 /// RSVP Display container with focus guides
