@@ -14,6 +14,7 @@ import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
 import '../../core/services/book_service.dart';
 import '../../core/services/custom_book_service.dart';
+import '../../core/services/document_importer.dart';
 import '../../core/services/reading_storage.dart';
 import '../widgets/banner_ad_widget.dart';
 import 'chapter_list_screen.dart';
@@ -667,6 +668,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final authorController = TextEditingController();
     final contentController = TextEditingController();
     String? selectedImageBase64;
+    bool importing = false;
 
     showDialog(
       context: context,
@@ -797,6 +799,61 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(height: 12),
+                  // Import the text from a file
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: importing
+                          ? null
+                          : () async {
+                              setDialogState(() => importing = true);
+                              try {
+                                final document = await DocumentImporter.pickAndRead();
+                                if (document != null) {
+                                  if (titleController.text.trim().isEmpty) {
+                                    titleController.text = document.title;
+                                  }
+                                  if (authorController.text.trim().isEmpty && document.author != null) {
+                                    authorController.text = document.author!;
+                                  }
+                                  contentController.text = document.content;
+                                }
+                              } catch (e) {
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        e is DocumentImportException ? e.message : 'Dosya okunamadı: $e',
+                                      ),
+                                      backgroundColor: Colors.red[400],
+                                    ),
+                                  );
+                                }
+                              } finally {
+                                if (context.mounted) {
+                                  setDialogState(() => importing = false);
+                                }
+                              }
+                            },
+                      icon: importing
+                          ? const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black45),
+                            )
+                          : const Icon(Icons.upload_file, size: 18),
+                      label: Text(importing ? 'Dosya okunuyor…' : 'Dosyadan Yükle (TXT, PDF, EPUB)'),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.black54,
+                        side: BorderSide(color: Colors.black12),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
                   // Content field
                   TextField(
                     controller: contentController,
@@ -847,14 +904,27 @@ class _HomeScreenState extends State<HomeScreen> {
                   return;
                 }
 
-                await CustomBookService.saveCustomBook(
-                  title: titleController.text.trim(),
-                  content: contentController.text.trim(),
-                  author: authorController.text.trim().isNotEmpty
-                      ? authorController.text.trim()
-                      : null,
-                  imageBase64: selectedImageBase64,
-                );
+                try {
+                  await CustomBookService.saveCustomBook(
+                    title: titleController.text.trim(),
+                    content: contentController.text.trim(),
+                    author: authorController.text.trim().isNotEmpty
+                        ? authorController.text.trim()
+                        : null,
+                    imageBase64: selectedImageBase64,
+                  );
+                } catch (e) {
+                  // e.g. the browser's storage limit (about 5 MB) was reached
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Metin kaydedilemedi. Cihazın depolama alanı için çok büyük olabilir.'),
+                        backgroundColor: Colors.red[400],
+                      ),
+                    );
+                  }
+                  return;
+                }
 
                 if (mounted) {
                   Navigator.of(context).pop();

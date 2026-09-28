@@ -67,8 +67,11 @@ class ReaderScreen extends StatefulWidget {
 }
 
 class _ReaderScreenState extends State<ReaderScreen> {
-  /// Words read between progress saves while playing
-  static const _progressSaveInterval = 25;
+  /// Words read between progress saves while playing (the position is
+  /// also saved on pause, at the end, on close and in the background).
+  /// Kept high: on Android every save rewrites the whole preferences file,
+  /// which also holds the custom books.
+  static const _progressSaveInterval = 300;
 
   late final RSVPEngine _engine;
   late final AppLifecycleListener _lifecycleListener;

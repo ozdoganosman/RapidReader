@@ -13,7 +13,8 @@ dependencies:
   # State Management
   flutter_riverpod: ^2.5.1
 
-  # File Parsing (TXT/PDF/EPUB import, not wired to the UI at the moment)
+  # File import (TXT/PDF/EPUB) for custom texts
+  file_picker: ^8.0.0
   epubx: ^4.0.0
   syncfusion_flutter_pdf: ^25.1.37
 
