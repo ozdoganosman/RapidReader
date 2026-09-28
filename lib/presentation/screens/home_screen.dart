@@ -392,7 +392,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final displayName = BookService.seriesDisplayName(seriesName);
 
     // The Quran files list the book name as author; describe the text instead
-    final author = seriesName.toLowerCase() == 'kuran' ? 'Türkçe meal' : firstChapter.author;
+    final author = seriesName.toLowerCase() == 'kuran' ? 'Arapça aslından meal' : firstChapter.author;
 
     return GestureDetector(
       onTap: () => _openSeries(displayName, chapters),
