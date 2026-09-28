@@ -11,6 +11,13 @@ import 'core/data/quran.dart';
 import 'core/services/ad_service.dart';
 import 'presentation/screens/home_screen.dart';
 
+/// Fonts for characters the theme's font lacks: Arabic words in titles
+/// (surah names) use the bundled Arabic font. In browsers the platform's
+/// UI font (Segoe UI, San Francisco) is not available, so Roboto (loaded
+/// by the web engine) comes first; otherwise Latin text would be drawn
+/// with the Arabic font's Latin letters.
+const _fontFallback = [if (kIsWeb) 'Roboto', quranArabicFont];
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -46,8 +53,7 @@ class RapidReaderApp extends StatelessWidget {
       title: 'RapidReader',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // Arabic words in titles (surah names) use the bundled Arabic font
-        fontFamilyFallback: const [quranArabicFont],
+        fontFamilyFallback: _fontFallback,
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.red,
           brightness: Brightness.light,
@@ -65,7 +71,7 @@ class RapidReaderApp extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData(
-        fontFamilyFallback: const [quranArabicFont],
+        fontFamilyFallback: _fontFallback,
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.red,
           brightness: Brightness.dark,
