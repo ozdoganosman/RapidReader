@@ -91,7 +91,11 @@ yerel kopyası gerekir. Bu dosyaları kaybetmeyin ve paylaşmayın.
 
 **Google Play:** `flutter build appbundle --release` ile
 `build/app/outputs/bundle/release/app-release.aab` üretilir (imza için yukarıdaki iki
-dosya gerekir). Her yüklemede `pubspec.yaml`'daki `version`'ın `+` sonrasındaki sayı
+dosya gerekir). Flutter kurulu olmayan bir bilgisayardan: GitHub'da Actions > Release >
+Run workflow; imzalı AAB, çalışmanın sonunda "Artifacts" altında indirilir. Bunun için
+depo ayarlarında (Settings > Secrets and variables > Actions) iki gizli değer gerekir:
+`UPLOAD_KEYSTORE_BASE64` (jks dosyasının base64 hâli) ve `KEY_PROPERTIES`
+(`key.properties` dosyasının içeriği). Her yüklemede `pubspec.yaml`'daki `version`'ın `+` sonrasındaki sayı
 artırılmalıdır. Mağaza metinleri, Uygulama içeriği formlarının cevapları ve mağaza
 görselleri `store/` klasöründedir (`store/listing.md`).
 
