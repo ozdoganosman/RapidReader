@@ -37,7 +37,8 @@ class _ChapterListScreenState extends ConsumerState<ChapterListScreen> {
   late RSVPSettings _settings = widget.settings;
 
   void _onSettingsChanged(RSVPSettings settings) {
-    _settings = settings;
+    // Rebuild so the reading times follow a speed change made in the reader
+    if (mounted) setState(() => _settings = settings);
     widget.onSettingsChanged?.call(settings);
   }
 
@@ -175,7 +176,7 @@ class _ChapterListScreenState extends ConsumerState<ChapterListScreen> {
                             ),
                           ),
                           Text(
-                            '${_formatReadingTime(chapter.wordCount, 800)} - ${_formatReadingTime(chapter.wordCount, 300)}',
+                            _formatReadingTime(chapter.wordCount, _settings.wordsPerMinute),
                             style: TextStyle(
                               color: Colors.black38,
                               fontSize: 12,
