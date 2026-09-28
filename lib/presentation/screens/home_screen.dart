@@ -392,13 +392,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final totalWords = chapters.fold<int>(0, (sum, ch) => sum + ch.wordCount);
 
     // Map series names to display names
-    String displayName = seriesName;
-    final displayNames = {
-      'kuran': 'Kuran-ı Kerim',
-      'attc': 'A Tale of Two Cities',
-      'donusum': 'Die Verwandlung',
-    };
-    displayName = displayNames[seriesName.toLowerCase()] ?? seriesName;
+    final displayName = BookService.seriesDisplayName(seriesName);
+
+    // The Quran files list the book name as author; describe the text instead
+    final author = seriesName.toLowerCase() == 'kuran' ? 'Türkçe meal' : firstChapter.author;
 
     return GestureDetector(
       onTap: () => _openSeries(displayName, chapters),
@@ -452,7 +449,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          firstChapter.author,
+                          author,
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w300,

@@ -17,6 +17,7 @@ import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
 import '../../core/models/word_token.dart';
 import '../../core/services/ad_service.dart';
+import '../../core/services/book_service.dart';
 import '../../core/services/reading_storage.dart';
 import '../../core/services/rsvp_engine.dart';
 import '../../core/utils/text_parser.dart';
@@ -674,7 +675,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
       MaterialPageRoute(
         builder: (context) => ReaderScreen(
           content: nextChapter.content,
-          title: '${nextChapter.seriesName} - Bölüm ${nextChapter.chapterNumber}',
+          // Same title format as the chapter list
+          title: '${BookService.seriesDisplayName(nextChapter.seriesName ?? '')} - ${nextChapter.title}',
           settings: _settings,
           currentBook: nextChapter,
           seriesChapters: widget.seriesChapters,

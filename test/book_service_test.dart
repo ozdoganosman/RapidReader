@@ -18,6 +18,10 @@ void main() {
     expect(donusum, hasLength(3));
     expect(donusum.every((b) => b.coverAsset == 'assets/books/Donusum.jpg'), isTrue);
 
+    final kuran = books.where((b) => b.seriesName == 'Kuran').toList();
+    expect(kuran, hasLength(114));
+    expect(kuran.every((b) => b.coverAsset == 'assets/books/Kuran.jpg'), isTrue);
+
     // Covers are referenced by path; nothing is decoded into memory
     expect(books.every((b) => b.imageBase64 == null), isTrue);
   });
@@ -37,5 +41,12 @@ void main() {
     final book = (await BookService.loadBooks()).first;
     expect(book.wordCount, greaterThan(0));
     expect(book.wordCount, book.wordCount);
+  });
+
+  test('series have Turkish display names', () {
+    expect(BookService.seriesDisplayName('ATTC'), 'İki Şehrin Hikâyesi');
+    expect(BookService.seriesDisplayName('Donusum'), 'Dönüşüm');
+    expect(BookService.seriesDisplayName('Kuran'), "Kur'an-ı Kerim");
+    expect(BookService.seriesDisplayName('Yeni Seri'), 'Yeni Seri');
   });
 }

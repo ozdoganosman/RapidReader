@@ -9,6 +9,17 @@ import '../models/book.dart';
 
 /// Service for loading pre-bundled books from assets/books/ folder
 class BookService {
+  /// Display names of the bundled series (file names are ASCII)
+  static const _seriesDisplayNames = {
+    'kuran': "Kur'an-ı Kerim",
+    'attc': 'İki Şehrin Hikâyesi',
+    'donusum': 'Dönüşüm',
+  };
+
+  /// Name to show for a series, e.g. "ATTC" -> "İki Şehrin Hikâyesi"
+  static String seriesDisplayName(String seriesName) =>
+      _seriesDisplayNames[seriesName.toLowerCase()] ?? seriesName;
+
   /// Cover image extensions, in order of preference
   static const _coverExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
 
