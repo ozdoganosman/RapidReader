@@ -6,7 +6,6 @@
 /// - Reading history
 library;
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -19,6 +18,7 @@ import '../../core/services/epub_extractor.dart';
 import '../../core/services/library_storage.dart';
 import '../../core/services/pdf_extractor.dart';
 import '../../core/services/text_cleaner.dart';
+import '../../core/services/text_file_decoder.dart';
 import 'reader_screen.dart';
 import 'settings_screen.dart';
 
@@ -74,26 +74,15 @@ class _HomeScreenState extends State<HomeScreen> {
         switch (extension) {
           case 'txt':
             format = BookFormat.txt;
-            // Web'de her zaman bytes kullan
-            if (kIsWeb) {
-              if (file.bytes != null) {
-                content = utf8.decode(file.bytes!);
-              } else {
-                _showError('Dosya okunamadı');
-                return;
-              }
-            } else {
-              // Mobilde path veya bytes kullan
-              if (file.path != null) {
-                final ioFile = File(file.path!);
-                content = await ioFile.readAsString();
-              } else if (file.bytes != null) {
-                content = utf8.decode(file.bytes!);
-              } else {
-                _showError('Dosya okunamadı');
-                return;
-              }
+            // Web'de her zaman bytes gelir; mobilde gerekirse yoldan oku
+            final bytes = file.bytes ??
+                (!kIsWeb && file.path != null ? await File(file.path!).readAsBytes() : null);
+            if (bytes == null) {
+              _showError('Dosya okunamadı');
+              return;
             }
+            // UTF-8 (BOM'lu/BOM'suz), UTF-16 veya Windows-1254 (Türkçe ANSI)
+            content = TextFileDecoder.decode(bytes);
             break;
           case 'pdf':
             format = BookFormat.pdf;
