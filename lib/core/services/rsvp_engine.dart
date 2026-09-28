@@ -109,6 +109,12 @@ class RSVPEngine extends ChangeNotifier {
   List<WordToken> _tokens = [];
   TimingConfig _config = const TimingConfig();
 
+  /// Index of the last sentence-end token counted in [RSVPPlaybackState.sentencesRead]
+  ///
+  /// Resuming after a pause shows the current word again (giving the reader
+  /// time to refocus); this keeps that word from being counted twice.
+  int _countedSentenceIndex = -1;
+
   /// Current playback state
   RSVPPlaybackState get state => _state;
 
@@ -119,6 +125,7 @@ class RSVPEngine extends ChangeNotifier {
     int startIndex = 0,
   }) {
     _timer?.cancel();
+    _countedSentenceIndex = -1;
     _tokens = tokens;
     _config = config;
 
@@ -150,6 +157,7 @@ class RSVPEngine extends ChangeNotifier {
 
     // If completed, restart from beginning
     if (_state.status == PlaybackStatus.completed) {
+      _countedSentenceIndex = -1;
       _state = _state.copyWith(
         currentIndex: 0,
         sentencesRead: 0,
@@ -184,6 +192,7 @@ class RSVPEngine extends ChangeNotifier {
   /// Stop and reset to beginning
   void stop() {
     _timer?.cancel();
+    _countedSentenceIndex = -1;
 
     if (_tokens.isEmpty) {
       _state = const RSVPPlaybackState(status: PlaybackStatus.ready);
@@ -284,7 +293,8 @@ class RSVPEngine extends ChangeNotifier {
 
     // Track sentences and add micro-pause if needed
     int sentencesRead = _state.sentencesRead;
-    if (token.hasSentenceEndPunctuation) {
+    if (token.hasSentenceEndPunctuation && _state.currentIndex != _countedSentenceIndex) {
+      _countedSentenceIndex = _state.currentIndex;
       sentencesRead++;
       if (TimingCalculator.shouldInsertMicroPause(
         sentencesRead,
