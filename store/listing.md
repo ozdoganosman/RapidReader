@@ -2,7 +2,8 @@
 
 Görseller bu klasörde: `icon-512.png` (uygulama simgesi), `feature-graphic.png`
 (öne çıkan grafik, 1024x500), `screenshots/01-06.png` (telefon ekran görüntüleri,
-1080x1920).
+1080x1920), `tanitim-videosu.mp4` (37 sn, 1920x1080, sessiz; YouTube'a yüklenip
+bağlantısı "Video" alanına yazılır).
 
 ## Uygulama adı (en çok 30 karakter)
 
