@@ -66,9 +66,10 @@ class RSVPSettings extends Equatable {
     this.darkMode = true,
     this.microPauseInterval = 7,
     this.microPauseDuration = 300,
-    this.orpHighlightColor = 0xFFFF0000, // Red
+    // The colors of [darkTheme], so it is shown as chosen on a new install
+    this.orpHighlightColor = 0xFFFF5252, // Light red
     this.textColor = 0xFFFFFFFF, // White
-    this.backgroundColor = 0xFF000000, // Black
+    this.backgroundColor = 0xFF121212, // Dark gray
     this.showFocusGuides = true,
     this.speedWarmUp = true,
     this.readAloud = false,

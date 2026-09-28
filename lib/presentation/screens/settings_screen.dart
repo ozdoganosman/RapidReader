@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import '../../core/models/rsvp_settings.dart';
 import '../../core/services/narrator.dart';
 import '../theme/app_colors.dart';
+import '../widgets/orp_text_widget.dart';
 
 /// Settings screen for RSVP configuration
 class SettingsScreen extends StatefulWidget {
@@ -612,9 +613,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Center(
                 child: Text(
                   'Ag',
-                  style: TextStyle(
+                  // The reader's own font loading (Google Fonts register
+                  // other family names than the plain one)
+                  style: ORPTextWidget.readingFontStyle(
+                    fontFamily,
                     color: Colors.black87,
-                    fontFamily: fontFamily,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),

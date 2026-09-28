@@ -31,6 +31,7 @@ Future<void> _pumpDisplay(
 
 void main() {
   _themedTests();
+  _rightToLeftTests();
 
   const screenCenter = 400.0;
 
@@ -93,6 +94,16 @@ void main() {
 bool _allPartsFit(WidgetTester tester) => tester
     .renderObjectList<RenderParagraph>(find.descendant(of: find.byType(ORPTextWidget), matching: find.byType(RichText)))
     .every((paragraph) => paragraph.getMaxIntrinsicWidth(double.infinity) <= paragraph.size.width + 0.01);
+
+void _rightToLeftTests() {
+  testWidgets('an Arabic word is shown whole, not split into parts', (tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: Scaffold(body: RSVPDisplay(word: '(العلق)', fontFamily: 'sans')),
+    ));
+    expect(find.text('(العلق)'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+}
 
 void _themedTests() {
   // In the app the text inherits the theme's text style (Material 3 body

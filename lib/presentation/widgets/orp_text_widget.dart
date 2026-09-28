@@ -63,6 +63,11 @@ class ORPTextWidget extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    // Right-to-left words (Arabic surah names in the first line of each
+    // surah) are shown whole: split into three left-to-right parts their
+    // pieces would be reversed and their letters unjoined
+    if (_rightToLeft.hasMatch(word)) return _buildWhole();
+
     final parts = ORPCalculator.splitForDisplay(word);
     final textScaler = MediaQuery.maybeTextScalerOf(context) ?? TextScaler.noScaling;
     // The parts are drawn with the inherited text style merged in (the
@@ -178,20 +183,38 @@ class ORPTextWidget extends StatelessWidget {
     return width;
   }
 
-  /// Get text style with proper font loading for web; Arabic words (e.g.
-  /// surah names) fall back to the bundled Arabic font
+  /// Right-to-left scripts (Hebrew, Arabic)
+  static final _rightToLeft = RegExp('[\u0590-\u08FF\uFB1D-\uFDFF\uFE70-\uFEFF]');
+
+  /// A right-to-left word, whole and centered, shrunk to fit; it falls back
+  /// to the bundled Arabic font
+  Widget _buildWhole() {
+    final style = _getTextStyle(fontSize: fontSize, color: textColor, fontWeight: fontWeight);
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Text(
+        word,
+        style: style.copyWith(fontFamilyFallback: [...?style.fontFamilyFallback, quranArabicFont]),
+        maxLines: 1,
+        softWrap: false,
+      ),
+    );
+  }
+
   TextStyle _getTextStyle({
     required double fontSize,
     required Color color,
     required FontWeight fontWeight,
   }) =>
-      _fontStyle(fontSize: fontSize, color: color, fontWeight: fontWeight)
-          .copyWith(fontFamilyFallback: const [quranArabicFont]);
+      readingFontStyle(fontFamily, fontSize: fontSize, color: color, fontWeight: fontWeight);
 
-  TextStyle _fontStyle({
+  /// The style of the reading font [fontFamily] (also used for the font
+  /// previews in the settings)
+  static TextStyle readingFontStyle(
+    String fontFamily, {
     required double fontSize,
     required Color color,
-    required FontWeight fontWeight,
+    FontWeight fontWeight = FontWeight.w400,
   }) {
     // Use Google Fonts for proper web support with Turkish characters
     switch (fontFamily) {

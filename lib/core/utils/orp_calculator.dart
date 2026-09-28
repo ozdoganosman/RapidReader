@@ -1,9 +1,9 @@
 /// ORP (Optimal Recognition Point) Calculator
 ///
 /// Calculates the optimal focus point for each word in RSVP display.
-/// Simple approach: ORP is approximately 1/3 into the word. Punctuation
-/// around the word and apostrophes/hyphens inside it are not counted, so
-/// the ORP always lands on a letter (e.g. "O'na" -> "n").
+/// Simple approach: ORP is approximately 1/3 into the word. Only letters
+/// and digits are counted, so the ORP never lands on punctuation, an
+/// apostrophe or a hyphen (e.g. "O'na" -> "n").
 library;
 
 /// Result of splitting a word for ORP display
@@ -29,30 +29,6 @@ class ORPWordParts {
 
 /// Calculator for Optimal Recognition Point
 class ORPCalculator {
-  /// Punctuation skipped at the start of a word when placing the ORP
-  static const _leadingPunctuation = {
-    '"', "'", '(', '[', '{',
-    '\u00AB', // «
-    '\u201C', // “
-    '\u201E', // „
-    '\u2018', // ‘
-    '\u2014', '\u2013', // — –
-  };
-
-  /// Punctuation skipped at the end of a word when placing the ORP
-  static const _trailingPunctuation = {
-    '"', "'", ')', ']', '}',
-    '\u00BB', // »
-    '\u201D', // ”
-    '\u2019', // ’
-    '.', ',', '!', '?', ':', ';',
-    '\u2026', // …
-    '\u2014', '\u2013', // — –
-  };
-
-  /// Characters inside a word that never become the ORP
-  static const _ignoredInWord = {"'", '\u2019', '-'};
-
   /// Calculate ORP index based on word length
   ///
   /// Simple rule: ORP is about 1/3 into the word
@@ -90,13 +66,7 @@ class ORPCalculator {
     }
 
     // Single word - use standard ORP calculation
-    final safeIndex = orpIndexOf(text);
-
-    return ORPWordParts(
-      before: text.substring(0, safeIndex),
-      orp: text[safeIndex],
-      after: safeIndex + 1 < text.length ? text.substring(safeIndex + 1) : '',
-    );
+    return _partsAt(text, orpIndexOf(text));
   }
 
   /// Split a chunk (several words) for ORP display
@@ -128,12 +98,31 @@ class ORPCalculator {
       index = best;
     }
 
+    return _partsAt(text, index);
+  }
+
+  /// Split [text] around the character at [index], keeping a surrogate
+  /// pair (emoji) and following combining marks together with it
+  static ORPWordParts _partsAt(String text, int index) {
+    var end = index + 1;
+    if (end < text.length && _isHighSurrogate(text.codeUnitAt(index)) && _isLowSurrogate(text.codeUnitAt(end))) {
+      end++;
+    }
+    while (end < text.length && _combiningMark.hasMatch(text[end])) {
+      end++;
+    }
     return ORPWordParts(
       before: text.substring(0, index),
-      orp: text[index],
-      after: index + 1 < text.length ? text.substring(index + 1) : '',
+      orp: text.substring(index, end),
+      after: text.substring(end),
     );
   }
+
+  static bool _isHighSurrogate(int unit) => unit >= 0xD800 && unit <= 0xDBFF;
+
+  static bool _isLowSurrogate(int unit) => unit >= 0xDC00 && unit <= 0xDFFF;
+
+  static final _combiningMark = RegExp(r'\p{M}', unicode: true);
 
   static final _letterOrDigit = RegExp(r'[\p{L}\p{N}]', unicode: true);
 
@@ -144,26 +133,15 @@ class ORPCalculator {
 
   /// Index of the ORP character in a single [word]
   ///
-  /// Counts only the letters between leading and trailing punctuation,
-  /// skipping apostrophes and hyphens, and returns the position of the
-  /// [calculateORPIndex]-th of them.
+  /// Counts only letters and digits (not punctuation, apostrophes, hyphens,
+  /// soft hyphens or marks) and returns the position of the
+  /// [calculateORPIndex]-th of them ("3.5" -> "3", "...Artık" -> "r").
   static int orpIndexOf(String word) {
-    if (word.isEmpty) return 0;
-
-    var start = 0;
-    var end = word.length;
-    while (start < end && _leadingPunctuation.contains(word[start])) {
-      start++;
-    }
-    while (end > start && _trailingPunctuation.contains(word[end - 1])) {
-      end--;
-    }
-
     final letters = <int>[
-      for (var i = start; i < end; i++)
-        if (!_ignoredInWord.contains(word[i])) i,
+      for (var i = 0; i < word.length; i++)
+        if (_isLetter(word[i])) i,
     ];
-    if (letters.isEmpty) return start < word.length ? start : 0;
+    if (letters.isEmpty) return 0;
 
     final index = calculateORPIndex(letters.length).clamp(0, letters.length - 1);
     return letters[index];

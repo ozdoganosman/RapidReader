@@ -76,9 +76,7 @@ class RSVPPlaybackState {
 
   /// Whether ready to play
   bool get canPlay =>
-      status == PlaybackStatus.ready ||
-      status == PlaybackStatus.paused ||
-      status == PlaybackStatus.completed;
+      status == PlaybackStatus.ready || status == PlaybackStatus.paused || status == PlaybackStatus.completed;
 
   /// Create a copy with modified fields
   RSVPPlaybackState copyWith({
@@ -133,11 +131,14 @@ class RSVPEngine extends ChangeNotifier {
   /// The narrator used while playing, if read-aloud is on
   Narrator? get narrator => _narrator;
 
-  /// Use [narrator] for playback (null: timed playback); pauses first
+  /// Use [narrator] for playback (null: timed playback); playback that
+  /// was running goes on with the new one
   void setNarrator(Narrator? narrator) {
     if (identical(narrator, _narrator)) return;
+    final wasPlaying = _state.isPlaying;
     pause();
     _narrator = narrator;
+    if (wasPlaying) play();
   }
 
   /// Cancel the word timer and stop the narration
@@ -354,7 +355,7 @@ class RSVPEngine extends ChangeNotifier {
 
     // Start slower after play/resume, reaching full speed after a few words
     duration = (duration * _config.warmUpFactor(_wordsSincePlay)).round();
-    _wordsSincePlay++;
+    _wordsSincePlay += token.chunkSize; // a chunk holds several words
 
     // Track sentences and add micro-pause if needed
     int sentencesRead = _state.sentencesRead;

@@ -12,4 +12,10 @@ void main() {
       expect(find.text(label), findsOneWidget);
     }
   });
+
+  test('the default colors are the dark theme (shown as chosen)', () {
+    const d = RSVPSettings.defaults, dark = RSVPSettings.darkTheme;
+    expect([d.darkMode, d.textColor, d.backgroundColor, d.orpHighlightColor],
+        [dark.darkMode, dark.textColor, dark.backgroundColor, dark.orpHighlightColor]);
+  });
 }

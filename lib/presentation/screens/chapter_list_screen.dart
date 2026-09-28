@@ -84,13 +84,11 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Sort chapters by chapter number
-    var sortedChapters = List<Book>.from(widget.chapters)
+    // Sort chapters by chapter number (the Quran optionally in mushaf order)
+    final orderedChapters = List<Book>.from(widget.chapters)
       ..sort((a, b) => (a.chapterNumber ?? 0).compareTo(b.chapterNumber ?? 0));
-    if (_isQuran) {
-      if (_mushafOrder) sortedChapters.sort((a, b) => _mushafNumber(a).compareTo(_mushafNumber(b)));
-      sortedChapters = sortedChapters.where(_matchesQuery).toList();
-    }
+    if (_isQuran && _mushafOrder) orderedChapters.sort((a, b) => _mushafNumber(a).compareTo(_mushafNumber(b)));
+    final sortedChapters = _isQuran ? orderedChapters.where(_matchesQuery).toList() : orderedChapters;
     final header = _isQuran ? 1 : 0;
 
     return Scaffold(
@@ -126,7 +124,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
         itemBuilder: (context, index) {
           if (index < header) return _buildQuranControls();
           final chapter = sortedChapters[index - header];
-          return _buildChapterCard(context, chapter, index - header);
+          return _buildChapterCard(context, chapter, orderedChapters);
         },
       ),
     );
@@ -174,7 +172,9 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
     );
   }
 
-  Widget _buildChapterCard(BuildContext context, Book chapter, int index) {
+  /// [orderedChapters]: all chapters in the shown order ("Sonraki Bölüm"
+  /// follows it)
+  Widget _buildChapterCard(BuildContext context, Book chapter, List<Book> orderedChapters) {
     final mushafNumber = _isQuran ? _mushafNumber(chapter) : null;
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
@@ -192,7 +192,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
             book: chapter,
             title: '${widget.seriesName} - ${chapter.title}',
             settings: _settings,
-            seriesChapters: widget.chapters,
+            seriesChapters: orderedChapters,
             onSettingsChanged: _onSettingsChanged,
           ),
           child: Padding(

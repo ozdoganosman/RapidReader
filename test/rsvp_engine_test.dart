@@ -163,12 +163,24 @@ void main() {
       expect(engine.state.currentIndex, 3);
     });
 
-    test('removing the narrator pauses and returns to timed playback', () {
+    test('switching the narrator while playing goes on with the new playback', () {
       engine.play();
       engine.setNarrator(null);
-      expect(engine.state.isPlaying, isFalse);
-      expect(engine.narrator, isNull);
       expect(narrator.stops, greaterThan(0));
+      expect(engine.narrator, isNull);
+      expect(engine.state.isPlaying, isTrue); // now timed
+
+      final other = _FakeNarrator();
+      engine.setNarrator(other);
+      expect(engine.state.isPlaying, isTrue);
+      expect(other.starts, [engine.state.currentIndex]);
+    });
+
+    test('a narrator set while paused does not start playback', () {
+      final other = _FakeNarrator();
+      engine.setNarrator(other);
+      expect(engine.state.isPlaying, isFalse);
+      expect(other.starts, isEmpty);
     });
   });
 }

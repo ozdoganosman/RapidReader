@@ -48,7 +48,8 @@ class ReaderScreen extends StatefulWidget {
   /// Current book (for series navigation)
   final Book? currentBook;
 
-  /// All chapters in the series (for next chapter button)
+  /// All chapters in the series in reading order (for the next chapter
+  /// button)
   final List<Book>? seriesChapters;
 
   /// Callback when settings change in the reader (e.g. speed)
@@ -123,6 +124,10 @@ class _ReaderScreenState extends State<ReaderScreen> {
   DateTime? _sessionStart;
   int _sessionStartIndex = 0;
 
+  /// Last word shown while playing (a seek has already moved the engine
+  /// away from it when the session ends)
+  int _sessionLastIndex = 0;
+
   /// The voice for read-aloud, created when it is first turned on
   SpeechNarrator? _narrator;
 
@@ -195,10 +200,13 @@ class _ReaderScreenState extends State<ReaderScreen> {
       widget.onProgressChanged?.call(_engine.state.currentIndex);
 
       // Reading time and words for the stats
-      if (_engine.state.isPlaying && _sessionStart == null) {
-        _sessionStart = DateTime.now();
-        _sessionStartIndex = _engine.state.currentIndex;
-      } else if (!_engine.state.isPlaying) {
+      if (_engine.state.isPlaying) {
+        if (_sessionStart == null) {
+          _sessionStart = DateTime.now();
+          _sessionStartIndex = _engine.state.currentIndex;
+        }
+        _sessionLastIndex = _engine.state.currentIndex;
+      } else {
         _endSession();
       }
 
@@ -241,7 +249,9 @@ class _ReaderScreenState extends State<ReaderScreen> {
   /// Turn read-aloud on or off (on needs a Turkish voice on the device)
   Future<void> _setReadAloud(bool on) async {
     if (!on) {
-      _engine.setNarrator(null);
+      _engine
+        ..pause()
+        ..setNarrator(null);
       _changeSettings(_settings.copyWith(readAloud: false));
       return;
     }
@@ -286,8 +296,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
     if (start == null) return;
     _sessionStart = null;
 
-    final state = _engine.state;
-    final end = state.isComplete ? _tokens.length : state.currentIndex.clamp(0, _tokens.length);
+    final end = _engine.state.isComplete ? _tokens.length : _sessionLastIndex.clamp(0, _tokens.length);
     if (end <= _sessionStartIndex) return;
     final words = _wordsBefore[end] - _wordsBefore[_sessionStartIndex];
     ReadingStats.addReading(words: words, time: DateTime.now().difference(start));
@@ -780,7 +789,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  'Kelime ${currentIndex + 1} / ${state.totalTokens}',
+                  'Kelime ${_wordsBefore[currentIndex] + 1} / ${_wordsBefore.last}',
                   style: TextStyle(
                     color: textColor.withValues(alpha: 0.7),
                     fontSize: 14,
@@ -800,22 +809,17 @@ class _ReaderScreenState extends State<ReaderScreen> {
     return word.split('').every((c) => punctuationChars.contains(c));
   }
 
-  /// Get the next chapter in the series
+  /// The chapter after the current one, in the order of [seriesChapters]
+  /// (the Quran can be read in revelation or mushaf order)
   Book? _getNextChapter() {
-    if (widget.currentBook == null || widget.seriesChapters == null) return null;
+    final chapters = widget.seriesChapters;
+    final currentChapter = widget.currentBook?.chapterNumber;
+    if (chapters == null || currentChapter == null) return null;
 
-    final currentChapter = widget.currentBook!.chapterNumber;
-    if (currentChapter == null) return null;
+    final currentIndex = chapters.indexWhere((b) => b.chapterNumber == currentChapter);
+    if (currentIndex == -1 || currentIndex == chapters.length - 1) return null;
 
-    // Sort chapters by chapter number
-    final sorted = List<Book>.from(widget.seriesChapters!)
-      ..sort((a, b) => (a.chapterNumber ?? 0).compareTo(b.chapterNumber ?? 0));
-
-    // Find current chapter index
-    final currentIndex = sorted.indexWhere((b) => b.chapterNumber == currentChapter);
-    if (currentIndex == -1 || currentIndex == sorted.length - 1) return null;
-
-    return sorted[currentIndex + 1];
+    return chapters[currentIndex + 1];
   }
 
   /// Navigate to the next chapter
@@ -836,56 +840,62 @@ class _ReaderScreenState extends State<ReaderScreen> {
   Widget _buildCompletionOverlay(Color textColor, Color accentColor) {
     final nextChapter = _getNextChapter();
 
-    return Container(
-      // The theme's background (a fixed black made dark text unreadable)
-      color: Color(_settings.backgroundColor).withValues(alpha: 0.95),
-      child: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.check_circle, size: 80, color: accentColor),
-              const SizedBox(height: 24),
-              Text(
-                'Bölüm Tamamlandı!',
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+    // Taps and swipes beside the buttons must not reach the reader below
+    // (a tap would restart the chapter)
+    return GestureDetector(
+      onTap: () {},
+      onHorizontalDragEnd: (_) {},
+      child: Container(
+        // The theme's background (a fixed black made dark text unreadable)
+        color: Color(_settings.backgroundColor).withValues(alpha: 0.95),
+        child: SafeArea(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.check_circle, size: 80, color: accentColor),
+                const SizedBox(height: 24),
+                Text(
+                  'Bölüm Tamamlandı!',
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 40),
+                const SizedBox(height: 40),
 
-              // Next chapter button (if available)
-              if (nextChapter != null) ...[
-                ElevatedButton.icon(
-                  onPressed: () => _openNextChapter(nextChapter),
-                  icon: const Icon(Icons.arrow_forward),
-                  label: const Text('Sonraki Bölüm'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: accentColor,
-                    // Dark text on a light accent (the yellow of high contrast)
-                    foregroundColor: accentColor.computeLuminance() > 0.5 ? Colors.black : Colors.white,
+                // Next chapter button (if available)
+                if (nextChapter != null) ...[
+                  ElevatedButton.icon(
+                    onPressed: () => _openNextChapter(nextChapter),
+                    icon: const Icon(Icons.arrow_forward),
+                    label: const Text('Sonraki Bölüm'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: accentColor,
+                      // Dark text on a light accent (the yellow of high contrast)
+                      foregroundColor: accentColor.computeLuminance() > 0.5 ? Colors.black : Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+
+                // Return to home button
+                OutlinedButton.icon(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: const Icon(Icons.home),
+                  label: const Text('Ana Sayfaya Dön'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: textColor,
+                    side: BorderSide(color: textColor),
                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                     textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
-                const SizedBox(height: 16),
               ],
-
-              // Return to home button
-              OutlinedButton.icon(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: const Icon(Icons.home),
-                label: const Text('Ana Sayfaya Dön'),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: textColor,
-                  side: BorderSide(color: textColor),
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

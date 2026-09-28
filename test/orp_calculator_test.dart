@@ -56,6 +56,19 @@ void main() {
       expect(_orp('— kitap'), '— k[i]tap');
     });
 
+    test('only letters and digits can be the ORP', () {
+      expect(_orp('3.5'), '[3].5');
+      expect(_orp('1.000'), '1.[0]00');
+      expect(_orp('...Artık'), '...A[r]tık');
+      expect(_orp('•Birinci'), '•Bi[r]inci');
+      expect(_orp('ka\u00ADlem'), 'k[a]\u00ADlem'); // soft hyphen
+    });
+
+    test('an emoji or a letter with a combining mark stays whole', () {
+      expect(_orp('😀'), '[😀]');
+      expect(_orp('gu\u0308l'), 'g[u\u0308]l'); // "gül" in decomposed form
+    });
+
     test('punctuation-only tokens do not crash', () {
       expect(_orp('...'), '[.]..');
       expect(_orp('"'), '["]');
