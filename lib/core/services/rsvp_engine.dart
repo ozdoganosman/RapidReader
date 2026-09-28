@@ -204,11 +204,17 @@ class RSVPEngine extends ChangeNotifier {
   /// Seek to a specific position (0.0 to 1.0)
   void seekTo(double progress) {
     if (_tokens.isEmpty) return;
+    seekToIndex((progress * _tokens.length).floor());
+  }
+
+  /// Seek to a specific word index
+  void seekToIndex(int index) {
+    if (_tokens.isEmpty) return;
 
     final wasPlaying = _state.isPlaying;
     _timer?.cancel();
 
-    final newIndex = (progress * _tokens.length).floor().clamp(0, _tokens.length - 1);
+    final newIndex = index.clamp(0, _tokens.length - 1);
 
     _state = _state.copyWith(
       status: PlaybackStatus.paused,
@@ -222,14 +228,6 @@ class RSVPEngine extends ChangeNotifier {
     if (wasPlaying) {
       play();
     }
-  }
-
-  /// Seek to a specific word index
-  void seekToIndex(int index) {
-    if (_tokens.isEmpty) return;
-
-    final clampedIndex = index.clamp(0, _tokens.length - 1);
-    seekTo(clampedIndex / _tokens.length);
   }
 
   /// Skip forward by number of words
@@ -271,13 +269,6 @@ class RSVPEngine extends ChangeNotifier {
 
   /// Schedule display of the next word
   void _scheduleNextWord() {
-    if (_state.currentIndex >= _tokens.length) {
-      // Finished reading
-      _state = _state.copyWith(status: PlaybackStatus.completed);
-      notifyListeners();
-      return;
-    }
-
     final token = _tokens[_state.currentIndex];
 
     // Calculate duration for this word
@@ -312,8 +303,14 @@ class RSVPEngine extends ChangeNotifier {
       if (_state.status != PlaybackStatus.playing) return;
 
       final nextIndex = _state.currentIndex + 1;
-      _state = _state.copyWith(currentIndex: nextIndex);
+      if (nextIndex >= _tokens.length) {
+        // Finished reading - stay on the last word so the index remains valid
+        _state = _state.copyWith(status: PlaybackStatus.completed, progress: 1.0);
+        notifyListeners();
+        return;
+      }
 
+      _state = _state.copyWith(currentIndex: nextIndex);
       _scheduleNextWord();
     });
   }

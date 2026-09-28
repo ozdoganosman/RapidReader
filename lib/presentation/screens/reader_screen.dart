@@ -326,7 +326,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
   }
 
   Widget _buildProgressSlider(RSVPPlaybackState state, Color textColor, Color accentColor) {
-    final displayIndex = _isDraggingSlider ? _previewIndex : state.currentIndex;
+    final maxIndex = state.totalTokens > 0 ? state.totalTokens - 1 : 0;
+    final displayIndex = (_isDraggingSlider ? _previewIndex : state.currentIndex).clamp(0, maxIndex);
 
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
@@ -389,7 +390,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
             child: Slider(
               value: displayIndex.toDouble(),
               min: 0,
-              max: (state.totalTokens - 1).toDouble().clamp(0, double.infinity),
+              max: maxIndex.toDouble(),
               onChangeStart: (value) {
                 setState(() {
                   _isDraggingSlider = true;
@@ -403,7 +404,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                 });
               },
               onChangeEnd: (value) {
-                _engine.seekTo(value / (state.totalTokens - 1).clamp(1, double.infinity));
+                _engine.seekToIndex(value.round());
                 setState(() {
                   _isDraggingSlider = false;
                 });
