@@ -12,7 +12,8 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
 
 - **Hazır kütüphane:** İki Şehrin Hikâyesi (45 bölüm), Dönüşüm, Kur'an-ı Kerim.
   Kitaplar bölüm listesiyle açılır; bölüm bitince "Sonraki Bölüm" ile devam edilir.
-- **Kendi metnin:** Başlık, metin ve isteğe bağlı kapak resmiyle kütüphaneye eklenir.
+- **Kendi metnin:** Başlık, metin ve isteğe bağlı kapak resmiyle kütüphaneye eklenir
+  (cihazda Hive ile, web'de IndexedDB'de saklanır; uzun kitaplar da sığar).
   Metin yazılabilir, yapıştırılabilir ya da TXT, PDF veya EPUB dosyasından yüklenebilir.
 - **Kaldığın yerden devam:** Her kitabın ve bölümün okuma konumu ile ayarlar cihazda saklanır.
 - **Okuma ekranı:** Dokun-oynat/duraklat, kaydırarak 10 kelime ileri/geri, konum çubuğu
@@ -24,7 +25,15 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
 
 Kitap dosyaları `assets/books/` altındadır: `Seri_N.txt` bir bölüm, `Seri.jpg` serinin
 kapağıdır (seri kapağı yoksa `Seri_N.jpg`; `.png` ve `.webp` de olur, ~600 piksel genişlik yeterli).
-Dosyanın ilk satırı başlık, ikinci satırı yazar olarak okunur.
+Dosyanın ilk satırı başlık, ikinci satırı yazar olarak okunur. Kütüphane açılışta
+metinleri değil `assets/books/index.json` dizinini okur; metin, bölüm açılınca yüklenir.
+Bu klasörde bir dosyayı ekledikten ya da değiştirdikten sonra dizini yenileyin:
+
+```bash
+dart run tool/build_book_index.dart
+```
+
+(`test/book_index_test.dart` dizin güncel değilse hata verir.)
 
 ## Geliştirme
 

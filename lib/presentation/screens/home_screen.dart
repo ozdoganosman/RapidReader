@@ -101,16 +101,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _openBook(Book book) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ReaderScreen(
-          content: book.content,
-          title: book.title,
-          settings: _settings,
-          currentBook: book,
-          onSettingsChanged: _saveSettings,
-        ),
-      ),
+    ReaderScreen.open(
+      context,
+      book: book,
+      title: book.title,
+      settings: _settings,
+      onSettingsChanged: _saveSettings,
     );
   }
 

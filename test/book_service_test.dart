@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rapid_reader/core/models/book.dart';
 import 'package:rapid_reader/core/services/book_service.dart';
 
 void main() {
@@ -37,10 +38,17 @@ void main() {
     }
   });
 
-  test('word counts are computed once and stay the same', () async {
-    final book = (await BookService.loadBooks()).first;
-    expect(book.wordCount, greaterThan(0));
-    expect(book.wordCount, book.wordCount);
+  test('texts are loaded only when a book is opened', () async {
+    final book = (await BookService.loadBooks()).firstWhere((b) => b.id == 'attc_2');
+
+    expect(book.content, isEmpty);
+    expect(book.title, 'Posta Arabası');
+    expect(book.author, 'Charles Dickens');
+
+    final content = await BookService.loadContent(book);
+    expect(content, startsWith('Posta Arabası\nCharles Dickens\n'));
+    // The index word count matches the text
+    expect(book.wordCount, Book.countWords(content));
   });
 
   test('series have Turkish display names', () {

@@ -33,6 +33,24 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <script>
+    // Flutter's web engine throws on an invalid browser language tag (some
+    // Linux setups report "en-US@posix") and the page stays blank, so only
+    // pass on valid tags.
+    (function () {
+      try {
+        var languages = navigator.languages || [];
+        var valid = languages.filter(function (tag) {
+          try { new Intl.Locale(tag); return true; } catch (e) { return false; }
+        });
+        if (valid.length !== languages.length) {
+          if (valid.length === 0) valid = ['tr-TR'];
+          Object.defineProperty(navigator, 'languages', { get: function () { return valid; } });
+          Object.defineProperty(navigator, 'language', { get: function () { return valid[0]; } });
+        }
+      } catch (e) {}
+    })();
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

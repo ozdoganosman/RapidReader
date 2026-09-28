@@ -20,8 +20,15 @@ class Book {
   /// Cover color as hex string (e.g., "#FF5722")
   final String coverColor;
 
-  /// Full text content
+  /// Full text content (empty for bundled texts until they are loaded,
+  /// see [contentAsset] and BookService.loadContent)
   final String content;
+
+  /// Asset path of the text for bundled books, loaded when the book is opened
+  final String? contentAsset;
+
+  /// Word count known without the text (bundled books, from the index)
+  final int? knownWordCount;
 
   /// Optional cover image as base64 string (for custom books)
   final String? imageBase64;
@@ -41,7 +48,9 @@ class Book {
     required this.author,
     required this.category,
     required this.coverColor,
-    required this.content,
+    this.content = '',
+    this.contentAsset,
+    this.knownWordCount,
     this.imageBase64,
     this.coverAsset,
     this.seriesName,
@@ -89,9 +98,10 @@ class Book {
   static final _wordCounts = Expando<int>();
 
   /// Get word count
-  int get wordCount => _wordCounts[this] ??= _countWords(content);
+  int get wordCount => knownWordCount ?? (_wordCounts[this] ??= countWords(content));
 
-  static int _countWords(String text) {
+  /// Words in [text], separated by whitespace
+  static int countWords(String text) {
     if (text.isEmpty) return 0;
     return text.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
   }

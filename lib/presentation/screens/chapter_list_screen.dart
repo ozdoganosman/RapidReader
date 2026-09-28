@@ -95,20 +95,14 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => ReaderScreen(
-                  content: chapter.content,
-                  title: '${widget.seriesName} - ${chapter.title}',
-                  settings: _settings,
-                  currentBook: chapter,
-                  seriesChapters: widget.chapters,
-                  onSettingsChanged: _onSettingsChanged,
-                ),
-              ),
-            );
-          },
+          onTap: () => ReaderScreen.open(
+            context,
+            book: chapter,
+            title: '${widget.seriesName} - ${chapter.title}',
+            settings: _settings,
+            seriesChapters: widget.chapters,
+            onSettingsChanged: _onSettingsChanged,
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Row(

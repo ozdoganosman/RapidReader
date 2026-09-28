@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../models/book.dart';
+import 'book_index.dart';
 
 /// Service for loading pre-bundled books from assets/books/ folder
 class BookService {
@@ -24,9 +25,12 @@ class BookService {
   /// Cover image extensions, in order of preference
   static const _coverExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
 
-  /// Load all books from assets/books/ folder
-  /// Scans for .txt files and their corresponding cover images
-  /// (a series cover like "Donusum.jpg" is used for all its chapters)
+  /// Index of the bundled texts, built by tool/build_book_index.dart
+  static const indexAsset = 'assets/books/index.json';
+
+  /// Load the library: every text listed in assets/books/index.json with
+  /// its cover image (a series cover like "Donusum.jpg" is used for all its
+  /// chapters). The texts themselves are loaded on demand ([loadContent]).
   static Future<List<Book>> loadBooks() async {
     final books = <Book>[];
 
@@ -44,69 +48,29 @@ class BookService {
         return null;
       }
 
-      // Find all .txt files in assets/books/
-      final bookFiles = assets
-          .where((path) => path.startsWith('assets/books/') && path.endsWith('.txt'))
-          .toList()
-        ..sort();
+      final entries = BookIndex.decode(await rootBundle.loadString(indexAsset));
+      for (final entry in entries) {
+        final name = entry.file.replaceAll('.txt', '');
 
-      // Read all books in parallel (on web every file is a separate request)
-      final contents = await Future.wait(bookFiles.map(rootBundle.loadString));
-
-      for (var i = 0; i < bookFiles.length; i++) {
-        final filePath = bookFiles[i];
-        final content = contents[i];
-
-        // Extract book name from file path (e.g. "Donusum 1.txt" -> "Donusum 1")
-        final fileName = filePath.split('/').last;
-        final fileNameWithoutExt = fileName.replaceAll('.txt', '');
-
-        // Read the first line of the book as the display title (with Turkish characters)
-        // If empty, fall back to file name
-        String displayTitle = fileNameWithoutExt;
-        final lines = content.split('\n');
-        if (lines.isNotEmpty) {
-          final firstLine = lines.first.trim();
-          if (firstLine.isNotEmpty) {
-            displayTitle = firstLine;
-          }
-        }
-
-        // Parse series name and chapter number from filename
-        // Examples: "ATTC 1" or "ATTC_1" -> series="ATTC", chapter=1
-        //           "Donusum 1" -> series="Donusum", chapter=1
+        // Series and chapter from the file name: "ATTC_1" or "Donusum 1"
         String? seriesName;
         int? chapterNumber;
-
-        // Support both space and underscore as separators
-        final filenameMatch = RegExp(r'^(.+?)[\s_]+(\d+)$').firstMatch(fileNameWithoutExt);
-        if (filenameMatch != null) {
-          seriesName = filenameMatch.group(1)?.trim();
-          chapterNumber = int.tryParse(filenameMatch.group(2) ?? '');
+        final match = RegExp(r'^(.+?)[\s_]+(\d+)$').firstMatch(name);
+        if (match != null) {
+          seriesName = match.group(1)?.trim();
+          chapterNumber = int.tryParse(match.group(2) ?? '');
         }
 
-        // Cover: the series cover if there is one, else the book's own cover
-        final coverAsset = (seriesName != null ? coverFor(seriesName) : null) ??
-            coverFor(fileNameWithoutExt);
-
-        // Read author from second line if available (empty if unknown)
-        String author = '';
-        if (lines.length > 1) {
-          final secondLine = lines[1].trim();
-          if (secondLine.isNotEmpty && !secondLine.startsWith('http') && secondLine.length < 100) {
-            author = secondLine;
-          }
-        }
-
-        // Create Book object
         books.add(Book(
-          id: fileNameWithoutExt.replaceAll(' ', '_').toLowerCase(),
-          title: displayTitle,
-          author: author,
+          id: name.replaceAll(' ', '_').toLowerCase(),
+          title: entry.title,
+          author: entry.author,
           category: 'Edebiyat',
           coverColor: '#8B4513', // Brown color for classic literature
-          content: content,
-          coverAsset: coverAsset,
+          contentAsset: 'assets/books/${entry.file}',
+          knownWordCount: entry.words,
+          // Cover: the series cover if there is one, else the book's own cover
+          coverAsset: (seriesName != null ? coverFor(seriesName) : null) ?? coverFor(name),
           seriesName: seriesName,
           chapterNumber: chapterNumber,
         ));
@@ -116,6 +80,13 @@ class BookService {
     }
 
     return books;
+  }
+
+  /// The text of [book]: bundled texts are read from their asset
+  static Future<String> loadContent(Book book) {
+    final asset = book.contentAsset;
+    if (asset == null) return Future.value(book.content);
+    return rootBundle.loadString(asset);
   }
 
   /// Get a single book by ID

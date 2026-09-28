@@ -1,0 +1,976 @@
+{
+ "books": [
+  {
+   "file": "ATTC_1.txt",
+   "title": "Dönem",
+   "author": "Charles Dickens",
+   "words": 746
+  },
+  {
+   "file": "ATTC_10.txt",
+   "title": "Tebrikler",
+   "author": "Charles Dickens",
+   "words": 1760
+  },
+  {
+   "file": "ATTC_11.txt",
+   "title": "Çakal",
+   "author": "Charles Dickens",
+   "words": 1621
+  },
+  {
+   "file": "ATTC_12.txt",
+   "title": "Yüzlerce İnsan",
+   "author": "Charles Dickens",
+   "words": 3532
+  },
+  {
+   "file": "ATTC_13.txt",
+   "title": "Monsenyör Şehirde",
+   "author": "Charles Dickens",
+   "words": 2529
+  },
+  {
+   "file": "ATTC_14.txt",
+   "title": "Monsenyör Taşrada",
+   "author": "Charles Dickens",
+   "words": 1377
+  },
+  {
+   "file": "ATTC_15.txt",
+   "title": "Gorgon'un Başı",
+   "author": "Charles Dickens",
+   "words": 3034
+  },
+  {
+   "file": "ATTC_16.txt",
+   "title": "İki Söz",
+   "author": "Charles Dickens",
+   "words": 2156
+  },
+  {
+   "file": "ATTC_17.txt",
+   "title": "Bir Eş Tablo",
+   "author": "Charles Dickens",
+   "words": 1040
+  },
+  {
+   "file": "ATTC_18.txt",
+   "title": "İnce Ruhlu Adam",
+   "author": "Charles Dickens",
+   "words": 1975
+  },
+  {
+   "file": "ATTC_19.txt",
+   "title": "İnceliksiz Adam",
+   "author": "Charles Dickens",
+   "words": 1373
+  },
+  {
+   "file": "ATTC_2.txt",
+   "title": "Posta Arabası",
+   "author": "Charles Dickens",
+   "words": 1534
+  },
+  {
+   "file": "ATTC_20.txt",
+   "title": "Dürüst Esnaf",
+   "author": "Charles Dickens",
+   "words": 3099
+  },
+  {
+   "file": "ATTC_21.txt",
+   "title": "Örgü",
+   "author": "Charles Dickens",
+   "words": 3086
+  },
+  {
+   "file": "ATTC_22.txt",
+   "title": "Örgü Sürüyor",
+   "author": "Charles Dickens",
+   "words": 3003
+  },
+  {
+   "file": "ATTC_23.txt",
+   "title": "Bir Gece",
+   "author": "Charles Dickens",
+   "words": 1377
+  },
+  {
+   "file": "ATTC_24.txt",
+   "title": "Dokuz Gün",
+   "author": "Charles Dickens",
+   "words": 1811
+  },
+  {
+   "file": "ATTC_25.txt",
+   "title": "Bir Görüş",
+   "author": "Charles Dickens",
+   "words": 2117
+  },
+  {
+   "file": "ATTC_26.txt",
+   "title": "Bir Rica",
+   "author": "Charles Dickens",
+   "words": 987
+  },
+  {
+   "file": "ATTC_27.txt",
+   "title": "Yankılanan Ayak Sesleri",
+   "author": "Charles Dickens",
+   "words": 3355
+  },
+  {
+   "file": "ATTC_28.txt",
+   "title": "Deniz Hâlâ Kabarıyor",
+   "author": "Charles Dickens",
+   "words": 1567
+  },
+  {
+   "file": "ATTC_29.txt",
+   "title": "Ateş Yükseliyor",
+   "author": "Charles Dickens",
+   "words": 1995
+  },
+  {
+   "file": "ATTC_3.txt",
+   "title": "Gece Gölgeleri",
+   "author": "Charles Dickens",
+   "words": 1207
+  },
+  {
+   "file": "ATTC_30.txt",
+   "title": "Mıknatıs Kayasına Doğru",
+   "author": "Charles Dickens",
+   "words": 3199
+  },
+  {
+   "file": "ATTC_31.txt",
+   "title": "Gizli Hapis",
+   "author": "Charles Dickens",
+   "words": 3197
+  },
+  {
+   "file": "ATTC_32.txt",
+   "title": "Bileğitaşı",
+   "author": "Charles Dickens",
+   "words": 1848
+  },
+  {
+   "file": "ATTC_33.txt",
+   "title": "Gölge",
+   "author": "Charles Dickens",
+   "words": 1382
+  },
+  {
+   "file": "ATTC_34.txt",
+   "title": "Fırtınada Sükûnet",
+   "author": "Charles Dickens",
+   "words": 1598
+  },
+  {
+   "file": "ATTC_35.txt",
+   "title": "Odun Kesici",
+   "author": "Charles Dickens",
+   "words": 1746
+  },
+  {
+   "file": "ATTC_36.txt",
+   "title": "Zafer",
+   "author": "Charles Dickens",
+   "words": 1788
+  },
+  {
+   "file": "ATTC_37.txt",
+   "title": "Kapıdaki Vuruş",
+   "author": "Charles Dickens",
+   "words": 1396
+  },
+  {
+   "file": "ATTC_38.txt",
+   "title": "Bir El Kâğıt",
+   "author": "Charles Dickens",
+   "words": 3594
+  },
+  {
+   "file": "ATTC_39.txt",
+   "title": "Oyun Kuruldu",
+   "author": "Charles Dickens",
+   "words": 3591
+  },
+  {
+   "file": "ATTC_4.txt",
+   "title": "Hazırlık",
+   "author": "Charles Dickens",
+   "words": 3429
+  },
+  {
+   "file": "ATTC_40.txt",
+   "title": "Gölgenin Özü",
+   "author": "Charles Dickens",
+   "words": 4069
+  },
+  {
+   "file": "ATTC_41.txt",
+   "title": "Alacakaranlık",
+   "author": "Charles Dickens",
+   "words": 1080
+  },
+  {
+   "file": "ATTC_42.txt",
+   "title": "Karanlık",
+   "author": "Charles Dickens",
+   "words": 2441
+  },
+  {
+   "file": "ATTC_43.txt",
+   "title": "Elli İki",
+   "author": "Charles Dickens",
+   "words": 3244
+  },
+  {
+   "file": "ATTC_44.txt",
+   "title": "Örgü Bitti",
+   "author": "Charles Dickens",
+   "words": 3465
+  },
+  {
+   "file": "ATTC_45.txt",
+   "title": "Ayak Sesleri Sonsuza Dek Susuyor",
+   "author": "Charles Dickens",
+   "words": 1721
+  },
+  {
+   "file": "ATTC_5.txt",
+   "title": "Şarap Dükkânı",
+   "author": "Charles Dickens",
+   "words": 3174
+  },
+  {
+   "file": "ATTC_6.txt",
+   "title": "Kunduracı",
+   "author": "Charles Dickens",
+   "words": 3086
+  },
+  {
+   "file": "ATTC_7.txt",
+   "title": "Beş Yıl Sonra",
+   "author": "Charles Dickens",
+   "words": 1811
+  },
+  {
+   "file": "ATTC_8.txt",
+   "title": "Bir Seyirlik",
+   "author": "Charles Dickens",
+   "words": 1848
+  },
+  {
+   "file": "ATTC_9.txt",
+   "title": "Bir Hayal Kırıklığı",
+   "author": "Charles Dickens",
+   "words": 3705
+  },
+  {
+   "file": "Donusum_1.txt",
+   "title": "Birinci Bölüm",
+   "author": "Franz Kafka",
+   "words": 4806
+  },
+  {
+   "file": "Donusum_2.txt",
+   "title": "İkinci Bölüm",
+   "author": "Franz Kafka",
+   "words": 5167
+  },
+  {
+   "file": "Donusum_3.txt",
+   "title": "Üçüncü Bölüm",
+   "author": "Franz Kafka",
+   "words": 4976
+  },
+  {
+   "file": "Kuran_1.txt",
+   "title": "Alak Suresi (العلق)",
+   "author": "Kuran-ı Kerim",
+   "words": 101
+  },
+  {
+   "file": "Kuran_10.txt",
+   "title": "Fecr Suresi (الفجر)",
+   "author": "Kuran-ı Kerim",
+   "words": 203
+  },
+  {
+   "file": "Kuran_100.txt",
+   "title": "Beyyine Suresi (البينة)",
+   "author": "Kuran-ı Kerim",
+   "words": 116
+  },
+  {
+   "file": "Kuran_101.txt",
+   "title": "Haşr Suresi (الحشر)",
+   "author": "Kuran-ı Kerim",
+   "words": 620
+  },
+  {
+   "file": "Kuran_102.txt",
+   "title": "Nur Suresi (النور)",
+   "author": "Kuran-ı Kerim",
+   "words": 1730
+  },
+  {
+   "file": "Kuran_103.txt",
+   "title": "Hac Suresi (الحج)",
+   "author": "Kuran-ı Kerim",
+   "words": 1633
+  },
+  {
+   "file": "Kuran_104.txt",
+   "title": "Münafikun Suresi (المنافقون)",
+   "author": "Kuran-ı Kerim",
+   "words": 250
+  },
+  {
+   "file": "Kuran_105.txt",
+   "title": "Mücadele Suresi (المجادلة)",
+   "author": "Kuran-ı Kerim",
+   "words": 636
+  },
+  {
+   "file": "Kuran_106.txt",
+   "title": "Hucurat Suresi (الحجرات)",
+   "author": "Kuran-ı Kerim",
+   "words": 479
+  },
+  {
+   "file": "Kuran_107.txt",
+   "title": "Tahrim Suresi (التحريم)",
+   "author": "Kuran-ı Kerim",
+   "words": 361
+  },
+  {
+   "file": "Kuran_108.txt",
+   "title": "Teğabün Suresi (التغابن)",
+   "author": "Kuran-ı Kerim",
+   "words": 367
+  },
+  {
+   "file": "Kuran_109.txt",
+   "title": "Saff Suresi (الصف)",
+   "author": "Kuran-ı Kerim",
+   "words": 288
+  },
+  {
+   "file": "Kuran_11.txt",
+   "title": "Duha Suresi (الضحى)",
+   "author": "Kuran-ı Kerim",
+   "words": 67
+  },
+  {
+   "file": "Kuran_110.txt",
+   "title": "Cuma Suresi (الجمعة)",
+   "author": "Kuran-ı Kerim",
+   "words": 233
+  },
+  {
+   "file": "Kuran_111.txt",
+   "title": "Fetih Suresi (الفتح)",
+   "author": "Kuran-ı Kerim",
+   "words": 777
+  },
+  {
+   "file": "Kuran_112.txt",
+   "title": "Maide Suresi (المائدة)",
+   "author": "Kuran-ı Kerim",
+   "words": 3615
+  },
+  {
+   "file": "Kuran_113.txt",
+   "title": "Tevbe Suresi (التوبة)",
+   "author": "Kuran-ı Kerim",
+   "words": 3327
+  },
+  {
+   "file": "Kuran_114.txt",
+   "title": "Nasr Suresi (النصر)",
+   "author": "Kuran-ı Kerim",
+   "words": 35
+  },
+  {
+   "file": "Kuran_12.txt",
+   "title": "İnşirah Suresi (الشرح)",
+   "author": "Kuran-ı Kerim",
+   "words": 46
+  },
+  {
+   "file": "Kuran_13.txt",
+   "title": "Asr Suresi (العصر)",
+   "author": "Kuran-ı Kerim",
+   "words": 26
+  },
+  {
+   "file": "Kuran_14.txt",
+   "title": "Adiyat Suresi (العاديات)",
+   "author": "Kuran-ı Kerim",
+   "words": 62
+  },
+  {
+   "file": "Kuran_15.txt",
+   "title": "Kevser Suresi (الكوثر)",
+   "author": "Kuran-ı Kerim",
+   "words": 27
+  },
+  {
+   "file": "Kuran_16.txt",
+   "title": "Tekasür Suresi (التكاثر)",
+   "author": "Kuran-ı Kerim",
+   "words": 59
+  },
+  {
+   "file": "Kuran_17.txt",
+   "title": "Maun Suresi (الماعون)",
+   "author": "Kuran-ı Kerim",
+   "words": 37
+  },
+  {
+   "file": "Kuran_18.txt",
+   "title": "Kafirun Suresi (الكافرون)",
+   "author": "Kuran-ı Kerim",
+   "words": 46
+  },
+  {
+   "file": "Kuran_19.txt",
+   "title": "Fil Suresi (الفيل)",
+   "author": "Kuran-ı Kerim",
+   "words": 35
+  },
+  {
+   "file": "Kuran_2.txt",
+   "title": "Kalem Suresi (القلم)",
+   "author": "Kuran-ı Kerim",
+   "words": 462
+  },
+  {
+   "file": "Kuran_20.txt",
+   "title": "Felak Suresi (الفلق)",
+   "author": "Kuran-ı Kerim",
+   "words": 26
+  },
+  {
+   "file": "Kuran_21.txt",
+   "title": "Nas Suresi (الناس)",
+   "author": "Kuran-ı Kerim",
+   "words": 26
+  },
+  {
+   "file": "Kuran_22.txt",
+   "title": "İhlas Suresi (الإخلاص)",
+   "author": "Kuran-ı Kerim",
+   "words": 20
+  },
+  {
+   "file": "Kuran_23.txt",
+   "title": "Necm Suresi (النجم)",
+   "author": "Kuran-ı Kerim",
+   "words": 501
+  },
+  {
+   "file": "Kuran_24.txt",
+   "title": "Abese Suresi (عبس)",
+   "author": "Kuran-ı Kerim",
+   "words": 211
+  },
+  {
+   "file": "Kuran_25.txt",
+   "title": "Kadr Suresi (القدر)",
+   "author": "Kuran-ı Kerim",
+   "words": 42
+  },
+  {
+   "file": "Kuran_26.txt",
+   "title": "Şems Suresi (الشمس)",
+   "author": "Kuran-ı Kerim",
+   "words": 101
+  },
+  {
+   "file": "Kuran_27.txt",
+   "title": "Buruc Suresi (البروج)",
+   "author": "Kuran-ı Kerim",
+   "words": 152
+  },
+  {
+   "file": "Kuran_28.txt",
+   "title": "Tin Suresi (التين)",
+   "author": "Kuran-ı Kerim",
+   "words": 60
+  },
+  {
+   "file": "Kuran_29.txt",
+   "title": "Kureyş Suresi (قريش)",
+   "author": "Kuran-ı Kerim",
+   "words": 29
+  },
+  {
+   "file": "Kuran_3.txt",
+   "title": "Müzzemmil Suresi (المزمل)",
+   "author": "Kuran-ı Kerim",
+   "words": 282
+  },
+  {
+   "file": "Kuran_30.txt",
+   "title": "Karia Suresi (القارعة)",
+   "author": "Kuran-ı Kerim",
+   "words": 58
+  },
+  {
+   "file": "Kuran_31.txt",
+   "title": "Kıyame Suresi (القيامة)",
+   "author": "Kuran-ı Kerim",
+   "words": 270
+  },
+  {
+   "file": "Kuran_32.txt",
+   "title": "Hümeze Suresi (الهمزة)",
+   "author": "Kuran-ı Kerim",
+   "words": 58
+  },
+  {
+   "file": "Kuran_33.txt",
+   "title": "Mürselat Suresi (المرسلات)",
+   "author": "Kuran-ı Kerim",
+   "words": 259
+  },
+  {
+   "file": "Kuran_34.txt",
+   "title": "Kaf Suresi (ق)",
+   "author": "Kuran-ı Kerim",
+   "words": 521
+  },
+  {
+   "file": "Kuran_35.txt",
+   "title": "Beled Suresi (البلد)",
+   "author": "Kuran-ı Kerim",
+   "words": 113
+  },
+  {
+   "file": "Kuran_36.txt",
+   "title": "Tarık Suresi (الطارق)",
+   "author": "Kuran-ı Kerim",
+   "words": 99
+  },
+  {
+   "file": "Kuran_37.txt",
+   "title": "Kamer Suresi (القمر)",
+   "author": "Kuran-ı Kerim",
+   "words": 564
+  },
+  {
+   "file": "Kuran_38.txt",
+   "title": "Sad Suresi (ص)",
+   "author": "Kuran-ı Kerim",
+   "words": 1050
+  },
+  {
+   "file": "Kuran_39.txt",
+   "title": "A'raf Suresi (الأعراف)",
+   "author": "Kuran-ı Kerim",
+   "words": 4325
+  },
+  {
+   "file": "Kuran_4.txt",
+   "title": "Müddessir Suresi (المدثر)",
+   "author": "Kuran-ı Kerim",
+   "words": 336
+  },
+  {
+   "file": "Kuran_40.txt",
+   "title": "Cin Suresi (الجن)",
+   "author": "Kuran-ı Kerim",
+   "words": 404
+  },
+  {
+   "file": "Kuran_41.txt",
+   "title": "Yasin Suresi (يس)",
+   "author": "Kuran-ı Kerim",
+   "words": 973
+  },
+  {
+   "file": "Kuran_42.txt",
+   "title": "Furkan Suresi (الفرقان)",
+   "author": "Kuran-ı Kerim",
+   "words": 1233
+  },
+  {
+   "file": "Kuran_43.txt",
+   "title": "Fatır Suresi (فاطر)",
+   "author": "Kuran-ı Kerim",
+   "words": 1033
+  },
+  {
+   "file": "Kuran_44.txt",
+   "title": "Meryem Suresi (مريم)",
+   "author": "Kuran-ı Kerim",
+   "words": 1348
+  },
+  {
+   "file": "Kuran_45.txt",
+   "title": "Taha Suresi (طه)",
+   "author": "Kuran-ı Kerim",
+   "words": 1872
+  },
+  {
+   "file": "Kuran_46.txt",
+   "title": "Vakıa Suresi (الواقعة)",
+   "author": "Kuran-ı Kerim",
+   "words": 545
+  },
+  {
+   "file": "Kuran_47.txt",
+   "title": "Şuara Suresi (الشعراء)",
+   "author": "Kuran-ı Kerim",
+   "words": 1827
+  },
+  {
+   "file": "Kuran_48.txt",
+   "title": "Neml Suresi (النمل)",
+   "author": "Kuran-ı Kerim",
+   "words": 1560
+  },
+  {
+   "file": "Kuran_49.txt",
+   "title": "Kasas Suresi (القصص)",
+   "author": "Kuran-ı Kerim",
+   "words": 1818
+  },
+  {
+   "file": "Kuran_5.txt",
+   "title": "Fatiha Suresi (الفاتحة)",
+   "author": "Kuran-ı Kerim",
+   "words": 50
+  },
+  {
+   "file": "Kuran_50.txt",
+   "title": "İsra Suresi (الإسراء)",
+   "author": "Kuran-ı Kerim",
+   "words": 2106
+  },
+  {
+   "file": "Kuran_51.txt",
+   "title": "Yunus Suresi (يونس)",
+   "author": "Kuran-ı Kerim",
+   "words": 2315
+  },
+  {
+   "file": "Kuran_52.txt",
+   "title": "Hud Suresi (هود)",
+   "author": "Kuran-ı Kerim",
+   "words": 2569
+  },
+  {
+   "file": "Kuran_53.txt",
+   "title": "Yusuf Suresi (يوسف)",
+   "author": "Kuran-ı Kerim",
+   "words": 2357
+  },
+  {
+   "file": "Kuran_54.txt",
+   "title": "Hicr Suresi (الحجر)",
+   "author": "Kuran-ı Kerim",
+   "words": 892
+  },
+  {
+   "file": "Kuran_55.txt",
+   "title": "En'am Suresi (الأنعام)",
+   "author": "Kuran-ı Kerim",
+   "words": 3956
+  },
+  {
+   "file": "Kuran_56.txt",
+   "title": "Saffat Suresi (الصافات)",
+   "author": "Kuran-ı Kerim",
+   "words": 1246
+  },
+  {
+   "file": "Kuran_57.txt",
+   "title": "Lokman Suresi (لقمان)",
+   "author": "Kuran-ı Kerim",
+   "words": 723
+  },
+  {
+   "file": "Kuran_58.txt",
+   "title": "Sebe Suresi (سبأ)",
+   "author": "Kuran-ı Kerim",
+   "words": 1180
+  },
+  {
+   "file": "Kuran_59.txt",
+   "title": "Zümer Suresi (الزمر)",
+   "author": "Kuran-ı Kerim",
+   "words": 1527
+  },
+  {
+   "file": "Kuran_6.txt",
+   "title": "Tebbet Suresi (المسد)",
+   "author": "Kuran-ı Kerim",
+   "words": 34
+  },
+  {
+   "file": "Kuran_60.txt",
+   "title": "Mü'min Suresi (غافر)",
+   "author": "Kuran-ı Kerim",
+   "words": 1639
+  },
+  {
+   "file": "Kuran_61.txt",
+   "title": "Fussilet Suresi (فصلت)",
+   "author": "Kuran-ı Kerim",
+   "words": 1079
+  },
+  {
+   "file": "Kuran_62.txt",
+   "title": "Şura Suresi (الشورى)",
+   "author": "Kuran-ı Kerim",
+   "words": 1135
+  },
+  {
+   "file": "Kuran_63.txt",
+   "title": "Zuhruf Suresi (الزخرف)",
+   "author": "Kuran-ı Kerim",
+   "words": 1176
+  },
+  {
+   "file": "Kuran_64.txt",
+   "title": "Duhan Suresi (الدخان)",
+   "author": "Kuran-ı Kerim",
+   "words": 482
+  },
+  {
+   "file": "Kuran_65.txt",
+   "title": "Casiye Suresi (الجاثية)",
+   "author": "Kuran-ı Kerim",
+   "words": 659
+  },
+  {
+   "file": "Kuran_66.txt",
+   "title": "Ahkaf Suresi (الأحقاف)",
+   "author": "Kuran-ı Kerim",
+   "words": 891
+  },
+  {
+   "file": "Kuran_67.txt",
+   "title": "Zariyat Suresi (الذاريات)",
+   "author": "Kuran-ı Kerim",
+   "words": 493
+  },
+  {
+   "file": "Kuran_68.txt",
+   "title": "Gaşiye Suresi (الغاشية)",
+   "author": "Kuran-ı Kerim",
+   "words": 128
+  },
+  {
+   "file": "Kuran_69.txt",
+   "title": "Kehf Suresi (الكهف)",
+   "author": "Kuran-ı Kerim",
+   "words": 2171
+  },
+  {
+   "file": "Kuran_7.txt",
+   "title": "Tekvir Suresi (التكوير)",
+   "author": "Kuran-ı Kerim",
+   "words": 139
+  },
+  {
+   "file": "Kuran_70.txt",
+   "title": "Nahl Suresi (النحل)",
+   "author": "Kuran-ı Kerim",
+   "words": 2427
+  },
+  {
+   "file": "Kuran_71.txt",
+   "title": "Nuh Suresi (نوح)",
+   "author": "Kuran-ı Kerim",
+   "words": 303
+  },
+  {
+   "file": "Kuran_72.txt",
+   "title": "İbrahim Suresi (إبراهيم)",
+   "author": "Kuran-ı Kerim",
+   "words": 1121
+  },
+  {
+   "file": "Kuran_73.txt",
+   "title": "Enbiya Suresi (الأنبياء)",
+   "author": "Kuran-ı Kerim",
+   "words": 1658
+  },
+  {
+   "file": "Kuran_74.txt",
+   "title": "Mü'minun Suresi (المؤمنون)",
+   "author": "Kuran-ı Kerim",
+   "words": 1442
+  },
+  {
+   "file": "Kuran_75.txt",
+   "title": "Secde Suresi (السجدة)",
+   "author": "Kuran-ı Kerim",
+   "words": 487
+  },
+  {
+   "file": "Kuran_76.txt",
+   "title": "Tur Suresi (الطور)",
+   "author": "Kuran-ı Kerim",
+   "words": 459
+  },
+  {
+   "file": "Kuran_77.txt",
+   "title": "Mülk Suresi (الملك)",
+   "author": "Kuran-ı Kerim",
+   "words": 441
+  },
+  {
+   "file": "Kuran_78.txt",
+   "title": "Hakka Suresi (الحاقة)",
+   "author": "Kuran-ı Kerim",
+   "words": 366
+  },
+  {
+   "file": "Kuran_79.txt",
+   "title": "Mearic Suresi (المعارج)",
+   "author": "Kuran-ı Kerim",
+   "words": 308
+  },
+  {
+   "file": "Kuran_8.txt",
+   "title": "A'lâ Suresi (الأعلى)",
+   "author": "Kuran-ı Kerim",
+   "words": 121
+  },
+  {
+   "file": "Kuran_80.txt",
+   "title": "Nebe Suresi (النبأ)",
+   "author": "Kuran-ı Kerim",
+   "words": 254
+  },
+  {
+   "file": "Kuran_81.txt",
+   "title": "Naziat Suresi (النازعات)",
+   "author": "Kuran-ı Kerim",
+   "words": 262
+  },
+  {
+   "file": "Kuran_82.txt",
+   "title": "İnfitar Suresi (الانفطار)",
+   "author": "Kuran-ı Kerim",
+   "words": 113
+  },
+  {
+   "file": "Kuran_83.txt",
+   "title": "İnşikak Suresi (الانشقاق)",
+   "author": "Kuran-ı Kerim",
+   "words": 139
+  },
+  {
+   "file": "Kuran_84.txt",
+   "title": "Rum Suresi (الروم)",
+   "author": "Kuran-ı Kerim",
+   "words": 1049
+  },
+  {
+   "file": "Kuran_85.txt",
+   "title": "Ankebut Suresi (العنكبوت)",
+   "author": "Kuran-ı Kerim",
+   "words": 1361
+  },
+  {
+   "file": "Kuran_86.txt",
+   "title": "Mutaffifin Suresi (المطففين)",
+   "author": "Kuran-ı Kerim",
+   "words": 218
+  },
+  {
+   "file": "Kuran_87.txt",
+   "title": "Bakara Suresi (البقرة)",
+   "author": "Kuran-ı Kerim",
+   "words": 8068
+  },
+  {
+   "file": "Kuran_88.txt",
+   "title": "Enfal Suresi (الأنفال)",
+   "author": "Kuran-ı Kerim",
+   "words": 1630
+  },
+  {
+   "file": "Kuran_89.txt",
+   "title": "Al-i İmran Suresi (آل عمران)",
+   "author": "Kuran-ı Kerim",
+   "words": 4496
+  },
+  {
+   "file": "Kuran_9.txt",
+   "title": "Leyl Suresi (الليل)",
+   "author": "Kuran-ı Kerim",
+   "words": 112
+  },
+  {
+   "file": "Kuran_90.txt",
+   "title": "Ahzab Suresi (الأحزاب)",
+   "author": "Kuran-ı Kerim",
+   "words": 1710
+  },
+  {
+   "file": "Kuran_91.txt",
+   "title": "Mümtehine Suresi (الممتحنة)",
+   "author": "Kuran-ı Kerim",
+   "words": 489
+  },
+  {
+   "file": "Kuran_92.txt",
+   "title": "Nisa Suresi (النساء)",
+   "author": "Kuran-ı Kerim",
+   "words": 4868
+  },
+  {
+   "file": "Kuran_93.txt",
+   "title": "Zilzal Suresi (الزلزلة)",
+   "author": "Kuran-ı Kerim",
+   "words": 55
+  },
+  {
+   "file": "Kuran_94.txt",
+   "title": "Hadid Suresi (الحديد)",
+   "author": "Kuran-ı Kerim",
+   "words": 799
+  },
+  {
+   "file": "Kuran_95.txt",
+   "title": "Muhammed Suresi (محمد)",
+   "author": "Kuran-ı Kerim",
+   "words": 756
+  },
+  {
+   "file": "Kuran_96.txt",
+   "title": "Ra'd Suresi (الرعد)",
+   "author": "Kuran-ı Kerim",
+   "words": 1174
+  },
+  {
+   "file": "Kuran_97.txt",
+   "title": "Rahman Suresi (الرحمن)",
+   "author": "Kuran-ı Kerim",
+   "words": 574
+  },
+  {
+   "file": "Kuran_98.txt",
+   "title": "İnsan Suresi (الإنسان)",
+   "author": "Kuran-ı Kerim",
+   "words": 321
+  },
+  {
+   "file": "Kuran_99.txt",
+   "title": "Talak Suresi (الطلاق)",
+   "author": "Kuran-ı Kerim",
+   "words": 398
+  }
+ ]
+}

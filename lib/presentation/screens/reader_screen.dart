@@ -62,6 +62,33 @@ class ReaderScreen extends StatefulWidget {
     this.onSettingsChanged,
   });
 
+  /// Open [book] in the reader, loading its text first (bundled texts are
+  /// only loaded when they are opened)
+  static Future<void> open(
+    BuildContext context, {
+    required Book book,
+    required String title,
+    required RSVPSettings settings,
+    List<Book>? seriesChapters,
+    ValueChanged<RSVPSettings>? onSettingsChanged,
+    bool replace = false,
+  }) async {
+    final content = await BookService.loadContent(book);
+    if (!context.mounted) return;
+    final route = MaterialPageRoute<void>(
+      builder: (context) => ReaderScreen(
+        content: content,
+        title: title,
+        settings: settings,
+        currentBook: book,
+        seriesChapters: seriesChapters,
+        onSettingsChanged: onSettingsChanged,
+      ),
+    );
+    final navigator = Navigator.of(context);
+    replace ? await navigator.pushReplacement(route) : await navigator.push(route);
+  }
+
   @override
   State<ReaderScreen> createState() => _ReaderScreenState();
 }
@@ -674,18 +701,15 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
   /// Navigate to the next chapter
   void _openNextChapter(Book nextChapter) {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => ReaderScreen(
-          content: nextChapter.content,
-          // Same title format as the chapter list
-          title: '${BookService.seriesDisplayName(nextChapter.seriesName ?? '')} - ${nextChapter.title}',
-          settings: _settings,
-          currentBook: nextChapter,
-          seriesChapters: widget.seriesChapters,
-          onSettingsChanged: widget.onSettingsChanged,
-        ),
-      ),
+    ReaderScreen.open(
+      context,
+      book: nextChapter,
+      // Same title format as the chapter list
+      title: '${BookService.seriesDisplayName(nextChapter.seriesName ?? '')} - ${nextChapter.title}',
+      settings: _settings,
+      seriesChapters: widget.seriesChapters,
+      onSettingsChanged: widget.onSettingsChanged,
+      replace: true,
     );
   }
 

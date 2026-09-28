@@ -5,29 +5,77 @@ library;
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/book.dart';
 
 /// Service for managing custom user-created books
+///
+/// Books are kept in a Hive box (IndexedDB on web, a file on mobile), one
+/// entry per book, so saving one book does not rewrite the others and
+/// large texts fit (browser preferences storage is limited to about 5 MB).
+/// Books saved by older versions in shared_preferences are moved over once.
 class CustomBookService {
-  static const String _storageKey = 'custom_books';
+  static const _boxName = 'custom_books';
+
+  /// shared_preferences key used by older versions
+  static const _legacyKey = 'custom_books';
+
   static const _uuid = Uuid();
+
+  /// Prepares Hive's storage location; replaced in tests
+  @visibleForTesting
+  static Future<void> Function() initStorage = Hive.initFlutter;
+
+  static Future<Box<String>>? _box;
+
+  static Future<Box<String>> _openBox() => _box ??= () async {
+        try {
+          await initStorage();
+          final box = await Hive.openBox<String>(_boxName);
+          await _moveLegacyBooks(box);
+          return box;
+        } catch (_) {
+          _box = null; // try again next time
+          rethrow;
+        }
+      }();
+
+  /// Forget the opened box (tests)
+  @visibleForTesting
+  static Future<void> reset() async {
+    final box = _box;
+    _box = null;
+    if (box != null) await (await box).close();
+  }
+
+  static Future<void> _moveLegacyBooks(Box<String> box) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString(_legacyKey);
+    if (jsonString == null) return;
+
+    if (jsonString.isNotEmpty) {
+      final List<dynamic> jsonList = json.decode(jsonString);
+      // add() keys are increasing integers, so the order is kept
+      for (final item in jsonList) {
+        await box.add(json.encode(item));
+      }
+    }
+    await prefs.remove(_legacyKey);
+  }
 
   /// Load all custom books from local storage
   static Future<List<Book>> loadCustomBooks() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final jsonString = prefs.getString(_storageKey);
-
-      if (jsonString == null || jsonString.isEmpty) {
-        return [];
-      }
-
-      final List<dynamic> jsonList = json.decode(jsonString);
-      return jsonList.map((item) => Book.fromJson(item as Map<String, dynamic>)).toList();
+      final box = await _openBox();
+      return [
+        for (final value in box.values) Book.fromJson(json.decode(value) as Map<String, dynamic>),
+      ];
     } catch (e) {
+      debugPrint('CustomBookService error: $e');
       return [];
     }
   }
@@ -39,8 +87,6 @@ class CustomBookService {
     String? author,
     String? imageBase64,
   }) async {
-    final books = await loadCustomBooks();
-
     final newBook = Book(
       id: 'custom_${_uuid.v4()}',
       title: title,
@@ -51,34 +97,32 @@ class CustomBookService {
       imageBase64: imageBase64,
     );
 
-    books.add(newBook);
-    await _saveBooks(books);
+    final box = await _openBox();
+    await box.add(json.encode(newBook.toJson()));
 
     return newBook;
   }
 
   /// Delete a custom book by ID
   static Future<void> deleteCustomBook(String id) async {
-    final books = await loadCustomBooks();
-    books.removeWhere((book) => book.id == id);
-    await _saveBooks(books);
+    final box = await _openBox();
+    final key = _keyOf(box, id);
+    if (key != null) await box.delete(key);
   }
 
   /// Update an existing custom book
   static Future<void> updateCustomBook(Book book) async {
-    final books = await loadCustomBooks();
-    final index = books.indexWhere((b) => b.id == book.id);
-    if (index != -1) {
-      books[index] = book;
-      await _saveBooks(books);
-    }
+    final box = await _openBox();
+    final key = _keyOf(box, book.id);
+    if (key != null) await box.put(key, json.encode(book.toJson()));
   }
 
-  /// Save books list to local storage
-  static Future<void> _saveBooks(List<Book> books) async {
-    final prefs = await SharedPreferences.getInstance();
-    final jsonList = books.map((book) => book.toJson()).toList();
-    await prefs.setString(_storageKey, json.encode(jsonList));
+  static dynamic _keyOf(Box<String> box, String id) {
+    for (final key in box.keys) {
+      final value = box.get(key);
+      if (value != null && (json.decode(value) as Map<String, dynamic>)['id'] == id) return key;
+    }
+    return null;
   }
 
   /// Generate a random cover color
