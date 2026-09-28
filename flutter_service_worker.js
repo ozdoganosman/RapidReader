@@ -1,31 +1,380 @@
 'use strict';
+const MANIFEST = 'flutter-app-manifest';
+const TEMP = 'flutter-temp-cache';
+const CACHE_NAME = 'flutter-app-cache';
 
-self.addEventListener('install', () => {
+const RESOURCES = {"manifest.json": "0f7f1002ee7dd92bea786390d61d48b7",
+"icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
+"icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
+"icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
+"icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
+"flutter_bootstrap.js": "e218438548bfec802f824e53298ea040",
+"assets/AssetManifest.bin.json": "2d2c923410b7307158315c8931f58fe6",
+"assets/AssetManifest.json": "9e8f61fc316c414dd2ac7933dcb7c37b",
+"assets/assets/books/ATTC_30.txt": "9eb4de14b8a763e1f9d21aa6b1163db7",
+"assets/assets/books/Kuran_69.txt": "efddea88a9ff3b9afe8c0bc50c7b14ca",
+"assets/assets/books/Kuran_59.txt": "91c99824f7731243f7080ac1dc1bd734",
+"assets/assets/books/Kuran.jpg": "b5cd37ec53484c0ff88958b67e3b5e5e",
+"assets/assets/books/Kuran_109.txt": "3ef951e0512bce835d8667a2affcdece",
+"assets/assets/books/Kuran_26.txt": "86a87920480f34d1c00a971a27adbb74",
+"assets/assets/books/Kuran_7.txt": "94906ee1109fa5da302af243e7892af0",
+"assets/assets/books/ATTC_34.txt": "0185a5bf27d2b402ee752c5ffafdfdc4",
+"assets/assets/books/ATTC_2.txt": "f0652731c34863d152dfd72842d43472",
+"assets/assets/books/Kuran_12.txt": "8527b4e9585a80b837e221caff42d832",
+"assets/assets/books/ATTC_35.txt": "3d318f35a281aa48f97e04fd1b161168",
+"assets/assets/books/ATTC_45.txt": "b54905f226eef1d54553999b88bd023b",
+"assets/assets/books/Kuran_71.txt": "5b2f3f6ac545948a55a1dd6c7f641128",
+"assets/assets/books/Kuran_55.txt": "47b77d6d0d0cd83d349f1cee350893e6",
+"assets/assets/books/ATTC_43.txt": "8379a8a982bb377dfee22de66ef155d6",
+"assets/assets/books/ATTC_28.txt": "dcc380f1dc0289da770cb41c3e186dd8",
+"assets/assets/books/Kuran_86.txt": "f08539554b98ba43b2e8c3e1701b03d4",
+"assets/assets/books/ATTC_14.txt": "ec0b4edac58edb8cf36e02213f439c7b",
+"assets/assets/books/ATTC_1.txt": "f79b1fea6a60b6500915b311e00691df",
+"assets/assets/books/Kuran_54.txt": "d4bae533cd8f21f4a62357f757e4b668",
+"assets/assets/books/ATTC_2.jpg": "8f140b805309feb244c41a176e96f5cb",
+"assets/assets/books/Kuran_22.txt": "c07a45b244cacf5ebf7583e7cc2fa084",
+"assets/assets/books/Donusum_3.txt": "31c2348a13654c728e62da8e423c0f28",
+"assets/assets/books/Kuran_8.txt": "84180049e88bc4446bc9f996a359a1a2",
+"assets/assets/books/Kuran_28.txt": "01e1c2892368025e2368446ced332d2a",
+"assets/assets/books/Kuran_68.txt": "b7af251f6d1da84d04fb54d927ee6e1d",
+"assets/assets/books/Kuran_62.txt": "020fc2455562bd5ab56f1b1322c6922c",
+"assets/assets/books/Kuran_50.txt": "ebc82247d3877b098ba89625962b1e8d",
+"assets/assets/books/Kuran_87.txt": "59e12eb7ca04c2b13283a6ef453d4a86",
+"assets/assets/books/Kuran_13.txt": "5197807130855c89067ee030221f3a4c",
+"assets/assets/books/Kuran_77.txt": "bf5cb3f7d6b827b609d9f646c56c5dfb",
+"assets/assets/books/Kuran_39.txt": "4778c1603aa5b35edb949986345957c6",
+"assets/assets/books/Kuran_107.txt": "da097f7f8e9e93a8971f4a46cb6fbebd",
+"assets/assets/books/Kuran_43.txt": "0d2c25afc0a12aff558e0bc06525962c",
+"assets/assets/books/ATTC_4.txt": "60fd160e9a96ad92c7f0e283316814af",
+"assets/assets/books/Kuran_85.txt": "f6d97e356217bdc326d2de1d31ab2bc6",
+"assets/assets/books/Donusum_2.txt": "c956c0c5c473d23222850b5e10c7176b",
+"assets/assets/books/Kuran_21.txt": "49b81a3eee3367a8ace1dbc44befe7b9",
+"assets/assets/books/Donusum_3.jpg": "b3e598b41c27487d315cc249a844782c",
+"assets/assets/books/Kuran_98.txt": "39c2e406ebf15a7f9102dfba857c51dc",
+"assets/assets/books/Kuran_73.txt": "75b9e4ee01c58912d3b5e27c611bc370",
+"assets/assets/books/Kuran_101.txt": "dff466bb9432b0f871383a4f903f22a9",
+"assets/assets/books/Kuran_89.txt": "1738113523c2aec6cc01658bb50edba1",
+"assets/assets/books/Kuran_100.txt": "44f0295fc0c1cbfff55703ada92f47d5",
+"assets/assets/books/ATTC_27.txt": "6bd8e92c5171c087d2afdcfa494ddbee",
+"assets/assets/books/Kuran_15.txt": "69d707b9809067bef31545a646c24c93",
+"assets/assets/books/ATTC_8.txt": "6ddf52d1d8cbef0ed7d7114927401cae",
+"assets/assets/books/Kuran_94.txt": "00e13db6a330af185731ce238031d46f",
+"assets/assets/books/Kuran_11.txt": "fa9a81829f6afd200b4fc3ac0e3fde7a",
+"assets/assets/books/Kuran_44.txt": "f426ca78aa3564444abcb64fbfbfa775",
+"assets/assets/books/Kuran_45.txt": "70f234755946e84d9ef6799d74825c71",
+"assets/assets/books/Kuran_84.txt": "8b07881cefec96558a7812ebf7a7551a",
+"assets/assets/books/Kuran_114.txt": "40f83ed96be8ab893e4ae86c03e0b575",
+"assets/assets/books/ATTC_3.txt": "f717274297736015c637c2332f1f09b6",
+"assets/assets/books/Kuran_90.txt": "1dabd0d2d1375c778958faceb3d4929a",
+"assets/assets/books/Kuran_1.txt": "ab3bb02585b6c5243c61aba89badf725",
+"assets/assets/books/Kuran_40.txt": "1056fdddb475bcad1e1fb2a6bb72380d",
+"assets/assets/books/ATTC_16.txt": "2dbcbd9aff986dccffc53ce02d9bbf16",
+"assets/assets/books/ATTC_5.txt": "df963f08318cecd28fa271d99528af33",
+"assets/assets/books/Kuran_110.txt": "91154039840e485b6a2b805e8ac6f9e6",
+"assets/assets/books/Kuran_93.txt": "b4ba643c8f6c8ea4bbaadb53365f8169",
+"assets/assets/books/Kuran_108.txt": "2c9847f1f6d42c9de8ff1e72778787a6",
+"assets/assets/books/ATTC_7.txt": "09288dcfb5958f17de2f34222665ed54",
+"assets/assets/books/Kuran_24.txt": "bd06e0bf594d7c5d90047d73e31ef0ef",
+"assets/assets/books/Kuran_106.txt": "e56624e1968de6a1278385324ab8506b",
+"assets/assets/books/Kuran_97.txt": "61c7b3addd1ac8d391692e5ebfa105a3",
+"assets/assets/books/Kuran_61.txt": "9b83b5cff988a6ca02b9e748adad4523",
+"assets/assets/books/Kuran_5.txt": "13a6e977441a7b78d8b1345e971c27c1",
+"assets/assets/books/Kuran_38.txt": "776c90ee1e9f2e38a40de4d9f2e9b98d",
+"assets/assets/books/ATTC_24.txt": "eb09c4f4881d99423094b0d4a9cef2cc",
+"assets/assets/books/ATTC_19.txt": "4b878255ee3289cdaf7a40378ec8f7c6",
+"assets/assets/books/Kuran_57.txt": "e9fff1e69aae158965c71d9ac7dd32b8",
+"assets/assets/books/Kuran_64.txt": "b41f0a6cbed6d72ed5a7d3e660fac052",
+"assets/assets/books/ATTC_33.txt": "a2f32f6ef84f7109fa8a66834def5de7",
+"assets/assets/books/Kuran_18.txt": "c5c66382df14fb15c4c986d48787ab59",
+"assets/assets/books/ATTC_23.txt": "7a8f7861deb9e8b7a319d3cad9057447",
+"assets/assets/books/Kuran_99.txt": "abc3e63b127d36988a70c2068f108f89",
+"assets/assets/books/Kuran_2.txt": "d52ae68eefc1051e93e0960e2a45e4af",
+"assets/assets/books/ATTC_21.txt": "7b90e382f40bc45c1750d46456745b6d",
+"assets/assets/books/Kuran_32.txt": "169895818ce05050d5a05e9ad748a51a",
+"assets/assets/books/Kuran_29.txt": "097e9c7909a40f9a4ed4b2fb6c65655e",
+"assets/assets/books/Kuran_96.txt": "9c9f7365427e725ba98b42d8e8e8a7a4",
+"assets/assets/books/ATTC_25.txt": "fecc8503d7adcf2de680a0f65b8027eb",
+"assets/assets/books/Kuran_31.txt": "2cbd27bfcff3e85fdf2caa265f8b6738",
+"assets/assets/books/ATTC_38.txt": "1d28dc052001a47ed144788afc957cf9",
+"assets/assets/books/Kuran_42.txt": "4ea13f6c7a02015139b60fc9819f600e",
+"assets/assets/books/Kuran_91.txt": "d77050a0e88f5ddfd516aebc82acf18d",
+"assets/assets/books/Kuran_30.txt": "0a5afb93b3596f2b69f1fe714c10ecd7",
+"assets/assets/books/Kuran_9.txt": "4dbfceef51ef3b638bbcb1eae5e4fb7b",
+"assets/assets/books/Kuran_37.txt": "f499025d7b0f655e7cc94c2037823593",
+"assets/assets/books/ATTC_39.txt": "2b289f6937fceb9e5c72e19072610c77",
+"assets/assets/books/Kuran_33.txt": "e571abe23aa22a25facad58241101f8a",
+"assets/assets/books/ATTC_41.txt": "d18843270610d7371c63746bbb9b6f03",
+"assets/assets/books/ATTC_32.txt": "63cc20cde053d88dcfb9aa1c67791b0d",
+"assets/assets/books/Kuran_17.txt": "a2f9305cb064f3c6bef120fc0aaa919b",
+"assets/assets/books/Kuran_46.txt": "ea721bf0f329efc3302657febfdd6708",
+"assets/assets/books/Kuran_4.txt": "85b4098e346d4ea74c2283b094c4982e",
+"assets/assets/books/ATTC_36.txt": "7ec726600f6fcf808aefb5e388ac1a7b",
+"assets/assets/books/Kuran_35.txt": "8a0c980973e6b950bd244c45e28d4f6b",
+"assets/assets/books/Kuran_78.txt": "c6bbe5e2d361eca4660fea1ad6292829",
+"assets/assets/books/ATTC_10.txt": "b985366e5b7117f48af7d63c3908693c",
+"assets/assets/books/Kuran_103.txt": "d6aaf84038827bbee8a31891610dd995",
+"assets/assets/books/Kuran_76.txt": "1357e60e3fda91c4c351f3d6a0521f47",
+"assets/assets/books/ATTC_1.jpg": "c0e14f6ac3d2ac5487fb5218ccb4605d",
+"assets/assets/books/Kuran_88.txt": "efa615f342c7143563696823f1b82a8b",
+"assets/assets/books/Donusum_2.jpg": "1abed9fb4b740131986e35810d59eed9",
+"assets/assets/books/Kuran_70.txt": "81af4471b66e757f6a48b24f56a3be7b",
+"assets/assets/books/Kuran_66.txt": "33558fcd188afedfbfd9317c2065bc92",
+"assets/assets/books/Kuran_51.txt": "7fd7a2a0fc74ee569aa2307d0d6a0011",
+"assets/assets/books/Kuran_82.txt": "5ac16aa76f4c42fd2fd29d4dde1bb12f",
+"assets/assets/books/Kuran_92.txt": "cf0d37398d5f37632493858b1bc9315a",
+"assets/assets/books/Kuran_49.txt": "0609baa98b513e00d69e5531949511ad",
+"assets/assets/books/ATTC_20.txt": "51ec58d9f1fe5a4cbcfe54309344bf34",
+"assets/assets/books/Kuran_104.txt": "da5eb4290c7563422263d926b95464b6",
+"assets/assets/books/ATTC_31.txt": "8767683ef48263e4f72d932c203306c0",
+"assets/assets/books/Kuran_112.txt": "66c8642756cc7e4753ee78d24ea23e09",
+"assets/assets/books/Kuran_81.txt": "6dea6a6b99951b07844fd83402c4ac1c",
+"assets/assets/books/Kuran_41.txt": "07e218514b579bdf048d825e4af66a23",
+"assets/assets/books/Kuran_79.txt": "96d7f93cb3f462792cec735c2412ffff",
+"assets/assets/books/Kuran_80.txt": "aa52473e37a4b86551f7a26fd02c93c9",
+"assets/assets/books/Kuran_65.txt": "0758b2c2ed927f9f95e1d95c9e7400d6",
+"assets/assets/books/Donusum.jpg": "4d602c123c9a7e6a4a664332c0641da0",
+"assets/assets/books/ATTC_17.txt": "ed459aca529f94f9ce57b3277e5068f3",
+"assets/assets/books/ATTC_40.txt": "065137a29c418301691f205c6cca18c9",
+"assets/assets/books/Kuran_95.txt": "7fe18f5f442441cb28ecaf887e34cc19",
+"assets/assets/books/ATTC_15.txt": "8aaf1b2b81640f18e29cc970830fde37",
+"assets/assets/books/ATTC_6.txt": "823c0750f393e6cbad7739fcfa39260a",
+"assets/assets/books/Kuran_105.txt": "c5e62b3d06babbf15f46195747303f47",
+"assets/assets/books/Kuran_58.txt": "28459ca0c9ffcab0b29a280d00235e73",
+"assets/assets/books/Donusum_1.jpg": "a3597487184d7ac406cb4ac6d300b5cc",
+"assets/assets/books/Donusum_1.txt": "b2ef6f8f5105557be14f76425430d220",
+"assets/assets/books/ATTC_18.txt": "85f25fb782ff7027a88f48bfb9555b1c",
+"assets/assets/books/Kuran_3.txt": "eaa153b4082991ff598189618e14d9c8",
+"assets/assets/books/Kuran_14.txt": "5c19afd2e43484f87f8106c17ce2f611",
+"assets/assets/books/Kuran_67.txt": "a714777d328fa233d6881ed3d74c3e04",
+"assets/assets/books/Kuran_6.txt": "ddcc515c35eee20406d94bd28753fca3",
+"assets/assets/books/Kuran_27.txt": "83cfe5a0f69f57485223622188c330c8",
+"assets/assets/books/Kuran_60.txt": "92c3cfec354b2f9819afd5dde750eb15",
+"assets/assets/books/Kuran_25.txt": "3d2a8c9373a1d7fba2300548c2efa437",
+"assets/assets/books/ATTC_11.txt": "477c19a14458db5b7b352bee752d6006",
+"assets/assets/books/Kuran_63.txt": "4cf04faa89b1cae60396dfdec01312ec",
+"assets/assets/books/Kuran_113.txt": "37fa88c440ab74c758acf94c33bb1e9e",
+"assets/assets/books/ATTC_42.txt": "571cfda2aa31d0f9da5a690db0849782",
+"assets/assets/books/Kuran_53.txt": "5d98c1338a1d0a5cf187712871fffc23",
+"assets/assets/books/Kuran_36.txt": "edb9ec8e81ea788263983a50fd3a8e59",
+"assets/assets/books/Kuran_111.txt": "b41c7af7a293e2898f32f00de163f666",
+"assets/assets/books/ATTC_44.txt": "93a38d5c007d0b9c1d7466886975cc31",
+"assets/assets/books/Kuran_19.txt": "a8c551383df781f78362fa6b4cf922db",
+"assets/assets/books/Kuran_52.txt": "608d30d8e3befb5b2e0724a8f1dd477c",
+"assets/assets/books/Kuran_72.txt": "3b15ad0ee8614c1fd56d532fe5dee096",
+"assets/assets/books/Kuran_47.txt": "b70ecb66df29f90b22afc7ef09cacc72",
+"assets/assets/books/Kuran_20.txt": "b367aaf5d309fb2e769140252a8fb5a8",
+"assets/assets/books/ATTC_26.txt": "7311f01733c01e4e702e0ef643055453",
+"assets/assets/books/ATTC_29.txt": "5e6bcabf921f0d6ae330fbd4713430da",
+"assets/assets/books/Kuran_48.txt": "fd489794253021b5b7ffc2ebb35aee3a",
+"assets/assets/books/ATTC_9.txt": "f5492142435683e95ea820b5fdae2149",
+"assets/assets/books/ATTC_13.txt": "e1952e7d429bfe22fcd0ee42eeacaf28",
+"assets/assets/books/ATTC_12.txt": "be4d876a2c81c8d3e88c621c9fd60d2a",
+"assets/assets/books/Kuran_34.txt": "11077b7ff6a3fb9dd31701f3016644ff",
+"assets/assets/books/Kuran_23.txt": "daf4f5ce19268de4ff15d6b327c7c883",
+"assets/assets/books/ATTC_22.txt": "f8250206b8b0cffb129ce34e6904f6f0",
+"assets/assets/books/Kuran_75.txt": "3d830b97d17501261af042a06d33c00d",
+"assets/assets/books/Kuran_102.txt": "5d8936e898737169612185bba21d6320",
+"assets/assets/books/Kuran_10.txt": "74456372abe28543207a5ab0065d7049",
+"assets/assets/books/ATTC_37.txt": "2d9082128214311c7e90860bc00e1bef",
+"assets/assets/books/Kuran_83.txt": "8d66d729da98ac6dc2041664b2f4e816",
+"assets/assets/books/ATTC.jpg": "c0833503de9c7f4bcf3d1315823c73fe",
+"assets/assets/books/Kuran_74.txt": "a8f7d186cf1c84a3728afc3b93bf6cdc",
+"assets/assets/books/Kuran_56.txt": "0601a3545f99bb12e8d47141fecc450a",
+"assets/assets/books/Kuran_16.txt": "5458eb9e8326c07e83c2d7c026890f11",
+"assets/assets/books.json": "00364bbcbd19a50d1f497acd6763ba2d",
+"assets/assets/google_fonts/RobotoMono-Regular.ttf": "b8e9d3c6a9781435391cac5c650cf145",
+"assets/assets/google_fonts/RobotoMono-Bold.ttf": "f0b322ac2a9e18ca6d07872fe7d84a30",
+"assets/assets/google_fonts/OFL.txt": "e1a72ae9cb3ae2bc19cf4dea20623042",
+"assets/NOTICES": "d75946e0dfdd0bdf4f9aec52efc4f205",
+"assets/AssetManifest.bin": "db34baec9d88bc56450408e5e42f14a9",
+"assets/packages/wakelock_plus/assets/no_sleep.js": "7748a45cd593f33280669b29c2c8919a",
+"assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
+"assets/shaders/ink_sparkle.frag": "ecc85a2e95f5e9f53123dcaf8cb9b6ce",
+"assets/fonts/MaterialIcons-Regular.otf": "2b71ce0af13550fbd738135b0e41139c",
+"index.html": "72e73ea2949bdbfbab93736fff4c2c73",
+"/": "72e73ea2949bdbfbab93736fff4c2c73",
+"version.json": "98287878d9a76296444af262f9fe57eb",
+"flutter.js": "f393d3c16b631f36852323de8e583132",
+"favicon.png": "5dcef449791fa27946b3d35ad8803796",
+"privacy-policy.html": "f0ecef02ea7bcb433798992b86b5f482",
+"main.dart.js": "7836584e3ac5c006a5d90a36b6a6a1ef",
+"canvaskit/chromium/canvaskit.js": "671c6b4f8fcc199dcc551c7bb125f239",
+"canvaskit/chromium/canvaskit.wasm": "b1ac05b29c127d86df4bcfbf50dd902a",
+"canvaskit/chromium/canvaskit.js.symbols": "a012ed99ccba193cf96bb2643003f6fc",
+"canvaskit/canvaskit.js": "66177750aff65a66cb07bb44b8c6422b",
+"canvaskit/skwasm.js": "694fda5704053957c2594de355805228",
+"canvaskit/skwasm.worker.js": "89990e8c92bcb123999aa81f7e203b1c",
+"canvaskit/canvaskit.wasm": "1f237a213d7370cf95f443d896176460",
+"canvaskit/skwasm.wasm": "9f0c0c02b82a910d12ce0543ec130e60",
+"canvaskit/skwasm.js.symbols": "262f4827a1317abb59d71d6c587a93e2",
+"canvaskit/canvaskit.js.symbols": "48c83a2ce573d9692e8d970e288d75f7"};
+// The application shell files that are downloaded before a service worker can
+// start.
+const CORE = ["main.dart.js",
+"index.html",
+"flutter_bootstrap.js",
+"assets/AssetManifest.bin.json",
+"assets/FontManifest.json"];
+
+// During install, the TEMP cache is populated with the application shell files.
+self.addEventListener("install", (event) => {
   self.skipWaiting();
-});
-
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    (async () => {
-      try {
-        await self.registration.unregister();
-      } catch (e) {
-        console.warn('Failed to unregister the service worker:', e);
-      }
-
-      try {
-        const clients = await self.clients.matchAll({
-          type: 'window',
-        });
-        // Reload clients to ensure they are not using the old service worker.
-        clients.forEach((client) => {
-          if (client.url && 'navigate' in client) {
-            client.navigate(client.url);
-          }
-        });
-      } catch (e) {
-        console.warn('Failed to navigate some service worker clients:', e);
-      }
-    })()
+  return event.waitUntil(
+    caches.open(TEMP).then((cache) => {
+      return cache.addAll(
+        CORE.map((value) => new Request(value, {'cache': 'reload'})));
+    })
   );
 });
+// During activate, the cache is populated with the temp files downloaded in
+// install. If this service worker is upgrading from one with a saved
+// MANIFEST, then use this to retain unchanged resource files.
+self.addEventListener("activate", function(event) {
+  return event.waitUntil(async function() {
+    try {
+      var contentCache = await caches.open(CACHE_NAME);
+      var tempCache = await caches.open(TEMP);
+      var manifestCache = await caches.open(MANIFEST);
+      var manifest = await manifestCache.match('manifest');
+      // When there is no prior manifest, clear the entire cache.
+      if (!manifest) {
+        await caches.delete(CACHE_NAME);
+        contentCache = await caches.open(CACHE_NAME);
+        for (var request of await tempCache.keys()) {
+          var response = await tempCache.match(request);
+          await contentCache.put(request, response);
+        }
+        await caches.delete(TEMP);
+        // Save the manifest to make future upgrades efficient.
+        await manifestCache.put('manifest', new Response(JSON.stringify(RESOURCES)));
+        // Claim client to enable caching on first launch
+        self.clients.claim();
+        return;
+      }
+      var oldManifest = await manifest.json();
+      var origin = self.location.origin;
+      for (var request of await contentCache.keys()) {
+        var key = request.url.substring(origin.length + 1);
+        if (key == "") {
+          key = "/";
+        }
+        // If a resource from the old manifest is not in the new cache, or if
+        // the MD5 sum has changed, delete it. Otherwise the resource is left
+        // in the cache and can be reused by the new service worker.
+        if (!RESOURCES[key] || RESOURCES[key] != oldManifest[key]) {
+          await contentCache.delete(request);
+        }
+      }
+      // Populate the cache with the app shell TEMP files, potentially overwriting
+      // cache files preserved above.
+      for (var request of await tempCache.keys()) {
+        var response = await tempCache.match(request);
+        await contentCache.put(request, response);
+      }
+      await caches.delete(TEMP);
+      // Save the manifest to make future upgrades efficient.
+      await manifestCache.put('manifest', new Response(JSON.stringify(RESOURCES)));
+      // Claim client to enable caching on first launch
+      self.clients.claim();
+      return;
+    } catch (err) {
+      // On an unhandled exception the state of the cache cannot be guaranteed.
+      console.error('Failed to upgrade service worker: ' + err);
+      await caches.delete(CACHE_NAME);
+      await caches.delete(TEMP);
+      await caches.delete(MANIFEST);
+    }
+  }());
+});
+// The fetch handler redirects requests for RESOURCE files to the service
+// worker cache.
+self.addEventListener("fetch", (event) => {
+  if (event.request.method !== 'GET') {
+    return;
+  }
+  var origin = self.location.origin;
+  var key = event.request.url.substring(origin.length + 1);
+  // Redirect URLs to the index.html
+  if (key.indexOf('?v=') != -1) {
+    key = key.split('?v=')[0];
+  }
+  if (event.request.url == origin || event.request.url.startsWith(origin + '/#') || key == '') {
+    key = '/';
+  }
+  // If the URL is not the RESOURCE list then return to signal that the
+  // browser should take over.
+  if (!RESOURCES[key]) {
+    return;
+  }
+  // If the URL is the index.html, perform an online-first request.
+  if (key == '/') {
+    return onlineFirst(event);
+  }
+  event.respondWith(caches.open(CACHE_NAME)
+    .then((cache) =>  {
+      return cache.match(event.request).then((response) => {
+        // Either respond with the cached resource, or perform a fetch and
+        // lazily populate the cache only if the resource was successfully fetched.
+        return response || fetch(event.request).then((response) => {
+          if (response && Boolean(response.ok)) {
+            cache.put(event.request, response.clone());
+          }
+          return response;
+        });
+      })
+    })
+  );
+});
+self.addEventListener('message', (event) => {
+  // SkipWaiting can be used to immediately activate a waiting service worker.
+  // This will also require a page refresh triggered by the main worker.
+  if (event.data === 'skipWaiting') {
+    self.skipWaiting();
+    return;
+  }
+  if (event.data === 'downloadOffline') {
+    downloadOffline();
+    return;
+  }
+});
+// Download offline will check the RESOURCES for all files not in the cache
+// and populate them.
+async function downloadOffline() {
+  var resources = [];
+  var contentCache = await caches.open(CACHE_NAME);
+  var currentContent = {};
+  for (var request of await contentCache.keys()) {
+    var key = request.url.substring(origin.length + 1);
+    if (key == "") {
+      key = "/";
+    }
+    currentContent[key] = true;
+  }
+  for (var resourceKey of Object.keys(RESOURCES)) {
+    if (!currentContent[resourceKey]) {
+      resources.push(resourceKey);
+    }
+  }
+  return contentCache.addAll(resources);
+}
+// Attempt to download the resource online before falling back to
+// the offline cache.
+function onlineFirst(event) {
+  return event.respondWith(
+    fetch(event.request).then((response) => {
+      return caches.open(CACHE_NAME).then((cache) => {
+        cache.put(event.request, response.clone());
+        return response;
+      });
+    }).catch((error) => {
+      return caches.open(CACHE_NAME).then((cache) => {
+        return cache.match(event.request).then((response) => {
+          if (response != null) {
+            return response;
+          }
+          throw error;
+        });
+      });
+    })
+  );
+}
