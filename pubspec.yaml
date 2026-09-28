@@ -50,9 +50,16 @@ flutter:
     # these files instead of downloading RobotoMono-Regular/Bold)
     - assets/google_fonts/
     - assets/fonts/AmiriQuran-OFL.txt
+    - assets/fonts/OpenDyslexic-LICENSE.txt
 
   fonts:
     # Arabic Quran text and Arabic words in titles (SIL OFL 1.1, assets/fonts/AmiriQuran-OFL.txt)
     - family: AmiriQuran
       fonts:
         - asset: assets/fonts/AmiriQuran-Regular.ttf
+    # Dyslexia-friendly reading font (Bitstream Vera based license, assets/fonts/OpenDyslexic-LICENSE.txt)
+    - family: OpenDyslexic
+      fonts:
+        - asset: assets/fonts/OpenDyslexic-Regular.ttf
+        - asset: assets/fonts/OpenDyslexic-Bold.ttf
+          weight: 700

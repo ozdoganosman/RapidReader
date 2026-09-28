@@ -186,6 +186,15 @@ class ORPTextWidget extends StatelessWidget {
   }) {
     // Use Google Fonts for proper web support with Turkish characters
     switch (fontFamily) {
+      case 'OpenDyslexic':
+        // Bundled font (not a Google Font)
+        return TextStyle(
+          fontFamily: 'OpenDyslexic',
+          fontSize: fontSize,
+          color: color,
+          fontWeight: fontWeight,
+          height: 1.2,
+        );
       case 'Roboto Mono':
         return GoogleFonts.robotoMono(
           fontSize: fontSize,

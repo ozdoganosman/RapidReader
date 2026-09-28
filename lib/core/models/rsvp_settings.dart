@@ -46,6 +46,9 @@ class RSVPSettings extends Equatable {
   /// Whether to show focus guide lines
   final bool showFocusGuides;
 
+  /// Start each play slower and speed up to [wordsPerMinute]
+  final bool speedWarmUp;
+
   const RSVPSettings({
     this.wordsPerMinute = 300,
     this.chunkSize = 1,
@@ -60,6 +63,7 @@ class RSVPSettings extends Equatable {
     this.textColor = 0xFFFFFFFF, // White
     this.backgroundColor = 0xFF000000, // Black
     this.showFocusGuides = true,
+    this.speedWarmUp = true,
   });
 
   /// Lowest supported reading speed (WPM)
@@ -98,6 +102,14 @@ class RSVPSettings extends Equatable {
     orpHighlightColor: 0xFFBF360C, // Deep orange
   );
 
+  /// High contrast preset: pure white on black, yellow focus letter
+  static const highContrastTheme = RSVPSettings(
+    darkMode: true,
+    textColor: 0xFFFFFFFF, // White
+    backgroundColor: 0xFF000000, // Black
+    orpHighlightColor: 0xFFFFD600, // Yellow
+  );
+
   /// Serialize for local storage
   Map<String, dynamic> toMap() => {
         'wordsPerMinute': wordsPerMinute,
@@ -113,6 +125,7 @@ class RSVPSettings extends Equatable {
         'textColor': textColor,
         'backgroundColor': backgroundColor,
         'showFocusGuides': showFocusGuides,
+        'speedWarmUp': speedWarmUp,
       };
 
   /// Restore from local storage
@@ -144,6 +157,7 @@ class RSVPSettings extends Equatable {
       textColor: read<int>('textColor', d.textColor),
       backgroundColor: read<int>('backgroundColor', d.backgroundColor),
       showFocusGuides: read<bool>('showFocusGuides', d.showFocusGuides),
+      speedWarmUp: read<bool>('speedWarmUp', d.speedWarmUp),
     );
   }
 
@@ -162,6 +176,7 @@ class RSVPSettings extends Equatable {
     int? textColor,
     int? backgroundColor,
     bool? showFocusGuides,
+    bool? speedWarmUp,
   }) {
     return RSVPSettings(
       wordsPerMinute: wordsPerMinute ?? this.wordsPerMinute,
@@ -177,6 +192,7 @@ class RSVPSettings extends Equatable {
       textColor: textColor ?? this.textColor,
       backgroundColor: backgroundColor ?? this.backgroundColor,
       showFocusGuides: showFocusGuides ?? this.showFocusGuides,
+      speedWarmUp: speedWarmUp ?? this.speedWarmUp,
     );
   }
 
@@ -195,5 +211,6 @@ class RSVPSettings extends Equatable {
         textColor,
         backgroundColor,
         showFocusGuides,
+        speedWarmUp,
       ];
 }

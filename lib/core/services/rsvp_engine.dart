@@ -109,6 +109,9 @@ class RSVPEngine extends ChangeNotifier {
   List<WordToken> _tokens = [];
   TimingConfig _config = const TimingConfig();
 
+  /// Words shown since the last play/resume (for the speed warm-up)
+  int _wordsSincePlay = 0;
+
   /// Index of the last sentence-end token counted in [RSVPPlaybackState.sentencesRead]
   ///
   /// Resuming after a pause shows the current word again (giving the reader
@@ -167,6 +170,7 @@ class RSVPEngine extends ChangeNotifier {
     }
 
     _state = _state.copyWith(status: PlaybackStatus.playing);
+    _wordsSincePlay = 0;
     notifyListeners();
     _scheduleNextWord();
   }
@@ -290,6 +294,10 @@ class RSVPEngine extends ChangeNotifier {
       word: token.word,
       isParagraphEnd: token.isParagraphEnd,
     );
+
+    // Start slower after play/resume, reaching full speed after a few words
+    duration = (duration * _config.warmUpFactor(_wordsSincePlay)).round();
+    _wordsSincePlay++;
 
     // Track sentences and add micro-pause if needed
     int sentencesRead = _state.sentencesRead;

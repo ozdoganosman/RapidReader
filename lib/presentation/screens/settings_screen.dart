@@ -45,21 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
-  bool _settingsEqual(RSVPSettings a, RSVPSettings b) {
-    return a.wordsPerMinute == b.wordsPerMinute &&
-        a.adaptiveSpeed == b.adaptiveSpeed &&
-        a.chunkSize == b.chunkSize &&
-        a.fontSize == b.fontSize &&
-        a.fontFamily == b.fontFamily &&
-        a.showORPHighlight == b.showORPHighlight &&
-        a.showFocusGuides == b.showFocusGuides &&
-        a.darkMode == b.darkMode &&
-        a.backgroundColor == b.backgroundColor &&
-        a.textColor == b.textColor &&
-        a.orpHighlightColor == b.orpHighlightColor &&
-        a.microPauseInterval == b.microPauseInterval &&
-        a.microPauseDuration == b.microPauseDuration;
-  }
+  bool _settingsEqual(RSVPSettings a, RSVPSettings b) => a == b;
 
   Future<void> _handleBackPress() async {
     if (!_hasChanges) {
@@ -183,6 +169,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _updateSettings(_currentSettings.copyWith(adaptiveSpeed: value));
                   },
                 ),
+                const SizedBox(height: 12),
+                _buildSwitchSetting(
+                  title: 'Hız Isınması',
+                  subtitle: 'Yavaş başla, birkaç saniyede seçilen hıza çık',
+                  value: _currentSettings.speedWarmUp,
+                  onChanged: (value) {
+                    _updateSettings(_currentSettings.copyWith(speedWarmUp: value));
+                  },
+                ),
               ],
             ),
 
@@ -265,6 +260,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _buildFontOption('Merriweather', 'Serif - Klasik'),
                 const SizedBox(height: 8),
                 _buildFontOption('Roboto Slab', 'Slab Serif - Güçlü'),
+                const SizedBox(height: 8),
+                _buildFontOption('OpenDyslexic', 'Disleksi dostu - Harfler karışmaz'),
               ],
             ),
 
@@ -279,6 +276,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _buildThemeOption('Aydınlık', RSVPSettings.lightTheme),
                 const SizedBox(height: 8),
                 _buildThemeOption('Sepia', RSVPSettings.sepiaTheme),
+                const SizedBox(height: 8),
+                _buildThemeOption('Yüksek Kontrast', RSVPSettings.highContrastTheme),
               ],
             ),
 
@@ -490,7 +489,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _buildThemeOption(String title, RSVPSettings preset) {
     final isSelected = _currentSettings.darkMode == preset.darkMode &&
-        _currentSettings.backgroundColor == preset.backgroundColor;
+        _currentSettings.backgroundColor == preset.backgroundColor &&
+        _currentSettings.orpHighlightColor == preset.orpHighlightColor;
 
     return GestureDetector(
       onTap: () {

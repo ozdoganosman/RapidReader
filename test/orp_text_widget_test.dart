@@ -66,4 +66,21 @@ void main() {
     expect(tester.takeException(), isNull);
     expect(tester.getCenter(find.text('i')).dx, moreOrLessEquals(screenCenter, epsilon: 0.5));
   });
+
+  testWidgets('the dyslexia font keeps the focus letter centered', (tester) async {
+    await tester.pumpWidget(
+      MediaQuery(
+        data: const MediaQueryData(size: Size(800, 600)),
+        child: const Directionality(
+          textDirection: TextDirection.ltr,
+          child: RSVPDisplay(word: 'kitap', fontSize: 32, fontFamily: 'OpenDyslexic'),
+        ),
+      ),
+    );
+
+    expect(tester.takeException(), isNull);
+    final orp = tester.widget<Text>(find.text('i'));
+    expect(orp.style?.fontFamily, 'OpenDyslexic');
+    expect(tester.getCenter(find.text('i')).dx, moreOrLessEquals(screenCenter, epsilon: 0.5));
+  });
 }

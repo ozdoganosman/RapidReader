@@ -22,24 +22,44 @@ class TimingConfig {
   /// Duration of micro-pause in milliseconds
   final int microPauseDuration;
 
+  /// Start slower after play/resume and speed up to [baseWPM]
+  final bool warmUp;
+
   const TimingConfig({
     this.baseWPM = 300,
     this.adaptiveSpeed = true,
     this.microPauseInterval = 7,
     this.microPauseDuration = 300,
+    this.warmUp = false,
   });
+
+  /// Words over which the warm-up reaches full speed
+  static const warmUpWords = 20;
+
+  /// Speed of the first word of the warm-up, as a share of [baseWPM]
+  static const warmUpStartSpeed = 0.6;
+
+  /// Duration factor for the [wordsShown]th word after play (0-based):
+  /// 1 / 0.6 at the start, 1.0 from [warmUpWords] on
+  double warmUpFactor(int wordsShown) {
+    if (!warmUp || wordsShown >= warmUpWords) return 1.0;
+    final speed = warmUpStartSpeed + (1 - warmUpStartSpeed) * wordsShown / warmUpWords;
+    return 1 / speed;
+  }
 
   TimingConfig copyWith({
     int? baseWPM,
     bool? adaptiveSpeed,
     int? microPauseInterval,
     int? microPauseDuration,
+    bool? warmUp,
   }) {
     return TimingConfig(
       baseWPM: baseWPM ?? this.baseWPM,
       adaptiveSpeed: adaptiveSpeed ?? this.adaptiveSpeed,
       microPauseInterval: microPauseInterval ?? this.microPauseInterval,
       microPauseDuration: microPauseDuration ?? this.microPauseDuration,
+      warmUp: warmUp ?? this.warmUp,
     );
   }
 }

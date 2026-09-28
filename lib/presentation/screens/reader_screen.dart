@@ -128,6 +128,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
         adaptiveSpeed: _settings.adaptiveSpeed,
         microPauseInterval: _settings.microPauseInterval,
         microPauseDuration: _settings.microPauseDuration,
+        warmUp: _settings.speedWarmUp,
       ),
       startIndex: widget.startIndex,
     );

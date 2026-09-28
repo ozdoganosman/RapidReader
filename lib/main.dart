@@ -20,6 +20,8 @@ void main() async {
     yield LicenseEntryWithLineBreaks(const ['Roboto Mono'], license);
     final amiri = await rootBundle.loadString('assets/fonts/AmiriQuran-OFL.txt');
     yield LicenseEntryWithLineBreaks(const ['Amiri Quran'], amiri);
+    final openDyslexic = await rootBundle.loadString('assets/fonts/OpenDyslexic-LICENSE.txt');
+    yield LicenseEntryWithLineBreaks(const ['OpenDyslexic'], openDyslexic);
   });
 
   // Set preferred orientations

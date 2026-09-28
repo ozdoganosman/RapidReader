@@ -19,7 +19,8 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
 - **Okuma ekranı:** Dokun-oynat/duraklat, kaydırarak 10 kelime ileri/geri, konum çubuğu
   ve önizleme, sayfa görünümü, kalan/toplam süre, okurken ekranın kapanmaması (Android).
 - **Ayarlar:** Hız (100–1000 kelime/dakika), uyarlanabilir hız, kelime gruplama (1–3),
-  mikro-duraklama, font ailesi ve boyutu, ORP vurgusu, odak çizgileri, temalar.
+  mikro-duraklama, hız ısınması (yavaş başlayıp seçilen hıza çıkma), font ailesi ve boyutu
+  (disleksi dostu OpenDyslexic dahil), ORP vurgusu, odak çizgileri, temalar (yüksek kontrast dahil).
 - **Kur'an-ı Kerim:** Sure adına ya da numarasına göre arama, iniş sırası ile mushaf
   sırası arasında geçiş, her surenin Arapça metni (Tanzil Projesi, Amiri Quran yazı tipiyle).
 - **Türkçe desteği:** Kesme işaretli kelimeler (Türkiye'nin) tek kelime kalır; odak harfi
@@ -105,6 +106,8 @@ test/                                Birim ve widget testleri
   (`assets/quran/SOURCE.txt`).
 - **Amiri Quran** yazı tipi SIL Open Font License 1.1 ile lisanslıdır
   (`assets/fonts/AmiriQuran-OFL.txt`).
+- **OpenDyslexic** yazı tipi Bitstream Vera lisansına dayalı serbest bir lisansla
+  dağıtılır (`assets/fonts/OpenDyslexic-LICENSE.txt`).
 - **Roboto Mono** yazı tipi SIL Open Font License 1.1 ile lisanslıdır
   (`assets/google_fonts/OFL.txt`) ve uygulamanın lisanslar sayfasında listelenir.
 - **syncfusion_flutter_pdf** açık kaynak değildir; Syncfusion lisansına tabidir.

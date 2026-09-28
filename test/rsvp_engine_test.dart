@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rapid_reader/core/services/rsvp_engine.dart';
 import 'package:rapid_reader/core/utils/text_parser.dart';
+import 'package:rapid_reader/core/utils/timing_calculator.dart';
 
 void main() {
   // testWidgets runs in a fake-async zone, so engine timers can be advanced
@@ -81,4 +82,33 @@ void main() {
     expect(engine.state.sentencesRead, 1);
     engine.dispose();
   });
+
+  group('speed warm-up', () {
+    test('starts at 60% speed and reaches full speed after 20 words', () {
+      const config = TimingConfig(baseWPM: 300, warmUp: true);
+      expect(config.warmUpFactor(0), closeTo(1 / 0.6, 1e-9));
+      expect(config.warmUpFactor(10), closeTo(1 / 0.8, 1e-9));
+      expect(config.warmUpFactor(TimingConfig.warmUpWords), 1.0);
+      expect(const TimingConfig(warmUp: false).warmUpFactor(0), 1.0);
+    });
+
+    testWidgets('the first words after play are shown longer', (tester) async {
+      final tokens = TextParser.parse(List.filled(40, 'kelime').join(' '));
+      Future<int> wordsAfter(bool warmUp, Duration time) async {
+        final engine = RSVPEngine()
+          ..initialize(tokens: tokens, config: TimingConfig(baseWPM: 300, adaptiveSpeed: false, warmUp: warmUp));
+        engine.play();
+        await tester.pump(time);
+        final index = engine.state.currentIndex;
+        engine.pause();
+        engine.dispose();
+        return index;
+      }
+
+      // 300 WPM = 200 ms per word: 10 words in 2 s without warm-up, fewer with it
+      expect(await wordsAfter(false, const Duration(seconds: 2)), 10);
+      expect(await wordsAfter(true, const Duration(seconds: 2)), lessThan(9));
+    });
+  });
 }
+
