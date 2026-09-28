@@ -309,6 +309,17 @@ class ORPTextWidget extends StatelessWidget {
           fontWeight: fontWeight,
           height: 1.2,
         );
+      // Page fonts (plain text and listening)
+      case 'Literata':
+      case 'Lora':
+      case 'Noto Serif':
+        return GoogleFonts.getFont(
+          fontFamily,
+          fontSize: fontSize,
+          color: color,
+          fontWeight: fontWeight,
+          height: 1.2,
+        );
       default:
         // Fallback to Roboto Mono
         return GoogleFonts.robotoMono(

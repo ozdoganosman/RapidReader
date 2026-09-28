@@ -23,12 +23,18 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
 - **Kaldığın yerden devam:** Her kitabın ve bölümün okuma konumu ile ayarlar cihazda saklanır.
 - **Okuma ekranı:** Dokun-oynat/duraklat, kaydırarak 10 kelime ileri/geri, konum çubuğu
   ve önizleme, sayfa görünümü, kalan/toplam süre, okurken ekranın kapanmaması (Android).
+- **Hızlı okuma ekranı:** Sol kenara dokununca cümlenin başına döner. Kelime grupları anlama
+  göre kurulur ("ve", "bir" sonraki kelimeyle; "da", "ki", "gibi" önceki kelimeyle birlikte).
+  Kademeli hızlanma: okurken hız her dakika 10 kelime artar, seçilen hedefte durur.
 - **Ayarlar:** Hız (100–1000 kelime/dakika), uyarlanabilir hız, kelime gruplama (1–3),
   mikro-duraklama, hız ısınması (yavaş başlayıp seçilen hıza çıkma), font ailesi ve boyutu
   (disleksi dostu OpenDyslexic dahil), ORP vurgusu, odak çizgileri, temalar (yüksek kontrast dahil).
 - **Üç okuma modu:** Bir bölüm ya da metin açılırken sorulur:
   - *Hızlı Okuma:* kelime kelime (RSVP), seçilen hızda.
-  - *Düz Metin:* sayfa olarak, okuyucunun renk ve yazı tipiyle.
+  - *Düz Metin:* sayfa olarak. Sayfa ayarlarında (Aa) yazı tipi (Literata, Merriweather, Lora,
+    Noto Serif, Roboto, Open Sans, Lato, OpenDyslexic), yazı boyutu, tema (Açık, Sepya, Gri, Koyu,
+    göz yormayan sıcak renkli Gece), özel arka plan ve yazı rengi ile parlaklık seçilir.
+    *Rehberli okuma:* sayfada seçilen hızda kelime kelime ilerleyen bir vurgu; göz onu izler.
   - *Sesli Okuma:* cihazın Türkçe sesiyle paragraf paragraf; okunan paragraf ve kelime
     işaretlenir, bir paragrafa dokununca oradan okunur, konuşma hızı 0,5x–2x. Android'de bölümün
     kalanı sese bir kerede verilir: paragraflar arasında duraklama olmaz ve ekran kapalıyken de

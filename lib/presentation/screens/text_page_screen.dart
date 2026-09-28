@@ -9,6 +9,8 @@
 /// The reading position is shared with the speed reader (saved in words).
 library;
 
+import 'dart:async';
+
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -19,6 +21,7 @@ import '../../core/models/rsvp_settings.dart';
 import '../../core/services/book_service.dart';
 import '../../core/services/read_aloud_player.dart';
 import '../../core/services/reading_storage.dart';
+import '../../core/utils/timing_calculator.dart';
 import '../widgets/orp_text_widget.dart';
 import 'reader_screen.dart';
 import 'reading_mode_sheet.dart';
@@ -92,6 +95,20 @@ class _TextPageScreenState extends State<TextPageScreen> {
   /// chapter starts over)
   bool _finished = false;
 
+  /// Guided reading (plain text): a highlight moving word by word at the
+  /// reading speed; shown from its first start on
+  Timer? _pacer;
+  bool _showPace = false;
+  int _paceParagraph = 0;
+  int _paceWord = 0;
+
+  /// Start and end of each word of each paragraph
+  late final List<List<(int, int)>> _wordSpans = [
+    for (final paragraph in _paragraphs) [for (final m in RegExp(r'\S+').allMatches(paragraph)) (m.start, m.end)],
+  ];
+
+  bool get _pacing => _pacer != null;
+
   @override
   void initState() {
     super.initState();
@@ -153,7 +170,8 @@ class _TextPageScreenState extends State<TextPageScreen> {
     final book = widget.currentBook;
     if (book == null || _paragraphs.isEmpty) return;
     final total = _wordsBefore.last;
-    final index = _finished ? total : _wordsBefore[(_player?.paragraph ?? _topIndex).clamp(0, _paragraphs.length - 1)];
+    final paragraph = _player?.paragraph ?? (_showPace ? _paceParagraph : _topIndex);
+    final index = _finished ? total : _wordsBefore[paragraph.clamp(0, _paragraphs.length - 1)];
     ReadingStorage.saveProgress(book.id, ReadingProgress(index: index, total: total));
   }
 
@@ -217,6 +235,65 @@ class _TextPageScreenState extends State<TextPageScreen> {
     return index == -1 || index + 1 >= chapters.length ? null : chapters[index + 1];
   }
 
+  /// Start guided reading at [paragraph], or where it stopped (the top of
+  /// the page the first time)
+  void _startPacing({int? paragraph}) {
+    if (_paragraphs.isEmpty) return;
+    if (paragraph != null || !_showPace) {
+      _paceParagraph = paragraph ?? _topParagraph();
+      _paceWord = 0;
+    }
+    _showPace = true;
+    _pacer?.cancel();
+    _scrollTo(_paceParagraph);
+    _schedulePace();
+    setState(() {});
+  }
+
+  void _stopPacing() {
+    _pacer?.cancel();
+    _pacer = null;
+    _saveProgress();
+    setState(() {});
+  }
+
+  /// Show the current word as long as the speed reader would
+  void _schedulePace() {
+    final spans = _wordSpans[_paceParagraph];
+    final (start, end) = spans[_paceWord];
+    final duration = TimingCalculator.calculateDuration(
+      config: TimingConfig(baseWPM: _settings.wordsPerMinute, adaptiveSpeed: _settings.adaptiveSpeed),
+      word: _paragraphs[_paceParagraph].substring(start, end),
+      isParagraphEnd: _paceWord == spans.length - 1,
+    );
+    _pacer = Timer(Duration(milliseconds: duration), _paceNext);
+  }
+
+  void _paceNext() {
+    if (!mounted) return;
+    if (_paceWord + 1 < _wordSpans[_paceParagraph].length) {
+      _paceWord++;
+    } else if (_paceParagraph + 1 < _paragraphs.length) {
+      _paceParagraph++;
+      _paceWord = 0;
+      _scrollTo(_paceParagraph);
+    } else {
+      // The end of the chapter
+      _pacer = null;
+      _finished = true;
+      _saveProgress();
+      setState(() {});
+      return;
+    }
+    setState(() {});
+    _schedulePace();
+  }
+
+  void _changeSettings(RSVPSettings settings) {
+    setState(() => _settings = settings);
+    widget.onSettingsChanged?.call(settings);
+  }
+
   void _setRate(double rate) {
     _player!.setRate(rate);
     _settings = _settings.copyWith(speechRate: rate);
@@ -232,6 +309,7 @@ class _TextPageScreenState extends State<TextPageScreen> {
 
   @override
   void dispose() {
+    _pacer?.cancel();
     _saveProgress();
     _lifecycle.dispose();
     _player
@@ -244,13 +322,13 @@ class _TextPageScreenState extends State<TextPageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final background = Color(_settings.backgroundColor);
-    final textColor = Color(_settings.textColor);
-    final accent = Color(_settings.orpHighlightColor);
-    // The reader's font, at a page size (the speed reader's is much larger)
+    final background = Color(_settings.pageBackgroundColor);
+    final textColor = Color(_settings.pageTextColor);
+    // Dark red on light pages, amber on dark ones
+    final accent = background.computeLuminance() > 0.4 ? const Color(0xFFB71C1C) : const Color(0xFFFFB74D);
     final base = ORPTextWidget.readingFontStyle(
-      _settings.fontFamily,
-      fontSize: (_settings.fontSize * 0.6).clamp(16.0, 30.0),
+      _settings.pageFontFamily,
+      fontSize: _settings.pageFontSize,
       color: textColor,
     );
     final style = base.copyWith(
@@ -260,7 +338,7 @@ class _TextPageScreenState extends State<TextPageScreen> {
     );
     final next = _nextChapter();
 
-    return Scaffold(
+    final page = Scaffold(
       backgroundColor: background,
       appBar: AppBar(
         backgroundColor: background,
@@ -268,7 +346,14 @@ class _TextPageScreenState extends State<TextPageScreen> {
         elevation: 0,
         scrolledUnderElevation: 0,
         title: Text(widget.title, style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.w400)),
-        actions: [if (_player != null) _buildRateMenu(textColor)],
+        actions: [
+          if (_player != null) _buildRateMenu(textColor),
+          IconButton(
+            tooltip: 'Sayfa ayarları',
+            icon: const Icon(Icons.text_fields),
+            onPressed: _showPageSettings,
+          ),
+        ],
       ),
       body: NotificationListener<ScrollEndNotification>(
         onNotification: (notification) {
@@ -312,16 +397,39 @@ class _TextPageScreenState extends State<TextPageScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: _player == null ? null : _buildControls(background, textColor, accent),
+      bottomNavigationBar: _player == null
+          ? _buildPaceControls(background, textColor, accent)
+          : _buildControls(background, textColor, accent),
+    );
+
+    // Brightness: the page is dimmed (on top of the device's brightness)
+    return Stack(
+      children: [
+        page,
+        if (_settings.pageBrightness < 1)
+          Positioned.fill(
+            child: IgnorePointer(
+              child: ColoredBox(color: Colors.black.withValues(alpha: 1 - _settings.pageBrightness)),
+            ),
+          ),
+      ],
     );
   }
 
   Widget _buildParagraph(int i, TextStyle style, Color accent) {
     final player = _player;
-    final current = player != null && player.paragraph == i;
     final text = _paragraphs[i];
-    final start = current ? player.wordStart : null;
-    final end = current ? player.wordEnd : null;
+    int? start;
+    int? end;
+    final bool current;
+    if (player != null) {
+      current = player.paragraph == i;
+      start = current ? player.wordStart : null;
+      end = current ? player.wordEnd : null;
+    } else {
+      current = _showPace && _paceParagraph == i;
+      if (current && _wordSpans[i].isNotEmpty) (start, end) = _wordSpans[i][_paceWord];
+    }
 
     final Widget child;
     if (start != null && end != null && start >= 0 && end <= text.length && start < end) {
@@ -340,10 +448,21 @@ class _TextPageScreenState extends State<TextPageScreen> {
       child = Text(text, style: style);
     }
 
-    if (player == null) return child;
+    if (player == null && !_showPace) return child;
     // Tap a paragraph to read from there
     return GestureDetector(
-      onTap: () => player.play(from: i),
+      onTap: () {
+        if (player != null) {
+          player.play(from: i);
+        } else if (_pacing) {
+          _startPacing(paragraph: i);
+        } else {
+          setState(() {
+            _paceParagraph = i;
+            _paceWord = 0;
+          });
+        }
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
@@ -351,6 +470,214 @@ class _TextPageScreenState extends State<TextPageScreen> {
           borderRadius: BorderRadius.circular(6),
         ),
         child: child,
+      ),
+    );
+  }
+
+  /// Guided reading: start/stop and the reading speed
+  Widget _buildPaceControls(Color background, Color textColor, Color accent) {
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          color: background,
+          border: Border(top: BorderSide(color: textColor.withValues(alpha: 0.12))),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: Row(
+          children: [
+            IconButton(
+              iconSize: 40,
+              tooltip: _pacing ? 'Rehberli okumayı durdur' : 'Rehberli okuma',
+              icon: Icon(_pacing ? Icons.pause_circle : Icons.play_circle, color: accent),
+              onPressed: _pacing ? _stopPacing : _startPacing,
+            ),
+            Expanded(
+              child: Text(
+                'Rehberli okuma',
+                style: TextStyle(color: textColor.withValues(alpha: 0.8), fontSize: 14),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            IconButton(
+              tooltip: 'Yavaşlat',
+              icon: Icon(Icons.remove_circle_outline, color: textColor),
+              onPressed: () => _changePaceSpeed(-RSVPSettings.wordsPerMinuteStep),
+            ),
+            Text('${_settings.wordsPerMinute} WPM', style: TextStyle(color: textColor, fontSize: 14)),
+            IconButton(
+              tooltip: 'Hızlandır',
+              icon: Icon(Icons.add_circle_outline, color: textColor),
+              onPressed: () => _changePaceSpeed(RSVPSettings.wordsPerMinuteStep),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _changePaceSpeed(int change) {
+    final wpm =
+        (_settings.wordsPerMinute + change).clamp(RSVPSettings.minWordsPerMinute, RSVPSettings.maxWordsPerMinute);
+    _changeSettings(_settings.copyWith(wordsPerMinute: wpm));
+  }
+
+  /// Page themes: background and text colors
+  static const _themes = [
+    ('Açık', 0xFFFFFFFF, 0xFF1F1F1F),
+    ('Sepya', 0xFFF8F1E3, 0xFF3B2F2A),
+    ('Gri', 0xFFE8E8E3, 0xFF2A2A2A),
+    ('Koyu', 0xFF1E1E1E, 0xFFDADADA),
+    ('Gece', 0xFF15110D, 0xFFC9B59A), // warm, little blue light
+  ];
+
+  static const _backgroundChoices = [
+    0xFFFFFFFF, 0xFFFDF6E3, 0xFFF8F1E3, 0xFFEAE4D3, 0xFFE3EFE3, 0xFFE6ECF5, 0xFF2B2B2B, 0xFF000000, //
+  ];
+
+  static const _textChoices = [0xFF000000, 0xFF1F1F1F, 0xFF3B2F2A, 0xFF4A4A4A, 0xFFDADADA, 0xFFC9B59A, 0xFFFFFFFF];
+
+  static const _pageFonts = [
+    'Literata',
+    'Merriweather',
+    'Lora',
+    'Noto Serif',
+    'Roboto',
+    'Open Sans',
+    'Lato',
+    'OpenDyslexic'
+  ];
+
+  /// Font, size, colors and brightness of the page
+  void _showPageSettings() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
+      builder: (context) => StatefulBuilder(
+        builder: (context, setSheetState) {
+          void change(RSVPSettings settings) {
+            _changeSettings(settings);
+            setSheetState(() {});
+          }
+
+          Widget label(String text) => Padding(
+                padding: const EdgeInsets.only(top: 16, bottom: 8),
+                child: Text(text, style: const TextStyle(fontSize: 13, color: Colors.black54)),
+              );
+
+          Widget swatch(int background, int text, bool selected, VoidCallback onTap, {String? name}) => Padding(
+                padding: const EdgeInsets.only(right: 10, bottom: 6),
+                child: GestureDetector(
+                  onTap: onTap,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Color(background),
+                          shape: BoxShape.circle,
+                          border:
+                              Border.all(color: selected ? Colors.black87 : Colors.black26, width: selected ? 2.5 : 1),
+                        ),
+                        child: Text('Aa', style: TextStyle(color: Color(text), fontSize: 13)),
+                      ),
+                      if (name != null) Text(name, style: const TextStyle(fontSize: 11, color: Colors.black54)),
+                    ],
+                  ),
+                ),
+              );
+
+          final s = _settings;
+          return SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  label('Yazı tipi'),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      for (final font in _pageFonts)
+                        ChoiceChip(
+                          label: Text(font,
+                              style: ORPTextWidget.readingFontStyle(font, fontSize: 14, color: Colors.black87)),
+                          selected: s.pageFontFamily == font,
+                          onSelected: (_) => change(s.copyWith(pageFontFamily: font)),
+                        ),
+                    ],
+                  ),
+                  label('Yazı boyutu'),
+                  Row(
+                    children: [
+                      const Text('A', style: TextStyle(fontSize: 14)),
+                      Expanded(
+                        child: Slider(
+                          value: s.pageFontSize,
+                          min: RSVPSettings.minPageFontSize,
+                          max: RSVPSettings.maxPageFontSize,
+                          divisions: (RSVPSettings.maxPageFontSize - RSVPSettings.minPageFontSize).round(),
+                          label: s.pageFontSize.round().toString(),
+                          onChanged: (value) => change(s.copyWith(pageFontSize: value.roundToDouble())),
+                        ),
+                      ),
+                      const Text('A', style: TextStyle(fontSize: 24)),
+                    ],
+                  ),
+                  label('Tema'),
+                  Wrap(
+                    children: [
+                      for (final (name, background, text) in _themes)
+                        swatch(
+                          background,
+                          text,
+                          s.pageBackgroundColor == background && s.pageTextColor == text,
+                          () => change(s.copyWith(pageBackgroundColor: background, pageTextColor: text)),
+                          name: name,
+                        ),
+                    ],
+                  ),
+                  label('Arka plan'),
+                  Wrap(
+                    children: [
+                      for (final background in _backgroundChoices)
+                        swatch(background, s.pageTextColor, s.pageBackgroundColor == background,
+                            () => change(s.copyWith(pageBackgroundColor: background))),
+                    ],
+                  ),
+                  label('Yazı rengi'),
+                  Wrap(
+                    children: [
+                      for (final text in _textChoices)
+                        swatch(s.pageBackgroundColor, text, s.pageTextColor == text,
+                            () => change(s.copyWith(pageTextColor: text))),
+                    ],
+                  ),
+                  label('Parlaklık'),
+                  Row(
+                    children: [
+                      const Icon(Icons.brightness_low, size: 20, color: Colors.black54),
+                      Expanded(
+                        child: Slider(
+                          value: s.pageBrightness,
+                          min: RSVPSettings.minPageBrightness,
+                          max: 1,
+                          onChanged: (value) => change(s.copyWith(pageBrightness: value)),
+                        ),
+                      ),
+                      const Icon(Icons.brightness_high, size: 20, color: Colors.black54),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

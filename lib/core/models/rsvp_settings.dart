@@ -56,6 +56,14 @@ class RSVPSettings extends Equatable {
   /// Speech speed in the listening mode (1.0 is the voice's normal speed)
   final double speechRate;
 
+  /// The page (plain text and listening): font, size, colors and a
+  /// brightness (1.0: none dimmed, down to [minPageBrightness])
+  final String pageFontFamily;
+  final double pageFontSize;
+  final int pageBackgroundColor;
+  final int pageTextColor;
+  final double pageBrightness;
+
   const RSVPSettings({
     this.wordsPerMinute = 300,
     this.chunkSize = 1,
@@ -74,7 +82,19 @@ class RSVPSettings extends Equatable {
     this.speedWarmUp = true,
     this.speedRampTarget = 0,
     this.speechRate = 1.0,
+    this.pageFontFamily = 'Literata',
+    this.pageFontSize = 19,
+    this.pageBackgroundColor = 0xFFF8F1E3, // Sepia
+    this.pageTextColor = 0xFF3B2F2A,
+    this.pageBrightness = 1.0,
   });
+
+  /// Supported page font sizes
+  static const minPageFontSize = 14.0;
+  static const maxPageFontSize = 32.0;
+
+  /// Least page brightness (the page is dimmed at most to this)
+  static const minPageBrightness = 0.3;
 
   /// Lowest supported reading speed (WPM)
   static const minWordsPerMinute = 100;
@@ -146,6 +166,11 @@ class RSVPSettings extends Equatable {
         'speedWarmUp': speedWarmUp,
         'speedRampTarget': speedRampTarget,
         'speechRate': speechRate,
+        'pageFontFamily': pageFontFamily,
+        'pageFontSize': pageFontSize,
+        'pageBackgroundColor': pageBackgroundColor,
+        'pageTextColor': pageTextColor,
+        'pageBrightness': pageBrightness,
       };
 
   /// Restore from local storage
@@ -179,6 +204,11 @@ class RSVPSettings extends Equatable {
       speedWarmUp: read<bool>('speedWarmUp', d.speedWarmUp),
       speedRampTarget: read<int>('speedRampTarget', d.speedRampTarget).clamp(0, maxWordsPerMinute),
       speechRate: read<num>('speechRate', d.speechRate).toDouble().clamp(minSpeechRate, maxSpeechRate),
+      pageFontFamily: read<String>('pageFontFamily', d.pageFontFamily),
+      pageFontSize: read<num>('pageFontSize', d.pageFontSize).toDouble().clamp(minPageFontSize, maxPageFontSize),
+      pageBackgroundColor: read<int>('pageBackgroundColor', d.pageBackgroundColor),
+      pageTextColor: read<int>('pageTextColor', d.pageTextColor),
+      pageBrightness: read<num>('pageBrightness', d.pageBrightness).toDouble().clamp(minPageBrightness, 1.0),
     );
   }
 
@@ -200,6 +230,11 @@ class RSVPSettings extends Equatable {
     bool? speedWarmUp,
     int? speedRampTarget,
     double? speechRate,
+    String? pageFontFamily,
+    double? pageFontSize,
+    int? pageBackgroundColor,
+    int? pageTextColor,
+    double? pageBrightness,
   }) {
     return RSVPSettings(
       wordsPerMinute: wordsPerMinute ?? this.wordsPerMinute,
@@ -218,6 +253,11 @@ class RSVPSettings extends Equatable {
       speedWarmUp: speedWarmUp ?? this.speedWarmUp,
       speedRampTarget: speedRampTarget ?? this.speedRampTarget,
       speechRate: speechRate ?? this.speechRate,
+      pageFontFamily: pageFontFamily ?? this.pageFontFamily,
+      pageFontSize: pageFontSize ?? this.pageFontSize,
+      pageBackgroundColor: pageBackgroundColor ?? this.pageBackgroundColor,
+      pageTextColor: pageTextColor ?? this.pageTextColor,
+      pageBrightness: pageBrightness ?? this.pageBrightness,
     );
   }
 
@@ -239,5 +279,10 @@ class RSVPSettings extends Equatable {
         speedWarmUp,
         speedRampTarget,
         speechRate,
+        pageFontFamily,
+        pageFontSize,
+        pageBackgroundColor,
+        pageTextColor,
+        pageBrightness,
       ];
 }
