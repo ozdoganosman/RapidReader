@@ -4,8 +4,6 @@
 /// Works on web and mobile (the file is read as bytes).
 library;
 
-import 'dart:io' show File;
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 
@@ -45,17 +43,16 @@ class DocumentImporter {
 
   /// Let the user pick a file and read it; null when the picker is cancelled
   static Future<ImportedDocument?> pickAndRead() async {
-    final result = await FilePicker.platform.pickFiles(
+    final file = await FilePicker.pickFile(
       type: FileType.custom,
       allowedExtensions: extensions,
-      withData: true, // bytes on every platform (web has no file path)
     );
-    if (result == null || result.files.isEmpty) return null;
+    if (file == null) return null;
 
-    final file = result.files.single;
-    final bytes = file.bytes ??
-        (!kIsWeb && file.path != null ? await File(file.path!).readAsBytes() : null);
-    if (bytes == null) {
+    final Uint8List bytes;
+    try {
+      bytes = await file.readAsBytes();
+    } catch (_) {
       throw const DocumentImportException('Dosya okunamadı');
     }
 

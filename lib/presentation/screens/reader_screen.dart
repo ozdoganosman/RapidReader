@@ -286,7 +286,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
               top: MediaQuery.of(context).padding.top + 8,
               left: 8,
               child: IconButton(
-                icon: Icon(Icons.arrow_back, color: textColor.withOpacity(0.7)),
+                icon: Icon(Icons.arrow_back, color: textColor.withValues(alpha: 0.7)),
                 onPressed: () {
                   _engine.pause();
                   Navigator.of(context).pop(_engine.state.currentIndex);
@@ -299,7 +299,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
               top: MediaQuery.of(context).padding.top + 8,
               right: 8,
               child: IconButton(
-                icon: Icon(Icons.article, color: textColor.withOpacity(0.7)),
+                icon: Icon(Icons.article, color: textColor.withValues(alpha: 0.7)),
                 onPressed: () {
                   _engine.pause();
                   setState(() => _showContextView = true);
@@ -340,7 +340,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                     child: Text(
                       widget.title!,
                       style: TextStyle(
-                        color: textColor.withOpacity(0.7),
+                        color: textColor.withValues(alpha: 0.7),
                         fontSize: 16,
                       ),
                       textAlign: TextAlign.center,
@@ -434,7 +434,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
         Text(
           'Kalan: ${_formatTime(remainingSeconds)} / Toplam: ${_formatTime(totalSeconds)}',
           style: TextStyle(
-            color: textColor.withOpacity(0.6),
+            color: textColor.withValues(alpha: 0.6),
             fontSize: 13,
           ),
         ),
@@ -454,7 +454,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
           end: Alignment.bottomCenter,
           colors: [
             Colors.transparent,
-            Colors.black.withOpacity(0.7),
+            Colors.black.withValues(alpha: 0.7),
           ],
         ),
       ),
@@ -488,7 +488,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
             child: Text(
               '${displayIndex + 1} / ${state.totalTokens}',
               style: TextStyle(
-                color: textColor.withOpacity(0.7),
+                color: textColor.withValues(alpha: 0.7),
                 fontSize: 12,
               ),
             ),
@@ -500,7 +500,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
               activeTrackColor: accentColor,
               inactiveTrackColor: Colors.white24,
               thumbColor: accentColor,
-              overlayColor: accentColor.withOpacity(0.2),
+              overlayColor: accentColor.withValues(alpha: 0.2),
               trackHeight: 4,
               thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
             ),
@@ -576,7 +576,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
         style: TextStyle(
           color: isCurrentWord ? orpColor : textColor,
           fontWeight: isCurrentWord ? FontWeight.bold : FontWeight.normal,
-          backgroundColor: isCurrentWord ? orpColor.withOpacity(0.2) : null,
+          backgroundColor: isCurrentWord ? orpColor.withValues(alpha: 0.2) : null,
           fontSize: 16,
           height: 1.6,
         ),
@@ -591,7 +591,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
     return GestureDetector(
       onTap: () => setState(() => _showContextView = false),
       child: Container(
-        color: backgroundColor.withOpacity(0.95),
+        color: backgroundColor.withValues(alpha: 0.95),
         child: SafeArea(
           child: Column(
             children: [
@@ -636,7 +636,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                 child: Text(
                   'Kelime ${currentIndex + 1} / ${state.totalTokens}',
                   style: TextStyle(
-                    color: textColor.withOpacity(0.7),
+                    color: textColor.withValues(alpha: 0.7),
                     fontSize: 14,
                   ),
                 ),
@@ -694,7 +694,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
     final nextChapter = _getNextChapter();
 
     return Container(
-      color: Colors.black.withOpacity(0.85),
+      color: Colors.black.withValues(alpha: 0.85),
       child: SafeArea(
         child: Center(
           child: Column(

@@ -89,7 +89,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
-          bottom: BorderSide(color: Colors.black.withOpacity(0.06)),
+          bottom: BorderSide(color: Colors.black.withValues(alpha: 0.06)),
         ),
       ),
       child: Material(
@@ -120,7 +120,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues(alpha: 0.1),
                       width: 1,
                     ),
                   ),

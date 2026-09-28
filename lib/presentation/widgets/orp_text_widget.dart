@@ -310,7 +310,7 @@ class RSVPDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final guideColor = focusGuideColor ?? orpColor.withOpacity(0.5);
+    final guideColor = focusGuideColor ?? orpColor.withValues(alpha: 0.5);
 
     return Container(
       color: backgroundColor,

@@ -28,7 +28,7 @@ Dosyanın ilk satırı başlık, ikinci satırı yazar olarak okunur.
 
 ## Geliştirme
 
-Gereksinim: Flutter 3.24 veya üzeri (Dart 3.5+).
+Gereksinim: Flutter 3.47 (Dart 3.13). CI de bu sürümü kullanır.
 
 ```bash
 flutter pub get

@@ -365,7 +365,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: Colors.black.withOpacity(0.08)),
+        border: Border.all(color: Colors.black.withValues(alpha: 0.08)),
       ),
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -428,7 +428,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             activeTrackColor: Colors.black54,
             inactiveTrackColor: Colors.black12,
             thumbColor: Colors.black87,
-            overlayColor: Colors.black.withOpacity(0.1),
+            overlayColor: Colors.black.withValues(alpha: 0.1),
             trackHeight: 2,
             thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
           ),
@@ -479,7 +479,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Switch(
           value: value,
           onChanged: onChanged,
-          activeColor: Colors.black87,
+          activeThumbColor: Colors.black87,
           activeTrackColor: Colors.black38,
           inactiveThumbColor: Colors.black26,
           inactiveTrackColor: Colors.black12,
@@ -507,7 +507,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           color: isSelected ? Colors.grey[50] : Colors.white,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: isSelected ? Colors.black38 : Colors.black.withOpacity(0.08),
+            color: isSelected ? Colors.black38 : Colors.black.withValues(alpha: 0.08),
             width: 1,
           ),
         ),
@@ -564,7 +564,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           color: isSelected ? Colors.grey[50] : Colors.white,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: isSelected ? Colors.black38 : Colors.black.withOpacity(0.08),
+            color: isSelected ? Colors.black38 : Colors.black.withValues(alpha: 0.08),
             width: 1,
           ),
         ),

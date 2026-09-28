@@ -11,29 +11,29 @@ dependencies:
     sdk: flutter
 
   # File import (TXT/PDF/EPUB) for custom texts
-  file_picker: ^8.0.0
+  file_picker: ^13.1.0
   epubx: ^4.0.0
-  syncfusion_flutter_pdf: ^25.1.37
+  syncfusion_flutter_pdf: ^33.2.13
 
   # UI
-  google_fonts: ^6.2.0
+  google_fonts: ^8.2.1
 
   # Utilities
   uuid: ^4.3.3
-  equatable: ^2.0.5
+  equatable: ^3.0.0
   shared_preferences: ^2.2.2
   image_picker: ^1.0.7
 
   # Keep the screen on while reading
-  wakelock_plus: 1.2.8
+  wakelock_plus: ^1.2.8
 
   # Ads
-  google_mobile_ads: ^5.1.0
+  google_mobile_ads: ^9.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^6.0.0
   archive: ^3.6.1
 
 flutter:
