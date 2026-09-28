@@ -13,6 +13,7 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
 - **Hazır kütüphane:** İki Şehrin Hikâyesi (45 bölüm), Dönüşüm, Kur'an-ı Kerim.
   Kitaplar bölüm listesiyle açılır; bölüm bitince "Sonraki Bölüm" ile devam edilir.
 - **Kendi metnin:** Başlık, metin ve isteğe bağlı kapak resmiyle kütüphaneye eklenir.
+  Metin yazılabilir, yapıştırılabilir ya da TXT, PDF veya EPUB dosyasından yüklenebilir.
 - **Kaldığın yerden devam:** Her kitabın ve bölümün okuma konumu ile ayarlar cihazda saklanır.
 - **Okuma ekranı:** Dokun-oynat/duraklat, kaydırarak 10 kelime ileri/geri, konum çubuğu
   ve önizleme, sayfa görünümü, kalan/toplam süre, okurken ekranın kapanmaması (Android).
@@ -21,8 +22,9 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
 - **Türkçe desteği:** Kesme işaretli kelimeler (Türkiye'nin) tek kelime kalır; odak harfi
   noktalamaya, kesme işaretine veya tireye düşmez.
 
-Kitap dosyaları `assets/books/` altındadır: `Seri_N.txt` bir bölüm, `Seri.png` serinin
-kapağıdır. Dosyanın ilk satırı başlık, ikinci satırı yazar olarak okunur.
+Kitap dosyaları `assets/books/` altındadır: `Seri_N.txt` bir bölüm, `Seri.jpg` serinin
+kapağıdır (seri kapağı yoksa `Seri_N.jpg`; `.png` ve `.webp` de olur, ~600 piksel genişlik yeterli).
+Dosyanın ilk satırı başlık, ikinci satırı yazar olarak okunur.
 
 ## Geliştirme
 
@@ -40,6 +42,11 @@ Testler ve statik analiz:
 flutter analyze
 flutter test
 ```
+
+**Otomatik test ve yayın:** `.github/workflows/ci.yml` her push ve pull request'te
+analizi ve testleri çalıştırır. `master`'a yapılan her push testler geçerse web
+sürümünü derleyip `gh-pages` dalına yayınlar; siteyi elle güncellemek gerekmez.
+`web/` klasörüne konan sayfalar (ör. `privacy-policy.html`) da yayına girer.
 
 **Release imzası:** `android/key.properties` ve `android/upload-keystore.jks` repoda
 yoktur (bilerek; `android/.gitignore`). Release APK/AAB üretmek için bu iki dosyanın
@@ -59,7 +66,8 @@ lib/
       rsvp_engine.dart               Oynatma motoru (zamanlama, ilerleme)
       ad_service.dart                AdMob banner ve geçiş reklamı
       epub_extractor.dart, pdf_extractor.dart, text_file_decoder.dart,
-      text_cleaner.dart              Dosya içe aktarma (şu an arayüze bağlı değil)
+      text_cleaner.dart,
+      document_importer.dart         TXT/PDF/EPUB dosyasından metin yükleme
     utils/
       text_parser.dart               Metni RSVP kelimelerine ayırma
       orp_calculator.dart            Odak harfinin hesaplanması
