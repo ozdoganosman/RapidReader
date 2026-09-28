@@ -1,5 +1,7 @@
 package com.rapidreader.rapid_reader
 
-import io.flutter.embedding.android.FlutterActivity
+import com.ryanheise.audioservice.AudioServiceActivity
 
-class MainActivity: FlutterActivity()
+// AudioServiceActivity: the read-aloud media notification and lock screen
+// controls (audio_service) need the Flutter engine it provides
+class MainActivity: AudioServiceActivity()

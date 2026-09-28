@@ -19,6 +19,7 @@ import '../../core/data/quran.dart';
 import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
 import '../../core/services/book_service.dart';
+import '../../core/services/read_aloud_notification.dart';
 import '../../core/services/read_aloud_player.dart';
 import '../../core/services/reading_storage.dart';
 import '../../core/utils/timing_calculator.dart';
@@ -118,6 +119,8 @@ class _TextPageScreenState extends State<TextPageScreen> {
         ..addListener(_onPlayer)
         ..onFinished = _onFinished
         ..onError = (_) => _showMessage('Sesli okuma durdu. Devam etmek için oynat\'a dokunun.');
+      // Play/pause and paragraph skips in the notification and on the lock screen
+      ReadAloudNotification.attach(_player!, title: widget.title, album: widget.currentBook?.author);
     } else if (!kIsWeb) {
       // Reading the page: keep the screen on (listening lets it turn off)
       WakelockPlus.enable();
@@ -312,6 +315,7 @@ class _TextPageScreenState extends State<TextPageScreen> {
     _pacer?.cancel();
     _saveProgress();
     _lifecycle.dispose();
+    if (_player != null) ReadAloudNotification.detach(_player!);
     _player
       ?..removeListener(_onPlayer)
       ..dispose();

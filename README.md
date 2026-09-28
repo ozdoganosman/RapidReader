@@ -40,7 +40,9 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
   - *Sesli Okuma:* cihazın Türkçe sesiyle paragraf paragraf; okunan paragraf ve kelime
     işaretlenir, bir paragrafa dokununca oradan okunur, konuşma hızı 0,5x–2x. Android'de bölümün
     kalanı sese bir kerede verilir: paragraflar arasında duraklama olmaz ve ekran kapalıyken de
-    okuma sürer; bölüm bitince sonraki bölüme geçer. Cihazda Türkçe ses verisi olmalıdır
+    okuma sürer; bölüm bitince sonraki bölüme geçer. Bildirimde ve kilit ekranında oynat/duraklat
+    ile önceki/sonraki paragraf düğmeleri vardır; medya servisi uzun dinlemede Android'in
+    uygulamayı kapatmasını önler. Cihazda Türkçe ses verisi olmalıdır
     (Ayarlar > Metin okuma çıkışı).
 
   Kalınan yer üç modda ortaktır (kelime olarak saklanır).
@@ -116,6 +118,7 @@ lib/
       reading_storage.dart           Ayarlar ve okuma konumları
       rsvp_engine.dart               Oynatma motoru (zamanlama, ilerleme)
       read_aloud_player.dart         Sesli okuma (flutter_tts, paragraf paragraf)
+      read_aloud_notification.dart   Sesli okumanın bildirimi ve kilit ekranı (audio_service)
       ad_service.dart                AdMob banner ve geçiş reklamı
       epub_extractor.dart, pdf_extractor.dart, text_file_decoder.dart,
       text_cleaner.dart,

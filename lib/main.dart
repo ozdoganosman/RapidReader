@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 
 import 'core/data/quran.dart';
 import 'core/services/ad_service.dart';
+import 'core/services/read_aloud_notification.dart';
 import 'presentation/route_observer.dart';
 import 'presentation/screens/home_screen.dart';
 
@@ -42,6 +43,10 @@ void main() async {
 
   // Initialize ads
   await AdService().initialize();
+
+  // Media notification of the listening mode (not awaited: the app does
+  // not wait for the service to start)
+  ReadAloudNotification.init();
 
   runApp(const RapidReaderApp());
 }
