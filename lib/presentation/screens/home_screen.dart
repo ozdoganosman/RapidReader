@@ -4,6 +4,7 @@
 library;
 
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -356,9 +357,38 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Decoded custom cover images, so base64 is not decoded on every build
+  final _customCoverCache = <String, Uint8List>{};
+
+  /// Cover image of a book: bundled asset, custom image or a placeholder icon
+  Widget _buildCoverImage(Book book, IconData placeholderIcon) {
+    final Widget image;
+    if (book.coverAsset != null) {
+      image = Image.asset(book.coverAsset!, fit: BoxFit.cover);
+    } else if (book.imageBase64 != null && book.imageBase64!.isNotEmpty) {
+      final bytes = _customCoverCache.putIfAbsent(
+        book.id,
+        () => base64Decode(book.imageBase64!),
+      );
+      image = Image.memory(bytes, fit: BoxFit.cover);
+    } else {
+      return Center(
+        child: Icon(
+          placeholderIcon,
+          size: 40,
+          color: Colors.black26,
+        ),
+      );
+    }
+
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(3)),
+      child: image,
+    );
+  }
+
   Widget _buildSeriesCard(String seriesName, List<Book> chapters) {
     final firstChapter = chapters.first;
-    final hasCustomImage = firstChapter.imageBase64 != null && firstChapter.imageBase64!.isNotEmpty;
     final totalWords = chapters.fold<int>(0, (sum, ch) => sum + ch.wordCount);
 
     // Map series names to display names
@@ -389,21 +419,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.grey[100],
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(3)),
                 ),
-                child: hasCustomImage
-                    ? ClipRRect(
-                        borderRadius: const BorderRadius.vertical(top: Radius.circular(3)),
-                        child: Image.memory(
-                          base64Decode(firstChapter.imageBase64!),
-                          fit: BoxFit.cover,
-                        ),
-                      )
-                    : Center(
-                        child: Icon(
-                          Icons.library_books_outlined,
-                          size: 40,
-                          color: Colors.black26,
-                        ),
-                      ),
+                child: _buildCoverImage(firstChapter, Icons.library_books_outlined),
               ),
             ),
 
@@ -479,8 +495,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildBookCard(Book book, int index) {
-    final hasCustomImage = book.imageBase64 != null && book.imageBase64!.isNotEmpty;
-
     return GestureDetector(
       onTap: () => _openBook(book),
       onLongPress: book.isCustomBook ? () => _showCustomBookOptions(book) : null,
@@ -503,21 +517,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.grey[100],
                       borderRadius: const BorderRadius.vertical(top: Radius.circular(3)),
                     ),
-                    child: hasCustomImage
-                        ? ClipRRect(
-                            borderRadius: const BorderRadius.vertical(top: Radius.circular(3)),
-                            child: Image.memory(
-                              base64Decode(book.imageBase64!),
-                              fit: BoxFit.cover,
-                            ),
-                          )
-                        : Center(
-                            child: Icon(
-                              Icons.auto_stories_outlined,
-                              size: 40,
-                              color: Colors.black26,
-                            ),
-                          ),
+                    child: _buildCoverImage(book, Icons.auto_stories_outlined),
                   ),
                 ),
 

@@ -3,33 +3,47 @@
 /// Automatically scans and loads books from assets/books/ folder.
 library;
 
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/services.dart';
 
 import '../models/book.dart';
 
 /// Service for loading pre-bundled books from assets/books/ folder
 class BookService {
+  /// Cover image extensions, in order of preference
+  static const _coverExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
+
   /// Load all books from assets/books/ folder
-  /// Scans for .txt files and their corresponding .png cover images
+  /// Scans for .txt files and their corresponding cover images
+  /// (a series cover like "Donusum.jpg" is used for all its chapters)
   static Future<List<Book>> loadBooks() async {
     final books = <Book>[];
 
     try {
-      // Load AssetManifest to get list of all assets
-      final manifestContent = await rootBundle.loadString('AssetManifest.json');
-      final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+      // List the bundled assets (AssetManifest.json is being removed from
+      // Flutter builds, so use the AssetManifest API)
+      final manifest = await AssetManifest.loadFromAssetBundle(rootBundle);
+      final assets = manifest.listAssets().toSet();
+
+      String? coverFor(String name) {
+        for (final extension in _coverExtensions) {
+          final path = 'assets/books/$name$extension';
+          if (assets.contains(path)) return path;
+        }
+        return null;
+      }
 
       // Find all .txt files in assets/books/
-      final bookFiles = manifestMap.keys
+      final bookFiles = assets
           .where((path) => path.startsWith('assets/books/') && path.endsWith('.txt'))
-          .toList();
+          .toList()
+        ..sort();
 
-      for (final filePath in bookFiles) {
-        // Read book content
-        final content = await rootBundle.loadString(filePath);
+      // Read all books in parallel (on web every file is a separate request)
+      final contents = await Future.wait(bookFiles.map(rootBundle.loadString));
+
+      for (var i = 0; i < bookFiles.length; i++) {
+        final filePath = bookFiles[i];
+        final content = contents[i];
 
         // Extract book name from file path (e.g. "Donusum 1.txt" -> "Donusum 1")
         final fileName = filePath.split('/').last;
@@ -59,15 +73,9 @@ class BookService {
           chapterNumber = int.tryParse(filenameMatch.group(2) ?? '');
         }
 
-        // Check for cover image (using file name, not display title)
-        final coverPath = 'assets/books/$fileNameWithoutExt.png';
-        String? imageBase64;
-
-        if (manifestMap.containsKey(coverPath)) {
-          final ByteData bytes = await rootBundle.load(coverPath);
-          final Uint8List list = bytes.buffer.asUint8List();
-          imageBase64 = base64Encode(list);
-        }
+        // Cover: the series cover if there is one, else the book's own cover
+        final coverAsset = (seriesName != null ? coverFor(seriesName) : null) ??
+            coverFor(fileNameWithoutExt);
 
         // Read author from second line if available
         String author = 'Franz Kafka'; // Default
@@ -86,51 +94,10 @@ class BookService {
           category: 'Edebiyat',
           coverColor: '#8B4513', // Brown color for classic literature
           content: content,
-          imageBase64: imageBase64,
+          coverAsset: coverAsset,
           seriesName: seriesName,
           chapterNumber: chapterNumber,
         ));
-      }
-
-      // Load series cover images (e.g., "Donusum.png", "ATTC.png")
-      // and assign to the first chapter of each series
-      final Map<String, List<Book>> seriesMap = {};
-      for (final book in books) {
-        if (book.seriesName != null) {
-          seriesMap.putIfAbsent(book.seriesName!, () => []);
-          seriesMap[book.seriesName!]!.add(book);
-        }
-      }
-
-      for (final entry in seriesMap.entries) {
-        final seriesName = entry.key;
-        final chapters = entry.value;
-
-        // Check if series cover exists (e.g., "Donusum.png")
-        final seriesCoverPath = 'assets/books/$seriesName.png';
-        if (manifestMap.containsKey(seriesCoverPath)) {
-          final ByteData bytes = await rootBundle.load(seriesCoverPath);
-          final Uint8List list = bytes.buffer.asUint8List();
-          final seriesCoverBase64 = base64Encode(list);
-
-          // Update all chapters with series cover
-          for (int i = 0; i < chapters.length; i++) {
-            final index = books.indexOf(chapters[i]);
-            if (index != -1) {
-              books[index] = Book(
-                id: books[index].id,
-                title: books[index].title,
-                author: books[index].author,
-                category: books[index].category,
-                coverColor: books[index].coverColor,
-                content: books[index].content,
-                imageBase64: seriesCoverBase64, // Use series cover
-                seriesName: books[index].seriesName,
-                chapterNumber: books[index].chapterNumber,
-              );
-            }
-          }
-        }
       }
     } catch (e) {
       print('BookService error: $e');

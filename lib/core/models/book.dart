@@ -26,6 +26,9 @@ class Book {
   /// Optional cover image as base64 string (for custom books)
   final String? imageBase64;
 
+  /// Cover image asset path (for bundled books)
+  final String? coverAsset;
+
   /// Series name (e.g., "Dönüşüm" for "Dönüşüm 1", "Dönüşüm 2", etc.)
   final String? seriesName;
 
@@ -40,6 +43,7 @@ class Book {
     required this.coverColor,
     required this.content,
     this.imageBase64,
+    this.coverAsset,
     this.seriesName,
     this.chapterNumber,
   });
@@ -80,10 +84,16 @@ class Book {
   /// Check if this book is part of a series
   bool get isSeries => seriesName != null && chapterNumber != null;
 
+  /// Word counts are computed once per book (the screens ask for them on
+  /// every build, and splitting the whole text each time is expensive)
+  static final _wordCounts = Expando<int>();
+
   /// Get word count
-  int get wordCount {
-    if (content.isEmpty) return 0;
-    return content.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
+  int get wordCount => _wordCounts[this] ??= _countWords(content);
+
+  static int _countWords(String text) {
+    if (text.isEmpty) return 0;
+    return text.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
   }
 
   /// Get estimated reading time in minutes (based on 200 WPM)
