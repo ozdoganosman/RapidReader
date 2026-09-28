@@ -6,7 +6,6 @@ library;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io' show File;
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart';

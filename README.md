@@ -80,6 +80,22 @@ sürümünü derleyip `gh-pages` dalına yayınlar; siteyi elle güncellemek ger
 yoktur (bilerek; `android/.gitignore`). Release APK/AAB üretmek için bu iki dosyanın
 yerel kopyası gerekir. Bu dosyaları kaybetmeyin ve paylaşmayın.
 
+**Çökme raporları (Crashlytics, henüz kurulu değil):** Firebase Crashlytics için bir
+Firebase projesi gerekir; yapılandırma dosyaları projeye özeldir ve repoda yoktur.
+Kurmak için:
+
+1. [Firebase konsolunda](https://console.firebase.google.com) proje oluşturup Android
+   uygulamasını `com.rapidreader.rapid_reader` paket adıyla ekleyin.
+2. `dart pub global activate flutterfire_cli` ve `flutterfire configure` çalıştırın
+   (`lib/firebase_options.dart` ve `android/app/google-services.json` üretilir).
+3. `flutter pub add firebase_core firebase_crashlytics`; `main()` içinde
+   `Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)` sonrası
+   `FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;` ve
+   `PlatformDispatcher.instance.onError` ile yakalanmayan hataları kaydedin.
+4. Gizlilik politikasına (`web/privacy-policy.html`) çökme raporlarında cihaz modeli, işletim
+   sistemi sürümü, uygulama sürümü ve hata ayrıntılarının Google Firebase'e gönderildiğini ekleyin;
+   Play Console'daki Veri Güvenliği formunda "Uygulama etkinliği / Kilitlenme günlükleri"ni işaretleyin.
+
 ## Proje yapısı
 
 ```

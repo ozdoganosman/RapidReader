@@ -1,7 +1,7 @@
 /// Quran data helpers
 ///
-/// The bundled meal (assets/books/Kuran_<n>.txt) is numbered in order of
-/// revelation; the Arabic text (assets/quran/ar_<n>.txt, Tanzil Project,
+/// The bundled meal (`assets/books/Kuran_<n>.txt`) is numbered in order of
+/// revelation; the Arabic text (`assets/quran/ar_<n>.txt`, Tanzil Project,
 /// used verbatim) is numbered in mushaf order.
 library;
 
