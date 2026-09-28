@@ -50,4 +50,35 @@ void main() {
     expect(engine.state.currentIndex, 19);
     engine.dispose();
   });
+
+  testWidgets('pausing on a sentence end does not count it twice', (tester) async {
+    final tokens = TextParser.parse('Bir. İki.');
+    final engine = RSVPEngine()..initialize(tokens: tokens);
+
+    engine.play();
+    expect(engine.state.sentencesRead, 1);
+
+    // Pause and resume on the same word several times
+    for (var i = 0; i < 3; i++) {
+      engine.pause();
+      engine.play();
+    }
+    expect(engine.state.sentencesRead, 1);
+
+    await tester.pump(const Duration(seconds: 5));
+    expect(engine.state.isComplete, isTrue);
+    expect(engine.state.sentencesRead, 2);
+    engine.dispose();
+  });
+
+  testWidgets('sentence count restarts after stop', (tester) async {
+    final tokens = TextParser.parse('Bir. İki.');
+    final engine = RSVPEngine()..initialize(tokens: tokens);
+
+    engine.play();
+    engine.stop();
+    engine.play();
+    expect(engine.state.sentencesRead, 1);
+    engine.dispose();
+  });
 }
