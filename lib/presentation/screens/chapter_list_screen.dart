@@ -238,8 +238,9 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
                         ),
                       ),
                       const SizedBox(height: 6),
-                      // Word count and reading time
-                      Row(
+                      // Word count and reading time (wraps on narrow phones)
+                      Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
                           Text(
                             '${chapter.wordCount} kelime',

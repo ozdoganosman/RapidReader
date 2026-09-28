@@ -4,6 +4,8 @@
 /// The ORP character is centered on screen and highlighted in a different color.
 library;
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -83,16 +85,37 @@ class ORPTextWidget extends StatelessWidget {
           var size = fontSize;
           var layout = _measure(parts, size, textScaler, inherited);
 
-          // Shrink long words (or chunks) so they fit instead of wrapping.
-          // Leave room for the rounding (< 1px) and padding on each side.
+          // Shrink long words (or chunks) so they fit instead of wrapping,
+          // but not below a readable size. Leave room for the rounding
+          // (< 1px) and padding on each side.
           final maxWidth = constraints.maxWidth;
-          for (var i = 0; i < 3 && maxWidth.isFinite && maxWidth > 8 && layout.totalWidth > maxWidth; i++) {
-            size *= (maxWidth - 2 * (1 + _sidePadding)) / layout.contentWidth;
+          final limited = maxWidth.isFinite && maxWidth > 8;
+          final minSize = fontSize * _minScale;
+          for (var i = 0; i < 3 && limited && layout.totalWidth > maxWidth && size > minSize; i++) {
+            size = max(minSize, size * (maxWidth - 2 * (1 + _sidePadding)) / layout.contentWidth);
             layout = _measure(parts, size, textScaler, inherited);
           }
 
           final baseStyle = _baseStyle(size);
           final orpStyle = _orpStyle(size);
+
+          // Still too wide at that size (a long link or compound word): the
+          // word is shown whole on up to three lines, the focus letter
+          // highlighted but not centered, instead of shrinking to a few
+          // pixels
+          if (limited && layout.totalWidth > maxWidth) {
+            return Text.rich(
+              TextSpan(children: [
+                TextSpan(text: parts.before),
+                TextSpan(text: parts.orp, style: orpStyle),
+                TextSpan(text: parts.after),
+              ]),
+              style: baseStyle,
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            );
+          }
 
           // Both sides get the same width, so the ORP character is always
           // exactly in the middle of the row (and on the focus guides).
@@ -140,6 +163,9 @@ class ORPTextWidget extends StatelessWidget {
 
   /// Extra space added to each side so rounding never forces a line break
   static const double _sidePadding = 1;
+
+  /// Smallest share of [fontSize] a long word is shrunk to
+  static const double _minScale = 0.6;
 
   TextStyle _baseStyle(double size) => _getTextStyle(
         fontSize: size,

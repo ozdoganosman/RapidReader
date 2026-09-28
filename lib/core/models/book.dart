@@ -101,10 +101,28 @@ class Book {
   int get wordCount => knownWordCount ?? (_wordCounts[this] ??= countWords(content));
 
   /// Words in [text], separated by whitespace
+  ///
+  /// Counts like the reader's parser (TextParser), so the list and the
+  /// reader agree: punctuation standing alone ("—", a quote) belongs to the
+  /// word next to it, and a line of only punctuation ("* * *") is one word.
   static int countWords(String text) {
     if (text.isEmpty) return 0;
-    return text.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
+    var count = 0;
+    for (final line in text.split('\n')) {
+      var pieces = 0;
+      var words = 0;
+      for (final piece in line.split(_whitespace)) {
+        if (piece.isEmpty) continue;
+        pieces++;
+        if (!_punctuationOnly.hasMatch(piece)) words++;
+      }
+      count += words > 0 ? words : (pieces > 0 ? 1 : 0);
+    }
+    return count;
   }
+
+  static final _whitespace = RegExp(r'\s+');
+  static final _punctuationOnly = RegExp(r'^\p{P}+$', unicode: true);
 
   /// Get estimated reading time in minutes (based on 200 WPM)
   int get estimatedMinutes {

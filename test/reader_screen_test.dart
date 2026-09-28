@@ -155,6 +155,24 @@ void main() {
       expect(find.textContaining('Bakara Suresi'), findsOneWidget);
     });
 
+    testWidgets('"Ana Sayfaya Dön" goes back to the library, past the chapter list', (tester) async {
+      _mockPlatform(tester);
+      final navigatorKey = GlobalKey<NavigatorState>();
+      await tester.pumpWidget(MaterialApp(navigatorKey: navigatorKey, home: const Text('Kütüphane')));
+      navigatorKey.currentState!.push(MaterialPageRoute<void>(builder: (_) => const Text('Bölüm listesi')));
+      navigatorKey.currentState!.push(MaterialPageRoute<void>(
+        builder: (_) => ReaderScreen(content: fatiha.content, settings: _settings),
+      ));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.play_circle));
+      await tester.pump(const Duration(seconds: 10));
+
+      await tester.tap(find.text('Ana Sayfaya Dön'));
+      await tester.pumpAndSettle();
+      expect(find.text('Kütüphane'), findsOneWidget);
+      expect(find.text('Bölüm listesi'), findsNothing);
+    });
+
     testWidgets('a tap beside the buttons does not restart the chapter', (tester) async {
       _mockPlatform(tester);
       await finish(tester);

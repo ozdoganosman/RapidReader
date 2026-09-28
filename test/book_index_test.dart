@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rapid_reader/core/models/book.dart';
 import 'package:rapid_reader/core/services/book_index.dart';
+import 'package:rapid_reader/core/utils/text_parser.dart';
 
 void main() {
   test('assets/books/index.json is up to date', () {
@@ -27,5 +29,14 @@ void main() {
     expect(entries.map((e) => e.title), ['Birinci Bölüm', 'Seri_2']);
     expect(entries.map((e) => e.author), ['Yazar Adı', '']);
     expect(entries.first.words, 7);
+  });
+
+  test('the listed word counts are the words the reader shows', () {
+    // Standalone punctuation belongs to the next word, as in the reader
+    expect(Book.countWords('Bir — iki "üç" .\n* * *\n\nDört'), 5);
+    for (final file in Directory('assets/books').listSync().whereType<File>().where((f) => f.path.endsWith('.txt'))) {
+      final text = file.readAsStringSync();
+      expect(Book.countWords(text), TextParser.parse(text).length, reason: file.path);
+    }
   });
 }

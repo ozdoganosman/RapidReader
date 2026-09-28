@@ -57,11 +57,25 @@ void main() {
     }
   });
 
-  testWidgets('long words shrink to fit instead of overflowing', (tester) async {
-    await _pumpDisplay(tester, 'Çekoslovakyalılaştıramadıklarımızdanmışsınız', fontSize: 60);
+  testWidgets('long words shrink to fit and stay centered', (tester) async {
+    await _pumpDisplay(tester, 'kütüphanelerimizde', fontSize: 60);
 
     expect(tester.takeException(), isNull);
-    expect(tester.getCenter(find.text('s')).dx, moreOrLessEquals(screenCenter, epsilon: 0.5));
+    expect(tester.getCenter(find.text('p')).dx, moreOrLessEquals(screenCenter, epsilon: 0.5));
+    expect(tester.widget<Text>(find.text('p')).style!.fontSize, inExclusiveRange(36, 60));
+  });
+
+  testWidgets('a word too long to fit is shown whole at a readable size', (tester) async {
+    const word = 'Çekoslovakyalılaştıramadıklarımızdanmışsınız';
+    await _pumpDisplay(tester, word, fontSize: 60);
+
+    expect(tester.takeException(), isNull);
+    final text =
+        tester.widget<RichText>(find.descendant(of: find.byType(ORPTextWidget), matching: find.byType(RichText)));
+    expect(text.text.toPlainText(), word);
+    // not shrunk below 60% of the chosen size
+    expect(text.text.style!.fontSize, greaterThanOrEqualTo(36));
+    expect(tester.getSize(find.byType(ORPTextWidget)).width, lessThanOrEqualTo(800));
   });
 
   testWidgets('system text scaling keeps the word centered', (tester) async {

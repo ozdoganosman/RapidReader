@@ -907,7 +907,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
                 // Return to home button
                 OutlinedButton.icon(
-                  onPressed: () => Navigator.of(context).pop(),
+                  // Back to the library, also from a chapter list
+                  onPressed: () => Navigator.of(context).popUntil((route) => route.isFirst),
                   icon: const Icon(Icons.home),
                   label: const Text('Ana Sayfaya Dön'),
                   style: OutlinedButton.styleFrom(
