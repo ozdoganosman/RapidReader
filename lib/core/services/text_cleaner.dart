@@ -1,37 +1,53 @@
 /// Text Cleaner Service
 ///
-/// Automatically cleans extracted text from PDFs and other sources by removing:
+/// Cleans text extracted from PDFs and plain-text files by removing:
 /// - Page numbers
-/// - Headers/footers
-/// - Copyright/ISBN information
-/// - Table of contents
+/// - Copyright/ISBN/publisher lines
+/// - Footnote marker lines
 /// - Excessive whitespace
+///
+/// Only whole, short lines that look like metadata are removed. Words such as
+/// "baskı" or "publishers" inside normal prose are never touched.
 library;
 
 /// Service for cleaning and preprocessing text before RSVP reading
 class TextCleaner {
-  // Regex patterns for common unwanted content
-  static final _pageNumberPattern = RegExp(r'^\s*\d{1,4}\s*$', multiLine: true);
+  /// Lines longer than this are treated as prose and never removed as metadata
+  static const _maxMetadataLineLength = 100;
+
+  // Whole-line noise patterns (matched against the trimmed line)
+  static final _pageNumberPattern = RegExp(r'^\d{1,4}$');
+  static final _pageLabelPattern = RegExp(
+    r'^(?:page|sayfa|s\.)\s*\d+$',
+    caseSensitive: false,
+  );
+  static final _footnotePattern = RegExp(r'^[\[\(]\d+[\]\)]$');
+
+  // Inline ISBN numbers are always metadata, even inside a longer line
   static final _isbnPattern = RegExp(
     r'ISBN[\s\-:]*[\d\-X]{10,}',
     caseSensitive: false,
   );
-  static final _copyrightPattern = RegExp(
-    r'[©®™].*?(?=\n|$)',
-    caseSensitive: false,
-  );
-  static final _copyrightTextPattern = RegExp(
-    r'(?:Copyright|Telif Hakkı|All Rights Reserved|Tüm Hakları Saklıdır).*?(?=\n|$)',
-    caseSensitive: false,
-  );
-  static final _publisherPattern = RegExp(
-    r'(?:Published by|Publisher|Yayınevi|Yayıncı|Basım|Baskı).*?(?=\n|$)',
-    caseSensitive: false,
-  );
-  static final _footnotePattern = RegExp(
-    r'^\s*[\[\(]\d+[\]\)]\s*$',
-    multiLine: true,
-  );
+
+  /// Metadata line patterns, matched against the folded (lowercase,
+  /// dotless/dotted i normalized to "i") trimmed line.
+  static final _metadataPatterns = [
+    // © 2020 ..., (c) 2020 ..., Copyright ..., Telif hakkı ...
+    RegExp(r'^(?:©|\(c\)|copyright\b|telif hakk)'),
+    // All rights reserved / Tüm hakları saklıdır / Her hakkı saklıdır
+    RegExp(r'all rights reserved|(?:hakki|haklari) saklidir'),
+    // ISBN 978-...
+    RegExp(r'^isbn\b'),
+    // Published by X / First published 1998 / First edition 2001
+    RegExp(r'^(?:published by|first published|first edition)\b'),
+    // Yayınevi: X / Publisher: X / 1. Baskı: Mart 2020 / Basım: X Matbaası
+    RegExp(r'^(?:\d+\.\s*)?(?:publisher|yayinevi|yayinci|baski|basim)\s*:'),
+    // 1. Baskı, 2019 / Birinci Baskı Mart 2020 / İlk Basım 2018
+    RegExp(
+      r'^(?:\d+\.\s*|birinci\s+|ilk\s+)?(?:baski|basim)\s*,?\s*(?:\S+\s+)?\d{4}\.?$',
+    ),
+  ];
+
   static final _excessiveNewlinesPattern = RegExp(r'\n\s*\n\s*\n+');
   static final _trailingWhitespacePattern = RegExp(r'[ \t]+$', multiLine: true);
 
@@ -57,72 +73,41 @@ class TextCleaner {
   static String clean(String text) {
     if (text.isEmpty) return text;
 
-    var result = text;
-
-    // Remove page numbers (lines containing only digits)
-    result = _removePageNumbers(result);
-
-    // Remove ISBN/copyright/publisher information
-    result = _removeMetadata(result);
-
-    // Remove footnote markers
-    result = _removeFootnotes(result);
-
-    // Normalize excessive whitespace
-    result = _normalizeWhitespace(result);
-
-    return result.trim();
-  }
-
-  /// Remove standalone page numbers
-  static String _removePageNumbers(String text) {
-    // Split into lines and filter out page number lines
-    final lines = text.split('\n');
-    final filteredLines = <String>[];
+    final lines = text.replaceAll('\r\n', '\n').replaceAll('\r', '\n').split('\n');
+    final kept = <String>[];
 
     for (final line in lines) {
-      final trimmed = line.trim();
-
-      // Skip lines that are just numbers (page numbers)
-      if (_pageNumberPattern.hasMatch(trimmed)) {
-        continue;
-      }
-
-      // Skip lines that are just "Page X" or "Sayfa X"
-      if (RegExp(r'^(?:Page|Sayfa|S\.)\s*\d+\s*$', caseSensitive: false)
-          .hasMatch(trimmed)) {
-        continue;
-      }
-
-      filteredLines.add(line);
+      if (_isNoiseLine(line.trim())) continue;
+      kept.add(line.replaceAll(_isbnPattern, ''));
     }
 
-    return filteredLines.join('\n');
+    return _normalizeWhitespace(kept.join('\n')).trim();
   }
 
-  /// Remove ISBN, copyright, and publisher information
-  static String _removeMetadata(String text) {
-    var result = text;
+  /// Whether a trimmed line is a page number, footnote marker or metadata
+  static bool _isNoiseLine(String trimmed) {
+    if (trimmed.isEmpty) return false;
 
-    // Remove ISBN
-    result = result.replaceAll(_isbnPattern, '');
+    if (_pageNumberPattern.hasMatch(trimmed) ||
+        _pageLabelPattern.hasMatch(trimmed) ||
+        _footnotePattern.hasMatch(trimmed)) {
+      return true;
+    }
 
-    // Remove copyright symbols and text
-    result = result.replaceAll(_copyrightPattern, '');
-    result = result.replaceAll(_copyrightTextPattern, '');
+    // Long lines are prose, even if they mention "baskı" or "copyright"
+    if (trimmed.length > _maxMetadataLineLength) return false;
 
-    // Remove publisher info
-    result = result.replaceAll(_publisherPattern, '');
-
-    return result;
+    final folded = _fold(trimmed);
+    return _metadataPatterns.any((p) => p.hasMatch(folded));
   }
 
-  /// Remove footnote markers like [1], (2), etc.
-  static String _removeFootnotes(String text) {
-    return text.replaceAll(_footnotePattern, '');
+  /// Lowercase with Turkish I/İ/ı/i all folded to "i", so patterns match
+  /// both "BASKI" and "baskı" as well as English words like "PUBLISHED".
+  static String _fold(String text) {
+    return text.replaceAll(RegExp('[Iİı]'), 'i').toLowerCase();
   }
 
-  /// Normalize whitespace - reduce multiple blank lines to maximum 2
+  /// Normalize whitespace - reduce multiple blank lines to a single blank line
   static String _normalizeWhitespace(String text) {
     var result = text;
 

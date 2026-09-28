@@ -131,7 +131,10 @@ class _HomeScreenState extends State<HomeScreen> {
         }
 
         // Otomatik metin temizleme (sayfa numaraları, ISBN, vb.)
-        content = TextCleaner.clean(content);
+        // EPUB zaten yapılandırılmış metin içerir; sayfa numarası/üstbilgi yoktur
+        if (extension != 'epub') {
+          content = TextCleaner.clean(content);
+        }
 
         _startReading(content, title: title);
       }
