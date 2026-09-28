@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rapid_reader/presentation/widgets/orp_text_widget.dart';
 
@@ -20,8 +21,6 @@ Future<void> _pumpDisplay(
         child: RSVPDisplay(
           word: word,
           fontSize: fontSize,
-          // Non-mono family keeps the test offline (no Google Fonts fetch)
-          fontFamily: 'sans',
         ),
       ),
     ),
@@ -30,6 +29,14 @@ Future<void> _pumpDisplay(
 
 void main() {
   const screenCenter = 400.0;
+
+  // Use the bundled font instead of the default test font
+  setUpAll(() async {
+    final loader = FontLoader('Roboto Mono')
+      ..addFont(rootBundle.load('assets/fonts/RobotoMono-Regular.ttf'))
+      ..addFont(rootBundle.load('assets/fonts/RobotoMono-Bold.ttf'));
+    await loader.load();
+  });
 
   final focusGuide = find.byWidgetPredicate(
     (w) => w is Container && w.constraints == const BoxConstraints.tightFor(width: 2, height: 24),

@@ -3,6 +3,7 @@
 /// Main entry point for the application.
 library;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,6 +11,12 @@ import 'presentation/screens/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Bundled font license (SIL OFL 1.1) for the licenses page
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('assets/fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(const ['Roboto Mono'], license);
+  });
 
   // Set preferred orientations
   SystemChrome.setPreferredOrientations([

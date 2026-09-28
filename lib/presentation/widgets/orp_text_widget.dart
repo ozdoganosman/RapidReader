@@ -5,7 +5,6 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/utils/orp_calculator.dart';
 
@@ -164,23 +163,15 @@ class ORPTextWidget extends StatelessWidget {
     return width;
   }
 
-  /// Get text style with proper font loading for web
+  /// Get text style for the given font family
+  ///
+  /// "Roboto Mono" is bundled with the app (see pubspec.yaml), so it works
+  /// offline and covers Turkish characters on every platform.
   TextStyle _getTextStyle({
     required double fontSize,
     required Color color,
     required FontWeight fontWeight,
   }) {
-    // Use Google Fonts for proper web support with Turkish characters
-    if (fontFamily.toLowerCase().contains('mono')) {
-      return GoogleFonts.robotoMono(
-        fontSize: fontSize,
-        color: color,
-        fontWeight: fontWeight,
-        height: 1.2,
-      );
-    }
-
-    // Fallback to system font
     return TextStyle(
       fontSize: fontSize,
       fontFamily: fontFamily,

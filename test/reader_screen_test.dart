@@ -4,8 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rapid_reader/core/models/rsvp_settings.dart';
 import 'package:rapid_reader/presentation/screens/reader_screen.dart';
 
-// Non-mono family keeps the test offline (no font download)
-const _settings = RSVPSettings(fontFamily: 'sans');
+const _settings = RSVPSettings();
 
 Future<void> _pumpReader(WidgetTester tester, String content) async {
   // wakelock_plus talks to the platform through a pigeon channel
