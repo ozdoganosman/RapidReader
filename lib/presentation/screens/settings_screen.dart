@@ -12,6 +12,7 @@ library;
 import 'package:flutter/material.dart';
 
 import '../../core/models/rsvp_settings.dart';
+import '../../core/services/ad_service.dart';
 import '../../core/services/read_aloud_player.dart';
 import '../theme/app_colors.dart';
 import '../widgets/orp_text_widget.dart';
@@ -35,11 +36,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late RSVPSettings _currentSettings;
   bool _hasChanges = false;
 
+  /// Whether the ad consent can be changed here (where the law needs it)
+  bool _adPrivacyOptions = false;
+
   @override
   void initState() {
     super.initState();
     _initialSettings = widget.settings;
     _currentSettings = widget.settings;
+    AdService().privacyOptionsRequired().then((required) {
+      if (required && mounted) setState(() => _adPrivacyOptions = true);
+    });
   }
 
   void _updateSettings(RSVPSettings newSettings) {
@@ -368,6 +375,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ],
             ),
+
+            if (_adPrivacyOptions) ...[
+              const SizedBox(height: 16),
+              _buildSettingCard(
+                title: 'Gizlilik',
+                children: [
+                  InkWell(
+                    onTap: AdService().showPrivacyOptions,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Reklam izinleri', style: TextStyle(color: Colors.black87, fontSize: 14)),
+                              const SizedBox(height: 2),
+                              Text(
+                                'Kişisel verilerle reklam iznini değiştir',
+                                style: TextStyle(color: AppColors.secondaryText, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Icon(Icons.chevron_right, color: AppColors.secondaryText),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
 
             const SizedBox(height: 24),
 

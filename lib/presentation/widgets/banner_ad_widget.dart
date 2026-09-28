@@ -22,9 +22,12 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
     }
   }
 
-  void _loadAd() {
+  /// Load the banner once the consent is settled
+  Future<void> _loadAd() async {
+    if (!await AdService().ready || !mounted) return;
     _bannerAd = AdService().createBannerAd(
       onAdLoaded: (ad) {
+        if (!mounted) return;
         setState(() {
           _isAdLoaded = true;
         });

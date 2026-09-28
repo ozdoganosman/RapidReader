@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -6,6 +8,12 @@ class AdService {
   factory AdService() => _instance;
   AdService._internal();
 
+  /// A separate service, for tests of the start-up
+  @visibleForTesting
+  AdService.test();
+
+  bool _started = false;
+  final _ready = Completer<bool>();
   bool _isInitialized = false;
   InterstitialAd? _interstitialAd;
   int _readingSessionCount = 0;
@@ -29,17 +37,64 @@ class AdService {
     return _interstitialAdUnitId.isEmpty ? null : _interstitialAdUnitId;
   }
 
-  Future<void> initialize() async {
-    if (_isInitialized || kIsWeb) return;
+  /// Completes once the start-up is over: true when ads may be requested
+  Future<bool> get ready => _ready.future;
 
+  /// Ask for the ad consent where the law needs it, then start the ads SDK
+  Future<void> initialize() async {
+    if (_started) return;
+    _started = true;
+    if (!kIsWeb) {
+      try {
+        await _gatherConsent();
+        // Also with the choice of an earlier start when the update failed
+        if (await ConsentInformation.instance.canRequestAds()) {
+          await MobileAds.instance.initialize();
+          _isInitialized = true;
+          _loadInterstitialAd();
+        }
+      } catch (e) {
+        debugPrint('AdService initialization error: $e');
+      }
+    }
+    _ready.complete(_isInitialized);
+  }
+
+  /// Google's consent message (EEA, UK, Switzerland), when it has to be
+  /// shown; set up under "Gizlilik ve mesajlaşma" in AdMob
+  Future<void> _gatherConsent() async {
+    final updated = Completer<bool>();
+    ConsentInformation.instance.requestConsentInfoUpdate(
+      ConsentRequestParameters(),
+      () => updated.complete(true),
+      (error) {
+        debugPrint('Consent info update failed: ${error.message}');
+        updated.complete(false);
+      },
+    );
+    // Without a network the ads wait no longer than this
+    if (!await updated.future.timeout(const Duration(seconds: 10), onTimeout: () => false)) return;
+    await ConsentForm.loadAndShowConsentFormIfRequired((error) {
+      if (error != null) debugPrint('Consent form error: ${error.message}');
+    });
+  }
+
+  /// Whether the settings have to offer changing the ad consent
+  Future<bool> privacyOptionsRequired() async {
+    if (kIsWeb) return false;
+    await ready;
     try {
-      await MobileAds.instance.initialize();
-      _isInitialized = true;
-      _loadInterstitialAd();
+      return await ConsentInformation.instance.getPrivacyOptionsRequirementStatus() ==
+          PrivacyOptionsRequirementStatus.required;
     } catch (e) {
-      debugPrint('AdService initialization error: $e');
+      return false;
     }
   }
+
+  /// Google's form to change the ad consent
+  Future<void> showPrivacyOptions() => ConsentForm.showPrivacyOptionsForm((error) {
+        if (error != null) debugPrint('Privacy options error: ${error.message}');
+      });
 
   BannerAd createBannerAd({
     required void Function(Ad) onAdLoaded,

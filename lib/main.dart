@@ -41,8 +41,9 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  // Initialize ads
-  await AdService().initialize();
+  // Ads: the consent message first where needed (not awaited: the app
+  // opens meanwhile)
+  AdService().initialize();
 
   // Media notification of the listening mode (not awaited: the app does
   // not wait for the service to start)
