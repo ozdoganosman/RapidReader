@@ -72,6 +72,40 @@ class Book extends Equatable {
   /// Whether reading is complete
   bool get isComplete => totalWords > 0 && currentWordIndex >= totalWords;
 
+  /// Serialize for local storage (text content is stored separately)
+  Map<String, dynamic> toMap() => {
+        'id': id,
+        'title': title,
+        'author': author,
+        'filePath': filePath,
+        'format': format.name,
+        'importedAt': importedAt.millisecondsSinceEpoch,
+        'totalWords': totalWords,
+        'currentWordIndex': currentWordIndex,
+        'lastReadAt': lastReadAt?.millisecondsSinceEpoch,
+        'coverImagePath': coverImagePath,
+      };
+
+  /// Restore from local storage
+  factory Book.fromMap(Map<dynamic, dynamic> map) {
+    final lastReadAt = map['lastReadAt'];
+    return Book(
+      id: map['id'] as String,
+      title: map['title'] as String? ?? '',
+      author: map['author'] as String?,
+      filePath: map['filePath'] as String?,
+      format: BookFormat.values.firstWhere(
+        (f) => f.name == map['format'],
+        orElse: () => BookFormat.manual,
+      ),
+      importedAt: DateTime.fromMillisecondsSinceEpoch(map['importedAt'] as int? ?? 0),
+      totalWords: map['totalWords'] as int? ?? 0,
+      currentWordIndex: map['currentWordIndex'] as int? ?? 0,
+      lastReadAt: lastReadAt is int ? DateTime.fromMillisecondsSinceEpoch(lastReadAt) : null,
+      coverImagePath: map['coverImagePath'] as String?,
+    );
+  }
+
   /// Create a copy with modified fields
   Book copyWith({
     String? id,

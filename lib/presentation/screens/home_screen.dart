@@ -13,8 +13,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
+import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
 import '../../core/services/epub_extractor.dart';
+import '../../core/services/library_storage.dart';
 import '../../core/services/pdf_extractor.dart';
 import '../../core/services/text_cleaner.dart';
 import 'reader_screen.dart';
@@ -22,7 +24,10 @@ import 'settings_screen.dart';
 
 /// Home screen with library and import options
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  /// Settings and reading history storage
+  final LibraryStorage storage;
+
+  const HomeScreen({super.key, required this.storage});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -30,8 +35,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _textController = TextEditingController();
-  RSVPSettings _settings = const RSVPSettings();
+  late RSVPSettings _settings;
+  late List<Book> _books;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _settings = widget.storage.loadSettings();
+    _books = widget.storage.recentBooks();
+  }
 
   @override
   void dispose() {
@@ -41,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _importFile() async {
     setState(() => _isLoading = true);
+    ({String content, String title, BookFormat format})? picked;
 
     try {
       final result = await FilePicker.platform.pickFiles(
@@ -55,9 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
         String content;
         String title = file.name;
+        final BookFormat format;
 
         switch (extension) {
           case 'txt':
+            format = BookFormat.txt;
             // Web'de her zaman bytes kullan
             if (kIsWeb) {
               if (file.bytes != null) {
@@ -80,6 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
             }
             break;
           case 'pdf':
+            format = BookFormat.pdf;
             // PDF metin çıkarma (web ve mobilde çalışır)
             if (file.bytes != null) {
               try {
@@ -98,6 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
             }
             break;
           case 'epub':
+            format = BookFormat.epub;
             // EPUB metin çıkarma (web ve mobilde çalışır)
             if (file.bytes != null) {
               try {
@@ -136,16 +154,21 @@ class _HomeScreenState extends State<HomeScreen> {
           content = TextCleaner.clean(content);
         }
 
-        _startReading(content, title: title);
+        picked = (content: content, title: title, format: format);
       }
     } catch (e) {
       _showError('Dosya okunurken hata oluştu: $e');
     } finally {
-      setState(() => _isLoading = false);
+      if (mounted) setState(() => _isLoading = false);
+    }
+
+    if (picked != null) {
+      await _startReading(picked.content, title: picked.title, format: picked.format);
     }
   }
 
   void _showError(String message) {
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
@@ -154,21 +177,77 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _startReading(String content, {String? title}) {
+  /// Add the text to the reading history (or find it there) and open it
+  Future<void> _startReading(
+    String content, {
+    required String title,
+    required BookFormat format,
+  }) async {
     if (content.trim().isEmpty) {
       _showError('Lütfen okumak için metin girin');
       return;
     }
 
-    Navigator.of(context).push(
+    final book = await widget.storage.openBook(
+      content: content,
+      title: title,
+      format: format,
+    );
+    await _openReader(book, content);
+  }
+
+  /// Continue a book from the reading history
+  Future<void> _resumeBook(Book book) async {
+    final content = await widget.storage.loadText(book.id);
+    if (content == null) {
+      _showError('Kitap metni bulunamadı');
+      await _deleteBook(book);
+      return;
+    }
+
+    final opened = await widget.storage.openBook(
+      content: content,
+      title: book.title,
+      format: book.format,
+    );
+    await _openReader(opened, content);
+  }
+
+  Future<void> _openReader(Book book, String content) async {
+    if (!mounted) return;
+
+    // A finished book starts again from the beginning
+    final resume = !book.isComplete && book.currentWordIndex > 0;
+
+    await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => ReaderScreen(
           content: content,
-          title: title,
+          title: book.title,
           settings: _settings,
+          startIndex: resume ? book.currentWordIndex : 0,
+          startIndexTotal: resume ? book.totalWords : null,
+          onProgressChanged: (index, total) => widget.storage.saveProgress(
+            book.id,
+            wordIndex: index,
+            totalWords: total,
+          ),
+          onSettingsChanged: _saveSettings,
         ),
       ),
     );
+
+    if (mounted) setState(() => _books = widget.storage.recentBooks());
+  }
+
+  Future<void> _deleteBook(Book book) async {
+    await widget.storage.deleteBook(book.id);
+    if (mounted) setState(() => _books = widget.storage.recentBooks());
+  }
+
+  void _saveSettings(RSVPSettings settings) {
+    setState(() => _settings = settings);
+    widget.storage.saveSettings(settings);
   }
 
   void _openSettings() async {
@@ -179,8 +258,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     if (newSettings != null) {
-      setState(() => _settings = newSettings);
+      _saveSettings(newSettings);
     }
+  }
+
+  /// Short history title for pasted text: its first words
+  static String _manualTitle(String text) {
+    final words = text.trim().split(RegExp(r'\s+'));
+    final title = words.take(6).join(' ');
+    return words.length > 6 ? '$title…' : title;
   }
 
   void _showTextInputDialog() {
@@ -204,7 +290,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
-              _startReading(_textController.text, title: 'Manuel Metin');
+              _startReading(
+                _textController.text,
+                title: _manualTitle(_textController.text),
+                format: BookFormat.manual,
+              );
             },
             child: const Text('Okumaya Başla'),
           ),
@@ -278,6 +368,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
+                  // Reading history
+                  if (_books.isNotEmpty) ...[
+                    const SizedBox(height: 24),
+                    const Text(
+                      'Son Okunanlar',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    for (final book in _books) _buildBookCard(book),
+                  ],
+
                   const SizedBox(height: 24),
 
                   // Import options
@@ -322,12 +426,66 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icons.play_circle_outline,
                     title: 'Örnek Metni Oku',
                     subtitle: 'RSVP\'yi denemek için örnek metin',
-                    onTap: () => _startReading(_sampleText, title: 'Örnek Metin'),
+                    onTap: () => _startReading(
+                      _sampleText,
+                      title: 'Örnek Metin',
+                      format: BookFormat.manual,
+                    ),
                   ),
                 ],
               ),
             ),
     );
+  }
+
+  Widget _buildBookCard(Book book) {
+    final String status;
+    if (book.isComplete) {
+      status = 'Tamamlandı';
+    } else if (book.totalWords == 0 || book.currentWordIndex == 0) {
+      status = 'Henüz başlanmadı';
+    } else {
+      status = '%${(book.progress * 100).floor()} okundu';
+    }
+
+    return Card(
+      child: ListTile(
+        leading: Icon(_formatIcon(book.format), size: 32),
+        title: Text(
+          book.title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 6),
+            LinearProgressIndicator(value: book.progress.clamp(0.0, 1.0)),
+            const SizedBox(height: 4),
+            Text(status),
+          ],
+        ),
+        trailing: IconButton(
+          icon: const Icon(Icons.delete_outline),
+          tooltip: 'Geçmişten kaldır',
+          onPressed: () => _deleteBook(book),
+        ),
+        onTap: () => _resumeBook(book),
+      ),
+    );
+  }
+
+  static IconData _formatIcon(BookFormat format) {
+    switch (format) {
+      case BookFormat.txt:
+        return Icons.description;
+      case BookFormat.pdf:
+        return Icons.picture_as_pdf;
+      case BookFormat.epub:
+        return Icons.menu_book;
+      case BookFormat.manual:
+        return Icons.edit_note;
+    }
   }
 
   Widget _buildOptionCard({

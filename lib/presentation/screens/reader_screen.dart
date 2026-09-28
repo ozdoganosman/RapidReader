@@ -34,8 +34,20 @@ class ReaderScreen extends StatefulWidget {
   /// Starting word index
   final int startIndex;
 
-  /// Callback when reading position changes
-  final void Function(int index)? onProgressChanged;
+  /// Token count of the text when [startIndex] was saved
+  ///
+  /// If the text is now split differently (e.g. chunk size changed), the
+  /// start position is scaled so reading resumes at the same place.
+  final int? startIndexTotal;
+
+  /// Callback to save the reading position
+  ///
+  /// Called when playback pauses or stops, every few words while playing,
+  /// and when the screen closes. [index] equals [total] when finished.
+  final void Function(int index, int total)? onProgressChanged;
+
+  /// Callback when settings change in the reader (e.g. speed)
+  final ValueChanged<RSVPSettings>? onSettingsChanged;
 
   const ReaderScreen({
     super.key,
@@ -43,7 +55,9 @@ class ReaderScreen extends StatefulWidget {
     this.title,
     this.settings = const RSVPSettings(),
     this.startIndex = 0,
+    this.startIndexTotal,
     this.onProgressChanged,
+    this.onSettingsChanged,
   });
 
   @override
@@ -51,7 +65,12 @@ class ReaderScreen extends StatefulWidget {
 }
 
 class _ReaderScreenState extends State<ReaderScreen> {
+  /// Words read between progress saves while playing
+  static const _progressSaveInterval = 25;
+
   late final RSVPEngine _engine;
+  late final AppLifecycleListener _lifecycleListener;
+  int? _lastReportedIndex;
   late RSVPSettings _settings;
   late List<WordToken> _tokens;
   bool _showControls = true;
@@ -68,6 +87,13 @@ class _ReaderScreenState extends State<ReaderScreen> {
     // Parse text into tokens
     _tokens = TextParser.parse(widget.content, chunkSize: _settings.chunkSize);
 
+    // Resume at the same place even if the text is now split differently
+    var startIndex = widget.startIndex;
+    final savedTotal = widget.startIndexTotal;
+    if (savedTotal != null && savedTotal > 0 && savedTotal != _tokens.length) {
+      startIndex = startIndex * _tokens.length ~/ savedTotal;
+    }
+
     // Initialize engine
     _engine.initialize(
       tokens: _tokens,
@@ -77,11 +103,15 @@ class _ReaderScreenState extends State<ReaderScreen> {
         microPauseInterval: _settings.microPauseInterval,
         microPauseDuration: _settings.microPauseDuration,
       ),
-      startIndex: widget.startIndex,
+      startIndex: startIndex,
     );
+    _lastReportedIndex = _engine.state.currentIndex;
 
     // Listen for progress changes
     _engine.addListener(_onEngineStateChanged);
+
+    // Stop reading (and save the position) when the app goes to background
+    _lifecycleListener = AppLifecycleListener(onHide: _engine.pause);
 
     // Enter immersive mode
     _enterImmersiveMode();
@@ -104,16 +134,35 @@ class _ReaderScreenState extends State<ReaderScreen> {
   }
 
   void _onEngineStateChanged() {
-    if (mounted) {
-      setState(() {});
+    if (!mounted) return;
+    setState(() {});
 
-      // Report progress
-      widget.onProgressChanged?.call(_engine.state.currentIndex);
+    // Save when playback stops, and periodically while playing
+    final state = _engine.state;
+    final lastIndex = _lastReportedIndex;
+    if (!state.isPlaying ||
+        lastIndex == null ||
+        (state.currentIndex - lastIndex).abs() >= _progressSaveInterval) {
+      _reportProgress();
     }
+  }
+
+  void _reportProgress() {
+    final state = _engine.state;
+    if (state.totalTokens == 0) return;
+
+    // A finished text is saved as index == total
+    final index = state.isComplete ? state.totalTokens : state.currentIndex;
+    if (index == _lastReportedIndex) return;
+
+    _lastReportedIndex = index;
+    widget.onProgressChanged?.call(index, state.totalTokens);
   }
 
   @override
   void dispose() {
+    _reportProgress();
+    _lifecycleListener.dispose();
     _engine.removeListener(_onEngineStateChanged);
     _engine.dispose();
     _exitImmersiveMode();
@@ -153,6 +202,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
     setState(() {
       _settings = _settings.copyWith(wordsPerMinute: _engine.state.wordsPerMinute);
     });
+    widget.onSettingsChanged?.call(_settings);
   }
 
   @override
@@ -201,7 +251,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                 icon: Icon(Icons.arrow_back, color: textColor.withOpacity(0.7)),
                 onPressed: () {
                   _engine.pause();
-                  Navigator.of(context).pop(_engine.state.currentIndex);
+                  Navigator.of(context).pop();
                 },
               ),
             ),

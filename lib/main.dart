@@ -7,9 +7,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'core/services/library_storage.dart';
 import 'presentation/screens/home_screen.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Bundled font license (SIL OFL 1.1) for the licenses page
@@ -24,12 +25,24 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(const RapidReaderApp());
+  // Settings and reading history; fall back to memory if storage is blocked
+  LibraryStorage storage;
+  try {
+    storage = await HiveLibraryStorage.open();
+  } catch (e) {
+    debugPrint('Kalıcı depolama açılamadı, bellek kullanılıyor: $e');
+    storage = InMemoryLibraryStorage();
+  }
+
+  runApp(RapidReaderApp(storage: storage));
 }
 
 /// Main application widget
 class RapidReaderApp extends StatelessWidget {
-  const RapidReaderApp({super.key});
+  /// Settings and reading history storage
+  final LibraryStorage storage;
+
+  const RapidReaderApp({super.key, required this.storage});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +84,7 @@ class RapidReaderApp extends StatelessWidget {
         ),
       ),
       themeMode: ThemeMode.system,
-      home: const HomeScreen(),
+      home: HomeScreen(storage: storage),
     );
   }
 }
