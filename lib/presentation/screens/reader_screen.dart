@@ -408,80 +408,88 @@ class _ReaderScreenState extends State<ReaderScreen> {
     final textColor = Color(_settings.textColor);
     final orpColor = Color(_settings.orpHighlightColor);
 
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      body: GestureDetector(
-        onTap: _handleTap,
-        onHorizontalDragEnd: _handleHorizontalDrag,
-        child: Stack(
-          children: [
-            // Main RSVP display
-            RSVPDisplay(
-              word: state.currentToken?.word ?? '',
-              fontSize: _settings.fontSize,
-              textColor: textColor,
-              orpColor: orpColor,
-              backgroundColor: backgroundColor,
-              fontFamily: _settings.fontFamily,
-              showHighlight: _settings.showORPHighlight,
-              showFocusGuides: _settings.showFocusGuides,
-            ),
-
-            // Controls overlay
-            if (_showControls || !state.isPlaying) _buildControlsOverlay(state, textColor, orpColor),
-
-            // Progress slider at bottom
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: _buildProgressSlider(state, textColor, orpColor),
-            ),
-
-            // Back button
-            Positioned(
-              top: MediaQuery.of(context).padding.top + 8,
-              left: 8,
-              child: IconButton(
-                icon: Icon(Icons.arrow_back, color: textColor.withValues(alpha: 0.7)),
-                onPressed: () {
-                  _engine.pause();
-                  Navigator.of(context).pop(_engine.state.currentIndex);
-                },
+    // Leaving with the system back button stops reading first, like the back
+    // arrow, so the reading time is counted before the previous screen
+    // reloads its stats
+    return PopScope(
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) _engine.pause();
+      },
+      child: Scaffold(
+        backgroundColor: backgroundColor,
+        body: GestureDetector(
+          onTap: _handleTap,
+          onHorizontalDragEnd: _handleHorizontalDrag,
+          child: Stack(
+            children: [
+              // Main RSVP display
+              RSVPDisplay(
+                word: state.currentToken?.word ?? '',
+                fontSize: _settings.fontSize,
+                textColor: textColor,
+                orpColor: orpColor,
+                backgroundColor: backgroundColor,
+                fontFamily: _settings.fontFamily,
+                showHighlight: _settings.showORPHighlight,
+                showFocusGuides: _settings.showFocusGuides,
               ),
-            ),
 
-            // Read-aloud and context view buttons (top right)
-            Positioned(
-              top: MediaQuery.of(context).padding.top + 8,
-              right: 8,
-              child: Row(
-                children: [
-                  IconButton(
-                    tooltip: _readingAloud ? 'Sesli okumayı kapat' : 'Sesli oku',
-                    icon: Icon(
-                      _readingAloud ? Icons.headphones : Icons.headphones_outlined,
-                      color: _readingAloud ? orpColor : textColor.withValues(alpha: 0.7),
+              // Controls overlay
+              if (_showControls || !state.isPlaying) _buildControlsOverlay(state, textColor, orpColor),
+
+              // Progress slider at bottom
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: _buildProgressSlider(state, textColor, orpColor),
+              ),
+
+              // Back button
+              Positioned(
+                top: MediaQuery.of(context).padding.top + 8,
+                left: 8,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back, color: textColor.withValues(alpha: 0.7)),
+                  onPressed: () {
+                    _engine.pause();
+                    Navigator.of(context).pop(_engine.state.currentIndex);
+                  },
+                ),
+              ),
+
+              // Read-aloud and context view buttons (top right)
+              Positioned(
+                top: MediaQuery.of(context).padding.top + 8,
+                right: 8,
+                child: Row(
+                  children: [
+                    IconButton(
+                      tooltip: _readingAloud ? 'Sesli okumayı kapat' : 'Sesli oku',
+                      icon: Icon(
+                        _readingAloud ? Icons.headphones : Icons.headphones_outlined,
+                        color: _readingAloud ? orpColor : textColor.withValues(alpha: 0.7),
+                      ),
+                      onPressed: () => _setReadAloud(!_readingAloud),
                     ),
-                    onPressed: () => _setReadAloud(!_readingAloud),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.article, color: textColor.withValues(alpha: 0.7)),
-                    onPressed: () {
-                      _engine.pause();
-                      setState(() => _showContextView = true);
-                    },
-                  ),
-                ],
+                    IconButton(
+                      icon: Icon(Icons.article, color: textColor.withValues(alpha: 0.7)),
+                      onPressed: () {
+                        _engine.pause();
+                        setState(() => _showContextView = true);
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
 
-            // Context view overlay
-            if (_showContextView) _buildContextViewOverlay(state, textColor, orpColor, backgroundColor),
+              // Context view overlay
+              if (_showContextView) _buildContextViewOverlay(state, textColor, orpColor, backgroundColor),
 
-            // Completion overlay (shown when reading finishes)
-            if (state.isComplete) _buildCompletionOverlay(textColor, orpColor),
-          ],
+              // Completion overlay (shown when reading finishes)
+              if (state.isComplete) _buildCompletionOverlay(textColor, orpColor),
+            ],
+          ),
         ),
       ),
     );

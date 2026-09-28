@@ -30,12 +30,17 @@ class CustomBookService {
   @visibleForTesting
   static Future<void> Function() initStorage = Hive.initFlutter;
 
+  /// Opens the Hive box; replaced in widget tests by an in-memory box
+  /// (file IO does not complete inside a widget test's fake async zone)
+  @visibleForTesting
+  static Future<Box<String>> Function(String name) openHiveBox = (name) => Hive.openBox<String>(name);
+
   static Future<Box<String>>? _box;
 
   static Future<Box<String>> _openBox() => _box ??= () async {
         try {
           await initStorage();
-          final box = await Hive.openBox<String>(_boxName);
+          final box = await openHiveBox(_boxName);
           await _moveLegacyBooks(box);
           return box;
         } catch (_) {
@@ -128,9 +133,18 @@ class CustomBookService {
   /// Generate a random cover color
   static String _generateRandomColor() {
     final colors = [
-      '#FF5722', '#2196F3', '#4CAF50', '#9C27B0',
-      '#E91E63', '#3F51B5', '#FF9800', '#795548',
-      '#00BCD4', '#8BC34A', '#673AB7', '#F44336',
+      '#FF5722',
+      '#2196F3',
+      '#4CAF50',
+      '#9C27B0',
+      '#E91E63',
+      '#3F51B5',
+      '#FF9800',
+      '#795548',
+      '#00BCD4',
+      '#8BC34A',
+      '#673AB7',
+      '#F44336',
     ];
     return colors[DateTime.now().millisecond % colors.length];
   }

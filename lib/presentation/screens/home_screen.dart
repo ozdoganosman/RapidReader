@@ -326,14 +326,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   return _buildAddCard();
                 }
                 final item = _displayItems[index - 1];
-                if (item['type'] == 'series') {
-                  return _buildSeriesCard(
-                    item['seriesName'] as String,
-                    item['chapters'] as List<Book>,
-                  );
-                } else {
-                  return _buildBookCard(item['book'] as Book, index - 1);
-                }
+                // The cards size their parts by the cell height
+                return LayoutBuilder(
+                  builder: (context, cell) => item['type'] == 'series'
+                      ? _buildSeriesCard(
+                          item['seriesName'] as String,
+                          item['chapters'] as List<Book>,
+                          cardHeight: cell.maxHeight,
+                        )
+                      : _buildBookCard(item['book'] as Book, index - 1, cardHeight: cell.maxHeight),
+                );
               },
               childCount: _displayItems.length + 1,
             ),
@@ -430,12 +432,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           const SizedBox(width: 6),
-                          Text(
-                            'kelime/dk',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.secondaryText,
+                          Flexible(
+                            child: Text(
+                              'kelime/dk',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.secondaryText,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
@@ -467,37 +472,41 @@ class _HomeScreenState extends State<HomeScreen> {
 
           const SizedBox(height: 12),
 
-          // Today's reading, the speed test and exam practice
-          Row(
-            children: [
-              Expanded(
-                child: _buildShortcut(
-                  icon: Icons.local_fire_department_outlined,
-                  title: _stats == null ? 'Bugün' : '${_stats!.today.minutes}/${_stats!.goalMinutes} dk',
-                  subtitle: _stats == null ? 'İstatistik' : '${_stats!.streak} gün seri',
-                  onTap: _openStats,
+          // Today's reading, the speed test and exam practice (equal heights:
+          // on narrow phones the labels take two lines)
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: _buildShortcut(
+                    icon: Icons.local_fire_department_outlined,
+                    title: _stats == null ? 'Bugün' : '${_stats!.today.minutes}/${_stats!.goalMinutes} dk',
+                    subtitle: _stats == null ? 'İstatistik' : '${_stats!.streak} gün seri',
+                    onTap: _openStats,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: _buildShortcut(
-                  icon: Icons.timer_outlined,
-                  title: 'Hız Testi',
-                  subtitle: 'Hız ve anlama',
-                  onTap: _openSpeedTest,
+                const SizedBox(width: 10),
+                Expanded(
+                  child: _buildShortcut(
+                    icon: Icons.timer_outlined,
+                    title: 'Hız Testi',
+                    subtitle: 'Hız ve anlama',
+                    onTap: _openSpeedTest,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: _buildShortcut(
-                  icon: Icons.school_outlined,
-                  title: 'Sınav Modu',
-                  subtitle: 'LGS · TYT · KPSS',
-                  onTap: _openExam,
+                const SizedBox(width: 10),
+                Expanded(
+                  child: _buildShortcut(
+                    icon: Icons.school_outlined,
+                    title: 'Sınav Modu',
+                    subtitle: 'LGS · TYT · KPSS',
+                    onTap: _openExam,
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -527,11 +536,11 @@ class _HomeScreenState extends State<HomeScreen> {
               Icon(icon, size: 20, color: Colors.black45),
               const SizedBox(height: 8),
               Text(title,
-                  maxLines: 1,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontSize: 13, color: Colors.black87)),
               Text(subtitle,
-                  maxLines: 1,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontSize: 11, color: AppColors.secondaryText)),
             ],
@@ -571,7 +580,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildSeriesCard(String seriesName, List<Book> chapters) {
+  Widget _buildSeriesCard(String seriesName, List<Book> chapters, {required double cardHeight}) {
     final firstChapter = chapters.first;
     final totalWords = chapters.fold<int>(0, (sum, ch) => sum + ch.wordCount);
 
@@ -604,9 +613,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            // Info area
-            Expanded(
-              flex: 2,
+            // Info area: at least its 2/5 of the card, more when the text
+            // needs it (small phones, larger system text); the cover gives way
+            ConstrainedBox(
+              constraints: BoxConstraints(minHeight: cardHeight * 0.4),
               child: Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
@@ -615,6 +625,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -675,7 +686,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildBookCard(Book book, int index) {
+  Widget _buildBookCard(Book book, int index, {required double cardHeight}) {
     return GestureDetector(
       onTap: () => _openBook(book),
       onLongPress: book.isCustomBook ? () => _showCustomBookOptions(book) : null,
@@ -702,9 +713,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-                // Info area
-                Expanded(
-                  flex: 2,
+                // Info area: at least its 2/5 of the card, more when the text
+                // needs it (small phones, larger system text); the cover gives way
+                ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: cardHeight * 0.4),
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
@@ -713,6 +725,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -852,343 +865,368 @@ class _HomeScreenState extends State<HomeScreen> {
     final contentController = TextEditingController(text: initialContent);
     String? selectedImageBase64;
     bool importing = false;
+    // While saving, the buttons are off and the dialog stays open: a second
+    // tap saved the text twice and popped the library screen too
+    bool saving = false;
+    // Shown under the empty required fields (a snack bar was hidden behind
+    // the dialog)
+    bool titleMissing = false;
+    bool contentMissing = false;
 
     showDialog(
       context: context,
       builder: (context) => StatefulBuilder(
-        builder: (context, setDialogState) => AlertDialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          title: Row(
-            children: [
-              Icon(Icons.add_circle_outline, color: Colors.black54),
-              const SizedBox(width: 12),
-              Text(
-                'Yeni Metin Ekle',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w400,
+        builder: (context, setDialogState) => PopScope(
+          canPop: !saving,
+          child: AlertDialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            title: Row(
+              children: [
+                Icon(Icons.add_circle_outline, color: Colors.black54),
+                const SizedBox(width: 12),
+                Text(
+                  'Yeni Metin Ekle',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
+              ],
+            ),
+            content: SingleChildScrollView(
+              child: SizedBox(
+                width: 400,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Image picker
+                    GestureDetector(
+                      onTap: () async {
+                        final picker = ImagePicker();
+                        final image = await picker.pickImage(
+                          source: ImageSource.gallery,
+                          maxWidth: 400,
+                          maxHeight: 600,
+                          imageQuality: 80,
+                        );
+                        if (image != null) {
+                          final bytes = await image.readAsBytes();
+                          setDialogState(() {
+                            selectedImageBase64 = base64Encode(bytes);
+                          });
+                        }
+                      },
+                      child: Container(
+                        height: 150,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[50],
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(color: Colors.black12),
+                        ),
+                        child: selectedImageBase64 != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(3),
+                                child: Image.memory(
+                                  base64Decode(selectedImageBase64!),
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.add_photo_alternate_outlined,
+                                    size: 40,
+                                    color: Colors.black38,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'Kapak Resmi Ekle (Opsiyonel)',
+                                    style: TextStyle(
+                                      color: AppColors.secondaryText,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // Title field
+                    TextField(
+                      controller: titleController,
+                      style: TextStyle(color: Colors.black87),
+                      onChanged: (_) {
+                        if (titleMissing) setDialogState(() => titleMissing = false);
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Başlık *',
+                        errorText: titleMissing ? 'Başlık gerekli' : null,
+                        labelStyle: TextStyle(color: AppColors.secondaryText),
+                        filled: true,
+                        fillColor: Colors.grey[50],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide(color: Colors.black38),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    // Author field
+                    TextField(
+                      controller: authorController,
+                      style: TextStyle(color: Colors.black87),
+                      decoration: InputDecoration(
+                        labelText: 'Yazar (Opsiyonel)',
+                        labelStyle: TextStyle(color: AppColors.secondaryText),
+                        filled: true,
+                        fillColor: Colors.grey[50],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide(color: Colors.black38),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    // Import the text from a file
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: importing
+                            ? null
+                            : () async {
+                                setDialogState(() => importing = true);
+                                try {
+                                  final document = await DocumentImporter.pickAndRead();
+                                  if (document != null) {
+                                    if (titleController.text.trim().isEmpty) {
+                                      titleController.text = document.title;
+                                    }
+                                    if (authorController.text.trim().isEmpty && document.author != null) {
+                                      authorController.text = document.author!;
+                                    }
+                                    contentController.text = document.content;
+                                  }
+                                } catch (e) {
+                                  if (context.mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          e is DocumentImportException ? e.message : 'Dosya okunamadı: $e',
+                                        ),
+                                        backgroundColor: Colors.red[400],
+                                      ),
+                                    );
+                                  }
+                                } finally {
+                                  if (context.mounted) {
+                                    setDialogState(() => importing = false);
+                                  }
+                                }
+                              },
+                        icon: importing
+                            ? const SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black45),
+                              )
+                            : const Icon(Icons.upload_file, size: 18),
+                        label: Text(importing ? 'Dosya okunuyor…' : 'Dosyadan Yükle (TXT, PDF, EPUB)'),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: AppColors.secondaryText,
+                          side: BorderSide(color: Colors.black12),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    // Paste the clipboard or read a web article
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _dialogButton(
+                            icon: Icons.content_paste,
+                            label: 'Panodan',
+                            onPressed: importing
+                                ? null
+                                : () async {
+                                    final data = await Clipboard.getData(Clipboard.kTextPlain);
+                                    final text = data?.text?.trim() ?? '';
+                                    if (!context.mounted) return;
+                                    if (text.isEmpty) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(content: Text('Panoda metin yok')),
+                                      );
+                                      return;
+                                    }
+                                    if (ArticleExtractor.isUrl(text)) {
+                                      // A copied link: read the page it points to
+                                      setDialogState(() => importing = true);
+                                      await _fillFromArticle(context, text, titleController, contentController);
+                                      if (context.mounted) setDialogState(() => importing = false);
+                                      return;
+                                    }
+                                    contentController.text = text;
+                                    if (titleController.text.trim().isEmpty) {
+                                      titleController.text = _titleFromText(text);
+                                    }
+                                  },
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: _dialogButton(
+                            icon: Icons.link,
+                            label: 'Web Adresi',
+                            onPressed: importing
+                                ? null
+                                : () async {
+                                    final url = await _askUrl(context);
+                                    if (url == null || !context.mounted) return;
+                                    setDialogState(() => importing = true);
+                                    await _fillFromArticle(context, url, titleController, contentController);
+                                    if (context.mounted) setDialogState(() => importing = false);
+                                  },
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    // Content field
+                    TextField(
+                      controller: contentController,
+                      style: TextStyle(color: Colors.black87),
+                      maxLines: 6,
+                      onChanged: (_) {
+                        if (contentMissing) setDialogState(() => contentMissing = false);
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Metin İçeriği *',
+                        errorText: contentMissing ? 'Metin gerekli' : null,
+                        alignLabelWithHint: true,
+                        labelStyle: TextStyle(color: AppColors.secondaryText),
+                        filled: true,
+                        fillColor: Colors.grey[50],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide(color: Colors.black38),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: saving ? null : () => Navigator.of(context).pop(),
+                child: Text(
+                  'İptal',
+                  style: TextStyle(color: AppColors.secondaryText),
+                ),
+              ),
+              TextButton(
+                onPressed: saving
+                    ? null
+                    : () {
+                        final content = contentController.text.trim();
+                        if (content.isEmpty) {
+                          setDialogState(() => contentMissing = true);
+                          return;
+                        }
+                        final title = titleController.text.trim();
+                        Navigator.of(context).pop();
+                        _readWithoutSaving(title.isEmpty ? _titleFromText(content) : title, content);
+                      },
+                child: const Text('Kaydetmeden Oku', style: TextStyle(color: AppColors.secondaryText)),
+              ),
+              ElevatedButton(
+                onPressed: saving
+                    ? null
+                    : () async {
+                        if (saving) return; // a second tap before the next frame
+                        final navigator = Navigator.of(context);
+                        final messenger = ScaffoldMessenger.of(context);
+                        if (titleController.text.trim().isEmpty || contentController.text.trim().isEmpty) {
+                          setDialogState(() {
+                            titleMissing = titleController.text.trim().isEmpty;
+                            contentMissing = contentController.text.trim().isEmpty;
+                          });
+                          return;
+                        }
+
+                        setDialogState(() => saving = true);
+                        try {
+                          await CustomBookService.saveCustomBook(
+                            title: titleController.text.trim(),
+                            content: contentController.text.trim(),
+                            author: authorController.text.trim().isNotEmpty ? authorController.text.trim() : null,
+                            imageBase64: selectedImageBase64,
+                          );
+                        } catch (e) {
+                          // e.g. the browser's storage limit (about 5 MB) was reached
+                          if (context.mounted) setDialogState(() => saving = false);
+                          messenger.showSnackBar(
+                            SnackBar(
+                              content: Text('Metin kaydedilemedi. Cihazın depolama alanı için çok büyük olabilir.'),
+                              backgroundColor: Colors.red[400],
+                            ),
+                          );
+                          return;
+                        }
+
+                        if (!context.mounted) return;
+                        navigator.pop();
+                        if (mounted) _loadBooks(); // Refresh the list
+                        messenger.showSnackBar(
+                          SnackBar(
+                            content: Text('Metin başarıyla eklendi!'),
+                            backgroundColor: Colors.black54,
+                          ),
+                        );
+                      },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black87,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                child: const Text('Kaydet'),
               ),
             ],
           ),
-          content: SingleChildScrollView(
-            child: SizedBox(
-              width: 400,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Image picker
-                  GestureDetector(
-                    onTap: () async {
-                      final picker = ImagePicker();
-                      final image = await picker.pickImage(
-                        source: ImageSource.gallery,
-                        maxWidth: 400,
-                        maxHeight: 600,
-                        imageQuality: 80,
-                      );
-                      if (image != null) {
-                        final bytes = await image.readAsBytes();
-                        setDialogState(() {
-                          selectedImageBase64 = base64Encode(bytes);
-                        });
-                      }
-                    },
-                    child: Container(
-                      height: 150,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[50],
-                        borderRadius: BorderRadius.circular(4),
-                        border: Border.all(color: Colors.black12),
-                      ),
-                      child: selectedImageBase64 != null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(3),
-                              child: Image.memory(
-                                base64Decode(selectedImageBase64!),
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add_photo_alternate_outlined,
-                                  size: 40,
-                                  color: Colors.black38,
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Kapak Resmi Ekle (Opsiyonel)',
-                                  style: TextStyle(
-                                    color: AppColors.secondaryText,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                              ],
-                            ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  // Title field
-                  TextField(
-                    controller: titleController,
-                    style: TextStyle(color: Colors.black87),
-                    decoration: InputDecoration(
-                      labelText: 'Başlık *',
-                      labelStyle: TextStyle(color: AppColors.secondaryText),
-                      filled: true,
-                      fillColor: Colors.grey[50],
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: Colors.black12),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: Colors.black12),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: Colors.black38),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  // Author field
-                  TextField(
-                    controller: authorController,
-                    style: TextStyle(color: Colors.black87),
-                    decoration: InputDecoration(
-                      labelText: 'Yazar (Opsiyonel)',
-                      labelStyle: TextStyle(color: AppColors.secondaryText),
-                      filled: true,
-                      fillColor: Colors.grey[50],
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: Colors.black12),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: Colors.black12),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: Colors.black38),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  // Import the text from a file
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton.icon(
-                      onPressed: importing
-                          ? null
-                          : () async {
-                              setDialogState(() => importing = true);
-                              try {
-                                final document = await DocumentImporter.pickAndRead();
-                                if (document != null) {
-                                  if (titleController.text.trim().isEmpty) {
-                                    titleController.text = document.title;
-                                  }
-                                  if (authorController.text.trim().isEmpty && document.author != null) {
-                                    authorController.text = document.author!;
-                                  }
-                                  contentController.text = document.content;
-                                }
-                              } catch (e) {
-                                if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        e is DocumentImportException ? e.message : 'Dosya okunamadı: $e',
-                                      ),
-                                      backgroundColor: Colors.red[400],
-                                    ),
-                                  );
-                                }
-                              } finally {
-                                if (context.mounted) {
-                                  setDialogState(() => importing = false);
-                                }
-                              }
-                            },
-                      icon: importing
-                          ? const SizedBox(
-                              width: 16,
-                              height: 16,
-                              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black45),
-                            )
-                          : const Icon(Icons.upload_file, size: 18),
-                      label: Text(importing ? 'Dosya okunuyor…' : 'Dosyadan Yükle (TXT, PDF, EPUB)'),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: AppColors.secondaryText,
-                        side: BorderSide(color: Colors.black12),
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  // Paste the clipboard or read a web article
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _dialogButton(
-                          icon: Icons.content_paste,
-                          label: 'Panodan',
-                          onPressed: importing
-                              ? null
-                              : () async {
-                                  final data = await Clipboard.getData(Clipboard.kTextPlain);
-                                  final text = data?.text?.trim() ?? '';
-                                  if (!context.mounted) return;
-                                  if (text.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(content: Text('Panoda metin yok')),
-                                    );
-                                    return;
-                                  }
-                                  if (ArticleExtractor.isUrl(text)) {
-                                    // A copied link: read the page it points to
-                                    setDialogState(() => importing = true);
-                                    await _fillFromArticle(context, text, titleController, contentController);
-                                    if (context.mounted) setDialogState(() => importing = false);
-                                    return;
-                                  }
-                                  contentController.text = text;
-                                  if (titleController.text.trim().isEmpty) {
-                                    titleController.text = _titleFromText(text);
-                                  }
-                                },
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: _dialogButton(
-                          icon: Icons.link,
-                          label: 'Web Adresi',
-                          onPressed: importing
-                              ? null
-                              : () async {
-                                  final url = await _askUrl(context);
-                                  if (url == null || !context.mounted) return;
-                                  setDialogState(() => importing = true);
-                                  await _fillFromArticle(context, url, titleController, contentController);
-                                  if (context.mounted) setDialogState(() => importing = false);
-                                },
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  // Content field
-                  TextField(
-                    controller: contentController,
-                    style: TextStyle(color: Colors.black87),
-                    maxLines: 6,
-                    decoration: InputDecoration(
-                      labelText: 'Metin İçeriği *',
-                      alignLabelWithHint: true,
-                      labelStyle: TextStyle(color: AppColors.secondaryText),
-                      filled: true,
-                      fillColor: Colors.grey[50],
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: Colors.black12),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: Colors.black12),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: Colors.black38),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                'İptal',
-                style: TextStyle(color: AppColors.secondaryText),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                final content = contentController.text.trim();
-                if (content.isEmpty) return;
-                final title = titleController.text.trim();
-                Navigator.of(context).pop();
-                _readWithoutSaving(title.isEmpty ? _titleFromText(content) : title, content);
-              },
-              child: const Text('Kaydetmeden Oku', style: TextStyle(color: AppColors.secondaryText)),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                if (titleController.text.trim().isEmpty || contentController.text.trim().isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Başlık ve içerik zorunludur'),
-                      backgroundColor: Colors.red[400],
-                    ),
-                  );
-                  return;
-                }
-
-                try {
-                  await CustomBookService.saveCustomBook(
-                    title: titleController.text.trim(),
-                    content: contentController.text.trim(),
-                    author: authorController.text.trim().isNotEmpty ? authorController.text.trim() : null,
-                    imageBase64: selectedImageBase64,
-                  );
-                } catch (e) {
-                  // e.g. the browser's storage limit (about 5 MB) was reached
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Metin kaydedilemedi. Cihazın depolama alanı için çok büyük olabilir.'),
-                        backgroundColor: Colors.red[400],
-                      ),
-                    );
-                  }
-                  return;
-                }
-
-                if (mounted) {
-                  Navigator.of(context).pop();
-                  _loadBooks(); // Refresh the list
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Metin başarıyla eklendi!'),
-                      backgroundColor: Colors.black54,
-                    ),
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black87,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-              child: const Text('Kaydet'),
-            ),
-          ],
         ),
       ),
     );
@@ -1284,53 +1322,65 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _deleteCustomBook(Book book) {
+    // Off while deleting: a second tap popped the library screen too
+    var deleting = false;
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        title: Text(
-          'Metni Sil',
-          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w400),
-        ),
-        content: Text(
-          '"${book.title}" metnini silmek istediğinize emin misiniz?',
-          style: TextStyle(color: AppColors.secondaryText),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(
-              'İptal',
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) => PopScope(
+          canPop: !deleting,
+          child: AlertDialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            title: Text(
+              'Metni Sil',
+              style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w400),
+            ),
+            content: Text(
+              '"${book.title}" metnini silmek istediğinize emin misiniz?',
               style: TextStyle(color: AppColors.secondaryText),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              await CustomBookService.deleteCustomBook(book.id);
-              if (mounted) {
-                Navigator.of(context).pop();
-                _loadBooks();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Metin silindi'),
-                    backgroundColor: Colors.black54,
-                  ),
-                );
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red[400],
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
+            actions: [
+              TextButton(
+                onPressed: deleting ? null : () => Navigator.of(context).pop(),
+                child: Text(
+                  'İptal',
+                  style: TextStyle(color: AppColors.secondaryText),
+                ),
               ),
-            ),
-            child: const Text('Sil'),
+              ElevatedButton(
+                onPressed: deleting
+                    ? null
+                    : () async {
+                        if (deleting) return; // a second tap before the next frame
+                        final navigator = Navigator.of(context);
+                        final messenger = ScaffoldMessenger.of(context);
+                        setDialogState(() => deleting = true);
+                        await CustomBookService.deleteCustomBook(book.id);
+                        if (!context.mounted) return;
+                        navigator.pop();
+                        if (mounted) _loadBooks();
+                        messenger.showSnackBar(
+                          SnackBar(
+                            content: Text('Metin silindi'),
+                            backgroundColor: Colors.black54,
+                          ),
+                        );
+                      },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red[400],
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                child: const Text('Sil'),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
