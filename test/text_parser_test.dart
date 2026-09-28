@@ -82,6 +82,22 @@ void main() {
     });
   });
 
+  group('TextParser meaning groups', () {
+    test('a leading word starts the next group', () {
+      expect(_words('kitabı ve defteri aldı', chunkSize: 2), ['kitabı', 've defteri', 'aldı']);
+      expect(_words('sonra bir kapı açıldı', chunkSize: 2), ['sonra', 'bir kapı', 'açıldı']);
+    });
+
+    test('a following word joins the group before it', () {
+      expect(_words('o gün de geldi', chunkSize: 2), ['o gün de', 'geldi']);
+      expect(_words('bir kuş gibi uçtu', chunkSize: 2), ['bir kuş gibi', 'uçtu']);
+    });
+
+    test('a comma after the leading word ends the group as usual', () {
+      expect(_words('ama, sonra geldi', chunkSize: 2), ['ama, sonra', 'geldi']);
+    });
+  });
+
   group('TextParser abbreviations and ordinals', () {
     List<bool> ends(String text) => TextParser.parse(text).map((t) => t.hasSentenceEndPunctuation).toList();
 
@@ -102,7 +118,7 @@ void main() {
     });
 
     test('word groups do not break at an ordinal', () {
-      expect(_words('19. yüzyılda bir kent', chunkSize: 3), ['19. yüzyılda bir', 'kent']);
+      expect(_words('19. yüzyılda eski bir kent', chunkSize: 3), ['19. yüzyılda eski', 'bir kent']);
     });
   });
 

@@ -118,6 +118,42 @@ void main() {
     expect(word.height, greaterThan(0));
   });
 
+  testWidgets('a tap on the left edge goes back to the start of the sentence', (tester) async {
+    _mockPlatform(tester);
+    await tester.pumpWidget(const MaterialApp(
+      home: ReaderScreen(content: 'Bir iki üç. Dört beş altı yedi.', settings: _settings, startIndex: 5),
+    ));
+    await tester.pump();
+    expect(find.text('6 / 7'), findsOneWidget);
+
+    await tester.tapAt(const Offset(20, 400));
+    await tester.pump();
+    expect(find.text('4 / 7'), findsOneWidget); // "Dört"
+
+    await tester.tapAt(const Offset(20, 400));
+    await tester.pump();
+    expect(find.text('1 / 7'), findsOneWidget); // already there: the sentence before
+  });
+
+  testWidgets('gradual speed-up adds 10 WPM a minute up to the target', (tester) async {
+    _mockPlatform(tester);
+    final speeds = <int>[];
+    await tester.pumpWidget(MaterialApp(
+      home: ReaderScreen(
+        content: List.filled(2000, 'kelime').join(' '),
+        settings: _settings.copyWith(wordsPerMinute: 300, speedRampTarget: 320, adaptiveSpeed: false),
+        onSettingsChanged: (s) => speeds.add(s.wordsPerMinute),
+      ),
+    ));
+    await tester.tap(find.byIcon(Icons.play_circle));
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(seconds: 50));
+    }
+    expect(speeds, [310, 320]);
+    await tester.tapAt(const Offset(200, 400)); // pause
+    await tester.pump(const Duration(seconds: 3));
+  });
+
   group('completion', () {
     Book chapter(int number, String title) => Book(
           id: 'kuran_$number',

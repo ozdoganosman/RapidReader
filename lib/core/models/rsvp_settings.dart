@@ -49,6 +49,10 @@ class RSVPSettings extends Equatable {
   /// Start each play slower and speed up to [wordsPerMinute]
   final bool speedWarmUp;
 
+  /// Speed up by [speedRampStep] every minute of reading until this speed
+  /// (WPM); 0: off
+  final int speedRampTarget;
+
   /// Speech speed in the listening mode (1.0 is the voice's normal speed)
   final double speechRate;
 
@@ -68,6 +72,7 @@ class RSVPSettings extends Equatable {
     this.backgroundColor = 0xFF121212, // Dark gray
     this.showFocusGuides = true,
     this.speedWarmUp = true,
+    this.speedRampTarget = 0,
     this.speechRate = 1.0,
   });
 
@@ -79,6 +84,9 @@ class RSVPSettings extends Equatable {
 
   /// Step used by speed controls (WPM)
   static const wordsPerMinuteStep = 50;
+
+  /// Speed added every minute by the gradual speed-up
+  static const speedRampStep = 10;
 
   /// Supported speech speeds in read-aloud mode
   static const minSpeechRate = 0.5;
@@ -136,6 +144,7 @@ class RSVPSettings extends Equatable {
         'backgroundColor': backgroundColor,
         'showFocusGuides': showFocusGuides,
         'speedWarmUp': speedWarmUp,
+        'speedRampTarget': speedRampTarget,
         'speechRate': speechRate,
       };
 
@@ -168,6 +177,7 @@ class RSVPSettings extends Equatable {
       backgroundColor: read<int>('backgroundColor', d.backgroundColor),
       showFocusGuides: read<bool>('showFocusGuides', d.showFocusGuides),
       speedWarmUp: read<bool>('speedWarmUp', d.speedWarmUp),
+      speedRampTarget: read<int>('speedRampTarget', d.speedRampTarget).clamp(0, maxWordsPerMinute),
       speechRate: read<num>('speechRate', d.speechRate).toDouble().clamp(minSpeechRate, maxSpeechRate),
     );
   }
@@ -188,6 +198,7 @@ class RSVPSettings extends Equatable {
     int? backgroundColor,
     bool? showFocusGuides,
     bool? speedWarmUp,
+    int? speedRampTarget,
     double? speechRate,
   }) {
     return RSVPSettings(
@@ -205,6 +216,7 @@ class RSVPSettings extends Equatable {
       backgroundColor: backgroundColor ?? this.backgroundColor,
       showFocusGuides: showFocusGuides ?? this.showFocusGuides,
       speedWarmUp: speedWarmUp ?? this.speedWarmUp,
+      speedRampTarget: speedRampTarget ?? this.speedRampTarget,
       speechRate: speechRate ?? this.speechRate,
     );
   }
@@ -225,6 +237,7 @@ class RSVPSettings extends Equatable {
         backgroundColor,
         showFocusGuides,
         speedWarmUp,
+        speedRampTarget,
         speechRate,
       ];
 }

@@ -182,6 +182,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _updateSettings(_currentSettings.copyWith(speedWarmUp: value));
                   },
                 ),
+                const SizedBox(height: 12),
+                _buildSwitchSetting(
+                  title: 'Kademeli Hızlanma',
+                  subtitle: 'Okurken hız her dakika ${RSVPSettings.speedRampStep} kelime artar, hedefte durur',
+                  value: _currentSettings.speedRampTarget > 0,
+                  onChanged: (value) {
+                    final target = (_currentSettings.wordsPerMinute + 100).clamp(
+                      RSVPSettings.minWordsPerMinute,
+                      RSVPSettings.maxWordsPerMinute,
+                    );
+                    _updateSettings(_currentSettings.copyWith(speedRampTarget: value ? target : 0));
+                  },
+                ),
+                if (_currentSettings.speedRampTarget > 0) ...[
+                  const SizedBox(height: 12),
+                  _buildSliderSetting(
+                    label: 'Hedef Hız',
+                    value: _currentSettings.speedRampTarget.toDouble(),
+                    min: RSVPSettings.minWordsPerMinute.toDouble(),
+                    max: RSVPSettings.maxWordsPerMinute.toDouble(),
+                    divisions: (RSVPSettings.maxWordsPerMinute - RSVPSettings.minWordsPerMinute) ~/
+                        RSVPSettings.wordsPerMinuteStep,
+                    displayValue: '${_currentSettings.speedRampTarget} WPM',
+                    onChanged: (value) {
+                      _updateSettings(_currentSettings.copyWith(speedRampTarget: value.round()));
+                    },
+                  ),
+                ],
               ],
             ),
 

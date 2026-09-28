@@ -8,6 +8,8 @@
 /// - Progress indicator
 library;
 
+import 'dart:async';
+
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -235,6 +237,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
   void _onEngineStateChanged() {
     if (mounted) {
       setState(() {});
+      _updateRamp();
 
       // Report progress
       widget.onProgressChanged?.call(_engine.state.currentIndex);
@@ -305,12 +308,59 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
   @override
   void dispose() {
+    _rampTimer?.cancel();
     _saveProgress();
     _lifecycleListener.dispose();
     _engine.removeListener(_onEngineStateChanged);
     _engine.dispose();
     _exitImmersiveMode();
     super.dispose();
+  }
+
+  /// A tap on the left quarter goes back to the start of the sentence;
+  /// elsewhere it plays or pauses
+  void _handleTapUp(TapUpDetails details) {
+    if (details.localPosition.dx < MediaQuery.sizeOf(context).width * 0.25) {
+      _backToSentenceStart();
+    } else {
+      _handleTap();
+    }
+  }
+
+  /// Back to the start of the current sentence, or of the previous one when
+  /// already at the start (playing goes on)
+  void _backToSentenceStart() {
+    bool startsSentence(int i) => i == 0 || _tokens[i - 1].hasSentenceEndPunctuation || _tokens[i - 1].isParagraphEnd;
+    final current = _engine.state.currentIndex;
+    var start = current;
+    while (start > 0 && !startsSentence(start)) {
+      start--;
+    }
+    if (current - start <= 1 && start > 0) {
+      start--;
+      while (start > 0 && !startsSentence(start)) {
+        start--;
+      }
+    }
+    _engine.seekToIndex(start);
+  }
+
+  /// Gradual speed-up: every minute of reading, [RSVPSettings.speedRampStep]
+  /// faster until the target
+  Timer? _rampTimer;
+
+  void _updateRamp() {
+    final ramping = _engine.state.isPlaying && _settings.speedRampTarget > _settings.wordsPerMinute;
+    if (!ramping) {
+      _rampTimer?.cancel();
+      _rampTimer = null;
+    } else {
+      _rampTimer ??= Timer.periodic(const Duration(minutes: 1), (_) {
+        final next = (_settings.wordsPerMinute + RSVPSettings.speedRampStep).clamp(0, _settings.speedRampTarget);
+        _updateSpeed(next);
+        if (next >= _settings.speedRampTarget) _updateRamp();
+      });
+    }
   }
 
   void _handleTap() {
@@ -362,7 +412,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
       child: Scaffold(
         backgroundColor: backgroundColor,
         body: GestureDetector(
-          onTap: _handleTap,
+          onTapUp: _handleTapUp,
           onHorizontalDragEnd: _handleHorizontalDrag,
           child: Stack(
             children: [
@@ -572,6 +622,13 @@ class _ReaderScreenState extends State<ReaderScreen> {
             fontSize: 13,
           ),
         ),
+        if (!_compactControls) ...[
+          const SizedBox(height: 4),
+          Text(
+            'Sol kenara dokun: cümle başına dön',
+            style: TextStyle(color: textColor.withValues(alpha: 0.6), fontSize: 12),
+          ),
+        ],
       ],
     );
   }

@@ -144,7 +144,8 @@ class TextParser {
   /// Apply chunking to group multiple words together
   ///
   /// A chunk never runs past the end of a sentence or paragraph, so the
-  /// sentence and paragraph pauses stay where they belong.
+  /// sentence and paragraph pauses stay where they belong. Groups follow
+  /// the meaning a little: short words go with the word they belong to.
   static List<WordToken> _applyChunking(List<WordToken> tokens, int chunkSize) {
     final chunked = <WordToken>[];
     var chunk = <WordToken>[];
@@ -168,16 +169,55 @@ class TextParser {
       chunk = [];
     }
 
-    for (final token in tokens) {
+    for (var i = 0; i < tokens.length; i++) {
+      final token = tokens[i];
       chunk.add(token);
-      if (chunk.length == chunkSize || token.hasSentenceEndPunctuation || token.isParagraphEnd) {
+      if (token.hasSentenceEndPunctuation || token.isParagraphEnd) {
         flush();
+        continue;
       }
+      if (chunk.length < chunkSize) continue;
+
+      // Meaning groups: a little word that leads into the next one ("ve",
+      // "bir", "bu") starts the next group instead of ending this one...
+      if (chunk.length >= 2 && chunk.length == chunkSize && _leadsIn(chunk.last)) {
+        final carried = chunk.removeLast();
+        flush();
+        chunk.add(carried);
+        continue;
+      }
+      // ...and one that belongs to the word before it ("da", "ki", "gibi")
+      // joins this group (one word over the size at most)
+      final next = i + 1 < tokens.length ? tokens[i + 1] : null;
+      if (chunk.length == chunkSize && next != null && _followsOn(next)) continue;
+      flush();
     }
     flush();
 
     return chunked;
   }
+
+  /// Short words read together with the word after them
+  static const _leadingWords = {
+    've', 'veya', 'ya', 'yahut', 'ile', 'bir', 'bu', 'şu', 'her', 'hiç', 'çok', 'en', 'daha', 'pek', //
+    'ne', 'ama', 'fakat', 'ancak', 'hem', 'yani', 'the', 'a', 'an', 'and', 'or', 'of', 'to', 'in', //
+    'on', 'at', 'for', 'with', 'by', 'from',
+  };
+
+  /// Short words read together with the word before them
+  static const _followingWords = {
+    'da', 'de', 'ta', 'te', 'ki', 'mi', 'mı', 'mu', 'mü', 'gibi', 'için', 'kadar', 'göre', 'diye', //
+    'bile', 'ise', 'dahi',
+  };
+
+  static final _trailingPunctuation = RegExp(r'[^\p{L}\p{N}]+$', unicode: true);
+
+  /// A leading word without punctuation after it (a comma ends the thought)
+  static bool _leadsIn(WordToken token) =>
+      !token.hasMidSentencePunctuation && _leadingWords.contains(token.word.toLowerCase());
+
+  static bool _followsOn(WordToken token) =>
+      _followingWords.contains(token.word.replaceFirst(_trailingPunctuation, '').toLowerCase());
 
   /// Get statistics about parsed text
   static TextStats getStats(List<WordToken> tokens) {
