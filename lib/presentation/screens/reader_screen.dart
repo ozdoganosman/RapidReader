@@ -157,10 +157,11 @@ class _ReaderScreenState extends State<ReaderScreen> {
   }
 
   void _updateSpeed(int wpm) {
-    setState(() {
-      _settings = _settings.copyWith(wordsPerMinute: wpm);
-    });
     _engine.setSpeed(wpm);
+    // Show the speed the engine actually uses (it clamps to the valid range)
+    setState(() {
+      _settings = _settings.copyWith(wordsPerMinute: _engine.state.wordsPerMinute);
+    });
   }
 
   @override
@@ -325,7 +326,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
           children: [
             IconButton(
               icon: Icon(Icons.remove_circle_outline, color: textColor),
-              onPressed: () => _updateSpeed(_settings.wordsPerMinute - 50),
+              onPressed: () => _updateSpeed(_settings.wordsPerMinute - RSVPSettings.wordsPerMinuteStep),
             ),
             const SizedBox(width: 16),
             Container(
@@ -346,7 +347,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
             const SizedBox(width: 16),
             IconButton(
               icon: Icon(Icons.add_circle_outline, color: textColor),
-              onPressed: () => _updateSpeed(_settings.wordsPerMinute + 50),
+              onPressed: () => _updateSpeed(_settings.wordsPerMinute + RSVPSettings.wordsPerMinuteStep),
             ),
           ],
         ),

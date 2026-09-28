@@ -62,6 +62,15 @@ class RSVPSettings extends Equatable {
     this.showFocusGuides = true,
   });
 
+  /// Lowest supported reading speed (WPM)
+  static const minWordsPerMinute = 100;
+
+  /// Highest supported reading speed (WPM)
+  static const maxWordsPerMinute = 1000;
+
+  /// Step used by speed controls (WPM)
+  static const wordsPerMinuteStep = 50;
+
   /// Default settings
   static const defaults = RSVPSettings();
 
