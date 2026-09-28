@@ -188,41 +188,47 @@ class TextParser {
   }
 
   /// Apply chunking to group multiple words together
+  ///
+  /// A chunk never runs past the end of a sentence or paragraph, so the
+  /// sentence and paragraph pauses stay where they belong. URLs are shown
+  /// on their own.
   static List<WordToken> _applyChunking(List<WordToken> tokens, int chunkSize) {
     final chunked = <WordToken>[];
+    var chunk = <WordToken>[];
 
-    for (int i = 0; i < tokens.length; i += chunkSize) {
-      final chunkEnd = (i + chunkSize).clamp(0, tokens.length);
-      final chunk = tokens.sublist(i, chunkEnd);
+    void flush() {
+      if (chunk.isEmpty) return;
 
-      // Skip standalone punctuation in chunks
-      final meaningfulTokens = chunk.where((t) => t.word.length > 1 || !_isPunctuation(t.word)).toList();
-      if (meaningfulTokens.isEmpty) {
-        // If only punctuation, still add it
-        for (final token in chunk) {
-          chunked.add(token.copyWith(index: chunked.length));
-        }
+      // Inherit metadata from the last token of the chunk
+      final last = chunk.last;
+      chunked.add(WordToken(
+        word: chunk.map((t) => t.word).join(' '),
+        index: chunked.length,
+        hasSentenceEndPunctuation: last.hasSentenceEndPunctuation,
+        hasMidSentencePunctuation: last.hasMidSentencePunctuation,
+        isParagraphEnd: last.isParagraphEnd,
+        sentenceNumber: last.sentenceNumber,
+        isChunk: chunk.length > 1,
+        chunkSize: chunk.length,
+        isUrl: chunk.length == 1 && last.isUrl,
+      ));
+      chunk = [];
+    }
+
+    for (final token in tokens) {
+      if (token.isUrl) {
+        flush();
+        chunk.add(token);
+        flush();
         continue;
       }
 
-      // Combine words in chunk
-      final combinedWord = chunk.map((t) => t.word).join(' ');
-
-      // Inherit metadata from last meaningful token
-      final lastToken = chunk.last;
-
-      chunked.add(WordToken(
-        word: combinedWord,
-        index: chunked.length,
-        hasSentenceEndPunctuation: lastToken.hasSentenceEndPunctuation,
-        hasMidSentencePunctuation: lastToken.hasMidSentencePunctuation,
-        isParagraphEnd: lastToken.isParagraphEnd,
-        sentenceNumber: lastToken.sentenceNumber,
-        isChunk: true,
-        chunkSize: chunk.length,
-        isUrl: false,
-      ));
+      chunk.add(token);
+      if (chunk.length == chunkSize || token.hasSentenceEndPunctuation || token.isParagraphEnd) {
+        flush();
+      }
     }
+    flush();
 
     return chunked;
   }

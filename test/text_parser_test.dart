@@ -61,6 +61,33 @@ void main() {
     });
   });
 
+  group('TextParser chunking', () {
+    test('groups words up to the chunk size', () {
+      expect(_words('bir iki üç dört beş', chunkSize: 2), ['bir iki', 'üç dört', 'beş']);
+    });
+
+    test('chunks end at sentence and paragraph boundaries', () {
+      expect(
+        _words('Bir iki. Üç dört beş altı\n\nYedi sekiz', chunkSize: 3),
+        ['Bir iki.', 'Üç dört beş', 'altı', 'Yedi sekiz'],
+      );
+    });
+
+    test('keeps sentence and paragraph flags on the chunk', () {
+      final tokens = TextParser.parse('Bir iki. Üç\n\nDört', chunkSize: 3);
+      expect(tokens.map((t) => t.hasSentenceEndPunctuation), [true, false, false]);
+      expect(tokens.map((t) => t.isParagraphEnd), [false, true, true]);
+      expect(tokens.map((t) => t.index), [0, 1, 2]);
+    });
+
+    test('URLs are shown on their own', () {
+      expect(
+        _words('bkz https://example.com adresi ve', chunkSize: 3),
+        ['bkz', 'https://example.com', 'adresi ve'],
+      );
+    });
+  });
+
   group('TimingCalculator.detectPunctuation', () {
     test('looks past closing quotes and brackets', () {
       expect(TimingCalculator.detectPunctuation('dedi."'), PunctuationType.sentenceEnd);
