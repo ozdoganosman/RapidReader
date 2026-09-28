@@ -13,11 +13,21 @@ class AdService {
   // Real Ad IDs
   static const String _bannerAdUnitId = 'ca-app-pub-9234283093562204/3791543255';
 
-  // Test Interstitial (henüz oluşturulmadı - gerekirse AdMob'dan oluştur)
-  static const String _interstitialAdUnitId = 'ca-app-pub-3940256099942544/1033173712';
+  // Real interstitial ad unit: create one in AdMob and put its id here.
+  // While it is empty, release builds show no interstitials (showing
+  // Google's test ads to real users would earn nothing).
+  static const String _interstitialAdUnitId = '';
+
+  // Google's test interstitial, used in debug builds
+  static const String _testInterstitialAdUnitId = 'ca-app-pub-3940256099942544/1033173712';
 
   String get bannerAdUnitId => _bannerAdUnitId;
-  String get interstitialAdUnitId => _interstitialAdUnitId;
+
+  /// Interstitial ad unit to use, or null when interstitials are disabled
+  String? get interstitialAdUnitId {
+    if (kDebugMode) return _testInterstitialAdUnitId;
+    return _interstitialAdUnitId.isEmpty ? null : _interstitialAdUnitId;
+  }
 
   Future<void> initialize() async {
     if (_isInitialized || kIsWeb) return;
@@ -47,8 +57,11 @@ class AdService {
   }
 
   void _loadInterstitialAd() {
+    final adUnitId = interstitialAdUnitId;
+    if (adUnitId == null) return;
+
     InterstitialAd.load(
-      adUnitId: interstitialAdUnitId,
+      adUnitId: adUnitId,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -71,6 +84,11 @@ class AdService {
     );
   }
 
+  /// Finished reading sessions since the last interstitial
+  @visibleForTesting
+  int get readingSessionCount => _readingSessionCount;
+
+  /// Call when a book or chapter has been read to the end
   void onReadingSessionComplete() {
     _readingSessionCount++;
     // Show interstitial every 3 reading sessions

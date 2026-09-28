@@ -16,6 +16,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
 import '../../core/models/word_token.dart';
+import '../../core/services/ad_service.dart';
 import '../../core/services/reading_storage.dart';
 import '../../core/services/rsvp_engine.dart';
 import '../../core/utils/text_parser.dart';
@@ -71,6 +72,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
   late final RSVPEngine _engine;
   late final AppLifecycleListener _lifecycleListener;
   int? _lastSavedIndex;
+  bool _wasComplete = false;
   late RSVPSettings _settings;
   late List<WordToken> _tokens;
   bool _showControls = true;
@@ -135,6 +137,13 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
       // Report progress
       widget.onProgressChanged?.call(_engine.state.currentIndex);
+
+      // Count finished chapters for the interstitial ad (every 3rd one)
+      final isComplete = _engine.state.isComplete;
+      if (isComplete && !_wasComplete) {
+        AdService().onReadingSessionComplete();
+      }
+      _wasComplete = isComplete;
 
       // Save when playback stops, and periodically while playing
       final state = _engine.state;

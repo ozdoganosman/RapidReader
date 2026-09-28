@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rapid_reader/core/models/rsvp_settings.dart';
+import 'package:rapid_reader/core/services/ad_service.dart';
 import 'package:rapid_reader/presentation/screens/reader_screen.dart';
 
 // Non-mono family keeps the test offline (no font download)
@@ -47,5 +48,15 @@ void main() {
       await tester.pump();
     }
     expect(find.text('${RSVPSettings.maxWordsPerMinute} WPM'), findsOneWidget);
+  });
+
+  testWidgets('a finished chapter counts once for the interstitial ad', (tester) async {
+    final before = AdService().readingSessionCount;
+    await _pumpReader(tester, 'Bir iki üç.');
+
+    await tester.tap(find.byIcon(Icons.play_circle));
+    await tester.pump(const Duration(seconds: 10));
+
+    expect(AdService().readingSessionCount, (before + 1) % 3);
   });
 }
