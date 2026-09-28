@@ -19,6 +19,7 @@ import '../../core/services/reading_stats.dart';
 import '../../core/services/reading_storage.dart';
 import '../widgets/banner_ad_widget.dart';
 import 'chapter_list_screen.dart';
+import 'exam_screen.dart';
 import 'speed_test_screen.dart';
 import 'stats_screen.dart';
 import 'reader_screen.dart';
@@ -132,6 +133,10 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context) => StatsScreen(settings: _settings, onSettingsChanged: _saveSettings),
         ))
         .then((_) => _loadStats());
+  }
+
+  void _openExam() {
+    Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) => const ExamScreen()));
   }
 
   void _openSpeedTest() {
@@ -389,18 +394,27 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: _buildShortcut(
                   icon: Icons.local_fire_department_outlined,
-                  title: _stats == null ? 'Bugün' : 'Bugün ${_stats!.today.minutes}/${_stats!.goalMinutes} dk',
-                  subtitle: _stats == null ? '' : '${_stats!.streak} gün seri',
+                  title: _stats == null ? 'Bugün' : '${_stats!.today.minutes}/${_stats!.goalMinutes} dk',
+                  subtitle: _stats == null ? 'İstatistik' : '${_stats!.streak} gün seri',
                   onTap: _openStats,
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 10),
               Expanded(
                 child: _buildShortcut(
                   icon: Icons.timer_outlined,
                   title: 'Hız Testi',
-                  subtitle: 'Hızını ve anlamanı ölç',
+                  subtitle: 'Hız ve anlama',
                   onTap: _openSpeedTest,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: _buildShortcut(
+                  icon: Icons.school_outlined,
+                  title: 'Sınav Modu',
+                  subtitle: 'LGS · TYT · KPSS',
+                  onTap: _openExam,
                 ),
               ),
             ],
@@ -428,26 +442,19 @@ class _HomeScreenState extends State<HomeScreen> {
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
           ),
-          child: Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(icon, size: 20, color: Colors.black45),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontSize: 13, color: Colors.black87)),
-                    if (subtitle.isNotEmpty)
-                      Text(subtitle,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(fontSize: 11, color: Colors.black45)),
-                  ],
-                ),
-              ),
+              const SizedBox(height: 8),
+              Text(title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 13, color: Colors.black87)),
+              Text(subtitle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 11, color: Colors.black45)),
             ],
           ),
         ),

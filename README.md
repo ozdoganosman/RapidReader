@@ -19,6 +19,9 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
   toplam süre, ortalama hız ve hedefin art arda tutturulduğu gün sayısı (seri) gösterilir.
 - **Okuma hızı testi:** Kısa bir metin normal okunur, ardından 4 anlama sorusu gelir.
   Dakikadaki kelime, anlama oranı ve önerilen hızlı okuma başlangıç hızı gösterilir.
+- **Sınav modu:** LGS, TYT ve KPSS için süreli paragraf antrenmanı (her sınav için 40
+  özgün soru; ÖSYM/MEB sorusu değildir). Cevaptan sonra doğru şık ve açıklama gösterilir,
+  oturum sonunda yanlış yapılan soru türleri listelenir.
 - **Kaldığın yerden devam:** Her kitabın ve bölümün okuma konumu ile ayarlar cihazda saklanır.
 - **Okuma ekranı:** Dokun-oynat/duraklat, kaydırarak 10 kelime ileri/geri, konum çubuğu
   ve önizleme, sayfa görünümü, kalan/toplam süre, okurken ekranın kapanmaması (Android).
