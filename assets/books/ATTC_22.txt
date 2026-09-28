@@ -1,123 +1,245 @@
-Yirmi İkinci Bölüm
-Hâlâ Örgü
-Madam Defarge ve mösyö kocası, yıldızların altında kamu araçlarıyla Saint Antoine'ın koynuna dostça döndüler, mavi kasketli bir benek karanlıkta ve tozda, yol kenarındaki yorucu millerce cadde boyunca zahmetle ilerliyordu, yavaşça pusulanın o noktasına yöneliyor, şimdi mezarında olan Mösyö Marki'nin şatosunun fısıldayan ağaçlara kulak verdiği yere. Taş yüzlerin artık ağaçlara ve çeşmeye dinlemek için bol bol zamanı vardı, yemek için otlar ve yakmak için ölü dal parçaları arayışında büyük taş avluyu ve teras merdivenini gören birkaç köy korkuluğu, açlıktan tahrip olmuş hayallerinde yüzlerin ifadesinin değiştiğini hissetmişti. Köyde bir söylenti yaşıyordu - halkı gibi zayıf ve çıplak bir varlığı vardı - bıçak hedefe ulaştığında yüzlerin gururlu yüzlerden öfkeli ve acı dolu yüzlere değiştiği; ayrıca o sallanan figür çeşmenin kırk ayak yukarısına çekildiğinde, tekrar değiştikleri ve intikam alınmış acımasız bir bakış taşıdıkları ve bunu sonsuza dek taşıyacakları. Cinayetin işlendiği yatak odasının büyük penceresinin üzerindeki taş yüzde, oymalı burunda herkesin tanıdığı ve eskiden kimsenin görmediği iki ince çentik işaret ediliyordu; ve iki ya da üç paçavralı köylü Mösyö Marki'ye taşlaşmış halde acele bir göz atmak için kalabalıktan çıktığında, bir cılız parmak ona bir dakika bile işaret edemeden hepsi yosunların ve yaprakların arasına kaçıyordu, orada geçimini bulabilen daha şanslı tavşanlar gibi.
-Şato ve kulübe, taş yüz ve sallanan figür, taş zeminindeki kırmızı leke ve köy kuyusundaki saf su - binlerce dönüm arazi - Fransa'nın koca bir eyaleti - Fransa'nın kendisi bile - gece göğünün altında yatıyordu, zayıf bir saç teli çizgisinde yoğunlaşmış. Tıpkı koca bir dünya, tüm büyüklükleri ve küçüklükleriyle, yanıp sönen bir yıldızda yatar gibi. Ve nasıl salt insan bilgisi bir ışık ışınını bölüp bileşiminin tarzını analiz edebiliyorsa, daha yüce zekalar bu bizim dünyamızın zayıf parlamasında, üzerindeki her sorumlu yaratığın her düşüncesini ve eylemini, her kötülüğünü ve erdemini okuyabilir.
-Defarge'lar, karı koca, yıldız ışığının altında kamu araçlarında gürültüyle, yolculuklarının doğal olarak yöneldiği Paris kapısına geldiler. Bariyer karakol binasında olağan duruş oldu ve olağan soruşturma ve inceleme için olağan fenerler parladı. Mösyö Defarge indi; oradaki askerlerden bir ikisini ve polisten birini tanıyordu. İkincisiyle samimiydi ve sevgiyle kucaklaştı.
-Saint Antoine, Defarge'ları karanlık kanatlarına tekrar sardığında ve sonunda Aziz'in sınırlarına yakın bir yerde inerek sokaklarının kara çamurunda ve pisliğinde yürürlerken, Madam Defarge kocasına konuştu:
-"Söyle o zaman, dostum; polis Jacques'ı sana ne söyledi?"
-"Bu gece çok az, ama bildiği her şeyi. Bölgemize bir casus daha görevlendirilmiş. Söyleyebileceği kadarıyla çok daha fazlası olabilir, ama bir tanesini biliyor."
-"Eh peki!" dedi Madam Defarge, soğuk bir iş havasıyla kaşlarını kaldırarak. "Onu kaydetmek gerekli. O adamı nasıl çağırıyorlar?"
+Örgü Sürüyor
+Charles Dickens
+İkinci Kitap: Altın İplik, 16. Bölüm
+
+Madam Defarge ile kocası mösyö dostça Saint Antoine'ın bağrına dönerken, mavi takkeli bir nokta karanlığın içinden, tozun içinden, yol kenarındaki ağaçlıklı caddenin bitmek bilmeyen millerinden geçerek zahmetle ilerliyor; artık mezarında yatan Mösyö Marki'nin şatosunun fısıldaşan ağaçlara kulak verdiği yöne doğru ağır ağır yol alıyordu. Taş yüzlerin artık ağaçları ve çeşmeyi dinlemek için öylesine bol boş vakti vardı ki, yenecek ot ve yakılacak kuru dal parçaları ararken büyük taş avlunun ve taraça merdiveninin göründüğü yere kadar sokulan birkaç köylü korkuluğunun aç hayal gücüne, yüzlerin ifadesinin değiştiği fikri iyice yerleşmişti. Köyde, oranın insanları gibi cılız ve çıplak bir varlık sürdüren bir söylenti güç bela yaşayıp gidiyordu: bıçak hedefini bulduğunda yüzler, gururlu yüzlerken öfkeli ve acılı yüzlere dönüşmüş; o sallanan beden çeşmenin kırk ayak yukarısına çekildiğinde de bir kez daha değişmiş, bundan böyle sonsuza dek taşıyacakları acımasız bir öç alınmışlık ifadesine bürünmüşlerdi. Cinayetin işlendiği yatak odasının büyük penceresinin üstündeki taş yüzde, yontulmuş burnun üzerindeki iki ince çukur gösteriliyordu; herkes bunları tanıyordu ama eskiden kimse görmemişti; iki üç yırtık pırtık köylünün kalabalıktan ayrılıp taşlaşmış Mösyö Marki'ye aceleyle bir göz atmaya geldiği ender durumlarda da, sıska bir parmak bir dakika bile oraya işaret etmeden hepsi, orada geçimini bulabilen daha şanslı tavşanlar gibi yosunların ve yaprakların arasına kaçışırdı.
+
+Şato ve kulübe, taş yüz ve sallanan beden, taş zemindeki kırmızı leke ve köy kuyusundaki berrak su — binlerce dönüm toprak — koca bir Fransız eyaleti — bütün Fransa'nın kendisi — gece göğünün altında, kıl inceliğinde soluk bir çizgiye sığmış yatıyordu. Bütün büyüklükleri ve küçüklükleriyle koca bir dünya da işte böyle, göz kırpan bir yıldızın içinde yatar. Ve nasıl ki sıradan insan bilgisi bir ışık ışınını ayrıştırıp nasıl oluştuğunu çözümleyebiliyorsa, daha yüce akıllar da şu dünyamızın cılız parıltısında, üzerindeki her sorumlu yaratığın her düşüncesini ve eylemini, her kusurunu ve erdemini okuyabilir.
+
+Karı koca Defarge'lar yıldızların ışığı altında, halka açık arabalarıyla sarsıla sarsıla, yolculuklarının doğal olarak yöneldiği Paris kapısına vardılar. Gümrük kapısındaki nöbetçi kulübesinde her zamanki duraklama yaşandı, her zamanki fenerler her zamanki denetim ve sorgu için parıldayarak dışarı çıktı. Mösyö Defarge arabadan indi; oradaki askerlerden bir ikisini ve polislerden birini tanıyordu. Sonuncusuyla samimiydi ve onu sevgiyle kucakladı.
+
+Saint Antoine, Defarge'ları yeniden koyu renkli kanatlarına sardığında ve onlar Aziz'in sınırlarına yakın bir yerde nihayet arabadan inip onun sokaklarının kara çamuru ve pislikleri arasında yayan yollarını bulmaya çalışırken, Madam Defarge kocasına dedi ki:
+
+"Söyle bakalım dostum; polisteki Jacques sana ne anlattı?"
+
+"Bu gece pek az şey, ama bildiğinin hepsini. Bizim mahalleye bir casus daha görevlendirilmiş. Onun bildiği kadarıyla daha da çok olabilir, ama o birini biliyor."
+
+"Eh, peki!" dedi Madam Defarge, soğukkanlı bir iş kadını tavrıyla kaşlarını kaldırarak. "Onu kayda geçirmek gerek. O adama ne diyorlar?"
+
 "İngiliz."
-"Daha da iyi. Adı?"
-"Barsad," dedi Defarge, telaffuzla Fransızcalaştırarak. Ama doğru almak için o kadar dikkatli olmuştu ki, sonra mükemmel doğrulukla heceledi.
-"Barsad," diye tekrarladı madam. "İyi. Vaftiz adı?"
+
+"Daha iyi. Adı?"
+
+"Barsad," dedi Defarge, adı Fransızca telaffuzla söyleyerek. Ama adı doğru öğrenmeye öylesine özen göstermişti ki, ardından onu harfi harfine, kusursuz biçimde heceledi.
+
+"Barsad," diye tekrarladı madam. "Güzel. İlk adı?"
+
 "John."
-"John Barsad," diye tekrarladı madam, kendi kendine bir kez mırıldandıktan sonra. "İyi. Görünüşü; biliniyor mu?"
-"Yaş, yaklaşık kırk; boy, yaklaşık beş ayak dokuz; siyah saç; koyu ten; genellikle oldukça yakışıklı çehre; koyu gözler, yüz ince, uzun ve solgun; kartal burun, ama düz değil, sol yanağa doğru tuhaf bir eğimi var; dolayısıyla ifade uğursuz."
-"Eh imanıma. Bu bir portre!" dedi madam, gülerek. "Yarın kayıt edilecek."
-Gece yarısı olduğu için kapalı olan şarap dükkanına girdiler ve Madam Defarge hemen masasında yerini aldı, yokluğunda alınan küçük paraları saydı, stoğu inceledi, defterdeki kayıtları gözden geçirdi, kendi kayıtlarını yaptı, garson adama her olası şekilde dikkat etti ve sonunda onu yatmaya gönderdi. Sonra para kasesinin içindekileri ikinci kez boşalttı ve gece boyunca güvenli saklanması için mendilinde ayrı düğümler zinciri halinde düğümlemeye başladı. Bütün bu sırada, Defarge ağzında piposuyla, hayranlıkla ama asla karışmadan ileri geri yürüdü; hangi durumda, işe ve ev işlerine gelince, hayatı boyunca ileri geri yürümüştü.
-Gece sıcaktı ve dükkan sıkıca kapalı ve böyle pis bir mahalleyle çevrili olarak kötü kokuyordu. Mösyö Defarge'ın koku alma duyusu hiçbir şekilde hassas değildi, ama şarap stoğu hiç tattığından çok daha güçlü kokuyordu, rom ve brendi ve anason stoku da öyle. Tüketilmiş piposunu koyarken kokular karışımını uzaklaştırdı.
-"Yorgunsun," dedi madam, parayı düğümlerken bakışını kaldırarak. "Sadece olağan kokular var."
+
+"John Barsad," diye tekrarladı madam, önce bir kez kendi kendine mırıldandıktan sonra. "Güzel. Görünüşü; biliniyor mu?"
+
+"Yaşı, kırk kadar; boyu, beş ayak dokuz inç kadar; saçları siyah; teni esmer; genel olarak oldukça yakışıklı bir çehre; gözleri koyu, yüzü ince, uzun ve solgun; burnu kartal burnu ama düz değil, sol yanağa doğru tuhaf bir eğilimi var; bu yüzden ifadesi uğursuz."
+
+"Eh, doğrusu, tam bir portre bu!" dedi madam gülerek. "Yarın kayda geçirilecek."
+
+Kapalı olan şarap dükkânına girdiler (çünkü gece yarısıydı); Madam Defarge hemen masasının başındaki yerini aldı, yokluğunda alınan bozuk paraları saydı, stoku gözden geçirdi, defterdeki kayıtları inceledi, kendisi de başka kayıtlar düştü, hizmetkârı akla gelebilecek her yoldan denetledi ve sonunda onu yatmaya gönderdi. Sonra para kâsesinin içindekileri ikinci kez boşalttı ve gece boyunca güvende dursunlar diye, ayrı ayrı düğümlerden oluşan bir zincir halinde mendiline bağlamaya başladı. Bütün bu süre boyunca Defarge, ağzında piposu, kendinden memnun bir hayranlıkla ama hiç karışmadan bir aşağı bir yukarı yürüdü; zaten iş ve ev meseleleri söz konusu olduğunda hayat boyunca da hep bu durumda bir aşağı bir yukarı yürüyüp durmuştu.
+
+Gece sıcaktı; sımsıkı kapalı, üstelik böylesine pis bir çevreyle kuşatılmış dükkân kötü kokuyordu. Mösyö Defarge'ın koku alma duyusu hiç de hassas değildi, ama şarap stoku tadından çok daha sert kokuyordu; rom, konyak ve anason stoku da öyle. İçilip bitmiş piposunu bırakırken bu kokular karışımını üfleyip uzaklaştırdı.
+
+"Yorgunsun," dedi madam, parayı düğümlerken bakışlarını kaldırarak. "Yalnızca her zamanki kokular var."
+
 "Biraz yorgunum," diye kabul etti kocası.
-"Biraz keyifsizsin de," dedi madam, keskin gözleri hesaplara hiç o kadar dikkatli bakmamışken, onun için bir iki ışın ayırmıştı. "Ah erkekler, erkekler!"
+
+"Biraz da keyifsizsin," dedi madam; çevik gözleri hesaplara hiçbir zaman, ona bir iki bakış ayıramayacak kadar dalmış değildi. "Ah, şu erkekler, şu erkekler!"
+
 "Ama canım!" diye başladı Defarge.
-"Ama canım!" diye tekrarladı madam, kararlılıkla başını sallayarak; "ama canım! Bu gece yüreğin zayıf, canım!"
-"Peki, o zaman," dedi Defarge, sanki bir düşünce göğsünden sıkılıp çıkarılmış gibi, "uzun bir zaman."
-"Uzun bir zaman," diye tekrarladı karısı; "ve ne zaman uzun bir zaman değil? İntikam ve kısas uzun zaman gerektirir; kural bu."
-"Bir adamı yıldırımla vurmak uzun zaman almaz," dedi Defarge.
-"Ne kadar," diye sordu madam, sakin bir şekilde, "yıldırımı yapmak ve depolamak gerekiyor? Söyle bana."
-Defarge başını düşünceli bir şekilde kaldırdı, sanki bunda da bir şeyler varmış gibi.
-"Bir deprem bir kasabayı yutmak için uzun zaman almaz," dedi madam. "Eh peki! Söyle bana depremi hazırlamak ne kadar sürer?"
-"Uzun bir zaman, sanırım," dedi Defarge.
-"Ama hazır olduğunda, gerçekleşir ve önündeki her şeyi parçalar. Bu arada, her zaman hazırlanıyor, görülmese veya duyulmasa da. Teselin bu. Sakla onu."
-Gözleri parlayarak bir düğüm attı, sanki bir düşmanı boğuyormuş gibi.
-"Sana söylüyorum," dedi madam, vurgu için sağ elini uzatarak, "uzun bir zamandır yolda olsa da, yolda ve geliyor. Sana söylüyorum asla geri çekilmez ve asla durmaz. Sana söylüyorum her zaman ilerliyor. Etrafına bak ve bildiğimiz tüm dünyanın gözlerini düşün, bildiğimiz tüm dünyanın yüzlerini düşün, Jacquerie'nin her saat daha fazla kesinlikle hitap ettiği öfkeyi ve hoşnutsuzluğu düşün. Böyle şeyler sürebilir mi? Bah! Seninle alay ediyorum."
-"Cesur karım," diye karşılık verdi Defarge, başı biraz eğik, elleri arkasında kenetli, bir ilmihal öğretmeni önündeki uysal ve dikkatli bir öğrenci gibi durarak, "bunların hepsini sorgulamıyorum. Ama uzun sürdü ve mümkün - iyi biliyorsun, karım, mümkün - bizim yaşamımızda gelmeyebilir."
-"Eh peki! O zaman ne olmuş?" diye sordu madam, başka bir düşmanı boğulmuş gibi başka bir düğüm atarak.
-"Peki!" dedi Defarge, yarı şikayet yarı özür dileyen bir omuz silkmeyle. "Zaferi göremeyeceğiz."
-"Ona yardım etmiş olacağız," diye karşılık verdi madam, güçlü hareketle uzanmış eliyle. "Yaptığımız hiçbir şey boşuna değil. Tüm ruhumla inanıyorum ki zaferi göreceğiz. Ama görmesek bile, kesinlikle görmeyeceğimi bilsem bile, bana bir aristokratın ve tiranın boynunu göster ve yine de--"
-Sonra madam, dişleri sıkılı, gerçekten çok korkunç bir düğüm attı.
-"Dur!" diye haykırdı Defarge, sanki korkaklıkla suçlanmış gibi biraz kızararak; "ben de, canım, hiçbir şey için durmayacağım."
-"Evet! Ama senin zayıflığın şu ki bazen seni ayakta tutmak için kurbanını ve fırsatını görmen gerekiyor. Onsuz ayakta kal. Zaman geldiğinde, bir kaplan ve bir şeytan sal; ama kaplan ve şeytanı zincirlenmiş olarak bekle - gösterilmeden - ama her zaman hazır."
-Madam bu tavsiyeyi, küçük tezgahına para zinciriyle sanki beynini dağıtıyormuş gibi vurarak sonuçlandırdı ve sonra ağır mendili kolunun altına sakin bir tavırla topladı ve yatma zamanı olduğunu gözlemledi.
-Ertesi öğle vakti hayranlık uyandıran kadını şarap dükkanında olağan yerinde, gayretle örgü örerken gördü. Yanında bir gül duruyordu ve arada bir çiçeğe baktığında, olağan dalgın havasını bozmadan oluyordu. Birkaç müşteri vardı, içen veya içmeyen, ayakta veya oturan, etrafa serpiştirilmiş. Gün çok sıcaktı ve madam'ın yanındaki tüm yapışkan küçük bardaklara meraklı ve maceraperest araştırmalarını genişleten yığınla sinek, diplerinde ölü düştü. Ölümleri dışarıda gezinen diğer sinekler üzerinde hiçbir etki yapmadı, onlara en soğukkanlı tavırla baktılar (sanki kendileri fil ya da öylesine uzak bir şeymiş gibi), aynı akıbete uğrayana kadar. Sineklerin ne kadar dikkatsiz olduğunu düşünmek ilginç! - belki o güneşli yaz günü Saray'da da öyle düşündüler.
-Kapıdan giren bir figür Madam Defarge'ın üzerine yeni olduğunu hissettiği bir gölge düşürdü. Örgüsünü bıraktı ve figüre bakmadan önce gülü başörtüsüne iğnelemeye başladı.
-İlginçti. Madam Defarge gülü aldığı an, müşteriler konuşmayı kesti ve şarap dükkanından yavaş yavaş sızıntı halinde çıkmaya başladı.
+
+"Ama canım!" diye tekrarladı madam, kararlılıkla başını sallayarak; "ama canım! Bu gece yüreğin pek zayıf, canım!"
+
+"Eh, öyle olsun," dedi Defarge, sanki bir düşünce göğsünden zorla sökülüp alınıyormuş gibi, "gerçekten de çok uzun zaman oldu."
+
+"Uzun zaman oldu," diye tekrarladı karısı; "ne zaman uzun zaman olmaz ki? İntikam ve ceza uzun zaman ister; kural budur."
+
+"Bir adamı yıldırımla çarpmak uzun zaman almaz," dedi Defarge.
+
+"Peki yıldırımı yapıp biriktirmek," diye sordu madam soğukkanlılıkla, "ne kadar zaman alır? Söyle bana."
+
+Defarge, sanki bunda da bir şey varmış gibi başını düşünceli bir tavırla kaldırdı.
+
+"Bir depremin bir kasabayı yutması," dedi madam, "uzun zaman almaz. Eh, peki! Söyle bana, depremi hazırlamak ne kadar zaman alır?"
+
+"Uzun zaman, sanırım," dedi Defarge.
+
+"Ama hazır olduğunda gerçekleşir ve önündeki her şeyi toz eder. O zamana kadar da, görülmese, duyulmasa da hep hazırlanır. Senin tesellin bu. Onu sakla."
+
+Gözleri parlayarak, sanki bir düşmanı boğuyormuş gibi bir düğüm attı.
+
+"Sana söylüyorum," dedi madam, vurgu için sağ elini uzatarak, "yolda uzun zaman geçse de o yolda ve geliyor. Sana söylüyorum, asla geri çekilmez, asla durmaz. Sana söylüyorum, hep ilerliyor. Çevrene bak da tanıdığımız bütün dünyanın hayatlarını düşün, tanıdığımız bütün dünyanın yüzlerini düşün, Jacquerie'nin her saat daha büyük bir kesinlikle seslendiği öfkeyi ve hoşnutsuzluğu düşün. Böyle şeyler sürüp gidebilir mi? Hıh! Güldürme beni."
+
+"Cesur karım," diye karşılık verdi Defarge, önünde başı hafifçe eğik, elleri arkasında kenetli, ilmihal hocasının karşısındaki uysal ve dikkatli bir öğrenci gibi durarak, "bütün bunlardan şüphe etmiyorum. Ama çok uzun sürdü ve mümkündür — sen de iyi bilirsin, karım, mümkündür — ki bizim ömrümüz boyunca gelmesin."
+
+"Eh, peki! Ne olmuş yani?" diye sordu madam, sanki bir düşman daha boğuluyormuş gibi bir düğüm daha atarak.
+
+"Şey!" dedi Defarge, yarı yakınır yarı özür diler gibi omuz silkerek. "Zaferi göremeyeceğiz."
+
+"Ona yardım etmiş olacağız," diye karşılık verdi madam, uzattığı elini kuvvetle sallayarak. "Yaptığımız hiçbir şey boşuna yapılmış değil. Bütün ruhumla inanıyorum ki zaferi göreceğiz. Ama göremesek bile, göremeyeceğimizi kesin olarak bilsem bile, göster bana bir aristokratın, bir zorbanın boynunu, yine de —"
+
+Bunun üzerine madam dişlerini sıkıp gerçekten de pek korkunç bir düğüm attı.
+
+"Dur!" diye bağırdı Defarge, sanki korkaklıkla suçlanmış gibi biraz kızararak; "ben de, canım, hiçbir şeyden geri durmam."
+
+"Evet! Ama zayıflığın şu ki, ayakta durabilmek için bazen kurbanını ve fırsatını görmen gerekiyor. Bunlar olmadan da ayakta dur. Zamanı gelince bir kaplanı ve bir şeytanı salıver; ama o zamanı, kaplanla şeytanı zincirde tutarak — göstermeden — yine de her an hazır bekleterek bekle."
+
+Madam bu öğüdün sonucunu, para zincirini sanki beynini dağıtıyormuş gibi küçük tezgâhına vurarak pekiştirdi; sonra ağır mendili sakin bir tavırla koltuğunun altına alıp yatma vaktinin geldiğini söyledi.
+
+Ertesi gün öğle vakti, bu takdire değer kadın şarap dükkânındaki her zamanki yerinde gayretle örgü örüyordu. Yanında bir gül duruyordu; arada bir çiçeğe göz atsa da bu, her zamanki dalgın tavrını hiç bozmuyordu. Dükkânın şurasına burasına dağılmış, kimi içen kimi içmeyen, kimi ayakta kimi oturan birkaç müşteri vardı. Gün çok sıcaktı; madamın yanındaki yapış yapış küçük kadehlerin hepsine meraklı ve maceracı araştırmalarını yayan yığınla sinek, dibe düşüp ölüyordu. Ölümleri, dışarıda gezinen öteki sineklerde hiçbir iz bırakmıyordu; onlar da aynı akıbete uğrayana kadar ölülere en soğukkanlı biçimde (sanki kendileri fil ya da sineklerden o denli uzak bir şeymiş gibi) bakıyorlardı. Sineklerin ne kadar gamsız olduğunu düşünmek ilginç! — belki o güneşli yaz günü Saray'da da aynı şeyi düşünüyorlardı.
+
+Kapıdan giren biri Madam Defarge'ın üstüne bir gölge düşürdü; madam bunun yeni bir gölge olduğunu hissetti. Örgüsünü bıraktı ve gelene bakmadan önce gülünü başlığına iğnelemeye başladı.
+
+Tuhaftı. Madam Defarge gülü eline aldığı anda müşteriler konuşmayı kesti ve yavaş yavaş şarap dükkânından ayrılmaya başladılar.
+
 "İyi günler, madam," dedi yeni gelen.
+
 "İyi günler, mösyö."
-Yüksek sesle söyledi, ama örgüsüne dönerken kendi kendine ekledi: "Hah! İyi günler, yaş yaklaşık kırk, boy yaklaşık beş ayak dokuz, siyah saç, genellikle oldukça yakışıklı çehre, koyu ten, koyu gözler, ince, uzun ve solgun yüz, kartal burun ama düz değil, sol yanağa doğru uğursuz bir ifade veren tuhaf bir eğimi var! İyi günler, hepinize!"
-"Lütfen bana bir kadeh eski konyak ve bir yudum serin taze su verin, madam."
-Madam nazik bir tavırla yerine getirdi.
-"Harika konyak bu, madam!"
-Bu ilk kez böyle iltifat alıyordu ve Madam Defarge geçmişini bilecek kadar biliyordu. Yine de konyağın pohpohlandığını söyledi ve örgüsünü aldı. Ziyaretçi birkaç an parmaklarını izledi ve yeri genel olarak gözlemleme fırsatını değerlendirdi.
-"Büyük hünerle örüyorsunuz, madam."
+
+Bunu yüksek sesle söyledi, ama örgüsüne yeniden koyulurken kendi kendine ekledi: "Hah! İyi günler, yaşı kırk kadar, boyu beş ayak dokuz inç kadar, saçları siyah, genel olarak oldukça yakışıklı bir çehre, teni esmer, gözleri koyu, ince, uzun ve solgun yüzlü, kartal burunlu ama burnu düz değil, sol yanağa doğru tuhaf bir eğilimi var, bu da ona uğursuz bir ifade veriyor! İyi günler, hepinize birden!"
+
+"Lütfen bana küçük bir kadeh eski konyak ve bir yudum serin, taze su verir misiniz, madam."
+
+Madam kibar bir tavırla isteğini yerine getirdi.
+
+"Harika bir konyak bu, madam!"
+
+Konyak ilk kez böyle bir övgüye mazhar oluyordu ve Madam Defarge onun geçmişini, bunun doğru olmadığını bilecek kadar iyi biliyordu. Yine de konyağın bu iltifattan gururlandığını söyleyip örgüsünü eline aldı. Ziyaretçi birkaç dakika onun parmaklarını izledi ve fırsattan yararlanıp mekânı genel olarak gözden geçirdi.
+
+"Çok ustaca örüyorsunuz, madam."
+
 "Alışkınım."
-"Güzel bir desen de!"
-"SİZ öyle mi düşünüyorsunuz?" dedi madam, bir gülümsemeyle ona bakarak.
-"Kesinlikle. Ne için olduğunu sorabilir miyim?"
-"Hobi," dedi madam, hâlâ bir gülümsemeyle ona bakarken parmakları çevikçe hareket ediyordu.
-"Kullanım için değil mi?"
-"Duruma bağlı. Bir gün kullanım bulabilirim. Bulursam - Peki," dedi madam, nefes alarak ve sert bir tür cilveyle başını sallayarak, "kullanırım!"
-Dikkat çekiciydi; ama Saint Antoine'ın zevki kesinlikle Madam Defarge'ın başörtüsündeki güle karşıymış gibi görünüyordu. İki adam ayrı ayrı girmiş ve içki sipariş etmek üzereymişken, o yeniliği görünce bocaladı, orada olmayan bir arkadaş arıyormuş gibi etrafa bakınma bahanesi yaptı ve gitti. Bu ziyaretçi girdiğinde orada olanlardan da hiç kimse kalmadı. Hepsi sıvışmıştı. Casus gözlerini açık tutmuştu, ama hiçbir işaret tespit edememişti. Yoksul, amaçsız, tesadüfi bir tavırla oyalanıp gitmişlerdi, tamamen doğal ve suçlanamaz.
-"JOHN," diye düşündü madam, parmakları örerken ve gözleri yabancıya bakarken işini kontrol ederek. "Yeterince uzun kal ve gitmeden önce 'BARSAD' öreceğim."
-"Bir kocanız var mı, madam?"
+
+"Deseni de pek güzel!"
+
+"Siz öyle mi düşünüyorsunuz?" dedi madam, gülümseyerek ona bakarak.
+
+"Kesinlikle. Ne için olduğunu sormak mümkün mü?"
+
+"Eğlence olsun diye," dedi madam; parmakları çevik çevik oynarken hâlâ gülümseyerek ona bakıyordu.
+
+"Kullanmak için değil mi?"
+
+"Duruma göre. Belki bir gün bir kullanım alanı bulurum. Bulursam — Eh," dedi madam, derin bir nefes alıp sert bir tür cilveyle başını sallayarak, "kullanırım!"
+
+Dikkat çekiciydi; ama Saint Antoine'ın zevki, Madam Defarge'ın başlığındaki bir güle kesinlikle karşıymış gibi görünüyordu. İki adam ayrı ayrı içeri girmiş, tam içki ısmarlayacakken bu yeniliği görünce duraksamış, orada olmayan bir arkadaşlarını arıyormuş gibi etrafa bakınır görünüp çıkıp gitmişlerdi. Bu ziyaretçi içeri girdiğinde orada bulunanlardan da tek kişi kalmamıştı. Hepsi birer birer sıvışmıştı. Casus gözlerini dört açmıştı ama hiçbir işaret yakalayamamıştı. Hepsi yoksulluğun damgasını taşıyan, amaçsız, rastlantısal, son derece doğal ve kusur bulunamayacak bir tavırla aylak aylak çıkıp gitmişlerdi.
+
+"John," diye düşündü madam, parmakları örerken ve gözleri yabancıya bakarken işini denetleyerek. "Yeterince uzun kal da, sen gitmeden 'BARSAD'ı öreyim."
+
+"Kocanız var mı, madam?"
+
 "Var."
-"Çocuklar?"
-"Çocuk yok."
-"İşler kötü görünüyor?"
-"İşler çok kötü; halk çok fakir."
-"Ah, o talihsiz, sefil halk! Üstelik çok ezilmiş - dediğiniz gibi."
-"SİZİN dediğiniz gibi," diye düzeltti madam, ustaca ona hiç iyi olmayan fazladan bir şey örerek.
-"Affedersiniz; kesinlikle bunu söyleyen bendim, ama siz doğal olarak öyle düşünüyorsunuz. Elbette."
-"BEN mi düşünüyorum?" diye karşılık verdi madam, yüksek bir sesle. "Ben ve kocam bu şarap dükkanını açık tutmak için düşünmeden yeterince iş yapıyoruz. Burada düşündüğümüz tek şey nasıl yaşayacağımız. Düşündüğümüz konu bu ve sabahtan geceye bize başkaları hakkında kafamızı karıştırmadan düşünmemiz için yeterli veriyor. Başkaları için mi düşünüyorum? Hayır, hayır."
-Bulabileceği veya yapabileceği kırıntıları toplamak için orada olan casus, çaresiz durumunun uğursuz yüzünde ifade edilmesine izin vermedi; ama dirsekini Madam Defarge'ın küçük tezgahına dayayarak ve ara sıra konyağını yudumlarken dedikodu eden bir şıklık havasıyla durdu.
-"Kötü bir iş bu, madam, Gaspard'ın idamı. Ah! Zavallı Gaspard!" Büyük bir şefkat iç çekişiyle.
-"İmanıma!" diye karşılık verdi madam, soğuk ve hafif, "eğer insanlar bıçakları böyle amaçlar için kullanırsa, bedelini ödemek zorundalar. Lüksünün fiyatının ne olduğunu önceden biliyordu; fiyatı ödedi."
-"İnanıyorum ki," dedi casus, güven davet eden bir tonda sesini alçaltarak ve kötü yüzünün her kasında yaralı bir devrimci hassasiyet ifade ederek: "inanıyorum ki bu mahallede, zavallının talihsiz kaderiyle ilgili çok şefkat ve öfke var? Aramızda."
-"Öyle mi?" diye sordu madam, dalgın.
-"Değil mi?"
-"--İşte kocam!" dedi Madam Defarge.
-Şarap dükkanının sahibi kapıdan girerken, casus şapkasına dokunarak ve çekici bir gülümsemeyle selam verdi, "İyi günler, Jacques!" Defarge durdu ve ona baktı.
-"İyi günler, Jacques!" casus tekrarladı; bakış altında pek o kadar güvenli veya rahat gülümsemeli değildi.
-"Yanılıyorsunuz, mösyö," diye karşılık verdi şarap dükkanının sahibi. "Beni başkasıyla karıştırıyorsunuz. Bu benim adım değil. Ben Ernest Defarge'ım."
-"Hepsi aynı," dedi casus, havai ama rahatsız da: "iyi günler!"
-"İyi günler!" diye cevapladı Defarge, kuru bir şekilde.
-"Size, mösyö, girmeden önce sohbet etmekten zevk aldığım madama söylüyordum, bana söylediklerine göre - ve şaşılacak bir şey değil! - Saint Antoine'da zavallı Gaspard'ın talihsiz kaderiyle ilgili çok şefkat ve öfke var."
-"Hiç kimse bana söylemedi," dedi Defarge, başını sallayarak. "Bunun hakkında hiçbir şey bilmiyorum."
-Bunu söyledikten sonra küçük tezgahın arkasına geçti ve eliyle karısının sandalyesinin arkasında durdu, o bariyerin üzerinden her ikisinin de karşısında olduğu ve her ikisinin de en büyük memnuniyetle vuracağı kişiye baktı.
-İşine çok alışkın olan casus bilinçsiz tavrını değiştirmedi, ama küçük konyak kadehini bitirdi, bir yudum taze su aldı ve başka bir kadeh konyak istedi. Madam Defarge ona koydu, tekrar örgüsünü aldı ve üzerinde küçük bir şarkı mırıldandı.
-"Bu mahalleyi iyi tanıyor görünüyorsunuz; yani benden daha iyi mi?" diye gözlemledi Defarge.
-"Hiç de değil, ama daha iyi tanımayı umuyorum. Onun sefil sakinlerine çok derinden ilgi duyuyorum."
+
+"Çocuklarınız?"
+
+"Çocuğum yok."
+
+"İşler kötü gibi?"
+
+"İşler çok kötü; halk çok yoksul."
+
+"Ah, zavallı, sefil halk! Üstelik öylesine ezilmiş ki — sizin de dediğiniz gibi."
+
+"Sizin dediğiniz gibi," diye düzeltti madam onu ve adının içine ustalıkla, ona hiç de hayır getirmeyecek fazladan bir şey ördü.
+
+"Affedersiniz; elbette bunu söyleyen bendim, ama siz de doğal olarak böyle düşünüyorsunuz. Tabii."
+
+"Ben mi düşünüyorum?" diye karşılık verdi madam, sesini yükselterek. "Kocamla benim, düşünmeye kalkmadan bu şarap dükkânını açık tutmaya uğraşmak yeterince işimiz var. Burada tek düşündüğümüz, nasıl yaşayacağımız. Bizim düşündüğümüz konu budur ve başkaları hakkında kafamızı yormadan, sabahtan akşama kadar bize düşünecek yeterince şey verir. Ben mi başkaları için düşüneceğim? Yok, yok."
+
+Bulabileceği ya da uydurabileceği her kırıntıyı toplamak için orada bulunan casus, şaşkınlığının uğursuz yüzüne yansımasına izin vermedi; dirseğini Madam Defarge'ın küçük tezgâhına dayamış, arada bir konyağından yudumlayarak, dedikoducu bir kibarlık havasıyla dikildi.
+
+"Kötü bir iş bu, madam, Gaspard'ın idamı. Ah! Zavallı Gaspard!" Derin bir acımayla içini çekerek.
+
+"Doğrusu," diye karşılık verdi madam, soğukkanlı ve hafif bir tavırla, "insanlar bıçakları böyle amaçlar için kullanırsa bedelini ödemek zorunda kalırlar. Bu lüksün bedelinin ne olduğunu önceden biliyordu; bedelini ödedi."
+
+"Sanırım," dedi casus, yumuşak sesini güven isteyen bir tona indirerek ve kötü yüzünün her kasında incinmiş bir devrimci duyarlılık sergileyerek, "sanırım bu mahallede zavallı adam için çok acıma ve öfke var? Aramızda kalsın."
+
+"Var mı?" diye sordu madam, boş boş.
+
+"Yok mu?"
+
+"— İşte kocam geldi!" dedi Madam Defarge.
+
+Şarap dükkânının sahibi kapıdan girerken casus şapkasına dokunarak onu selamladı ve çekici bir gülümsemeyle "İyi günler, Jacques!" dedi. Defarge olduğu yerde durup ona dik dik baktı.
+
+"İyi günler, Jacques!" diye tekrarladı casus; bu bakış karşısında ne sesi o kadar kendinden emindi ne de gülümsemesi o kadar rahat.
+
+"Yanılıyorsunuz, mösyö," diye karşılık verdi şarap dükkânının sahibi. "Beni başkasıyla karıştırıyorsunuz. Benim adım o değil. Ben Ernest Defarge'ım."
+
+"Hepsi bir," dedi casus, umursamaz bir tavırla ama biraz da bozularak: "iyi günler!"
+
+"İyi günler!" diye yanıtladı Defarge, kuru bir sesle.
+
+"Siz içeri girdiğinizde sohbet etme zevkine eriştiğim madama, bana söylendiğine göre Saint Antoine'da zavallı Gaspard'ın bahtsız akıbeti konusunda — hiç de şaşılacak şey değil! — büyük bir duygudaşlık ve öfke olduğunu anlatıyordum."
+
+"Bana kimse böyle bir şey söylemedi," dedi Defarge, başını iki yana sallayarak. "Bundan hiç haberim yok."
+
+Bunu söyledikten sonra küçük tezgâhın arkasına geçti ve elini karısının sandalyesinin arkalığına koyup o engelin üzerinden, ikisinin de karşı olduğu ve ikisinin de büyük bir memnuniyetle vuracağı adama baktı.
+
+İşine iyice alışmış olan casus, hiçbir şeyin farkında değilmiş gibi duran tavrını bozmadı; küçük kadehindeki konyağı dibine kadar içti, bir yudum taze su aldı ve bir kadeh konyak daha istedi. Madam Defarge ona konyağı doldurdu, yeniden örgüsüne koyuldu ve bir yandan da küçük bir şarkı mırıldandı.
+
+"Bu mahalleyi iyi tanıyor gibisiniz; yani benden de iyi, öyle mi?" dedi Defarge.
+
+"Hiç de değil, ama daha iyi tanımayı umuyorum. Sefil sakinleriyle öylesine derinden ilgileniyorum ki."
+
 "Hah!" diye mırıldandı Defarge.
-"Sizinle sohbet etmenin zevki, Mösyö Defarge," diye sürdürdü casus, "bana adınızla bazı ilginç bağlantılar besleme onuruna sahip olduğumu hatırlatıyor."
-"Gerçekten mi!" dedi Defarge, çok kayıtsız.
-"Evet, gerçekten. Doktor Manette serbest bırakıldığında, siz, onun eski hizmetkarı, onun sorumluluğunu üstlendiniz, biliyorum. Size teslim edildi. Gördüğünüz gibi koşullardan haberdarım?"
-"Gerçek böyle, kesinlikle," dedi Defarge. Örgü örerken ve mırıldanırken karısının dirseğinin tesadüfi bir dokunuşuyla, cevap vermesinin en iyisi olacağı ama her zaman kısaca cevap vermesi gerektiği kendisine iletilmişti.
-"Size," dedi casus, "kızı geldi; ve sizin bakımınızdan kızı onu aldı, küçük bir peruklu - Lorry - Tellson ve Şirketi bankasından - düzgün esmer bir mösyö eşliğinde - nasıl diyorlar? - İngiltere'ye."
-"Gerçek böyle," diye tekrarladı Defarge.
-"Çok ilginç hatıralar!" dedi casus. "Doktor Manette'i ve kızını İngiltere'de tanıdım."
+
+"Sizinle sohbet etmenin zevki, Mösyö Defarge," diye sürdürdü casus, "adınızla ilgili bazı ilginç anıları saklama onuruna sahip olduğumu bana hatırlatıyor."
+
+"Sahi mi!" dedi Defarge, büyük bir kayıtsızlıkla.
+
+"Evet, sahi. Doktor Manette serbest bırakıldığında, eski hizmetkârı olarak onun bakımını sizin üstlendiğinizi biliyorum. Size teslim edilmişti. Görüyorsunuz, olup bitenden haberim var, değil mi?"
+
+"Doğrudur, elbette," dedi Defarge. Örgü örüp şarkı mırıldanan karısının dirseği, rastlantıymış gibi ona dokunarak, en iyisinin cevap vermek ama her zaman kısa kesmek olduğunu kendisine iletmişti.
+
+"Kızı size gelmişti," dedi casus; "ve kızı onu sizin bakımınızdan alıp, derli toplu, kahverengiler giymiş bir mösyönün — adı neydi? — küçük peruklu — Lorry — Tellson ve Ortakları Bankası'ndan — eşliğinde İngiltere'ye götürmüştü."
+
+"Doğrudur," diye tekrarladı Defarge.
+
+"Çok ilginç anılar!" dedi casus. "Doktor Manette'i ve kızını İngiltere'de tanıdım."
+
 "Öyle mi?" dedi Defarge.
-"Artık onlardan pek haber almıyorsunuz?" dedi casus.
+
+"Artık onlardan pek haber almıyorsunuz, değil mi?" dedi casus.
+
 "Hayır," dedi Defarge.
-"Gerçekten," diye araya girdi madam, işinden ve küçük şarkısından başını kaldırarak, "onlardan hiç haber almıyoruz. Güvenli varışlarının haberini aldık ve belki başka bir mektup, ya da belki iki; ama o zamandan beri yavaş yavaş hayatta kendi yollarını tuttular - biz kendininkini - ve yazışmadık."
-"Tamamen öyle, madam," diye karşılık verdi casus. "Evlenecek."
-"Evlenecek mi?" diye tekrarladı madam. "Çoktan evlenmiş olacak kadar güzeldi. Siz İngilizler soğuksunuz, bana öyle geliyor."
+
+"Aslına bakarsanız," diye söze karıştı madam, işinden ve küçük şarkısından başını kaldırarak, "onlardan hiç haber almıyoruz. Sağ salim vardıkları haberini aldık, belki bir mektup daha, belki iki; ama o zamandan beri onlar yavaş yavaş hayatta kendi yollarına gittiler — biz de kendi yolumuza — ve hiç yazışmadık."
+
+"Tam da öyle, madam," diye karşılık verdi casus. "Kız evlenecek."
+
+"Evlenecek mi?" diye yineledi madam. "Çoktan evlenmiş olacak kadar güzeldi. Siz İngilizler soğuksunuz, bana öyle geliyor."
+
 "Oh! İngiliz olduğumu biliyorsunuz."
-"Dilinizin öyle olduğunu algılıyorum," diye karşılık verdi madam; "ve dil neyse, sanırım adam odur."
-Kimliğin belirlenmesini bir iltifat olarak almadı; ama elinden gelenin en iyisini yaptı ve bir kahkahayla geçiştirdi. Konyağını sonuna kadar yudumladıktan sonra ekledi:
-"Evet, Matmazel Manette evlenecek. Ama bir İngilizle değil; kendisi gibi doğuştan Fransız biriyle. Ve Gaspard'dan bahsetmişken (ah, zavallı Gaspard! Acımasızdı, acımasız!), evleneceği kişinin Gaspard'ın o kadar çok ayak yüksekliğe çıkarıldığı Mösyö Marki'nin yeğeni olması ilginç bir şey; başka bir deyişle, şimdiki Marki. Ama İngiltere'de bilinmeden yaşıyor, orada Marki değil; o Bay Charles Darnay. D'Aulnais annesinin ailesinin adı."
-Madam Defarge kararlılıkla örgü örmeye devam etti, ama istihbarat kocası üzerinde elle tutulur bir etki yaptı. Küçük tezgahın arkasında bir kibrit çakma ve piposunu yakma konusunda ne yaparsa yapsın, rahatsızdı ve eli güvenilir değildi. Casus, bunu göremeseydi veya aklına kaydetmeseydi casus olmazdı.
-En azından bu bir isabeti yapmış olarak, ne değerinde olduğu kanıtlanacaksa kanıtlansın ve ona başka bir fırsat vermek için gelen müşteri olmayınca, Bay Barsad içtiğinin parasını ödedi ve gitti: ayrılmadan önce, kibarca bir tavırla, Mösyö ve Madam Defarge'ı tekrar görmenin zevkini iple çektiğini söyleme fırsatını değerlendirdi. Saint Antoine'ın dış varlığına çıktıktan sonra birkaç dakika, geri gelmesi ihtimaline karşı karı koca tam olarak onu bıraktığı gibi kaldılar.
-"Doğru olabilir mi," dedi Defarge, alçak sesle, eliyle karısının sandalyesinin arkasında sigara içerek dururken karısına bakarak: "Matmazel Manette hakkında söylediği?"
-"O söylediğine göre," diye karşılık verdi madam, kaşlarını biraz kaldırarak, "muhtemelen yanlıştır. Ama doğru olabilir."
-"Öyleyse--" Defarge başladı ve durdu.
-"Öyleyse?" diye tekrarladı karısı.
-"--Ve gelirse, yaşayıp zaferini görürken - umarım, onun iyiliği için, Kader kocasını Fransa'dan uzak tutar."
-"Kocasının kaderi," dedi Madam Defarge, olağan soğukkanlılığıyla, "onu gideceği yere götürecek ve onu bitirecek sona götürecek. Bildiğim tek şey bu."
-"Ama çok garip - şimdi, en azından, çok garip değil mi" - dedi Defarge, karısına kabul ettirmek için biraz yalvararak, "tüm şefkatimizden sonra Mösyö babası ve kendisi için, kocasının adının şu anda senin elinle, az önce bizi bırakan o cehennemlik köpeğin yanında yasaklanmış olması?"
-"Bundan daha garip şeyler olacak geldiğinde," diye cevapladı madam. "İkisini de burada tutuyorum, kesinlikle; ve ikisi de liyakatleri için burada; bu yeterli."
-Bu sözleri söylediğinde örgüsünü topladı ve hemen başına sarılı mendilden gülü çıkardı. Ya Saint Antoine itiraz edilen süslemenin gittiğine dair içgüdüsel bir his duydu, ya da Saint Antoine kaybolmasını bekliyordu; her nasılsa, Aziz çok kısa bir süre sonra oyalanmaya cesaret etti ve şarap dükkanı alışılmış görünümüne kavuştu.
-Akşam, diğer tüm mevsimlerden Saint Antoine'ın kendini içten dışa çevirdiği, kapı eşiklerinde ve pencere pervazlarında oturduğu, bir nefes hava için pis sokakların ve avluların köşelerine geldiği mevsimde, Madam Defarge elinde işiyle yerden yere ve gruptan gruba geçmeye alışkındı: bir Misyoner - onun gibi çoğu vardı - dünyanın bir daha asla yetiştirmemesi gereken türden. Tüm kadınlar örgü örüyordu. Değersiz şeyler örüyorlardı; ama mekanik iş yemek ve içmek için mekanik bir ikameydi; eller çeneler ve sindirim aparatı için hareket ediyordu: eğer kemikli parmaklar hareketsiz kalsaydı, mideler daha çok açlıktan kıvranırdı.
-Ama parmaklar gittikçe, gözler gitti ve düşünceler. Ve Madam Defarge gruptan gruba ilerlerken, üçü de konuştuğu ve arkasında bıraktığı her küçük kadın düğümünde daha hızlı ve daha şiddetli gidiyordu.
-Kocası kapısında sigara içerek, ona hayranlıkla bakıyordu. "Büyük bir kadın," dedi, "güçlü bir kadın, muhteşem bir kadın, korkunç derecede muhteşem bir kadın!"
-Karanlık kapandı ve sonra kilise çanlarının çalması ve kadınlar örgü örerken, örgü örerken, Saray Avlusunda askeri davulların uzaktan çalması geldi. Karanlık onları kuşattı. Başka bir karanlık da aynı kesinlikle kapanıyordu, kilise çanları, o zaman Fransa'nın birçok havadar çan kulesinde hoş hoş çalarken, gürleyen toplara eritilecekti; askeri davullar, o gece Güç ve Bolluk, Özgürlük ve Hayatın sesi kadar kudretli olan sefil bir sesi boğmak için çalacaktı. Örgü ören, örgü ören kadınların etrafında o kadar çok şey kapanıyordu ki, kendi kendileri henüz inşa edilmemiş bir yapının etrafında kapanıyordu, orada örgü örecekler, örgü örecekler, düşen kafaları sayarak.
+
+"Dilinizin İngiliz olduğunu görüyorum," diye karşılık verdi madam; "dil neyse adam da odur, sanırım."
+
+Adam bu kimlik tespitini bir iltifat olarak almadı; ama idare etti ve bir gülüşle geçiştirdi. Konyağını sonuna kadar yudumladıktan sonra ekledi:
+
+"Evet, Bayan Manette evlenecek. Ama bir İngilizle değil; kendisi gibi doğuştan Fransız olan biriyle. Gaspard'dan söz açılmışken (ah, zavallı Gaspard! Zalimceydi, zalimce!), tuhaf bir şey, Gaspard'ın uğruna onca ayak yükseğe çıkarıldığı Mösyö Marki'nin yeğeniyle evleniyor; başka bir deyişle, şimdiki Marki'yle. Ama o İngiltere'de adı sanı bilinmeden yaşıyor, orada Marki falan değil; Bay Charles Darnay'dir. D'Aulnais, annesinin ailesinin adıdır."
+
+Madam Defarge istifini bozmadan örmeyi sürdürdü, ama bu haberin kocası üzerinde elle tutulur bir etkisi oldu. Küçük tezgâhın arkasında çakmak çakıp piposunu yakmak için ne yaptıysa yapsın, sarsılmıştı ve eline güvenilemiyordu. Casus bunu görmeseydi ya da aklının bir köşesine yazmasaydı casus olmazdı.
+
+Değeri ne çıkarsa çıksın, en azından bu tek isabeti kaydetmiş olan ve başka bir isabete yardım edecek müşteri de gelmeyen Bay Barsad, içtiklerinin parasını ödeyip izin istedi; ayrılmadan önce kibarca, Mösyö ve Madam Defarge'ı yeniden görme zevkini dört gözle beklediğini söylemeyi de ihmal etmedi. Adam dışarıda Saint Antoine'ın huzuruna çıktıktan sonra birkaç dakika boyunca karı koca, geri döner diye tam onun bıraktığı gibi kaldılar.
+
+"Doğru olabilir mi," dedi Defarge alçak bir sesle, elini karısının sandalyesinin arkalığına koymuş, pipo içerek ayakta dururken ona yukarıdan bakarak, "Matmazel Manette hakkında söyledikleri?"
+
+"Onun ağzından çıktığına göre," diye karşılık verdi madam, kaşlarını hafifçe kaldırarak, "muhtemelen yalandır. Ama doğru da olabilir."
+
+"Eğer doğruysa —" diye başladı Defarge ve durdu.
+
+"Eğer doğruysa?" diye tekrarladı karısı.
+
+"— Ve eğer o gün gelir de biz zaferini görecek kadar yaşarsak — umarım, kızın hatırı için, Kader kocasını Fransa'dan uzak tutar."
+
+"Kocasının kaderi," dedi Madam Defarge, her zamanki soğukkanlılığıyla, "onu gideceği yere götürecek ve onu, sonu olacak o sona ulaştıracaktır. Tek bildiğim bu."
+
+"Ama çok tuhaf — şimdi, en azından, çok tuhaf değil mi —" dedi Defarge, bunu kabul etmesi için karısına adeta yalvararak, "onun mösyö babasına ve kendisine bunca duygudaşlık beslememize rağmen, kocasının adının şu anda senin elinle, az önce yanımızdan ayrılan o cehennemlik köpeğin adının yanında kara listeye geçirilmesi?"
+
+"O gün geldiğinde bundan da tuhaf şeyler olacak," diye yanıtladı madam. "İkisi de burada, kesinlikle; ikisi de hak ettikleri için burada; bu kadarı yeter."
+
+Bu sözleri söyledikten sonra örgüsünü sardı ve çok geçmeden başına sarılı mendilden gülü çıkardı. Ya Saint Antoine'ın o sakıncalı süsün gittiğine dair içgüdüsel bir sezgisi vardı ya da Saint Antoine onun kaybolmasını gözlüyordu; her ne ise, Aziz çok geçmeden cesaretini toplayıp aylak aylak içeri süzüldü ve şarap dükkânı her zamanki görünümüne kavuştu.
+
+Akşamları, yani Saint Antoine'ın günün her vaktinden çok içini dışına çıkardığı, kapı eşiklerine ve pencere pervazlarına oturduğu, bir nefes hava almak için pis sokakların ve avluların köşelerine geldiği o saatlerde, Madam Defarge elinde işiyle yerden yere, topluluktan topluluğa geçmeyi âdet edinmişti: dünyanın bir daha asla yetiştirmemesinin iyi olacağı türden bir Misyoner — onun gibi pek çokları vardı. Bütün kadınlar örgü örüyordu. Değersiz şeyler örüyorlardı; ama bu mekanik iş, yiyip içmenin mekanik bir ikamesiydi; eller, çenelerin ve sindirim aygıtının yerine çalışıyordu: kemikli parmaklar dursaydı, mideler açlıktan daha da kıvranırdı.
+
+Ama parmaklar işledikçe gözler de işliyordu, düşünceler de. Ve Madam Defarge topluluktan topluluğa geçtikçe, konuşup ardında bıraktığı her küçük kadın kümesinde bu üçü daha da hızlanıyor, daha da şiddetleniyordu.
+
+Kocası kapısının önünde pipo içiyor, hayranlıkla onun ardından bakıyordu. "Büyük bir kadın," dedi, "güçlü bir kadın, muhteşem bir kadın, korkunç derecede muhteşem bir kadın!"
+
+Karanlık çöktü; sonra kilise çanlarının sesi ve Saray Avlusu'ndaki askeri davulların uzaktan gelen gümbürtüsü duyuldu; kadınlar ise oturmuş örüyor, örüyorlardı. Karanlık onları sardı. Bir başka karanlık da aynı kesinlikle yaklaşıyordu: o zaman, Fransa'nın nice havadar çan kulesinde şimdi hoş hoş çalan kilise çanları eritilip gürleyen toplara dönüştürülecek; askeri davullar, o gece Güç ve Bolluk'un, Özgürlük ve Hayat'ın sesi kadar kudretli olan zavallı bir sesi boğmak için çalınacaktı. Oturmuş örüp duran kadınların çevresine öylesine çok şey yaklaşıyordu ki, kendileri de henüz kurulmamış bir yapının çevresine yaklaşıyorlardı; o yapının başında oturup örecek, örecek, düşen başları sayacaklardı.

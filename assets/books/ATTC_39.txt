@@ -1,235 +1,257 @@
-Otuz Dokuzuncu Bölüm
-Oyun Yapıldı
-Sydney Carton ve Hapishanelerin Koyunu bitişik karanlık odadayken, o kadar alçak sesle konuşuyorlardı ki hiç ses duyulmadı, Bay Lorry Jerry'ye hatırı sayılır şüphe ve güvensizlikle baktı. O dürüst esnafın bakışı alış tarzı güven vermedi; sanki elli ayağı varmış ve hepsini deniyormuş gibi üzerinde durduğu bacağını sürekli değiştirdi; tırnaklarını çok şüpheli bir dikkatle inceledi; ve Bay Lorry'nin gözü ne zaman onunkini yakalasa, önünde avuç içi gerektiren o tuhaf kısa öksürüğe tutuldu ki, bu nadiren, eğer varsa, mükemmel karakter açıklığına eşlik eden bir rahatsızlık olarak bilinir.
+Oyun Kuruldu
+Charles Dickens
+Üçüncü Kitap: Bir Fırtınanın İzi, 9. Bölüm
+
+Sydney Carton'la hapishanelerin Koyunu bitişikteki karanlık odada, tek bir ses duyulmayacak kadar alçak sesle konuşurlarken, Bay Lorry hatırı sayılır bir kuşku ve güvensizlikle Jerry'yi süzüyordu. O dürüst esnafın bu bakışı karşılayış biçimi pek güven verici değildi: sanki elli tane bacağı varmış da hepsini tek tek deniyormuş gibi durmadan ağırlığını bir bacağından ötekine veriyor; tırnaklarını son derece kuşku uyandırıcı bir dikkatle inceliyor; Bay Lorry'nin gözü ne zaman onun gözüne takılsa, önüne avuç tutmayı gerektiren o tuhaf, kısa öksürüklerden birine tutuluyordu; oysa bu türden bir öksürüğün, yaradılışı tümüyle açık insanlarda görülen bir rahatsızlık olduğu pek nadiren, belki de hiçbir zaman bilinmemiştir.
 
 "Jerry," dedi Bay Lorry. "Buraya gel."
 
-Bay Cruncher omuzlarından biri önde olarak yandan yaklaştı.
+Bay Cruncher bir omzunu öne vermiş, yan yan ilerledi.
 
-"Bir haberci dışında ne oldun?"
+"Ulaklıktan başka ne iş yaptın sen?"
 
-Patronuna dikkatli bir bakışla birlikte biraz düşündükten sonra, Bay Cruncher parlak bir fikirle "Tarımsal karakter" diye cevap vermeyi tasarladı.
+Bir süre düşünüp taşındıktan ve bu arada efendisine dikkatle baktıktan sonra, Bay Cruncher'ın aklına şu parlak cevap geldi: "Zirahatçı karekter."
 
-"Aklım çok şüpheleniyor," dedi Bay Lorry, ona kızgınca işaret parmağını sallayarak, "saygın ve büyük Tellson Evini bir paravan olarak kullandığından ve rezil bir tanımda yasadışı bir işin olduğundan. Eğer öyleyse, İngiltere'ye döndüğünde sana dost olmamı bekleme. Eğer öyleyse, sırrını saklamamamı bekle. Tellson's aldatılmayacak."
+"İçimden bir ses diyor ki," dedi Bay Lorry, öfkeyle işaretparmağını ona doğru sallayarak, "sen saygıdeğer ve büyük Tellson Bankasını kendine paravan yapmışsın, rezil türden, kanunsuz bir işle uğraşmışsın. Eğer öyleyse, İngiltere'ye döndüğümüzde sana dostluk etmemi bekleme. Eğer öyleyse, sırrını saklamamı da bekleme. Tellson'a kimse oyun oynayamaz."
 
-"Umarım, efendim," diye yalvardı utanmış Bay Cruncher, "sizin gibi bir beyefendi ki, inek gibi çalışarak saçları ağarana kadar şerefine nail olduğum, öyle olsa bile - öyle demiyorum ama, öyle olsa bile - bana zarar vermeden önce iki kere düşünür. Ve hesaba katılması gereken şu ki, eğer öyleyse, o zaman bile, tek taraflı olmazdı. İki tarafı olurdu. Şu anda tıbbi doktorlar olabilir, dürüst bir esnafın kuruşlarını toplamadığı yerde altınlarını toplayan - kuruşlar! hayır, yarım kuruşlarını da değil - yarım kuruşlar! hayır, çeyreğini de değil - Tellson's'ta duman gibi bankacılık yapan ve o esnafa sinsice tıbbi gözleriyle bakıp, kendi arabalarıyla gidip gelen - ah! eşit derecede duman gibi, daha fazla değilse. Şey, bu da Tellson's'u aldatmak olurdu. Çünkü kazı soslamayıp erkek kazı soslayamazsın. Ve işte Bayan Cruncher, en azından Eski İngiltere zamanlarındaydı ve yarın da olurdu, sebep verilse, işe karşı o kadar çırpınırdı ki mahvedici - düpedüz mahvedici! Oysa o tıbbi doktorların karıları çırpınmaz - yakalayın onları! Ya da çırpınırlarsa, çırpınmaları daha fazla hasta lehine gider ve birini öteki olmadan nasıl doğru dürüst elde edebilirsin? Sonra, cenazecilerle, kilise katipleriyle, mezarcılarla ve özel bekçilerle (hepsi açgözlü ve hepsi içinde), bir adam bundan çok şey elde etmezdi, öyle olsa bile. Ve bir adamın elde ettiği az şey de, ona hiç yaramaz, Bay Lorry. Hiç iyiliğini görmezdi; hep işten çıkmak isterdi, çıkış yolunu görebilse, bir kez girince - öyle olsa bile."
+"Umarım, efendim," diye yalvardı mahcup Bay Cruncher, "saçım ağarıncaya dek ayak işlerini görme şerefine erdiğim sizin gibi bir beyefendi, bana kötülük etmeden önce iki kere düşünür, öyle olsa bile — öyle diyor değilim, ama öyle olsa bile. Hem şu da hesaba katılmalı ki, öyle olsaydı bile, o zaman bile, her şey bir tarafa yüklenmezdi. İşin iki tarafı olurdu. Bu saatte, dürüst bir esnafın mangırını toplayamadığı yerde ginelerini toplayan hekim doktorlar olabilir — mangır ha! yok, yarım mangırını bile — yarım mangır ha! yok, çeyreğini bile — Tellson'a duman gibi para yatırıp duran, o esnafa gizliden gizliye doktor gözlerini kırpan, kendi arabalarına inip binen doktorlar — ah! onlar da duman gibi, hatta daha da beter. E, bu da Tellson'a oyun oynamak olurdu. Çünkü dişi kaza sos döküp erkek kaza dökmemek olmaz. Bir de işte Bayan Cruncher var ki — ya da hiç değilse eski İngiltere günlerinde vardı, sebep verilse yarın da olur — işin aleyhine yere kapanıp duruyor, hem de adamı mahvedecek kadar — düpedüz mahvedecek kadar! Oysa o hekim doktorların karıları yere kapanmaz — kapanırken yakala bakalım onları! Kapansalar bile, kapanmaları daha çok hasta gelsin diyedir; peki biri olmadan öteki doğru dürüst nasıl olur ki? Sonra, bir cenazeciler, bir kilise kâtipleri, bir zangoçlar, bir de özel bekçiler derken (hepsi açgözlü, hepsi de işin içinde), öyle olsa bile, insanın eline pek bir şey geçmezdi. Hem eline geçen o azıcık şeyin de hayrını görmezdi, Bay Lorry. Hiç mi hiç hayrını görmezdi; bir kere o işe girdi mi, çıkış yolunu görebilse, baştan sona o işten çıkmak isterdi — öyle olsa bile."
 
-"Pöh!" diye haykırdı Bay Lorry, yine de biraz yumuşayarak, "seni görmekten şok oluyorum."
+"Öf!" diye bağırdı Bay Lorry, yine de biraz yumuşayarak. "Sana bakınca tüylerim diken diken oluyor."
 
-"Şimdi, size alçakgönüllülükle sunacağım şey, efendim," diye devam etti Bay Cruncher, "öyle olsa bile, ki öyle demiyorum—"
+"Şimdi, efendim, size naçizane arz edeceğim şey şu olurdu," diye sürdürdü Bay Cruncher, "öyle olsa bile, ki öyle diyor değilim —"
 
-"Kaçamak yapma," dedi Bay Lorry.
+"Lafı eveleyip geveleme," dedi Bay Lorry.
 
-"Hayır, yapmayacağım, efendim," diye karşılık verdi Bay Cruncher sanki hiçbir şey düşüncelerinden veya pratiğinden bu kadar uzak değilmiş gibi—"ki öyle demiyorum - size alçakgönüllülükle sunacağım şey şu olurdu. Şu tabureye, şu bara oturan şu oğlum var, yetiştirilmiş ve adam olmuş, sizi koşturur, size haber götürür, genel hafif işler yapar, başınız topuğunuzun yerinde olana kadar, arzunuz bu olsa. Öyleyse, ki hâlâ öyle demiyorum (çünkü size yalan söylemeyeceğim, efendim), bırakın o çocuk babasının yerini tutsun ve annesine baksın; o çocuğun babasını ifşa etmeyin - yapmayın, efendim - ve bırakın o baba düzenli kazma işine girsin ve kazmamış olduklarını telafi etsin - öyle olsa - onları istekle ve gelecekte güvende tutma inançlarıyla kazarak. Bu, Bay Lorry," dedi Bay Cruncher, nutkun doruk noktasına vardığını ilan etmek için kolunyla alnını silerek, "size saygıyla sunacağım şey. Bir adam etrafında başsız Nesneler şeklinde korkunç şekilde dönen tüm bunları, aman Tanrım, fiyatı hamallığa düşürecek kadar bol ve zar zor o kadar bile, ciddi düşünceleri olmadan görmez. Ve bunlar benimki olurdu, öyleyse, az önce söylediklerimi iyi davadan geri tutabileceğim zaman söyledim diye aklınızda tutmanızı rica ediyorum."
+"Hayır, hiç de gevelemem, efendim," diye karşılık verdi Bay Cruncher, sanki bu, aklından da huyundan da geçebilecek en uzak şeymiş gibi, "— ki öyle diyor değilim — size naçizane arz edeceğim şey şu olurdu, efendim. O bildiğiniz Temple Bar'da, o bildiğiniz taburenin üstünde, o benim bildiğiniz oğlan oturur; yetiştirilip büyüyüp adam olmuş bir oğlan; arzunuz o yöndeyse, topuklarınız başınızın yerine gelene dek ayak işinizi görür, haberinizi götürür, her türlü ufak tefek işinizi yapar. Eğer öyleyse — ki hâlâ öyle diyor değilim (çünkü size karşı lafı eveleyip gevelemicem, efendim) — bırakın o oğlan babasının yerini tutsun, anasına baksın; o oğlanın babasını ele vermeyin — vermeyin, efendim — bırakın o baba doğru dürüst mezar kazıcılığına girsin de kazıp çıkardıklarının — eğer öyleyse — kefaretini, onları canı gönülden gömerek ve ileride güvenle yatacaklarına dair kanahatlerle ödesin. İşte, Bay Lorry," dedi Bay Cruncher, söylevinin son bölümüne vardığını bildirircesine alnını koluyla silerek, "size saygıyla arz edeceğim şey budur, efendim. İnsan çevresinde bütün bu korkunç şeylerin döndüğünü görür de — başsız Kadavralar cinsinden, aman aman, fiyatı hamaliyeye, belki onun da altına indirecek kadar bol — işler üzerine ciddi ciddi düşünmeden edemez. Eğer öyleyse, benim düşüncelerim de işte bunlar olurdu; demin söylediğimi, içimde tutabilecekken iyi bir amaç uğruna kalkıp söylediğimi aklınızda tutmanızı rica ederek."
 
-"En azından bu doğru," dedi Bay Lorry. "Şimdi daha fazla söyleme. Belki dostun olabilirim, hak edersen ve eylemle - kelimelerle değil - tövbe edersen. Daha fazla kelime istemiyorum."
+"Hiç değilse bu doğru," dedi Bay Lorry. "Şimdilik başka bir şey söyleme. Hak edersen ve pişmanlığını eylemle — sözle değil — gösterirsen, belki yine de dostun olurum. Başka söz istemiyorum."
 
-Bay Cruncher alnına vurdu, Sydney Carton ve casus karanlık odadan döndüğünde. "Elveda, Bay Barsad," dedi birincisi; "anlaşmamız böyle yapıldı, benden korkacak bir şeyiniz yok."
+Sydney Carton'la casus karanlık odadan dönerken, Bay Cruncher parmak boğumlarıyla alnına dokunarak selam verdi. "Hoşça kalın, Bay Barsad," dedi Carton; "anlaşmamızı böylece yaptığımıza göre, benden korkacak bir şeyiniz yok."
 
-Ocağın önünde, Bay Lorry'nin karşısında bir sandalyeye oturdu. Yalnız kalınca, Bay Lorry ona ne yaptığını sordu.
+Carton, ocak başındaki bir iskemleye, Bay Lorry'nin karşısına oturdu. Yalnız kaldıklarında Bay Lorry ona ne yaptığını sordu.
 
-"Çok değil. İşler mahkum için kötü giderse, ona bir kez erişim sağladım."
+"Pek bir şey değil. Mahkûm için işler kötü giderse, onunla bir kez görüşebilmeyi garantiledim."
 
-Bay Lorry'nin yüzü düştü.
+Bay Lorry'nin yüzü asıldı.
 
-"Yapabileceğim hepsi buydu," dedi Carton. "Çok fazla teklif etmek, bu adamın başını baltanın altına koymak olurdu ve kendisinin de dediği gibi, ihbar edilse daha kötüsü olamazdı. Açıkça konumun zayıflığıydı. Çare yok."
+"Elimden gelen bu kadardı," dedi Carton. "Daha fazlasını istemek, bu adamın başını baltanın altına koymak olurdu; üstelik kendisinin de dediği gibi, ihbar edilse başına bundan kötüsü gelemezdi. Durumun zayıf noktası belli ki buydu. Çaresi yok."
 
-"Ama ona erişim," dedi Bay Lorry, "Mahkeme'den önce işler kötü giderse, onu kurtarmayacak."
+"Ama onunla görüşmek," dedi Bay Lorry, "Mahkeme'de işler kötü giderse, onu kurtarmaz ki."
 
 "Kurtaracağını hiç söylemedim."
 
-Bay Lorry'nin gözleri yavaşça ateşe yöneldi; sevgilisine sempati ve ikinci tutuklanmasının ağır hayal kırıklığı, yavaşça onları zayıflattı; artık yaşlı bir adamdı, son zamanlarda endişeyle bunalmış ve gözyaşları döküldü.
+Bay Lorry'nin gözleri yavaş yavaş ateşe yöneldi; gözbebeğine duyduğu yakınlık ve Darnay'nin ikinci kez tutuklanmasının getirdiği ağır hayal kırıklığı, gözlerinin mecalini yavaş yavaş kesti; artık yaşlı bir adamdı, son zamanlarda kaygılar altında ezilmişti; gözyaşları süzüldü.
 
-"İyi ve gerçek bir dostsun," dedi Carton, değişmiş bir sesle. "Etkilendiğinizi fark edersem bağışlayın. Babamın ağladığını görüp kayıtsız oturmazdım. Ve babam olsaydınız üzüntünüze daha çok saygı duyamazdım. Ama o talihsizlikten muafsınız."
+"Siz iyi bir insansınız, gerçek bir dostsunuz," dedi Carton, değişmiş bir sesle. "Duygulandığınızı fark ettiysem bağışlayın. Babamın ağladığını görsem, yanında umursamazca oturamazdım. Babam olsaydınız da kederinize bundan daha çok saygı duyamazdım. Neyse ki siz böyle bir talihsizlikten azadesiniz."
 
-Son kelimeleri olağan tavrına bir kayışla söylese de, hem tonunda hem dokunuşunda gerçek bir duygu ve saygı vardı ki, onun daha iyi tarafını hiç görmemiş Bay Lorry tamamen hazırlıksızdı. Elini verdi ve Carton nazikçe sıktı.
+Bu son sözleri söylerken bir anlığına her zamanki tavrına kaymış olsa da, hem sesinde hem dokunuşunda, onun iyi yanını hiç görmemiş olan Bay Lorry'nin hiç hazırlıklı olmadığı gerçek bir duygu ve saygı vardı. Elini ona uzattı; Carton da o eli nazikçe sıktı.
 
-"Zavallı Darnay'a dönersek," dedi Carton. "Ona bu görüşmeden veya bu anlaşmadan bahsetmeyin. Bu onun onu görmeye gitmesini sağlamaz. En kötü durumda, ona cezayı önceden almanın araçlarını iletmek için tasarlandığını düşünebilir."
+"Zavallı Darnay'ye dönelim," dedi Carton. "Ona bu görüşmeden de bu anlaşmadan da söz etmeyin. Bu, onun gidip kocasını görmesini sağlamaz. Üstelik bunun, en kötü ihtimale karşı, hükümden önce davranabilmesi için kocasına gerekli aracı ulaştırmak amacıyla düzenlendiğini sanabilir."
 
-Bay Lorry bunu düşünmemişti ve bunun aklında olup olmadığını görmek için hızla Carton'a baktı. Öyle görünüyordu; bakışa karşılık verdi ve açıkça anladı.
+Bay Lorry bunu düşünmemişti; Carton'ın aklından bunun geçip geçmediğini anlamak için ona çabucak baktı. Geçiyor gibiydi; Carton bu bakışa bakışla karşılık verdi ve belli ki onu anladı.
 
-"Bin şey düşünebilir," dedi Carton, "ve bunların herhangi biri sadece sıkıntısını artırır. Ona benden bahsetmeyin. İlk geldiğimde size dediğim gibi, onu görmesem daha iyi. Elimin yapabileceği küçük yardımcı işi, onsuz da yapabilirim. Ona gidiyorsunuz, umarım? Bu gece çok ıssız olmalı."
+"Bin türlü şey düşünebilir," dedi Carton, "hepsi de yalnızca derdine dert katar. Ona benden söz etmeyin. Buraya ilk geldiğimde de size söylediğim gibi, onu görmesem daha iyi. Onu görmeden de, elimin onun için yapabileceği her küçük yararlı işe elimi uzatabilirim. Onun yanına gidiyorsunuz, değil mi? Bu gece kendini çok yalnız ve perişan hissediyor olmalı."
 
-"Şimdi, hemen gidiyorum."
+"Şimdi gidiyorum, hemen."
 
-"Buna sevindim. Size çok güçlü bir bağlılığı ve güveni var. Nasıl görünüyor?"
+"Buna sevindim. Size öyle güçlü bir bağlılığı, öyle derin bir güveni var ki. Nasıl görünüyor?"
 
-"Endişeli ve mutsuz, ama çok güzel."
+"Kaygılı ve mutsuz, ama çok güzel."
 
 "Ah!"
 
-Uzun, kederli bir sesti, iç çekme gibi - neredeyse hıçkırık gibi. Bay Lorry'nin gözlerini ateşe dönük Carton'ın yüzüne çekti. Vahşi parlak bir günde bir yamaç üzerinde bir değişikliğin süpüreceği kadar çabuk bir ışık veya gölge (yaşlı beyefendi hangisi olduğunu söyleyemezdi) geçti ve öne düşen küçük alevli kütüklerden birini geri itmek için ayağını kaldırdı. O zaman modada olan beyaz binici paltosu ve uzun çizmelerini giyiyordu ve ateşin ışığı açık yüzeylerine değerek, tüm düzeltilmemiş uzun kahverengi saçları etrafında gevşek asılı, onu çok solgun gösteriyordu. Ateşe kayıtsızlığı, Bay Lorry'den bir itiraz kelimesi ortaya çıkaracak kadar dikkat çekiciydi; ayağının ağırlığı altında kırıldığında çizmesi hâlâ alevli kütüğün sıcak közlerinin üzerindeydi.
+Uzun, kederli bir sesti bu; bir iç çekiş gibi — neredeyse bir hıçkırık gibi. Bay Lorry'nin gözlerini, ateşe dönük duran Carton'ın yüzüne çekti. Rüzgârlı, parlak bir günde bir yamacın üzerinden bir değişimin süpürüp geçmesi kadar hızla, o yüzün üzerinden bir ışık ya da bir gölge (yaşlı beyefendi hangisi olduğunu söyleyemezdi) geçip gitti; Carton, öne doğru devrilmekte olan, alev alev yanan küçük kütüklerden birini geri itmek için ayağını kaldırdı. O zamanlar moda olan beyaz binici ceketini ve uzun konçlu çizmelerini giymişti; ateşin ışığı bunların açık renkli yüzeylerine vurdukça, hiç kesilmemiş, dağınık dökülen uzun kahverengi saçlarıyla çok solgun görünüyordu. Ateşe karşı kayıtsızlığı, Bay Lorry'nin itiraz yollu bir söz söylemesine yol açacak kadar dikkat çekiciydi; alev alev yanan kütük ayağının ağırlığı altında kırıldığı hâlde, çizmesi hâlâ onun kızgın korlarının üstündeydi.
 
-"Unuttum," dedi.
+"Unutmuşum," dedi.
 
-Bay Lorry'nin gözleri tekrar yüzüne çekildi. Doğal olarak yakışıklı yüz hatlarını bulutlandıran bitkin havayı not ederek ve mahkumların yüzlerinin ifadesi zihninde taze olarak, o ifadeyi güçlü bir şekilde hatırladı.
+Bay Lorry'nin gözleri yeniden onun yüzüne çekildi. Doğuştan yakışıklı olan yüz hatlarını bulutlandıran o bitkin havayı fark edince, mahkûmların yüzlerindeki ifade de hâlâ aklında taze olduğundan, bu yüz ona o ifadeyi güçlü bir biçimde hatırlattı.
 
-"Ve buradaki görevleriniz sona erdi, efendim?" dedi Carton, ona dönerek.
+"Buradaki işleriniz de sona erdi mi, efendim?" dedi Carton, ona dönerek.
 
-"Evet. Lucie o kadar beklenmedik şekilde girdiğinde dün gece size anlattığım gibi, sonunda burada yapabileceğim her şeyi yaptım. Onları mükemmel güvenlikte bırakmayı ve sonra Paris'ten ayrılmayı ummuştum. Geçiş İznim var. Gitmeye hazırdım."
+"Evet. Dün gece, Lucie hiç beklenmedik biçimde içeri girdiğinde de size anlattığım gibi, burada yapabileceğim her şeyi sonunda yaptım. Onları tamamen güvende bırakıp Paris'ten ayrılmayı ummuştum. Geçiş İznim var. Gitmeye hazırdım."
 
-İkisi de suskundu.
+İkisi de sustu.
 
-"Uzun bir hayata bakıyorsunuz, efendim?" dedi Carton, özlemle.
+"Dönüp baktığınızda arkanızda uzun bir ömür var, değil mi, efendim?" dedi Carton, içli bir sesle.
 
-"Yetmiş sekizinci yaşımdayım."
+"Yetmiş sekizimdeyim."
 
-"Hayatınız boyunca faydalı oldunuz; sürekli ve istikrarlı bir şekilde meşgul; güvenilir, saygı duyulan ve örnek alınan?"
+"Bütün ömrünüz boyunca yararlı oldunuz; hep, aralıksız bir işle meşgul oldunuz; güvenilen, saygı duyulan, hürmet gören biri oldunuz, değil mi?"
 
-"Adam olduğumdan beri iş adamıyım. Gerçekten, çocukken iş adamı olduğumu söyleyebilirim."
+"Kendimi bildim bileli iş adamıyım. Hatta çocukken bile iş adamıydım diyebilirim."
 
-"Yetmiş sekiz yaşında ne kadar önemli bir yer doldurduğunuzu görün. Boş bıraktığınızda sizi kaç kişi özleyecek!"
+"Yetmiş sekizinizde ne büyük bir yer doldurduğunuza bir bakın. O yeri boş bıraktığınızda kaç kişi sizi arayacak!"
 
-"Yalnız bir yaşlı bekâr," diye cevapladı Bay Lorry, başını sallayarak. "Benim için ağlayacak kimse yok."
+"Yalnız, yaşlı bir bekâr," diye karşılık verdi Bay Lorry, başını sallayarak. "Arkamdan ağlayacak kimse yok."
 
-"Bunu nasıl söyleyebilirsiniz? O sizin için ağlamaz mı? Çocuğu ağlamaz mı?"
+"Nasıl böyle söylersiniz? O sizin için ağlamaz mı? Onun çocuğu ağlamaz mı?"
 
-"Evet, evet, Tanrı'ya şükür. Söylediklerimi tam kastetmedim."
+"Evet, evet, Tanrı'ya şükür. Söylediğimi pek öyle kastetmedim."
 
-"Bu Tanrı'ya şükredilecek bir şey; değil mi?"
+"Gerçekten de Tanrı'ya şükredilecek bir şey bu, değil mi?"
 
 "Elbette, elbette."
 
-"Bu gece yalnız kalbinize gerçekten söyleyebilseydiniz, 'Kendime hiçbir insani yaratığın sevgisini, bağlılığını, minnettarlığını veya saygısını sağlamadım; hiçbir gözde kendime şefkatli bir yer kazanmadım; hatırlanacak iyi veya faydalı hiçbir şey yapmadım!' yetmiş sekiz yılınız yetmiş sekiz ağır lanet olurdu; olmaz mıydı?"
+"Bu gece kendi yalnız yüreğinize, doğruyu söyleyerek, 'Hiçbir insanın sevgisini ve bağlılığını, minnetini ya da saygısını kazanmadım; hiçbir gönülde sıcak bir yer edinmedim; anılmaya değer iyi ya da yararlı hiçbir şey yapmadım!' diyebilseydiniz, yetmiş sekiz yılınız yetmiş sekiz ağır lanet olurdu; olmaz mıydı?"
 
-"Doğru söylüyorsunuz, Bay Carton; öyle olacaklarını düşünüyorum."
+"Doğru söylüyorsunuz, Bay Carton; sanırım öyle olurdu."
 
-Sydney gözlerini tekrar ateşe çevirdi ve birkaç dakikalık sessizlikten sonra dedi:
+Sydney gözlerini yine ateşe çevirdi ve birkaç anlık bir sessizlikten sonra şöyle dedi:
 
-"Size sormak isterdim: Çocukluğunuz uzak mı görünüyor? Annenizin dizinin dibinde oturduğunuz günler çok uzun zaman öncesinin günleri mi görünüyor?"
+"Size şunu sormak isterim: Çocukluğunuz size uzak görünüyor mu? Annenizin dizinin dibinde oturduğunuz günler çok çok eskide kalmış gibi mi geliyor?"
 
-Yumuşamış tavrına karşılık vererek, Bay Lorry cevapladı:
+Onun yumuşamış tavrına karşılık, Bay Lorry şöyle cevap verdi:
 
-"Yirmi yıl öncesine, evet; hayatımın bu zamanında, hayır. Çünkü sona yaklaştıkça, daire içinde, başlangıca yaklaşıyorum. Yolun nazik düzleştirmelerinden ve hazırlıklarından biri gibi görünüyor. Kalbim şimdi, uzun süredir uyumuş olan güzel genç annemin (ve ben bu kadar yaşlıyım!) birçok hatırasıyla ve Dünya dediğimiz şeyin benimle bu kadar gerçek olmadığı ve kusurlarımın bende doğrulanmadığı günlerin birçok çağrışımıyla dokunuyor."
+"Yirmi yıl önce olsa, evet; hayatımın bu çağında, hayır. Çünkü sona gitgide yaklaştıkça, bir çember üzerinde yol alarak başlangıca da gitgide yaklaşıyorum. Bu da yolu şefkatle düzleyip hazırlayan inceliklerden biri gibi görünüyor. Güzel, genç annemin (bense bu kadar yaşlıyım!) uzun zamandır uykuya dalmış pek çok hatırası, Dünya dediğimiz şeyin benim için henüz o kadar gerçek olmadığı, kusurlarımın bende henüz kökleşmediği günlere dair pek çok çağrışım şimdi yüreğime dokunuyor."
 
-"Duyguyu anlıyorum!" diye haykırdı Carton, parlak bir kızarmayla. "Ve bunun için daha iyi misiniz?"
+"Bu duyguyu anlıyorum!" diye haykırdı Carton, yüzü parlak bir kızıllıkla aydınlanarak. "Peki, bu duygu sizi daha iyi biri yapıyor mu?"
 
-"Umarım öyle."
+"Umarım."
 
-Carton sohbeti burada, ona dış paltosunu giydirmeye yardım etmek için kalkarak bitirdi; "Ama siz," dedi Bay Lorry, konuya dönerek, "gençsiniz."
+Carton, paltosunu giymesine yardım etmek için ayağa kalkarak konuşmaya burada son verdi; "Ama siz," dedi Bay Lorry, konuya geri dönerek, "siz gençsiniz."
 
-"Evet," dedi Carton. "Yaşlı değilim, ama genç yolum asla yaşlılığa giden yol değildi. Benim hakkımda yeter."
+"Evet," dedi Carton. "Yaşlı değilim, ama gençlikte tuttuğum yol hiçbir zaman insanı yaşlılığa götüren yol olmadı. Benden bu kadar söz etmek yeter."
 
-"Ve benim hakkımda, eminim," dedi Bay Lorry. "Dışarı mı çıkıyorsunuz?"
+"Benden de, eminim," dedi Bay Lorry. "Dışarı mı çıkıyorsunuz?"
 
-"Kapısına kadar sizinle yürüyeceğim. Serseri ve huzursuz alışkanlıklarımı biliyorsunuz. Sokaklarda uzun süre dolaşırsam, endişelenmeyin; sabah tekrar görüneceğim. Yarın Mahkeme'ye mi gidiyorsunuz?"
+"Sizinle onun kapısına kadar yürüyeceğim. Serseri ve huzursuz alışkanlıklarımı bilirsiniz. Uzun süre sokaklarda dolaşırsam telaşlanmayın; sabah yine ortaya çıkarım. Yarın mahkemeye gidiyor musunuz?"
 
 "Evet, ne yazık ki."
 
-"Ben de orada olacağım, ama sadece kalabalıktan biri olarak. Casusuum bana bir yer bulacak. Koluma girin, efendim."
+"Ben de orada olacağım, ama yalnızca kalabalıktan biri olarak. Casusum bana bir yer bulur. Koluma girin, efendim."
 
-Bay Lorry öyle yaptı ve merdivenleri inip sokağa çıktılar. Birkaç dakika onları Bay Lorry'nin varış yerine getirdi. Carton onu orada bıraktı; ama biraz uzakta oyalandı ve kapı kapandığında tekrar kapıya döndü ve dokundu. Her gün hapishaneye gittiğini duymuştu. "Buradan çıktı," dedi, etrafına bakarak, "bu tarafa döndü, bu taşlara sık sık basmış olmalı. Adımlarını takip edeyim."
+Bay Lorry öyle yaptı; aşağı inip sokağa çıktılar. Birkaç dakika içinde Bay Lorry'nin gideceği yere vardılar. Carton onu orada bıraktı; ama biraz uzakta oyalandı, kapı kapanınca yeniden kapıya döndü ve ona dokundu. Onun her gün hapishaneye gittiğini duymuştu. "Buradan çıktı," dedi, çevresine bakınarak, "bu yöne döndü, bu taşlara sık sık basmış olmalı. Bırak da onun izinden yürüyeyim."
 
-Yüzlerce kez durduğu La Force hapishanesinin önünde durduğunda gece saat ondu. Dükkânını kapatmış küçük bir odun kesici, dükkânının kapısında piposunu içiyordu.
+Lucie'nin yüzlerce kez durduğu La Force hapishanesinin önüne geldiğinde saat gece onu buluyordu. Ufak tefek bir odun kesici, dükkânını kapatmış, dükkânının kapısında piposunu tüttürüyordu.
 
-"İyi geceler, vatandaş," dedi Sydney Carton, geçerken durarak; çünkü adam ona merakla baktı.
+"İyi geceler, yurttaş," dedi Sydney Carton, geçerken durarak; çünkü adam onu merakla süzüyordu.
 
-"İyi geceler, vatandaş."
+"İyi geceler, yurttaş."
 
 "Cumhuriyet nasıl gidiyor?"
 
-"Giyotin'i kastediyorsunuz. Fena değil. Bugün altmış üç. Yakında yüze çıkacağız. Samson ve adamları bazen yorulmaktan şikâyet ediyor. Ha, ha, ha! O kadar şakacı, şu Samson. Ne berber!"
+"Giyotini diyorsun. Fena değil. Bugün altmış üç. Yakında yüze çıkarız. Samson'la adamları arada bir yorgunluktan yakınıyorlar. Ha, ha, ha! Ne komik adamdır şu Samson. Ne Berber ama!"
 
-"Sık sık onu görmeye gider misiniz—"
+"Onu sık sık görmeye gider misin —"
 
-"Tıraş? Her zaman. Her gün. Ne berber! Onu işbaşında gördünüz mü?"
+"Tıraş ederken mi? Her zaman. Her gün. Ne berber ama! Sen hiç iş başında gördün mü onu?"
 
 "Hiç."
 
-"Gidin ve iyi bir partisi olduğunda görün. Şunu hayal edin, vatandaş; bugün altmış üçü iki pipodan az sürede tıraş etti! İki pipodan az. Şeref sözü!"
+"İyi bir parti geldiğinde git de gör. Bir düşün, yurttaş: bugün o altmış üç kişiyi iki pipo bitmeden tıraş etti! İki pipodan da az. Namusum üstüne!"
 
-Sırıtan küçük adam cellata nasıl süre tuttuğunu açıklamak için içtiği pipoyu uzatırken, Carton içinde onun hayatını sonlandırma arzusunun yükseldiğini o kadar hissetti ki arkasını döndü.
+Sırıtan ufak tefek adam, celladın süresini nasıl tuttuğunu anlatmak için tüttürdüğü pipoyu uzatınca, Carton içinde vurup onun canını almak için kabaran bir arzuyu öyle açıkça hissetti ki arkasını dönüp uzaklaştı.
 
-"Ama sen İngiliz değilsin," dedi odun kesici, "İngiliz kıyafeti giysen de?"
+"Ama İngiliz değilsin, değil mi," dedi odun kesici, "İngiliz kılığında olsan da?"
 
-"Evet," dedi Carton, tekrar durarak ve omzunun üzerinden cevap vererek.
+"İngilizim," dedi Carton, yeniden durup omzunun üstünden cevap vererek.
 
-"Bir Fransız gibi konuşuyorsun."
+"Fransız gibi konuşuyorsun."
 
-"Burada eski bir öğrenciyim."
+"Burada eskiden öğrenciydim."
 
-"Aha, mükemmel bir Fransız! İyi geceler, İngiliz."
+"Aha, tam bir Fransız! İyi geceler, İngiliz."
 
-"İyi geceler, vatandaş."
+"İyi geceler, yurttaş."
 
-"Ama git ve o komik köpeği gör," diye ısrar etti küçük adam, arkasından seslenerek. "Ve yanına bir pipo al!"
+"Ama git de o komik herifi bir gör," diye ısrar etti ufak tefek adam, arkasından seslenerek. "Yanına da bir pipo al!"
 
-Sydney gözden kaybolmadan çok geçmeden, titrek bir lambanın altında sokağın ortasında durdu ve kalemiyle bir kağıt parçasına yazdı. Sonra, yolu iyi hatırlayan birinin kararlı adımıyla, birkaç karanlık ve kirli sokaktan geçerek - o terör zamanlarında en iyi kamu yolları bile temizlenmeden kaldığı için normalden çok daha kirli - sahibi kendi elleriyle kapatmakta olan bir eczane dükkânında durdu. Dolambaçlı, yokuş yukarı bir caddede, küçük, loş, çarpık bir adam tarafından işletilen küçük, loş, çarpık bir dükkân.
+Sydney gözden pek uzaklaşmamıştı ki sokağın ortasında, titrek ışıklı bir fenerin altında durdu ve kurşunkalemiyle bir kâğıt parçasına bir şeyler yazdı. Sonra, yolu iyi bilen birinin kararlı adımlarıyla birkaç karanlık ve pis sokaktan geçerek — her zamankinden çok daha pisti bu sokaklar, çünkü o dehşet günlerinde en işlek caddeler bile temizlenmeden kalıyordu — sahibinin kendi elleriyle kapatmakta olduğu bir eczanenin önünde durdu. Dolambaçlı, yokuş yukarı bir sokakta, küçük, loş, eğri büğrü bir adamın işlettiği küçük, loş, eğri büğrü bir dükkândı bu.
 
-Bu vatandaşa da iyi geceler dileyerek, tezgâhında karşılaştığında, kağıt parçasını önüne koydu. "Vay!" diye hafifçe ıslık çaldı eczacı, okurken. "Hey! hey! hey!"
+Tezgâhının başında karşısına geçtiği bu yurttaşa da iyi geceler diledikten sonra, kâğıt parçasını önüne koydu. "Fiyuu!" diye usulca ıslık çaldı eczacı, kâğıdı okurken. "Hi! hi! hi!"
 
-Sydney Carton aldırmadı ve eczacı dedi:
+Sydney Carton buna aldırış etmedi; eczacı şöyle dedi:
 
-"Sizin için mi, vatandaş?"
+"Senin için mi, yurttaş?"
 
 "Benim için."
 
-"Onları ayrı tutmaya dikkat edeceksiniz, vatandaş? Karıştırmanın sonuçlarını biliyorsunuz?"
+"Bunları ayrı tutmaya dikkat edeceksin, değil mi, yurttaş? Karışırlarsa ne olacağını biliyorsun, değil mi?"
 
-"Mükemmelen."
+"Gayet iyi."
 
-Bazı küçük paketler yapıldı ve ona verildi. Onları teker teker iç ceketinin göğsüne koydu, parasını saydı ve kasıtlı olarak dükkânı terk etti. "Yapılacak başka bir şey yok," dedi, aya bakarak, "yarına kadar. Uyuyamam."
+Birkaç küçük paket hazırlanıp ona verildi. Paketleri tek tek iç ceketinin göğüs cebine yerleştirdi, parasını sayıp verdi ve acele etmeden dükkândan çıktı. "Yarına kadar yapacak başka bir şey kalmadı," dedi, başını kaldırıp aya bakarak. "Uyuyamam."
 
-Bu kelimeleri hızla akan bulutların altında yüksek sesle söylediği tarz pervasız bir tavır değildi, kayıtsızlıktan çok meydan okumayı ifade etmiyordu. Gezmiş ve mücadele etmiş ve kaybolmuş, ama sonunda yolunu bulmuş ve sonunu görmüş yorgun bir adamın yerleşmiş tavrıydı.
+Hızla yol alan bulutların altında bu sözleri yüksek sesle söyleyişi pervasızca değildi; umursamazlığı da, meydan okumayı da dile getirmiyordu. Dolaşmış, çabalamış, yolunu yitirmiş, ama sonunda kendi yoluna girip onun sonunu görmüş yorgun bir adamın durulmuş tavrıydı bu.
 
-Uzun zaman önce, en erken rakipleri arasında büyük vaat taşıyan bir genç olarak ünlüyken, babasını mezara kadar takip etmişti. Annesi yıllar önce ölmüştü. Babasının mezarında okunan bu ciddi sözler, karanlık sokaklarda, ağır gölgeler arasında, ay ve bulutlar yukarıda süzülürken yürürken aklına geldi. "Diriliş ve hayat Benim, diyor Rab: Bana iman eden, ölmüş olsa da yaşayacaktır: ve yaşayan ve Bana iman eden asla ölmeyecektir."
+Uzun zaman önce, daha ilk rakipleri arasında çok şey vaat eden bir genç olarak ün salmışken, babasının cenazesinin ardından mezara kadar yürümüştü. Annesi ondan yıllar önce ölmüştü. Babasının mezarı başında okunmuş olan şu ağırbaşlı sözler, ayla bulutlar tepesinde süzülürken, ağır gölgeler arasında, karanlık sokaklarda yürüdüğü sırada aklına geldi: "Diriliş ve hayat Benim, diyor Rab: Bana iman eden ölse de yaşayacak; yaşayıp Bana iman eden hiç kimse de ebediyen ölmeyecek."
 
-Balta tarafından domine edilen bir şehirde, gece yalnız, o gün idam edilen altmış üç kişi için ve yarının hapishanelerde kaderlerini bekleyen kurbanları için ve daha yarınlarınki ve yarınlarınki için doğal üzüntü içinde yükselen, kelimeleri eve getiren çağrışım zinciri, derin sudan paslı eski bir gemi çapası gibi, kolayca bulunabilirdi. Onu aramadı, ama tekrarladı ve yürümeye devam etti.
+Baltanın hükmettiği bir şehirde, gecenin içinde tek başına, o gün ölüme gönderilen altmış üç kişi için, o sırada hapishanelerde akıbetlerini bekleyen yarının kurbanları için, sonra da daha nice yarınların kurbanları için içinde doğal bir keder kabarırken, bu sözleri derinlerden çekilen paslı, eski bir gemi çapası gibi aklına getiren çağrışım zincirini bulmak kolay olabilirdi. O bunu aramadı; yalnızca sözleri tekrarladı ve yoluna devam etti.
 
-İnsanların dinlenmeye gittiği, etraflarındaki dehşetleri birkaç sakin saat için unuttuğu aydınlatılmış pencerelere ciddi bir ilgiyle; rahiplerin yıllarca yalancılığı, yağmacılığı ve ahlaksızlığından popüler tiksinme kendi kendini yok etme o uzunluğa bile vardığı için dua edilmeyen kiliselerin kulelerine; kapılarına yazdıkları gibi Ebedi Uyku için ayrılmış uzak mezarlıklara; bol hapishanelere; ve altmışların o kadar yaygın ve maddi hale gelmiş bir ölüme yuvarlandığı sokaklara ki, Giyotin'in tüm işleyişinden halk arasında üzücü bir Hayaletin hikâyesi asla çıkmadığı; öfkedeki kısa gece duraklamasına yerleşen şehrin tüm yaşamı ve ölümüne ciddi bir ilgiyle; Sydney Carton daha aydınlık sokaklar için tekrar Seine'i geçti.
+İnsanların, birkaç sakin saat boyunca çevrelerini saran dehşeti unutarak dinlenmeye çekildikleri ışıklı pencerelere; hiçbir duanın okunmadığı kilise kulelerine (çünkü halkın tiksintisi, yıllar yılı rahip kılıklı sahtekârlar, yağmacılar ve sefihler yüzünden, kendi kendini yok etmenin bu raddesine kadar varmıştı); kapılarının üstüne yazdıkları gibi Ebedi Uyku'ya ayrılmış uzak mezarlıklara; tıklım tıklım zindanlara; altmışlık kafilelerin, öylesine sıradanlaşmış ve maddileşmiş bir ölüme doğru tekerlekler üstünde götürüldüğü sokaklara — ki Giyotin'in bütün o işleyişinden halk arasında insanın peşini bırakmayan bir Hayalete dair tek bir kederli hikâye bile doğmamıştı — ağırbaşlı bir ilgiyle bakarak; öfkesine kısa bir gecelik ara vermek üzere yatışan şehrin bütün hayatına ve ölümüne ağırbaşlı bir ilgiyle bakarak, Sydney Carton daha aydınlık sokaklara gitmek için Seine'i yeniden geçti.
 
-Çok az araba dışarıdaydı, çünkü arabalardaki yolcular şüphelenilmeye eğilimliydi ve centilmenlik kırmızı gece başlıklarında başını sakladı ve ağır ayakkabılar giydi ve yürüdü. Ama tiyatrolar hep doluydu ve o geçerken insanlar neşeyle çıkıyor ve sohbet ederek eve gidiyordu. Tiyatro kapılarından birinde, çamurdan sokağı geçmek için yol arayan bir annesiyle küçük bir kız vardı. Çocuğu karşıya taşıdı ve çekingen kol boynundan çözülmeden önce ondan bir öpücük istedi.
+Ortalıkta pek az araba vardı, çünkü arabaya binenler kolayca şüphe altında kalabiliyordu; kibar takımı başını kırmızı gece takkelerinin içine gizliyor, ağır ayakkabılar giyip yayan yürüyordu. Ama tiyatroların hepsi dolup taşıyordu; Carton geçerken halk neşe içinde dışarı akıyor, sohbet ederek evlerine gidiyordu. Tiyatro kapılarından birinde, annesiyle birlikte, çamurun içinden karşıya geçmek için yol arayan küçük bir kız vardı. Carton çocuğu kucaklayıp karşıya geçirdi; ürkek kol boynundan çözülmeden önce de ondan bir öpücük istedi.
 
-"Diriliş ve hayat Benim, diyor Rab: Bana iman eden, ölmüş olsa da yaşayacaktır: ve yaşayan ve Bana iman eden asla ölmeyecektir."
+"Diriliş ve hayat Benim, diyor Rab: Bana iman eden ölse de yaşayacak; yaşayıp Bana iman eden hiç kimse de ebediyen ölmeyecek."
 
-Şimdi, sokaklar sessizdi ve gece ilerliyordu, kelimeler ayak seslerinin yankılarındaydı ve havadaydı. Tamamen sakin ve istikrarlı, bazen yürürken onları kendine tekrarladı; ama her zaman duydu.
+Artık sokaklar sessizleşmiş, gece ilerlemişti; sözler ayak seslerinin yankılarındaydı, havanın içindeydi. Tümüyle sakin ve kararlı, yürürken bazen onları kendi kendine tekrarlıyordu; ama onları her an duyuyordu.
 
-Gece bitti ve köprüde durarak Paris Adası'nın nehir duvarlarına sıçrayan suyu dinlerken, pitoresk ev ve katedrallerin karmaşası ayın ışığında parlak parlıyordu, gün soğuk geldi, gökyüzünden ölü bir yüz gibi bakarak. Sonra, ay ve yıldızlarla birlikte gece soldu ve öldü ve bir süre Yaratılış Ölümün egemenliğine teslim edilmiş gibiydi.
+Gece tükendi; Carton, ay ışığında evlerin ve katedralin göz alıcı karmaşasının parıl parıl parladığı Paris Adası'nın rıhtım duvarlarına çarpan suyu dinleyerek köprünün üstünde dururken, gün, gökyüzünden bakan ölü bir yüz gibi soğuk soğuk ağardı. Sonra gece, ayıyla yıldızlarıyla birlikte, soldu ve öldü; bir süre sanki bütün Yaradılış Ölüm'ün egemenliğine teslim edilmiş gibi göründü.
 
-Ama yükselen muhteşem güneş, o kelimeleri, gecenin yükünü, uzun parlak ışınlarında düz ve sıcak kalbine vuruyor gibiydi. Ve onlar boyunca saygıyla gölgelenmiş gözlerle bakarken, onunla güneş arasındaki havayı kaplayan bir ışık köprüsü belirdi, nehir altında parlarken.
+Ama doğan görkemli güneş, o sözleri, gecenin o yükünü, uzun, parlak ışınlarıyla dosdoğru ve sımsıcak yüreğine vurmuş gibiydi. Gözlerini saygıyla gölgeleyerek o ışınlar boyunca bakınca, kendisiyle güneş arasındaki havayı bir ışık köprüsü aşıyormuş gibi göründü; altında da nehir ışıl ışıl parlıyordu.
 
-Güçlü akıntı, o kadar hızlı, o kadar derin ve kesin, sabah sessizliğinde uyumlu bir dost gibiydi. Dere boyunca, evlerden uzak yürüdü ve güneşin ışığı ve sıcaklığında kıyıda uyuyakaldı. Uyandığında ve tekrar ayaktayken, orada biraz daha oyalandı, akıntı onu yutup denize taşıyana kadar amaçsızca dönen ve dönen bir girdabı izleyerek. "Benim gibi."
+Böylesine hızlı, böylesine derin ve şaşmaz akan güçlü akıntı, sabahın sessizliğinde can yoldaşı bir dost gibiydi. Evlerden uzakta, suyun kıyısı boyunca yürüdü ve güneşin ışığında, sıcağında, kıyıda uyuyakaldı. Uyanıp yeniden ayağa kalktığında orada biraz daha oyalandı; amaçsızca dönüp duran bir girdabı, akıntı onu yutup denize taşıyana dek seyretti — "Benim gibi."
 
-Ölü bir yaprak renginde yumuşatılmış bir yelkenle bir ticaret teknesi görüşüne girdi, yanından süzüldü ve uzaklaştı. Sudaki sessiz izi kaybolurken, tüm zavallı körlükleri ve hataları için merhametli bir değerlendirme için kalbinden kopan dua, "Diriliş ve hayat Benim" kelimeleriyle bitti.
+Sonra ölü bir yaprağın solgun renginde yelkeni olan bir yük teknesi görüş alanına süzülerek girdi, yanından akıp geçti ve uzaklaşıp gözden yitti. Teknenin suda bıraktığı sessiz iz silinirken, bütün zavallı körlüklerinin ve yanılgılarının merhametle karşılanması için yüreğinden taşan dua, "Diriliş ve hayat Benim," sözleriyle son buldu.
 
-Bay Lorry geri döndüğünde çoktan çıkmıştı ve iyi yaşlı adamın nereye gittiğini tahmin etmek kolaydı. Sydney Carton biraz kahveden başka bir şey içmedi, biraz ekmek yedi ve yıkanıp tazelemek için giyinip, duruşma yerine gitti.
+Döndüğünde Bay Lorry çoktan çıkmıştı; iyi yürekli yaşlı adamın nereye gittiğini tahmin etmek kolaydı. Sydney Carton biraz kahveden başka bir şey içmedi, biraz ekmek yedi; yıkanıp üstünü değiştirerek kendine geldikten sonra da duruşmanın yapılacağı yere gitti.
 
-Mahkeme hareketli ve uğultuluydu, kara koyun - birçoğunun korkuyla uzaklaştığı - onu kalabalık arasında belirsiz bir köşeye sıkıştırdığında. Bay Lorry oradaydı ve Doktor Manette oradaydı. O oradaydı, babasının yanında oturuyordu.
+Kara koyun — pek çok kişinin korkuyla yanından uzaklaştığı adam — onu kalabalığın içinde göze batmayan bir köşeye yerleştirdiğinde, mahkeme salonu baştan başa kıpır kıpır, vızır vızırdı. Bay Lorry oradaydı, Doktor Manette oradaydı. O da oradaydı, babasının yanında oturuyordu.
 
-Kocası getirildiğinde, ona o kadar destekleyici, o kadar cesaretlendirici, hayran sevgi ve acıyan şefkatle dolu, yine de onun hatırına o kadar cesur bir bakış attı ki, bu sağlıklı kanı yüzüne çağırdı, bakışını parlattı ve kalbini canlandırdı. Bakışının Sydney Carton üzerindeki etkisini fark edecek gözler olsaydı, tam olarak aynı etki olduğu görülürdü.
+Kocası içeri getirildiğinde, genç kadın ona öylesine destek veren, öylesine yüreklendiren, hayranlık dolu bir sevgiyle ve acıyan bir şefkatle öylesine dolu, ama onun uğruna öylesine yürekli bir bakış yöneltti ki bu bakış Darnay'nin yüzüne sağlıklı bir kan getirdi, bakışlarını parlattı, yüreğine can verdi. O bakışın Sydney Carton üzerindeki etkisini fark edecek bir göz olsaydı, onda da tıpatıp aynı etkiyi yaptığı görülürdü.
 
-O adaletsiz Mahkeme'nin önünde, herhangi bir sanığa makul bir duruşma sağlayan çok az veya hiç prosedür düzeni yoktu. Tüm yasalar, biçimler ve törenler önce o kadar canavarca istismar edilmemiş olsaydı, Devrimin intihar intikamının hepsini rüzgâra saçması için böyle bir Devrim olamazdı.
+O adaletsiz Mahkeme'nin önünde, herhangi bir sanığın makul ölçüde dinlenmesini güvence altına alacak bir usul düzeni ya hiç yoktu ya da yok denecek kadar azdı. Bütün yasalar, usuller ve merasimler önceden, Devrim'in intihar niteliğindeki öcü hepsini dört bir yana savurup dağıtacak kadar canavarca kötüye kullanılmamış olsaydı, böyle bir Devrim de hiç olamazdı.
 
-Her göz jüriye çevrildi. Dün ve önceki gün, yarın ve sonraki gün ile aynı kararlı vatanseverler ve iyi cumhuriyetçiler. Aralarında hevesli ve göze çarpan, aç bir yüzlü, parmakları sürekli dudaklarının etrafında dolaşan bir adam, görünüşü seyircilere büyük memnuniyet verdi. Hayata susamış, yamyam görünüşlü, kan dökmek isteyen bir jüri üyesi, Saint Antoine'ın Jacques Üç'ü. Tüm jüri, geyiği yargılamak için toplanan bir köpek jürisi gibi.
+Bütün gözler jüriye çevrildi. Dünkü ve evvelki günkü, yarınki ve öbür günkü kararlı yurtseverler, iyi cumhuriyetçiler. Aralarında hevesli ve göze batan biri: aç bakışlı bir yüzü olan, parmakları durmadan dudaklarının çevresinde gezinen, görünüşü seyircileri pek memnun eden bir adam. Cana susamış, yamyam kılıklı, kan peşindeki bir jüri üyesi: Saint Antoine'ın Üçüncü Jacques'ı. Bütün jüri, geyiği yargılamak için kurulmuş bir köpek jürisi gibi.
 
-Sonra her göz beş yargıca ve savcıya çevrildi. Bugün o tarafta olumlu bir eğilim yok. Acımasız, uzlaşmaz, katil bir iş anlamı orada. Sonra her göz kalabalıkta başka bir göz aradı ve onaylayarak parladı; ve gergin bir dikkatle öne eğilmeden önce başlar birbirine sallandı.
+Sonra bütün gözler beş yargıca ve savcıya döndü. O cephede bugün lehte hiçbir eğilim yok. Orada amansız, uzlaşmaz, cinayete kararlı bir ciddiyet var. Sonra her göz kalabalığın içinde başka bir göz aradı ve onaylarcasına ona doğru parladı; başlar, gergin bir dikkatle öne eğilmeden önce birbirine doğru sallandı.
 
-Darnay diye adlandırılan Charles Evremonde. Dün serbest bırakıldı. Dün tekrar suçlandı ve yakalandı. İddianame dün gece teslim edildi. Şüpheli ve İhbar Edilmiş Cumhuriyet düşmanı, Aristokrat, tiranlar ailesinden biri, yasaklanmış bir ırktan biri, çünkü kaldırılmış ayrıcalıklarını halkın rezil baskısı için kullanmışlardı. Darnay diye adlandırılan Charles Evremonde, böyle bir yasaklama hakkıyla, Yasada kesinlikle Ölü.
+Darnay diye anılan Charles Evremonde. Dün serbest bırakıldı. Dün yeniden suçlandı ve yeniden tutuklandı. İddianame dün gece kendisine tebliğ edildi. Cumhuriyet'in Şüpheli ve İhbar Edilmiş düşmanı, Aristokrat, zorbalar ailesinden biri, kaldırılmış ayrıcalıklarını halkı alçakça ezmek için kullandıklarından ötürü kanun dışı ilan edilmiş bir soyun ferdi. Darnay diye anılan Charles Evremonde, bu kanun dışılık hükmü gereğince, mutlak surette Hukuken Ölü.
 
-Bu etkiyle, bu kadar veya daha az kelimeyle, Savcı.
+Savcı'nın iddiası, bu kadar ya da daha da az sözle, bu mealdeydi.
 
-Başkan sordu, Sanık açıkça mı yoksa gizlice mi ihbar edildi?
+Başkan sordu: Sanık açıkça mı ihbar edilmişti, gizlice mi?
 
 "Açıkça, Başkan."
 
 "Kim tarafından?"
 
-"Üç ses. Ernest Defarge, Saint Antoine'ın şarap satıcısı."
+"Üç ses. Saint Antoine'lı şarap satıcısı Ernest Defarge."
 
 "İyi."
 
-"Therese Defarge, karısı."
+"Karısı Thérèse Defarge."
 
 "İyi."
 
-"Alexandre Manette, doktor."
+"Hekim Alexandre Manette."
 
-Mahkemede büyük bir kargaşa koptu ve ortasında Doktor Manette, solgun ve titreyen, oturduğu yerde ayakta görüldü.
+Salonda büyük bir gürültü koptu; bu gürültünün ortasında Doktor Manette'in, solgun ve titrer hâlde, oturduğu yerde ayağa kalkmış olduğu görüldü.
 
-"Başkan, bunun bir sahtecilik ve dolandırıcılık olduğunu öfkeyle protesto ediyorum. Sanığın kızımın kocası olduğunu biliyorsunuz. Kızım ve ona değerli olanlar bana hayatımdan çok daha değerli. Çocuğumun kocasını ihbar ettiğimi söyleyen sahte komplocu kim ve nerede!"
+"Başkan, bunun bir sahtekârlık ve bir hile olduğunu söyleyerek size öfkeyle karşı çıkıyorum. Sanığın kızımın kocası olduğunu biliyorsunuz. Kızım ve onun sevdikleri benim için canımdan çok daha değerlidir. Çocuğumun kocasını ihbar ettiğimi söyleyen o yalancı fesatçı kimdir, nerededir!"
 
-"Vatandaş Manette, sakin olun. Mahkeme'nin otoritesine itaatsizlik etmek kendinizi Yasanın dışına koymak olur. Size hayattan daha değerli olana gelince, hiçbir şey iyi bir vatandaşa Cumhuriyet kadar değerli olamaz."
+"Yurttaş Manette, sakin olun. Mahkeme'nin otoritesine boyun eğmemek, kendinizi Kanun dışına koymak olur. Size canınızdan değerli olan şeye gelince, iyi bir yurttaş için hiçbir şey Cumhuriyet kadar değerli olamaz."
 
-Yüksek sesli alkışlar bu azarı selamladı. Başkan zilini çaldı ve hararetle devam etti.
+Bu azar yüksek sesli alkışlarla karşılandı. Başkan çıngırağını çaldı ve hararetle sözünü sürdürdü.
 
-"Cumhuriyet sizden kendi çocuğunuzun fedakârlığını talep etse, onu feda etmekten başka göreviniz olmazdı. Takip edecek olanı dinleyin. Bu arada, sessiz olun!"
+"Cumhuriyet sizden kendi çocuğunuzu feda etmenizi isteseydi, onu feda etmekten başka göreviniz olmazdı. Bundan sonra gelecekleri dinleyin. O zamana kadar da susun!"
+
+Yine çılgınca alkışlar yükseldi. Doktor Manette, gözleri çevresinde dolaşarak, dudakları titreyerek oturdu; kızı ona daha çok sokuldu. Jürideki aç bakışlı adam ellerini ovuşturdu ve o her zamanki elini yeniden ağzına götürdü.
+
+Salon onun sesinin duyulabileceği kadar sessizleşince Defarge huzura çıkarıldı; hapsedilme öyküsünü, kendisinin daha küçük bir oğlanken Doktor'un hizmetinde bulunduğunu, serbest bırakılışı ve tutsağın serbest bırakılıp kendisine teslim edildiği sıradaki hâlini hızla anlattı. Ardından, mahkeme işini çabuk gördüğü için, şu kısa sorgu geldi.
+
+"Bastille'in alınışında iyi hizmet ettiniz, değil mi, yurttaş?"
+
+"Öyle sanıyorum."
+
+Tam o sırada heyecanlı bir kadın kalabalığın içinden cırtlak bir sesle bağırdı: "Sen oradaki en iyi yurtseverlerden biriydin. Neden söylemiyorsun? O gün orada topçuydun; o lanetli kale düştüğünde içeri ilk girenler arasındaydın. Yurtseverler, doğruyu söylüyorum!"
+
+Seyircilerin sıcak övgüleri arasında duruşmaya böylece katkıda bulunan İntikam'dı. Başkan çıngırağını çaldı; ama bu yüreklendirmeyle iyice kızışan İntikam, "O çıngırağa meydan okuyorum!" diye çığlık attı; bunun üzerine de pek çok övgü aldı.
+
+"O gün Bastille'in içinde neler yaptığınızı Mahkeme'ye bildirin, yurttaş."
+
+"Biliyordum," dedi Defarge, üstünde durduğu basamakların dibinde dikilip gözünü kırpmadan yukarıya, ona bakan karısına bakarak; "sözünü ettiğim bu mahkûmun, Kuzey Kulesi, Yüz Beş diye bilinen bir hücrede kapalı tutulduğunu biliyordum. Bunu kendisinden biliyordum. Benim gözetimim altında ayakkabı yaparken kendisini Kuzey Kulesi, Yüz Beş'ten başka bir adla bilmiyordu. O gün topumun başındayken, burası düştüğünde o hücreyi incelemeye karar veriyorum. Düşüyor. Jüri üyelerinden biri olan bir yurttaş arkadaşımla birlikte, bir gardiyanın rehberliğinde hücreye çıkıyorum. Hücreyi çok dikkatle inceliyorum. Bacadaki bir oyukta, bir taşın yerinden oynatılıp yeniden yerine konduğu bir yerde, yazılı bir kâğıt buluyorum. İşte o yazılı kâğıt budur. Doktor Manette'in el yazısından bazı örnekleri incelemeyi kendime iş edindim. Bu, Doktor Manette'in el yazısıdır. Doktor Manette'in el yazısıyla yazılmış bu kâğıdı Başkan'ın ellerine emanet ediyorum."
+
+"Okunsun."
+
+Ölüm sessizliği ve kıpırtısızlık içinde — yargılanan mahkûm sevgiyle karısına bakarken, karısı yalnızca kaygıyla babasına bakmak için gözlerini ondan ayırırken, Doktor Manette gözlerini okuyana dikmişken, Madam Defarge gözlerini mahkûmdan hiç ayırmazken, Defarge gözlerini ziyafet çeken karısından hiç ayırmazken ve oradaki bütün öteki gözler, hiçbirini görmeyen Doktor'a dikilmişken — kâğıt şöyle okundu.

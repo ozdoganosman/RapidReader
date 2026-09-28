@@ -82,6 +82,11 @@ test/                                Birim ve widget testleri
 
 ## Lisanslar
 
+- **Kitap metinleri:** İki Şehrin Hikâyesi, Dickens'ın İngilizce aslından
+  (Project Gutenberg #98), Dönüşüm, Kafka'nın Almanca aslından (1917 Kurt Wolff
+  baskısı, Project Gutenberg #22367) Türkçeye çevrildi (2026). Her iki asıl da
+  kamu malıdır. Kur'an-ı Kerim meali `fetch_quran.py` ile Açık Kuran API'den
+  alınmıştır; mealin telif durumu ayrıca kontrol edilmelidir.
 - **Roboto Mono** yazı tipi SIL Open Font License 1.1 ile lisanslıdır
   (`assets/google_fonts/OFL.txt`) ve uygulamanın lisanslar sayfasında listelenir.
 - **syncfusion_flutter_pdf** açık kaynak değildir; Syncfusion lisansına tabidir.
