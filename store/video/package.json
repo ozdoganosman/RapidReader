@@ -4,7 +4,8 @@
   "description": "RapidReader Play Store tanıtım videosu (Remotion)",
   "scripts": {
     "studio": "remotion studio",
-    "render": "remotion render Tanitim out/tanitim-videosu.mp4"
+    "render": "remotion render Tanitim out/tanitim-videosu.mp4",
+    "render:en": "remotion render Promo out/promo-video-en.mp4"
   },
   "dependencies": {
     "@remotion/cli": "4.0.529",

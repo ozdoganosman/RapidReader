@@ -1,5 +1,6 @@
-// RapidReader tanıtım videosu: dikey (1080x1920), 30 fps. Uygulama
-// görüntüleri public/clips altındaki ekran kayıtlarıdır (web sürümü).
+// RapidReader tanıtım videosu: dikey (1080x1920), 30 fps, Türkçe (Tanitim)
+// ve İngilizce (Promo). Uygulama görüntüleri public/clips (Türkçe) ve
+// public/clips/en altındaki ekran kayıtlarıdır (web sürümü).
 import React from 'react';
 import { loadFont } from '@remotion/fonts';
 import { linearTiming, TransitionSeries } from '@remotion/transitions';
@@ -10,6 +11,32 @@ loadFont({ family: 'Literata', url: staticFile('fonts/Literata-Bold.ttf'), weigh
 loadFont({ family: 'Roboto', url: staticFile('fonts/Roboto-Regular.ttf'), weight: '400' });
 loadFont({ family: 'Roboto', url: staticFile('fonts/Roboto-Medium.ttf'), weight: '500' });
 loadFont({ family: 'Roboto Mono', url: staticFile('fonts/RobotoMono-Bold.ttf'), weight: '700' });
+
+/// Everything the video says, in each language
+const TEXT = {
+  tr: {
+    clips: 'clips',
+    introWords: ['Gözünü', 'tek', 'noktada', 'tut,', 'hızlı', 'oku.'],
+    tagline: ['Kelime kelime hızlı okuma', 'Rehberli okuma'],
+    speed: [[['Kelime'], ['kelime'], ['\n'], ['hızlı', true], ['oku']], 'Gözün tek noktada kalır, hızı sen seçersin'],
+    modes: [[['Bölümü'], ['istediğin'], ['gibi'], ['aç', true]], 'Hızlı okuma ya da düz metin'],
+    guided: [[['Rehberli', true], ['okuma']], 'Vurgu, seçtiğin hızda kelime kelime ilerler'],
+    home: [[['Kitaplığın'], ['cebinde', true]], "Klasikler, Kur'an-ı Kerim meali ve kendi metinlerin"],
+    ownTexts: 'Kendi metinlerini de oku',
+    footer: 'Hesap gerekmez · Çevrim dışı okur',
+  },
+  en: {
+    clips: 'clips/en',
+    introWords: ['Keep', 'your', 'eyes', 'still,', 'read', 'faster.'],
+    tagline: ['Word-by-word speed reading', 'Guided reading'],
+    speed: [[['Speed'], ['read'], ['\n'], ['word', true], ['by', true], ['word', true]], 'Your eyes stay on one point, you set the speed'],
+    modes: [[['Open'], ['each'], ['chapter'], ['\n'], ['your', true], ['way', true]], 'Speed reading or plain text'],
+    guided: [[['Guided', true], ['reading']], 'A highlight moves word by word at your speed'],
+    home: [[['A'], ['library'], ['in'], ['your'], ['\n'], ['pocket', true]], "Classics, the Qur'an and your own texts"],
+    ownTexts: 'Read your own texts too',
+    footer: 'No account needed · Works offline',
+  },
+};
 
 const RED = '#FF5252';
 const BG = '#121212';
@@ -65,7 +92,7 @@ const FadeIn = ({ delay, children, style }) => {
 };
 
 /// A feature: the title above, the app on a phone below
-const Scene = ({ title, subtitle, clip }) => {
+const Scene = ({ title, subtitle, clip, folder }) => {
   const phone = useSpring(8, { damping: 18, mass: 0.9 });
   return (
     <AbsoluteFill style={background}>
@@ -92,7 +119,7 @@ const Scene = ({ title, subtitle, clip }) => {
         }}
       >
         <div style={{ width: 720, height: 1280, borderRadius: 52, overflow: 'hidden', background: '#000' }}>
-          <OffthreadVideo src={staticFile(`clips/${clip}.mp4`)} muted style={{ width: 720, height: 1280 }} />
+          <OffthreadVideo src={staticFile(`${folder}/${clip}.mp4`)} muted style={{ width: 720, height: 1280 }} />
         </div>
       </div>
     </AbsoluteFill>
@@ -133,10 +160,10 @@ const RsvpWord = ({ word, size }) => {
   );
 };
 
-const INTRO_WORDS = ['Gözünü', 'tek', 'noktada', 'tut,', 'hızlı', 'oku.'];
+const INTRO_WORDS = 6;
 const WORD_FRAMES = 9;
 const RSVP_START = 10;
-const LOGO_AT = RSVP_START + INTRO_WORDS.length * WORD_FRAMES + 6;
+const LOGO_AT = RSVP_START + INTRO_WORDS * WORD_FRAMES + 6;
 
 const Guides = ({ gap }) => (
   <>
@@ -145,9 +172,9 @@ const Guides = ({ gap }) => (
   </>
 );
 
-const Intro = () => {
+const Intro = ({ text }) => {
   const frame = useCurrentFrame();
-  const word = INTRO_WORDS[Math.floor((frame - RSVP_START) / WORD_FRAMES)];
+  const word = text.introWords[Math.floor((frame - RSVP_START) / WORD_FRAMES)];
   const rsvpOut = interpolate(frame, [LOGO_AT - 6, LOGO_AT + 4], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   const guidesIn = useSpring(0);
   const logo = useSpring(LOGO_AT, { damping: 14, mass: 0.8 });
@@ -166,9 +193,9 @@ const Intro = () => {
           RapidReader
         </FadeIn>
         <FadeIn delay={LOGO_AT + 18} style={{ fontFamily: 'Roboto', fontSize: 48, color: GREY, marginTop: 36, textAlign: 'center', lineHeight: 1.5 }}>
-          Kelime kelime hızlı okuma
+          {text.tagline[0]}
           <br />
-          Rehberli okuma
+          {text.tagline[1]}
         </FadeIn>
       </AbsoluteFill>
     </AbsoluteFill>
@@ -196,7 +223,7 @@ const Chip = ({ label, delay }) => {
   );
 };
 
-const Outro = () => {
+const Outro = ({ text }) => {
   const logo = useSpring(0, { damping: 14, mass: 0.8 });
   return (
     <AbsoluteFill style={{ ...background, alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
@@ -208,7 +235,7 @@ const Outro = () => {
         RapidReader
       </FadeIn>
       <FadeIn delay={16} style={{ fontFamily: 'Literata', fontWeight: 700, fontSize: 60, color: '#fff', marginTop: 90 }}>
-        Kendi metinlerini de oku
+        {text.ownTexts}
       </FadeIn>
       <div style={{ display: 'flex', gap: 22, marginTop: 44 }}>
         {['TXT', 'PDF', 'EPUB', 'Web'].map((label, i) => (
@@ -216,24 +243,24 @@ const Outro = () => {
         ))}
       </div>
       <FadeIn delay={56} style={{ fontFamily: 'Roboto', fontSize: 42, color: GREY, marginTop: 90 }}>
-        Hesap gerekmez · Çevrim dışı okur
+        {text.footer}
       </FadeIn>
     </AbsoluteFill>
   );
 };
 
-const scenes = [
-  ['intro', <Intro />],
-  ['speed', <Scene clip="speed" title={[['Kelime'], ['kelime'], ['\n'], ['hızlı', true], ['oku']]} subtitle="Gözün tek noktada kalır, hızı sen seçersin" />],
-  ['modes', <Scene clip="modes" title={[['Bölümü'], ['istediğin'], ['gibi'], ['aç', true]]} subtitle="Hızlı okuma ya da düz metin" />],
-  ['guided', <Scene clip="guided" title={[['Rehberli', true], ['okuma']]} subtitle="Vurgu, seçtiğin hızda kelime kelime ilerler" />],
-  ['home', <Scene clip="home" title={[['Kitaplığın'], ['cebinde', true]]} subtitle="Klasikler, Kur'an-ı Kerim meali ve kendi metinlerin" />],
-  ['outro', <Outro />],
+const scenesFor = (text) => [
+  ['intro', <Intro text={text} />],
+  ...['speed', 'modes', 'guided', 'home'].map((name) => [
+    name,
+    <Scene clip={name} folder={text.clips} title={text[name][0]} subtitle={text[name][1]} />,
+  ]),
+  ['outro', <Outro text={text} />],
 ];
 
-export const Promo = () => (
+export const Promo = ({ lang = 'tr' }) => (
   <TransitionSeries>
-    {scenes.flatMap(([name, scene], i) => [
+    {scenesFor(TEXT[lang]).flatMap(([name, scene], i) => [
       i > 0 && <TransitionSeries.Transition key={`t${i}`} presentation={fade()} timing={linearTiming({ durationInFrames: FADE })} />,
       <TransitionSeries.Sequence key={name} durationInFrames={SCENES[name]}>
         {scene}
