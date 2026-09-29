@@ -1,0 +1,1000 @@
+{
+ "books": [
+  {
+   "file": "ATTC_1.txt",
+   "title": "The Period",
+   "author": "Charles Dickens",
+   "words": 1016
+  },
+  {
+   "file": "ATTC_10.txt",
+   "title": "Congratulatory",
+   "author": "Charles Dickens",
+   "words": 2261
+  },
+  {
+   "file": "ATTC_11.txt",
+   "title": "The Jackal",
+   "author": "Charles Dickens",
+   "words": 2145
+  },
+  {
+   "file": "ATTC_12.txt",
+   "title": "Hundreds of People",
+   "author": "Charles Dickens",
+   "words": 4588
+  },
+  {
+   "file": "ATTC_13.txt",
+   "title": "Monseigneur in Town",
+   "author": "Charles Dickens",
+   "words": 3345
+  },
+  {
+   "file": "ATTC_14.txt",
+   "title": "Monseigneur in the Country",
+   "author": "Charles Dickens",
+   "words": 1862
+  },
+  {
+   "file": "ATTC_15.txt",
+   "title": "The Gorgon's Head",
+   "author": "Charles Dickens",
+   "words": 4087
+  },
+  {
+   "file": "ATTC_16.txt",
+   "title": "Two Promises",
+   "author": "Charles Dickens",
+   "words": 2978
+  },
+  {
+   "file": "ATTC_17.txt",
+   "title": "A Companion Picture",
+   "author": "Charles Dickens",
+   "words": 1409
+  },
+  {
+   "file": "ATTC_18.txt",
+   "title": "The Fellow of Delicacy",
+   "author": "Charles Dickens",
+   "words": 2585
+  },
+  {
+   "file": "ATTC_19.txt",
+   "title": "The Fellow of No Delicacy",
+   "author": "Charles Dickens",
+   "words": 1856
+  },
+  {
+   "file": "ATTC_2.txt",
+   "title": "The Mail",
+   "author": "Charles Dickens",
+   "words": 2029
+  },
+  {
+   "file": "ATTC_20.txt",
+   "title": "The Honest Tradesman",
+   "author": "Charles Dickens",
+   "words": 3902
+  },
+  {
+   "file": "ATTC_21.txt",
+   "title": "Knitting",
+   "author": "Charles Dickens",
+   "words": 4236
+  },
+  {
+   "file": "ATTC_22.txt",
+   "title": "Still Knitting",
+   "author": "Charles Dickens",
+   "words": 3881
+  },
+  {
+   "file": "ATTC_23.txt",
+   "title": "One Night",
+   "author": "Charles Dickens",
+   "words": 1921
+  },
+  {
+   "file": "ATTC_24.txt",
+   "title": "Nine Days",
+   "author": "Charles Dickens",
+   "words": 2427
+  },
+  {
+   "file": "ATTC_25.txt",
+   "title": "An Opinion",
+   "author": "Charles Dickens",
+   "words": 2800
+  },
+  {
+   "file": "ATTC_26.txt",
+   "title": "A Plea",
+   "author": "Charles Dickens",
+   "words": 1361
+  },
+  {
+   "file": "ATTC_27.txt",
+   "title": "Echoing Footsteps",
+   "author": "Charles Dickens",
+   "words": 4275
+  },
+  {
+   "file": "ATTC_28.txt",
+   "title": "The Sea Still Rises",
+   "author": "Charles Dickens",
+   "words": 2050
+  },
+  {
+   "file": "ATTC_29.txt",
+   "title": "Fire Rises",
+   "author": "Charles Dickens",
+   "words": 2639
+  },
+  {
+   "file": "ATTC_3.txt",
+   "title": "The Night Shadows",
+   "author": "Charles Dickens",
+   "words": 1632
+  },
+  {
+   "file": "ATTC_30.txt",
+   "title": "Drawn to the Loadstone Rock",
+   "author": "Charles Dickens",
+   "words": 4442
+  },
+  {
+   "file": "ATTC_31.txt",
+   "title": "In Secret",
+   "author": "Charles Dickens",
+   "words": 4248
+  },
+  {
+   "file": "ATTC_32.txt",
+   "title": "The Grindstone",
+   "author": "Charles Dickens",
+   "words": 2504
+  },
+  {
+   "file": "ATTC_33.txt",
+   "title": "The Shadow",
+   "author": "Charles Dickens",
+   "words": 1741
+  },
+  {
+   "file": "ATTC_34.txt",
+   "title": "Calm in Storm",
+   "author": "Charles Dickens",
+   "words": 2154
+  },
+  {
+   "file": "ATTC_35.txt",
+   "title": "The Wood-Sawyer",
+   "author": "Charles Dickens",
+   "words": 2295
+  },
+  {
+   "file": "ATTC_36.txt",
+   "title": "Triumph",
+   "author": "Charles Dickens",
+   "words": 2515
+  },
+  {
+   "file": "ATTC_37.txt",
+   "title": "A Knock at the Door",
+   "author": "Charles Dickens",
+   "words": 1865
+  },
+  {
+   "file": "ATTC_38.txt",
+   "title": "A Hand at Cards",
+   "author": "Charles Dickens",
+   "words": 4688
+  },
+  {
+   "file": "ATTC_39.txt",
+   "title": "The Game Made",
+   "author": "Charles Dickens",
+   "words": 4664
+  },
+  {
+   "file": "ATTC_4.txt",
+   "title": "The Preparation",
+   "author": "Charles Dickens",
+   "words": 4422
+  },
+  {
+   "file": "ATTC_40.txt",
+   "title": "The Substance of the Shadow",
+   "author": "Charles Dickens",
+   "words": 5818
+  },
+  {
+   "file": "ATTC_41.txt",
+   "title": "Dusk",
+   "author": "Charles Dickens",
+   "words": 1470
+  },
+  {
+   "file": "ATTC_42.txt",
+   "title": "Darkness",
+   "author": "Charles Dickens",
+   "words": 3219
+  },
+  {
+   "file": "ATTC_43.txt",
+   "title": "Fifty-two",
+   "author": "Charles Dickens",
+   "words": 4415
+  },
+  {
+   "file": "ATTC_44.txt",
+   "title": "The Knitting Done",
+   "author": "Charles Dickens",
+   "words": 4650
+  },
+  {
+   "file": "ATTC_45.txt",
+   "title": "The Footsteps Die Out For Ever",
+   "author": "Charles Dickens",
+   "words": 2247
+  },
+  {
+   "file": "ATTC_5.txt",
+   "title": "The Wine-shop",
+   "author": "Charles Dickens",
+   "words": 4182
+  },
+  {
+   "file": "ATTC_6.txt",
+   "title": "The Shoemaker",
+   "author": "Charles Dickens",
+   "words": 4155
+  },
+  {
+   "file": "ATTC_7.txt",
+   "title": "Five Years Later",
+   "author": "Charles Dickens",
+   "words": 2408
+  },
+  {
+   "file": "ATTC_8.txt",
+   "title": "A Sight",
+   "author": "Charles Dickens",
+   "words": 2400
+  },
+  {
+   "file": "ATTC_9.txt",
+   "title": "A Disappointment",
+   "author": "Charles Dickens",
+   "words": 4875
+  },
+  {
+   "file": "Donusum_1.txt",
+   "title": "Part One",
+   "author": "Franz Kafka",
+   "words": 6775
+  },
+  {
+   "file": "Donusum_2.txt",
+   "title": "Part Two",
+   "author": "Franz Kafka",
+   "words": 7419
+  },
+  {
+   "file": "Donusum_3.txt",
+   "title": "Part Three",
+   "author": "Franz Kafka",
+   "words": 7289
+  },
+  {
+   "file": "Kuran_1.txt",
+   "title": "Al-'Alaq — The Clot (العلق)",
+   "author": "The Qur'an",
+   "words": 154
+  },
+  {
+   "file": "Kuran_10.txt",
+   "title": "Al-Fajr — The Dawn (الفجر)",
+   "author": "The Qur'an",
+   "words": 285
+  },
+  {
+   "file": "Kuran_100.txt",
+   "title": "Al-Bayyinah — The Clear Proof (البينة)",
+   "author": "The Qur'an",
+   "words": 180
+  },
+  {
+   "file": "Kuran_101.txt",
+   "title": "Al-Hashr — The Exile (الحشر)",
+   "author": "The Qur'an",
+   "words": 924
+  },
+  {
+   "file": "Kuran_102.txt",
+   "title": "An-Nur — The Light (النور)",
+   "author": "The Qur'an",
+   "words": 2489
+  },
+  {
+   "file": "Kuran_103.txt",
+   "title": "Al-Hajj — The Pilgrimage (الحج)",
+   "author": "The Qur'an",
+   "words": 2500
+  },
+  {
+   "file": "Kuran_104.txt",
+   "title": "Al-Munafiqun — The Hypocrites (المنافقون)",
+   "author": "The Qur'an",
+   "words": 367
+  },
+  {
+   "file": "Kuran_105.txt",
+   "title": "Al-Mujadila — The Pleading Woman (المجادلة)",
+   "author": "The Qur'an",
+   "words": 924
+  },
+  {
+   "file": "Kuran_106.txt",
+   "title": "Al-Hujurat — The Rooms (الحجرات)",
+   "author": "The Qur'an",
+   "words": 668
+  },
+  {
+   "file": "Kuran_107.txt",
+   "title": "At-Tahrim — The Prohibition (التحريم)",
+   "author": "The Qur'an",
+   "words": 506
+  },
+  {
+   "file": "Kuran_108.txt",
+   "title": "At-Taghabun — The Mutual Disillusion (التغابن)",
+   "author": "The Qur'an",
+   "words": 527
+  },
+  {
+   "file": "Kuran_109.txt",
+   "title": "As-Saf — The Ranks (الصف)",
+   "author": "The Qur'an",
+   "words": 426
+  },
+  {
+   "file": "Kuran_11.txt",
+   "title": "Ad-Duhaa — The Morning Hours (الضحى)",
+   "author": "The Qur'an",
+   "words": 115
+  },
+  {
+   "file": "Kuran_110.txt",
+   "title": "Al-Jumu'ah — Friday (الجمعة)",
+   "author": "The Qur'an",
+   "words": 349
+  },
+  {
+   "file": "Kuran_111.txt",
+   "title": "Al-Fath — The Victory (الفتح)",
+   "author": "The Qur'an",
+   "words": 1171
+  },
+  {
+   "file": "Kuran_112.txt",
+   "title": "Al-Ma'idah — The Table Spread (المائدة)",
+   "author": "The Qur'an",
+   "words": 5542
+  },
+  {
+   "file": "Kuran_113.txt",
+   "title": "At-Tawbah — The Repentance (التوبة)",
+   "author": "The Qur'an",
+   "words": 5039
+  },
+  {
+   "file": "Kuran_114.txt",
+   "title": "An-Nasr — The Divine Support (النصر)",
+   "author": "The Qur'an",
+   "words": 54
+  },
+  {
+   "file": "Kuran_12.txt",
+   "title": "Ash-Sharh — The Relief (الشرح)",
+   "author": "The Qur'an",
+   "words": 62
+  },
+  {
+   "file": "Kuran_13.txt",
+   "title": "Al-'Asr — The Declining Day (العصر)",
+   "author": "The Qur'an",
+   "words": 47
+  },
+  {
+   "file": "Kuran_14.txt",
+   "title": "Al-'Adiyat — The Courser (العاديات)",
+   "author": "The Qur'an",
+   "words": 104
+  },
+  {
+   "file": "Kuran_15.txt",
+   "title": "Al-Kawthar — The Abundance (الكوثر)",
+   "author": "The Qur'an",
+   "words": 40
+  },
+  {
+   "file": "Kuran_16.txt",
+   "title": "At-Takathur — The Rivalry in World Increase (التكاثر)",
+   "author": "The Qur'an",
+   "words": 77
+  },
+  {
+   "file": "Kuran_17.txt",
+   "title": "Al-Ma'un — The Small Kindnesses (الماعون)",
+   "author": "The Qur'an",
+   "words": 58
+  },
+  {
+   "file": "Kuran_18.txt",
+   "title": "Al-Kafirun — The Disbelievers (الكافرون)",
+   "author": "The Qur'an",
+   "words": 58
+  },
+  {
+   "file": "Kuran_19.txt",
+   "title": "Al-Fil — The Elephant (الفيل)",
+   "author": "The Qur'an",
+   "words": 62
+  },
+  {
+   "file": "Kuran_2.txt",
+   "title": "Al-Qalam — The Pen (القلم)",
+   "author": "The Qur'an",
+   "words": 653
+  },
+  {
+   "file": "Kuran_20.txt",
+   "title": "Al-Falaq — The Daybreak (الفلق)",
+   "author": "The Qur'an",
+   "words": 60
+  },
+  {
+   "file": "Kuran_21.txt",
+   "title": "An-Nas — Mankind (الناس)",
+   "author": "The Qur'an",
+   "words": 51
+  },
+  {
+   "file": "Kuran_22.txt",
+   "title": "Al-Ikhlas — The Sincerity (الإخلاص)",
+   "author": "The Qur'an",
+   "words": 40
+  },
+  {
+   "file": "Kuran_23.txt",
+   "title": "An-Najm — The Star (النجم)",
+   "author": "The Qur'an",
+   "words": 723
+  },
+  {
+   "file": "Kuran_24.txt",
+   "title": "'Abasa — He Frowned (عبس)",
+   "author": "The Qur'an",
+   "words": 298
+  },
+  {
+   "file": "Kuran_25.txt",
+   "title": "Al-Qadr — The Power (القدر)",
+   "author": "The Qur'an",
+   "words": 72
+  },
+  {
+   "file": "Kuran_26.txt",
+   "title": "Ash-Shams — The Sun (الشمس)",
+   "author": "The Qur'an",
+   "words": 161
+  },
+  {
+   "file": "Kuran_27.txt",
+   "title": "Al-Buruj — The Mansions of the Stars (البروج)",
+   "author": "The Qur'an",
+   "words": 229
+  },
+  {
+   "file": "Kuran_28.txt",
+   "title": "At-Tin — The Fig (التين)",
+   "author": "The Qur'an",
+   "words": 83
+  },
+  {
+   "file": "Kuran_29.txt",
+   "title": "Quraysh (قريش)",
+   "author": "The Qur'an",
+   "words": 54
+  },
+  {
+   "file": "Kuran_3.txt",
+   "title": "Al-Muzzammil — The Enshrouded One (المزمل)",
+   "author": "The Qur'an",
+   "words": 423
+  },
+  {
+   "file": "Kuran_30.txt",
+   "title": "Al-Qari'ah — The Calamity (القارعة)",
+   "author": "The Qur'an",
+   "words": 93
+  },
+  {
+   "file": "Kuran_31.txt",
+   "title": "Al-Qiyamah — The Resurrection (القيامة)",
+   "author": "The Qur'an",
+   "words": 350
+  },
+  {
+   "file": "Kuran_32.txt",
+   "title": "Al-Humazah — The Traducer (الهمزة)",
+   "author": "The Qur'an",
+   "words": 86
+  },
+  {
+   "file": "Kuran_33.txt",
+   "title": "Al-Mursalat — The Emissaries (المرسلات)",
+   "author": "The Qur'an",
+   "words": 428
+  },
+  {
+   "file": "Kuran_34.txt",
+   "title": "Qaf — The Letter Qaf (ق)",
+   "author": "The Qur'an",
+   "words": 805
+  },
+  {
+   "file": "Kuran_35.txt",
+   "title": "Al-Balad — The City (البلد)",
+   "author": "The Qur'an",
+   "words": 181
+  },
+  {
+   "file": "Kuran_36.txt",
+   "title": "At-Tariq — The Nightcomer (الطارق)",
+   "author": "The Qur'an",
+   "words": 159
+  },
+  {
+   "file": "Kuran_37.txt",
+   "title": "Al-Qamar — The Moon (القمر)",
+   "author": "The Qur'an",
+   "words": 775
+  },
+  {
+   "file": "Kuran_38.txt",
+   "title": "Sad — The Letter Sad (ص)",
+   "author": "The Qur'an",
+   "words": 1547
+  },
+  {
+   "file": "Kuran_39.txt",
+   "title": "Al-A'raf — The Heights (الأعراف)",
+   "author": "The Qur'an",
+   "words": 6745
+  },
+  {
+   "file": "Kuran_4.txt",
+   "title": "Al-Muddaththir — The Cloaked One (المدثر)",
+   "author": "The Qur'an",
+   "words": 516
+  },
+  {
+   "file": "Kuran_40.txt",
+   "title": "Al-Jinn — The Jinn (الجن)",
+   "author": "The Qur'an",
+   "words": 596
+  },
+  {
+   "file": "Kuran_41.txt",
+   "title": "Ya-Sin — Ya Sin (يس)",
+   "author": "The Qur'an",
+   "words": 1460
+  },
+  {
+   "file": "Kuran_42.txt",
+   "title": "Al-Furqan — The Criterion (الفرقان)",
+   "author": "The Qur'an",
+   "words": 1820
+  },
+  {
+   "file": "Kuran_43.txt",
+   "title": "Fatir — Originator (فاطر)",
+   "author": "The Qur'an",
+   "words": 1500
+  },
+  {
+   "file": "Kuran_44.txt",
+   "title": "Maryam — Mary (مريم)",
+   "author": "The Qur'an",
+   "words": 2019
+  },
+  {
+   "file": "Kuran_45.txt",
+   "title": "Taha — Ta-Ha (طه)",
+   "author": "The Qur'an",
+   "words": 2797
+  },
+  {
+   "file": "Kuran_46.txt",
+   "title": "Al-Waqi'ah — The Inevitable (الواقعة)",
+   "author": "The Qur'an",
+   "words": 808
+  },
+  {
+   "file": "Kuran_47.txt",
+   "title": "Ash-Shu'ara — The Poets (الشعراء)",
+   "author": "The Qur'an",
+   "words": 2755
+  },
+  {
+   "file": "Kuran_48.txt",
+   "title": "An-Naml — The Ant (النمل)",
+   "author": "The Qur'an",
+   "words": 2369
+  },
+  {
+   "file": "Kuran_49.txt",
+   "title": "Al-Qasas — The Stories (القصص)",
+   "author": "The Qur'an",
+   "words": 2881
+  },
+  {
+   "file": "Kuran_5.txt",
+   "title": "Al-Fatihah — The Opener (الفاتحة)",
+   "author": "The Qur'an",
+   "words": 71
+  },
+  {
+   "file": "Kuran_50.txt",
+   "title": "Al-Isra — The Night Journey (الإسراء)",
+   "author": "The Qur'an",
+   "words": 3160
+  },
+  {
+   "file": "Kuran_51.txt",
+   "title": "Yunus — Jonah (يونس)",
+   "author": "The Qur'an",
+   "words": 3553
+  },
+  {
+   "file": "Kuran_52.txt",
+   "title": "Hud (هود)",
+   "author": "The Qur'an",
+   "words": 3909
+  },
+  {
+   "file": "Kuran_53.txt",
+   "title": "Yusuf — Joseph (يوسف)",
+   "author": "The Qur'an",
+   "words": 3518
+  },
+  {
+   "file": "Kuran_54.txt",
+   "title": "Al-Hijr — The Rocky Tract (الحجر)",
+   "author": "The Qur'an",
+   "words": 1393
+  },
+  {
+   "file": "Kuran_55.txt",
+   "title": "Al-An'am — The Cattle (الأنعام)",
+   "author": "The Qur'an",
+   "words": 6021
+  },
+  {
+   "file": "Kuran_56.txt",
+   "title": "As-Saffat — Those Who Set the Ranks (الصافات)",
+   "author": "The Qur'an",
+   "words": 1852
+  },
+  {
+   "file": "Kuran_57.txt",
+   "title": "Luqman (لقمان)",
+   "author": "The Qur'an",
+   "words": 1037
+  },
+  {
+   "file": "Kuran_58.txt",
+   "title": "Saba — Sheba (سبأ)",
+   "author": "The Qur'an",
+   "words": 1695
+  },
+  {
+   "file": "Kuran_59.txt",
+   "title": "Az-Zumar — The Troops (الزمر)",
+   "author": "The Qur'an",
+   "words": 2304
+  },
+  {
+   "file": "Kuran_6.txt",
+   "title": "Al-Masad — The Palm Fiber (المسد)",
+   "author": "The Qur'an",
+   "words": 56
+  },
+  {
+   "file": "Kuran_60.txt",
+   "title": "Ghafir — The Forgiver (غافر)",
+   "author": "The Qur'an",
+   "words": 2381
+  },
+  {
+   "file": "Kuran_61.txt",
+   "title": "Fussilat — Explained in Detail (فصلت)",
+   "author": "The Qur'an",
+   "words": 1621
+  },
+  {
+   "file": "Kuran_62.txt",
+   "title": "Ash-Shuraa — The Consultation (الشورى)",
+   "author": "The Qur'an",
+   "words": 1642
+  },
+  {
+   "file": "Kuran_63.txt",
+   "title": "Az-Zukhruf — The Ornaments of Gold (الزخرف)",
+   "author": "The Qur'an",
+   "words": 1764
+  },
+  {
+   "file": "Kuran_64.txt",
+   "title": "Ad-Dukhan — The Smoke (الدخان)",
+   "author": "The Qur'an",
+   "words": 717
+  },
+  {
+   "file": "Kuran_65.txt",
+   "title": "Al-Jathiyah — The Crouching (الجاثية)",
+   "author": "The Qur'an",
+   "words": 999
+  },
+  {
+   "file": "Kuran_66.txt",
+   "title": "Al-Ahqaf — The Wind-Curved Sandhills (الأحقاف)",
+   "author": "The Qur'an",
+   "words": 1301
+  },
+  {
+   "file": "Kuran_67.txt",
+   "title": "Adh-Dhariyat — The Winnowing Winds (الذاريات)",
+   "author": "The Qur'an",
+   "words": 798
+  },
+  {
+   "file": "Kuran_68.txt",
+   "title": "Al-Ghashiyah — The Overwhelming (الغاشية)",
+   "author": "The Qur'an",
+   "words": 174
+  },
+  {
+   "file": "Kuran_69.txt",
+   "title": "Al-Kahf — The Cave (الكهف)",
+   "author": "The Qur'an",
+   "words": 3229
+  },
+  {
+   "file": "Kuran_7.txt",
+   "title": "At-Takwir — The Overthrowing (التكوير)",
+   "author": "The Qur'an",
+   "words": 231
+  },
+  {
+   "file": "Kuran_70.txt",
+   "title": "An-Nahl — The Bee (النحل)",
+   "author": "The Qur'an",
+   "words": 3663
+  },
+  {
+   "file": "Kuran_71.txt",
+   "title": "Nuh — Noah (نوح)",
+   "author": "The Qur'an",
+   "words": 456
+  },
+  {
+   "file": "Kuran_72.txt",
+   "title": "Ibrahim — Abraham (إبراهيم)",
+   "author": "The Qur'an",
+   "words": 1614
+  },
+  {
+   "file": "Kuran_73.txt",
+   "title": "Al-Anbya — The Prophets (الأنبياء)",
+   "author": "The Qur'an",
+   "words": 2371
+  },
+  {
+   "file": "Kuran_74.txt",
+   "title": "Al-Mu'minun — The Believers (المؤمنون)",
+   "author": "The Qur'an",
+   "words": 2088
+  },
+  {
+   "file": "Kuran_75.txt",
+   "title": "As-Sajdah — The Prostration (السجدة)",
+   "author": "The Qur'an",
+   "words": 742
+  },
+  {
+   "file": "Kuran_76.txt",
+   "title": "At-Tur — The Mount (الطور)",
+   "author": "The Qur'an",
+   "words": 704
+  },
+  {
+   "file": "Kuran_77.txt",
+   "title": "Al-Mulk — The Sovereignty (الملك)",
+   "author": "The Qur'an",
+   "words": 682
+  },
+  {
+   "file": "Kuran_78.txt",
+   "title": "Al-Haqqah — The Reality (الحاقة)",
+   "author": "The Qur'an",
+   "words": 570
+  },
+  {
+   "file": "Kuran_79.txt",
+   "title": "Al-Ma'arij — The Ascending Stairways (المعارج)",
+   "author": "The Qur'an",
+   "words": 455
+  },
+  {
+   "file": "Kuran_8.txt",
+   "title": "Al-A'la — The Most High (الأعلى)",
+   "author": "The Qur'an",
+   "words": 164
+  },
+  {
+   "file": "Kuran_80.txt",
+   "title": "An-Naba — The Tidings (النبأ)",
+   "author": "The Qur'an",
+   "words": 374
+  },
+  {
+   "file": "Kuran_81.txt",
+   "title": "An-Nazi'at — Those Who Drag Forth (النازعات)",
+   "author": "The Qur'an",
+   "words": 418
+  },
+  {
+   "file": "Kuran_82.txt",
+   "title": "Al-Infitar — The Cleaving (الانفطار)",
+   "author": "The Qur'an",
+   "words": 178
+  },
+  {
+   "file": "Kuran_83.txt",
+   "title": "Al-Inshiqaq — The Sundering (الانشقاق)",
+   "author": "The Qur'an",
+   "words": 236
+  },
+  {
+   "file": "Kuran_84.txt",
+   "title": "Ar-Rum — The Romans (الروم)",
+   "author": "The Qur'an",
+   "words": 1625
+  },
+  {
+   "file": "Kuran_85.txt",
+   "title": "Al-'Ankabut — The Spider (العنكبوت)",
+   "author": "The Qur'an",
+   "words": 1971
+  },
+  {
+   "file": "Kuran_86.txt",
+   "title": "Al-Mutaffifin — The Defrauding (المطففين)",
+   "author": "The Qur'an",
+   "words": 352
+  },
+  {
+   "file": "Kuran_87.txt",
+   "title": "Al-Baqarah — The Cow (البقرة)",
+   "author": "The Qur'an",
+   "words": 12116
+  },
+  {
+   "file": "Kuran_88.txt",
+   "title": "Al-Anfal — The Spoils of War (الأنفال)",
+   "author": "The Qur'an",
+   "words": 2508
+  },
+  {
+   "file": "Kuran_89.txt",
+   "title": "Ali 'Imran — Family of Imran (آل عمران)",
+   "author": "The Qur'an",
+   "words": 7010
+  },
+  {
+   "file": "Kuran_9.txt",
+   "title": "Al-Layl — The Night (الليل)",
+   "author": "The Qur'an",
+   "words": 180
+  },
+  {
+   "file": "Kuran_90.txt",
+   "title": "Al-Ahzab — The Combined Forces (الأحزاب)",
+   "author": "The Qur'an",
+   "words": 2587
+  },
+  {
+   "file": "Kuran_91.txt",
+   "title": "Al-Mumtahanah — She That Is to Be Examined (الممتحنة)",
+   "author": "The Qur'an",
+   "words": 723
+  },
+  {
+   "file": "Kuran_92.txt",
+   "title": "An-Nisa — The Women (النساء)",
+   "author": "The Qur'an",
+   "words": 7215
+  },
+  {
+   "file": "Kuran_93.txt",
+   "title": "Az-Zalzalah — The Earthquake (الزلزلة)",
+   "author": "The Qur'an",
+   "words": 83
+  },
+  {
+   "file": "Kuran_94.txt",
+   "title": "Al-Hadid — The Iron (الحديد)",
+   "author": "The Qur'an",
+   "words": 1173
+  },
+  {
+   "file": "Kuran_95.txt",
+   "title": "Muhammad (محمد)",
+   "author": "The Qur'an",
+   "words": 1137
+  },
+  {
+   "file": "Kuran_96.txt",
+   "title": "Ar-Ra'd — The Thunder (الرعد)",
+   "author": "The Qur'an",
+   "words": 1689
+  },
+  {
+   "file": "Kuran_97.txt",
+   "title": "Ar-Rahman — The Beneficent (الرحمن)",
+   "author": "The Qur'an",
+   "words": 833
+  },
+  {
+   "file": "Kuran_98.txt",
+   "title": "Al-Insan — Man (الإنسان)",
+   "author": "The Qur'an",
+   "words": 492
+  },
+  {
+   "file": "Kuran_99.txt",
+   "title": "At-Talaq — The Divorce (الطلاق)",
+   "author": "The Qur'an",
+   "words": 574
+  },
+  {
+   "file": "OmerSeyfettin_1.txt",
+   "title": "The Pink Pearl Caftan",
+   "author": "Ömer Seyfettin",
+   "words": 4494
+  },
+  {
+   "file": "OmerSeyfettin_2.txt",
+   "title": "The Bomb",
+   "author": "Ömer Seyfettin",
+   "words": 6679
+  },
+  {
+   "file": "OmerSeyfettin_3.txt",
+   "title": "The Haunted Mansion",
+   "author": "Ömer Seyfettin",
+   "words": 2592
+  },
+  {
+   "file": "OmerSeyfettin_4.txt",
+   "title": "An Honest Account",
+   "author": "Ömer Seyfettin",
+   "words": 939
+  }
+ ]
+}
