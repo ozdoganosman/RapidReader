@@ -67,9 +67,9 @@ class ReaderScreen extends StatefulWidget {
     this.onSettingsChanged,
   });
 
-  /// Open [book]: ask how to read it (speed reading, the plain text or
-  /// listening) unless [mode] is given, load its text (bundled texts are
-  /// only loaded when they are opened) and show it
+  /// Open [book]: ask how to read it (speed reading or the plain text)
+  /// unless [mode] is given, load its text (bundled texts are only loaded
+  /// when they are opened) and show it
   static Future<void> open(
     BuildContext context, {
     required Book book,
@@ -127,7 +127,6 @@ class ReaderScreen extends StatefulWidget {
               currentBook: book,
               seriesChapters: seriesChapters,
               onSettingsChanged: onSettingsChanged,
-              listen: mode == ReadingMode.listen,
             ),
     );
     final navigator = Navigator.of(context);

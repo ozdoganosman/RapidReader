@@ -53,10 +53,7 @@ class RSVPSettings extends Equatable {
   /// (WPM); 0: off
   final int speedRampTarget;
 
-  /// Speech speed in the listening mode (1.0 is the voice's normal speed)
-  final double speechRate;
-
-  /// The page (plain text and listening): font, size, colors and a
+  /// The page (plain text): font, size, colors and a
   /// brightness (1.0: none dimmed, down to [minPageBrightness])
   final String pageFontFamily;
   final double pageFontSize;
@@ -81,7 +78,6 @@ class RSVPSettings extends Equatable {
     this.showFocusGuides = true,
     this.speedWarmUp = true,
     this.speedRampTarget = 0,
-    this.speechRate = 1.0,
     this.pageFontFamily = 'Literata',
     this.pageFontSize = 19,
     this.pageBackgroundColor = 0xFFF8F1E3, // Sepia
@@ -107,11 +103,6 @@ class RSVPSettings extends Equatable {
 
   /// Speed added every minute by the gradual speed-up
   static const speedRampStep = 10;
-
-  /// Supported speech speeds in read-aloud mode
-  static const minSpeechRate = 0.5;
-  static const maxSpeechRate = 2.0;
-  static const speechRateStep = 0.25;
 
   /// Default settings
   static const defaults = RSVPSettings();
@@ -165,7 +156,6 @@ class RSVPSettings extends Equatable {
         'showFocusGuides': showFocusGuides,
         'speedWarmUp': speedWarmUp,
         'speedRampTarget': speedRampTarget,
-        'speechRate': speechRate,
         'pageFontFamily': pageFontFamily,
         'pageFontSize': pageFontSize,
         'pageBackgroundColor': pageBackgroundColor,
@@ -203,7 +193,6 @@ class RSVPSettings extends Equatable {
       showFocusGuides: read<bool>('showFocusGuides', d.showFocusGuides),
       speedWarmUp: read<bool>('speedWarmUp', d.speedWarmUp),
       speedRampTarget: read<int>('speedRampTarget', d.speedRampTarget).clamp(0, maxWordsPerMinute),
-      speechRate: read<num>('speechRate', d.speechRate).toDouble().clamp(minSpeechRate, maxSpeechRate),
       pageFontFamily: read<String>('pageFontFamily', d.pageFontFamily),
       pageFontSize: read<num>('pageFontSize', d.pageFontSize).toDouble().clamp(minPageFontSize, maxPageFontSize),
       pageBackgroundColor: read<int>('pageBackgroundColor', d.pageBackgroundColor),
@@ -229,7 +218,6 @@ class RSVPSettings extends Equatable {
     bool? showFocusGuides,
     bool? speedWarmUp,
     int? speedRampTarget,
-    double? speechRate,
     String? pageFontFamily,
     double? pageFontSize,
     int? pageBackgroundColor,
@@ -252,7 +240,6 @@ class RSVPSettings extends Equatable {
       showFocusGuides: showFocusGuides ?? this.showFocusGuides,
       speedWarmUp: speedWarmUp ?? this.speedWarmUp,
       speedRampTarget: speedRampTarget ?? this.speedRampTarget,
-      speechRate: speechRate ?? this.speechRate,
       pageFontFamily: pageFontFamily ?? this.pageFontFamily,
       pageFontSize: pageFontSize ?? this.pageFontSize,
       pageBackgroundColor: pageBackgroundColor ?? this.pageBackgroundColor,
@@ -278,7 +265,6 @@ class RSVPSettings extends Equatable {
         showFocusGuides,
         speedWarmUp,
         speedRampTarget,
-        speechRate,
         pageFontFamily,
         pageFontSize,
         pageBackgroundColor,

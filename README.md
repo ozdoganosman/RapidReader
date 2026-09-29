@@ -31,21 +31,14 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
 - **Ayarlar:** Hız (100–1000 kelime/dakika), uyarlanabilir hız, kelime gruplama (1–3),
   mikro-duraklama, hız ısınması (yavaş başlayıp seçilen hıza çıkma), font ailesi ve boyutu
   (disleksi dostu OpenDyslexic dahil), ORP vurgusu, odak çizgileri, temalar (yüksek kontrast dahil).
-- **Üç okuma modu:** Bir bölüm ya da metin açılırken sorulur:
+- **İki okuma modu:** Bir bölüm ya da metin açılırken sorulur:
   - *Hızlı Okuma:* kelime kelime (RSVP), seçilen hızda.
   - *Düz Metin:* sayfa olarak. Sayfa ayarlarında (Aa) yazı tipi (Literata, Merriweather, Lora,
     Noto Serif, Roboto, Open Sans, Lato, OpenDyslexic), yazı boyutu, tema (Açık, Sepya, Gri, Koyu,
     göz yormayan sıcak renkli Gece), özel arka plan ve yazı rengi ile parlaklık seçilir.
     *Rehberli okuma:* sayfada seçilen hızda kelime kelime ilerleyen bir vurgu; göz onu izler.
-  - *Sesli Okuma:* cihazın Türkçe sesiyle paragraf paragraf; okunan paragraf ve kelime
-    işaretlenir, bir paragrafa dokununca oradan okunur, konuşma hızı 0,5x–2x. Android'de bölümün
-    kalanı sese bir kerede verilir: paragraflar arasında duraklama olmaz ve ekran kapalıyken de
-    okuma sürer; bölüm bitince sonraki bölüme geçer. Bildirimde ve kilit ekranında oynat/duraklat
-    ile önceki/sonraki paragraf düğmeleri vardır; medya servisi uzun dinlemede Android'in
-    uygulamayı kapatmasını önler. Cihazda Türkçe ses verisi olmalıdır
-    (Ayarlar > Metin okuma çıkışı).
 
-  Kalınan yer üç modda ortaktır (kelime olarak saklanır).
+  Kalınan yer iki modda ortaktır (kelime olarak saklanır).
 - **Kur'an-ı Kerim:** Sure adına ya da numarasına göre arama, iniş sırası ile mushaf
   sırası arasında geçiş, her surenin Arapça metni (Tanzil Projesi, Amiri Quran yazı tipiyle).
 - **Türkçe desteği:** Kesme işaretli kelimeler (Türkiye'nin) tek kelime kalır; odak harfi
@@ -127,8 +120,6 @@ lib/
       custom_book_service.dart       Kullanıcının eklediği metinler
       reading_storage.dart           Ayarlar ve okuma konumları
       rsvp_engine.dart               Oynatma motoru (zamanlama, ilerleme)
-      read_aloud_player.dart         Sesli okuma (flutter_tts, paragraf paragraf)
-      read_aloud_notification.dart   Sesli okumanın bildirimi ve kilit ekranı (audio_service)
       ad_service.dart                AdMob banner ve geçiş reklamı
       epub_extractor.dart, pdf_extractor.dart, text_file_decoder.dart,
       text_cleaner.dart,

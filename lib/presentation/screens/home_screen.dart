@@ -118,7 +118,6 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     final (icon, modeName) = switch (item.mode) {
       ReadingMode.speed => (Icons.bolt, 'Hızlı Okuma'),
       ReadingMode.plain => (Icons.article_outlined, 'Düz Metin'),
-      ReadingMode.listen => (Icons.headphones_outlined, 'Sesli Okuma'),
     };
     final percent = (item.progress * 100).round();
     return Padding(

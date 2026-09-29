@@ -1,7 +1,7 @@
 /// Reading Mode Sheet
 ///
-/// Asked when a chapter or text is opened: speed reading (RSVP), the plain
-/// text, or listening to it.
+/// Asked when a chapter or text is opened: speed reading (RSVP) or the
+/// plain text.
 library;
 
 import 'package:flutter/material.dart';
@@ -14,9 +14,6 @@ enum ReadingMode {
 
   /// The text as a page
   plain,
-
-  /// The text read aloud by the device's voice
-  listen,
 }
 
 /// Let the user choose how to read; null if the sheet was dismissed
@@ -33,8 +30,6 @@ Future<ReadingMode?> showReadingModeSheet(BuildContext context) {
           children: [
             _option(context, ReadingMode.speed, Icons.bolt, 'Hızlı Okuma', 'Kelime kelime, seçtiğin hızda'),
             _option(context, ReadingMode.plain, Icons.article_outlined, 'Düz Metin', 'Sayfa olarak, kendi hızında'),
-            _option(context, ReadingMode.listen, Icons.headphones_outlined, 'Sesli Okuma',
-                'Cihazın Türkçe sesiyle; ekran kapalıyken de'),
           ],
         ),
       ),

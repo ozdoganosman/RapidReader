@@ -309,7 +309,7 @@ class ORPTextWidget extends StatelessWidget {
           fontWeight: fontWeight,
           height: 1.2,
         );
-      // Page fonts (plain text and listening)
+      // Page fonts (plain text)
       case 'Literata':
       case 'Lora':
       case 'Noto Serif':

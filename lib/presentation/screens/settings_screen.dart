@@ -6,14 +6,12 @@
 /// - Font settings
 /// - Theme/colors
 /// - Micro-pause settings
-/// - Read-aloud
 library;
 
 import 'package:flutter/material.dart';
 
 import '../../core/models/rsvp_settings.dart';
 import '../../core/services/ad_service.dart';
-import '../../core/services/read_aloud_player.dart';
 import '../theme/app_colors.dart';
 import '../widgets/orp_text_widget.dart';
 
@@ -217,27 +215,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     },
                   ),
                 ],
-              ],
-            ),
-
-            const SizedBox(height: 16),
-
-            // Read-aloud
-            _buildSettingCard(
-              title: 'Sesli Okuma',
-              children: [
-                _buildSliderSetting(
-                  label: 'Konuşma Hızı',
-                  value: _currentSettings.speechRate,
-                  min: RSVPSettings.minSpeechRate,
-                  max: RSVPSettings.maxSpeechRate,
-                  divisions: (RSVPSettings.maxSpeechRate - RSVPSettings.minSpeechRate) ~/ RSVPSettings.speechRateStep,
-                  displayValue: speechRateLabel(_currentSettings.speechRate),
-                  onChanged: (value) {
-                    final rate = (value / RSVPSettings.speechRateStep).round() * RSVPSettings.speechRateStep;
-                    _updateSettings(_currentSettings.copyWith(speechRate: rate));
-                  },
-                ),
               ],
             ),
 
