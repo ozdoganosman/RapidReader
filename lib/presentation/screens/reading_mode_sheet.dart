@@ -6,6 +6,7 @@ library;
 
 import 'package:flutter/material.dart';
 
+import '../../core/services/app_language.dart';
 import '../theme/app_colors.dart';
 
 enum ReadingMode {
@@ -28,8 +29,9 @@ Future<ReadingMode?> showReadingModeSheet(BuildContext context) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _option(context, ReadingMode.speed, Icons.bolt, 'Hızlı Okuma', 'Kelime kelime, seçtiğin hızda'),
-            _option(context, ReadingMode.plain, Icons.article_outlined, 'Düz Metin', 'Sayfa olarak, kendi hızında'),
+            _option(context, ReadingMode.speed, Icons.bolt, context.l10n.modeSpeed, context.l10n.modeSpeedHint),
+            _option(
+                context, ReadingMode.plain, Icons.article_outlined, context.l10n.modePlain, context.l10n.modePlainHint),
           ],
         ),
       ),

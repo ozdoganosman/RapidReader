@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rapid_reader/presentation/widgets/orp_text_widget.dart';
+import 'package:rapid_reader/l10n/app_localizations.dart';
 
 /// Pump an [RSVPDisplay] filling the default 800x600 test surface.
 Future<void> _pumpDisplay(
@@ -112,6 +113,9 @@ bool _allPartsFit(WidgetTester tester) => tester
 void _rightToLeftTests() {
   testWidgets('an Arabic word is shown whole, not split into parts', (tester) async {
     await tester.pumpWidget(const MaterialApp(
+      locale: Locale('tr'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: Scaffold(body: RSVPDisplay(word: '(العلق)', fontFamily: 'sans')),
     ));
     expect(find.text('(العلق)'), findsOneWidget);
@@ -125,6 +129,9 @@ void _themedTests() {
   for (final word in ['huzursuz düşlerden', 'uyandığında, kendini', 'Birinci', 'bir sabah uyandı']) {
     testWidgets('"$word" fits inside the app theme', (tester) async {
       await tester.pumpWidget(MaterialApp(
+        locale: const Locale('tr'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: Scaffold(body: RSVPDisplay(word: word, fontFamily: 'sans')),
       ));
       expect(_allPartsFit(tester), isTrue);

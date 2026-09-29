@@ -19,6 +19,7 @@ import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
 import '../../core/models/word_token.dart';
 import '../../core/services/ad_service.dart';
+import '../../core/services/app_language.dart';
 import '../../core/services/book_service.dart';
 import '../../core/services/reading_storage.dart';
 import '../../core/services/rsvp_engine.dart';
@@ -544,7 +545,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 12),
                     child: Text(
-                      'Okuma Tamamlandı!',
+                      context.l10n.readingComplete,
                       style: TextStyle(
                         color: accentColor,
                         fontSize: 18,
@@ -567,12 +568,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
   /// word
   bool get _compactControls => MediaQuery.sizeOf(context).height < 500;
 
-  /// Format seconds to "X dk Y sn" format
-  String _formatTime(int seconds) {
-    final mins = seconds ~/ 60;
-    final secs = seconds % 60;
-    return '$mins dk $secs sn';
-  }
+  /// Format seconds as minutes and seconds ("X dk Y sn")
+  String _formatTime(int seconds) => context.l10n.durationMinutesSeconds(seconds ~/ 60, seconds % 60);
 
   Widget _buildSpeedControl(Color textColor, Color accentColor) {
     // Calculate estimated reading time in seconds
@@ -616,7 +613,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
         ),
         const SizedBox(height: 8),
         Text(
-          'Kalan: ${_formatTime(remainingSeconds)} / Toplam: ${_formatTime(totalSeconds)}',
+          context.l10n.remainingAndTotal(_formatTime(remainingSeconds), _formatTime(totalSeconds)),
           style: TextStyle(
             color: textColor.withValues(alpha: 0.75),
             fontSize: 13,
@@ -625,7 +622,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
         if (!_compactControls) ...[
           const SizedBox(height: 4),
           Text(
-            'Sol kenara dokun: cümle başına dön',
+            context.l10n.tapLeftEdgeHint,
             style: TextStyle(color: textColor.withValues(alpha: 0.6), fontSize: 12),
           ),
         ],
@@ -798,7 +795,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Sayfa Görünümü',
+                      context.l10n.pageView,
                       style: TextStyle(
                         color: textColor,
                         fontSize: 18,
@@ -830,7 +827,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  'Kelime ${_wordsBefore[currentIndex] + 1} / ${_wordsBefore.last}',
+                  context.l10n.wordPosition(_wordsBefore[currentIndex] + 1, _wordsBefore.last),
                   style: TextStyle(
                     color: textColor.withValues(alpha: 0.7),
                     fontSize: 14,
@@ -898,7 +895,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                 Icon(Icons.check_circle, size: 80, color: accentColor),
                 const SizedBox(height: 24),
                 Text(
-                  'Bölüm Tamamlandı!',
+                  context.l10n.chapterComplete,
                   style: TextStyle(
                     color: textColor,
                     fontSize: 24,
@@ -912,7 +909,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                   ElevatedButton.icon(
                     onPressed: () => _openNextChapter(nextChapter),
                     icon: const Icon(Icons.arrow_forward),
-                    label: const Text('Sonraki Bölüm'),
+                    label: Text(context.l10n.nextChapter),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: accentColor,
                       // Dark text on a light accent (the yellow of high contrast)
@@ -929,7 +926,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                   // Back to the library, also from a chapter list
                   onPressed: () => Navigator.of(context).popUntil((route) => route.isFirst),
                   icon: const Icon(Icons.home),
-                  label: const Text('Ana Sayfaya Dön'),
+                  label: Text(context.l10n.backToHome),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: textColor,
                     side: BorderSide(color: textColor),

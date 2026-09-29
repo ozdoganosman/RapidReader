@@ -15,6 +15,7 @@ import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
+import '../../core/services/app_language.dart';
 import '../../core/services/article_extractor.dart';
 import '../../core/services/book_service.dart';
 import '../../core/services/custom_book_service.dart';
@@ -43,13 +44,15 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
   List<Book> _customBooks = []; // Custom books from SharedPreferences
   bool _isLoading = true;
 
+  /// Language of the loaded library (the Turkish or the English texts)
+  String? _language;
+
   /// The book opened last, its reading mode and how far it was read
   ({Book book, ReadingMode mode, double progress})? _continue;
 
   @override
   void initState() {
     super.initState();
-    _loadBooks();
     _loadSettings();
     _listenForShares();
   }
@@ -61,6 +64,12 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     super.didChangeDependencies();
     final route = ModalRoute.of(context);
     if (route != null) routeObserver.subscribe(this, route);
+    // The library in the app's language, again when the language changes
+    final language = Localizations.localeOf(context).languageCode;
+    if (language != _language) {
+      _language = language;
+      _loadBooks();
+    }
   }
 
   /// Back from reading: "Devam Et" shows the new position
@@ -116,8 +125,8 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     final book = item.book;
     final series = _chaptersOf(book) == null ? null : BookService.seriesDisplayName(book.seriesName!);
     final (icon, modeName) = switch (item.mode) {
-      ReadingMode.speed => (Icons.bolt, 'Hızlı Okuma'),
-      ReadingMode.plain => (Icons.article_outlined, 'Düz Metin'),
+      ReadingMode.speed => (Icons.bolt, context.l10n.modeSpeed),
+      ReadingMode.plain => (Icons.article_outlined, context.l10n.modePlain),
     };
     final percent = (item.progress * 100).round();
     return Padding(
@@ -142,7 +151,8 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Devam Et', style: TextStyle(fontSize: 12, color: AppColors.secondaryText)),
+                      Text(context.l10n.continueReading,
+                          style: const TextStyle(fontSize: 12, color: AppColors.secondaryText)),
                       const SizedBox(height: 2),
                       Text(
                         series == null ? book.title : '$series · ${book.title}',
@@ -161,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Text('%$percent · $modeName',
+                      Text(context.l10n.continueProgress(percent, modeName),
                           style: const TextStyle(fontSize: 12, color: AppColors.secondaryText)),
                     ],
                   ),
@@ -221,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     } catch (e) {
       if (mounted) {
         final message =
-            e is ArticleException || e is DocumentImportException ? e.toString() : 'Paylaşılan içerik okunamadı';
+            e is ArticleException || e is DocumentImportException ? e.toString() : context.l10n.sharedContentUnreadable;
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: Colors.red[400]));
       }
       return;
@@ -258,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     setState(() => _isLoading = true);
 
     // Load both asset books and custom books
-    final books = await BookService.loadBooks();
+    final books = await BookService.loadBooks(language: _language);
     final customBooks = await CustomBookService.loadCustomBooks();
 
     setState(() {
@@ -369,7 +379,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                 Row(
                   children: [
                     Text(
-                      'Kitaplık',
+                      context.l10n.library,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w300,
@@ -498,7 +508,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Okuma Hızı',
+                        context.l10n.readingSpeed,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -522,7 +532,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                           const SizedBox(width: 6),
                           Flexible(
                             child: Text(
-                              'kelime/dk',
+                              context.l10n.wordsPerMinuteShort,
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -545,7 +555,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      'Ayarla',
+                      context.l10n.adjust,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -600,7 +610,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     final displayName = BookService.seriesDisplayName(seriesName);
 
     // The Quran files list the book name as author; describe the text instead
-    final author = seriesName.toLowerCase() == 'kuran' ? 'Arapça aslından meal' : firstChapter.author;
+    final author = seriesName.toLowerCase() == 'kuran' ? context.l10n.quranCardSubtitle : firstChapter.author;
 
     return GestureDetector(
       onTap: () => _openSeries(displayName, chapters),
@@ -672,7 +682,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                       children: [
                         Expanded(
                           child: Text(
-                            '${chapters.length} bölüm · ${_formatTotalTime(totalWords)}',
+                            context.l10n.chaptersAndTime(chapters.length, _formatTotalTime(totalWords)),
                             style: TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
@@ -771,7 +781,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '${book.wordCount} kelime',
+                              context.l10n.wordCount(book.wordCount),
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w400,
@@ -849,7 +859,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
             ),
             const SizedBox(height: 12),
             Text(
-              'Metin Ekle',
+              context.l10n.addText,
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w400,
@@ -858,7 +868,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
             ),
             const SizedBox(height: 4),
             Text(
-              'Kendi metnini ekle',
+              context.l10n.addTextHint,
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w400,
@@ -903,7 +913,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                 Icon(Icons.add_circle_outline, color: Colors.black54),
                 const SizedBox(width: 12),
                 Text(
-                  'Yeni Metin Ekle',
+                  context.l10n.addTextTitle,
                   style: TextStyle(
                     color: Colors.black87,
                     fontWeight: FontWeight.w400,
@@ -960,7 +970,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
-                                    'Kapak Resmi Ekle (Opsiyonel)',
+                                    context.l10n.addCoverOptional,
                                     style: TextStyle(
                                       color: AppColors.secondaryText,
                                       fontSize: 13,
@@ -979,8 +989,8 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                         if (titleMissing) setDialogState(() => titleMissing = false);
                       },
                       decoration: InputDecoration(
-                        labelText: 'Başlık *',
-                        errorText: titleMissing ? 'Başlık gerekli' : null,
+                        labelText: context.l10n.titleLabel,
+                        errorText: titleMissing ? context.l10n.titleMissing : null,
                         labelStyle: TextStyle(color: AppColors.secondaryText),
                         filled: true,
                         fillColor: Colors.grey[50],
@@ -1004,7 +1014,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                       controller: authorController,
                       style: TextStyle(color: Colors.black87),
                       decoration: InputDecoration(
-                        labelText: 'Yazar (Opsiyonel)',
+                        labelText: context.l10n.authorLabel,
                         labelStyle: TextStyle(color: AppColors.secondaryText),
                         filled: true,
                         fillColor: Colors.grey[50],
@@ -1045,7 +1055,9 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                                 } catch (e) {
                                   if (context.mounted) {
                                     setDialogState(
-                                      () => notice = e is DocumentImportException ? e.message : 'Dosya okunamadı: $e',
+                                      () => notice = e is DocumentImportException
+                                          ? e.message
+                                          : context.l10n.fileUnreadableWithError('$e'),
                                     );
                                   }
                                 } finally {
@@ -1061,7 +1073,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                                 child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black45),
                               )
                             : const Icon(Icons.upload_file, size: 18),
-                        label: Text(importing ? 'Dosya okunuyor…' : 'Dosyadan Yükle (TXT, PDF, EPUB)'),
+                        label: Text(importing ? context.l10n.readingFile : context.l10n.importFromFile),
                         style: OutlinedButton.styleFrom(
                           foregroundColor: AppColors.secondaryText,
                           side: BorderSide(color: Colors.black12),
@@ -1079,7 +1091,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                         Expanded(
                           child: _dialogButton(
                             icon: Icons.content_paste,
-                            label: 'Panodan',
+                            label: context.l10n.fromClipboard,
                             onPressed: importing
                                 ? null
                                 : () async {
@@ -1087,7 +1099,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                                     final text = data?.text?.trim() ?? '';
                                     if (!context.mounted) return;
                                     if (text.isEmpty) {
-                                      setDialogState(() => notice = 'Panoda metin yok');
+                                      setDialogState(() => notice = context.l10n.clipboardEmpty);
                                       return;
                                     }
                                     if (ArticleExtractor.isUrl(text)) {
@@ -1118,7 +1130,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                         Expanded(
                           child: _dialogButton(
                             icon: Icons.link,
-                            label: 'Web Adresi',
+                            label: context.l10n.webAddress,
                             onPressed: importing
                                 ? null
                                 : () async {
@@ -1152,8 +1164,8 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                         if (contentMissing) setDialogState(() => contentMissing = false);
                       },
                       decoration: InputDecoration(
-                        labelText: 'Metin İçeriği *',
-                        errorText: contentMissing ? 'Metin gerekli' : null,
+                        labelText: context.l10n.contentLabel,
+                        errorText: contentMissing ? context.l10n.contentMissing : null,
                         alignLabelWithHint: true,
                         labelStyle: TextStyle(color: AppColors.secondaryText),
                         filled: true,
@@ -1180,7 +1192,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
               TextButton(
                 onPressed: saving ? null : () => Navigator.of(context).pop(),
                 child: Text(
-                  'İptal',
+                  context.l10n.cancel,
                   style: TextStyle(color: AppColors.secondaryText),
                 ),
               ),
@@ -1197,7 +1209,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                         Navigator.of(context).pop();
                         _readWithoutSaving(title.isEmpty ? _titleFromText(content) : title, content);
                       },
-                child: const Text('Kaydetmeden Oku', style: TextStyle(color: AppColors.secondaryText)),
+                child: Text(context.l10n.readWithoutSaving, style: const TextStyle(color: AppColors.secondaryText)),
               ),
               ElevatedButton(
                 onPressed: saving
@@ -1227,7 +1239,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                           if (context.mounted) {
                             setDialogState(() {
                               saving = false;
-                              notice = 'Metin kaydedilemedi. Cihazın depolama alanı için çok büyük olabilir.';
+                              notice = context.l10n.saveFailed;
                             });
                           }
                           return;
@@ -1238,7 +1250,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                         if (mounted) _loadBooks(); // Refresh the list
                         messenger.showSnackBar(
                           SnackBar(
-                            content: Text('Metin başarıyla eklendi!'),
+                            content: Text(context.l10n.textAdded),
                             backgroundColor: Colors.black54,
                           ),
                         );
@@ -1250,7 +1262,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),
-                child: const Text('Kaydet'),
+                child: Text(context.l10n.save),
               ),
             ],
           ),
@@ -1287,7 +1299,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.white,
-        title: const Text('Web makalesi', style: TextStyle(fontWeight: FontWeight.w400)),
+        title: Text(context.l10n.webArticle, style: const TextStyle(fontWeight: FontWeight.w400)),
         content: TextField(
           controller: controller,
           autofocus: true,
@@ -1298,11 +1310,11 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('İptal', style: TextStyle(color: AppColors.secondaryText)),
+            child: Text(context.l10n.cancel, style: const TextStyle(color: AppColors.secondaryText)),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(controller.text.trim()),
-            child: const Text('Getir'),
+            child: Text(context.l10n.fetch),
           ),
         ],
       ),
@@ -1324,7 +1336,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
       }
       return null;
     } catch (e) {
-      return e is ArticleException ? e.message : 'Sayfa okunamadı: $e';
+      return e is ArticleException ? e.message : AppLanguage.strings.pageUnreadableWithError('$e');
     }
   }
 
@@ -1356,18 +1368,18 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
               borderRadius: BorderRadius.circular(8),
             ),
             title: Text(
-              'Metni Sil',
+              context.l10n.deleteText,
               style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w400),
             ),
             content: Text(
-              '"${book.title}" metnini silmek istediğinize emin misiniz?',
+              context.l10n.deleteTextConfirm(book.title),
               style: TextStyle(color: AppColors.secondaryText),
             ),
             actions: [
               TextButton(
                 onPressed: deleting ? null : () => Navigator.of(context).pop(),
                 child: Text(
-                  'İptal',
+                  context.l10n.cancel,
                   style: TextStyle(color: AppColors.secondaryText),
                 ),
               ),
@@ -1385,7 +1397,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                         if (mounted) _loadBooks();
                         messenger.showSnackBar(
                           SnackBar(
-                            content: Text('Metin silindi'),
+                            content: Text(context.l10n.textDeleted),
                             backgroundColor: Colors.black54,
                           ),
                         );
@@ -1397,7 +1409,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),
-                child: const Text('Sil'),
+                child: Text(context.l10n.delete),
               ),
             ],
           ),
@@ -1428,7 +1440,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
           const SizedBox(height: 20),
           ListTile(
             leading: Icon(Icons.delete_outline, color: Colors.red[400]),
-            title: Text('Metni Sil', style: TextStyle(color: Colors.black87)),
+            title: Text(context.l10n.deleteText, style: TextStyle(color: Colors.black87)),
             onTap: () {
               Navigator.pop(context);
               _deleteCustomBook(book);
@@ -1442,7 +1454,8 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
 
   /// Format total reading time based on word count and user's WPM settings
   String _formatTotalTime(int totalWords) {
-    if (totalWords == 0) return '0 dk';
+    final l10n = context.l10n;
+    if (totalWords == 0) return l10n.durationMinutes(0);
 
     // Use user's WPM setting
     final wpm = _settings.wordsPerMinute;
@@ -1451,14 +1464,14 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     final totalMinutes = (totalWords / wpm).ceil();
 
     if (totalMinutes < 60) {
-      return '$totalMinutes dk';
+      return l10n.durationMinutes(totalMinutes);
     } else {
       final hours = totalMinutes ~/ 60;
       final minutes = totalMinutes % 60;
       if (minutes == 0) {
-        return '$hours sa';
+        return l10n.durationHours(hours);
       }
-      return '$hours sa $minutes dk';
+      return l10n.durationHoursMinutes(hours, minutes);
     }
   }
 }

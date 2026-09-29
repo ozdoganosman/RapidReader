@@ -6,6 +6,7 @@ library;
 import 'package:flutter/material.dart';
 
 import '../../core/data/quran.dart';
+import '../../core/services/app_language.dart';
 import '../theme/app_colors.dart';
 
 class ArabicSurahScreen extends StatefulWidget {
@@ -46,7 +47,7 @@ class _ArabicSurahScreenState extends State<ArabicSurahScreen> {
         future: _verses,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(child: Text('Arapça metin yüklenemedi'));
+            return Center(child: Text(context.l10n.arabicTextUnavailable));
           }
           final verses = snapshot.data;
           if (verses == null) {
@@ -77,10 +78,10 @@ class _ArabicSurahScreenState extends State<ArabicSurahScreen> {
                   ),
                 ),
               const SizedBox(height: 16),
-              const Text(
-                quranArabicSource,
+              Text(
+                context.l10n.arabicTextSource,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 11, color: AppColors.secondaryText),
+                style: const TextStyle(fontSize: 11, color: AppColors.secondaryText),
               ),
             ],
           );

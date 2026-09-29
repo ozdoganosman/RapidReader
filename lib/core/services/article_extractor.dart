@@ -9,6 +9,7 @@ import 'package:html/dom.dart';
 import 'package:html/parser.dart' as html_parser;
 import 'package:http/http.dart' as http;
 
+import 'app_language.dart';
 import 'text_cleaner.dart';
 import 'text_file_decoder.dart';
 
@@ -56,7 +57,7 @@ class ArticleExtractor {
   static Future<Article> fetch(String url, {http.Client? client}) async {
     final uri = Uri.tryParse(url.trim());
     if (uri == null || !isUrl(url)) {
-      throw const ArticleException('Geçerli bir web adresi girin (https://...)');
+      throw ArticleException(AppLanguage.strings.enterValidUrl);
     }
 
     final http.Response response;
@@ -64,20 +65,18 @@ class ArticleExtractor {
     try {
       response = await httpClient.get(uri, headers: const {'Accept': 'text/html,application/xhtml+xml'});
     } catch (_) {
-      throw ArticleException(kIsWeb
-          ? 'Tarayıcı güvenlik kuralları bu sitenin okunmasına izin vermiyor. Android uygulamasını '
-              'kullanın ya da metni kopyalayıp "Panodan" ile yapıştırın.'
-          : 'Sayfa indirilemedi. İnternet bağlantınızı kontrol edin.');
+      throw ArticleException(
+          kIsWeb ? AppLanguage.strings.siteBlockedInBrowser : AppLanguage.strings.pageDownloadFailed);
     } finally {
       if (client == null) httpClient.close();
     }
     if (response.statusCode != 200) {
-      throw ArticleException('Sayfa açılamadı (HTTP ${response.statusCode})');
+      throw ArticleException(AppLanguage.strings.pageOpenFailed(response.statusCode));
     }
 
     final article = parse(TextFileDecoder.decode(response.bodyBytes));
     if (article.text.trim().isEmpty) {
-      throw const ArticleException('Sayfada okunabilir metin bulunamadı');
+      throw ArticleException(AppLanguage.strings.noTextOnPage);
     }
     return article;
   }

@@ -7,6 +7,7 @@ library;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 
+import 'app_language.dart';
 import 'epub_extractor.dart';
 import 'pdf_extractor.dart';
 import 'text_cleaner.dart';
@@ -53,7 +54,7 @@ class DocumentImporter {
     try {
       bytes = await file.readAsBytes();
     } catch (_) {
-      throw const DocumentImportException('Dosya okunamadı');
+      throw DocumentImportException(AppLanguage.strings.fileUnreadable);
     }
 
     return read(file.name, bytes);
@@ -89,12 +90,12 @@ class DocumentImporter {
           content: epub.text,
         );
       default:
-        throw DocumentImportException('Desteklenmeyen dosya türü: .$extension');
+        throw DocumentImportException(AppLanguage.strings.unsupportedFileType(extension));
     }
 
     if (document.content.trim().isEmpty) {
       // e.g. a scanned PDF that only contains images
-      throw const DocumentImportException('Dosyada okunabilir metin bulunamadı');
+      throw DocumentImportException(AppLanguage.strings.noTextInFile);
     }
     return document;
   }

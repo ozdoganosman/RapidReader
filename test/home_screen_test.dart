@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:rapid_reader/core/services/app_language.dart';
 import 'package:rapid_reader/core/services/custom_book_service.dart';
 import 'package:rapid_reader/main.dart';
 import 'package:rapid_reader/presentation/screens/home_screen.dart';
@@ -14,6 +15,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 Finder _field(String label) => find.widgetWithText(TextField, label);
 
 void main() {
+  // The tests read the Turkish texts
+  setUpAll(() => AppLanguage.choice.value = 'tr');
+  tearDownAll(() => AppLanguage.choice.value = null);
+
   setUp(() {
     // An in-memory box (file IO would not complete in the fake async zone)
     // whose saves take a moment, as on a device

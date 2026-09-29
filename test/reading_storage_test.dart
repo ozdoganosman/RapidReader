@@ -6,6 +6,7 @@ import 'package:rapid_reader/core/models/rsvp_settings.dart';
 import 'package:rapid_reader/core/services/reading_storage.dart';
 import 'package:rapid_reader/presentation/screens/reader_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rapid_reader/l10n/app_localizations.dart';
 
 const _text = 'Bir iki üç dört beş altı yedi sekiz dokuz on.';
 
@@ -28,6 +29,9 @@ Future<void> _pumpReader(
     (message) async => codec.encodeMessage(<Object?>[null]),
   );
   await tester.pumpWidget(MaterialApp(
+    locale: const Locale('tr'),
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     home: ReaderScreen(
       content: _text,
       title: 'Deneme',

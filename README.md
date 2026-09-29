@@ -31,6 +31,9 @@ Web sürümü: https://ozdoganosman.github.io/RapidReader/
 - **Ayarlar:** Hız (100–1000 kelime/dakika), uyarlanabilir hız, kelime gruplama (1–3),
   mikro-duraklama, hız ısınması (yavaş başlayıp seçilen hıza çıkma), font ailesi ve boyutu
   (disleksi dostu OpenDyslexic dahil), ORP vurgusu, odak çizgileri, temalar (yüksek kontrast dahil).
+- **İki dil:** Türkçe cihazlarda Türkçe, diğerlerinde İngilizce (Ayarlar > Dil ile
+  değiştirilebilir); kitaplık da dile göre Türkçe ya da İngilizce metinlerden oluşur. Arayüz
+  metinleri `lib/l10n/app_tr.arb` ve `app_en.arb` dosyalarındadır (`flutter gen-l10n`).
 - **İki okuma modu:** Bir bölüm ya da metin açılırken sorulur:
   - *Hızlı Okuma:* kelime kelime (RSVP), seçilen hızda.
   - *Düz Metin:* sayfa olarak. Sayfa ayarlarında (Aa) yazı tipi (Literata, Merriweather, Lora,
@@ -149,6 +152,13 @@ test/                                Birim ve widget testleri
   sadeleştirilmemiş aktarımlarıdır (GitHub'daki bir derlemeden alındı; sadeleştirme ve
   kısaltma yapılmadığı kontrol edildi). Yayından önce Dergâh'ın *Bütün Eserleri*
   baskısıyla karşılaştırılması önerilir.
+- **İngilizce kitaplık** (`assets/books/en/`, uygulama İngilizceyken; dosya adları Türkçe
+  kitaplıkla aynıdır): *A Tale of Two Cities* Dickens'ın aslıdır (Project Gutenberg #98).
+  *The Metamorphosis*, Kafka'nın Almanca aslından (Project Gutenberg #22367) ve Ömer
+  Seyfettin hikâyeleri Türkçe asıllarından İngilizceye çevrildi (2026). İngilizce Kur'an
+  meali Marmaduke Pickthall'ın 1930 tarihli çevirisidir (kamu malı; metin Tanzil Projesi'nden,
+  quran-api derlemesi aracılığıyla) ve Türkçe meal gibi iniş sırasıyla dizilidir. Kapaklar
+  Türkçe kapakların İngilizce yazılı hâlleridir.
 - **Arapça Kur'an metni** (`assets/quran/`) Tanzil Projesi'nin "Simple" metnidir
   (tanzil.net, CC BY 3.0); değiştirilmeden kullanılır, kaynak uygulamada belirtilir
   (`assets/quran/SOURCE.txt`).

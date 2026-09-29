@@ -1,39 +1,56 @@
 /// Book Service
 ///
-/// Automatically scans and loads books from assets/books/ folder.
+/// The bundled library: the Turkish texts in assets/books/ and the English
+/// ones in assets/books/en/ (same file names), chosen by the app's language.
 library;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../models/book.dart';
+import 'app_language.dart';
 import 'book_index.dart';
 
 /// Service for loading pre-bundled books from assets/books/ folder
 class BookService {
-  /// Display names of the bundled series (file names are ASCII)
+  /// Display names of the bundled series in each language (file names are
+  /// ASCII)
   static const _seriesDisplayNames = {
-    'kuran': "Kur'an-ı Kerim",
-    'attc': 'İki Şehrin Hikâyesi',
-    'donusum': 'Dönüşüm',
-    'omerseyfettin': 'Ömer Seyfettin Hikâyeleri',
+    'tr': {
+      'kuran': "Kur'an-ı Kerim",
+      'attc': 'İki Şehrin Hikâyesi',
+      'donusum': 'Dönüşüm',
+      'omerseyfettin': 'Ömer Seyfettin Hikâyeleri',
+    },
+    'en': {
+      'kuran': "The Qur'an",
+      'attc': 'A Tale of Two Cities',
+      'donusum': 'The Metamorphosis',
+      'omerseyfettin': 'Stories by Ömer Seyfettin',
+    },
   };
 
   /// Name to show for a series, e.g. "ATTC" -> "İki Şehrin Hikâyesi"
-  static String seriesDisplayName(String seriesName) =>
-      _seriesDisplayNames[seriesName.toLowerCase()] ?? seriesName;
+  static String seriesDisplayName(String seriesName, {String? language}) =>
+      _seriesDisplayNames[language ?? AppLanguage.current]?[seriesName.toLowerCase()] ?? seriesName;
+
+  /// Folder of the bundled texts in [language]
+  static String folderFor(String language) => language == 'en' ? 'assets/books/en' : 'assets/books';
 
   /// Cover image extensions, in order of preference
   static const _coverExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
 
-  /// Index of the bundled texts, built by tool/build_book_index.dart
+  /// Index of the bundled Turkish texts, built by tool/build_book_index.dart
   static const indexAsset = 'assets/books/index.json';
 
-  /// Load the library: every text listed in assets/books/index.json with
-  /// its cover image (a series cover like "Donusum.jpg" is used for all its
-  /// chapters). The texts themselves are loaded on demand ([loadContent]).
-  static Future<List<Book>> loadBooks() async {
+  /// Load the library in [language] (default: the app's): every text listed
+  /// in the folder's index.json with its cover image (a series cover like
+  /// "Donusum.jpg" is used for all its chapters). The texts themselves are
+  /// loaded on demand ([loadContent]).
+  static Future<List<Book>> loadBooks({String? language}) async {
     final books = <Book>[];
+    final lang = language ?? AppLanguage.current;
+    final folder = folderFor(lang);
 
     try {
       // List the bundled assets (AssetManifest.json is being removed from
@@ -43,13 +60,13 @@ class BookService {
 
       String? coverFor(String name) {
         for (final extension in _coverExtensions) {
-          final path = 'assets/books/$name$extension';
+          final path = '$folder/$name$extension';
           if (assets.contains(path)) return path;
         }
         return null;
       }
 
-      final entries = BookIndex.decode(await rootBundle.loadString(indexAsset));
+      final entries = BookIndex.decode(await rootBundle.loadString('$folder/index.json'));
       for (final entry in entries) {
         final name = entry.file.replaceAll('.txt', '');
 
@@ -62,13 +79,15 @@ class BookService {
           chapterNumber = int.tryParse(match.group(2) ?? '');
         }
 
+        // The English texts have their own reading positions
+        final id = name.replaceAll(' ', '_').toLowerCase();
         books.add(Book(
-          id: name.replaceAll(' ', '_').toLowerCase(),
+          id: lang == 'en' ? 'en_$id' : id,
           title: entry.title,
           author: entry.author,
           category: 'Edebiyat',
           coverColor: '#8B4513', // Brown color for classic literature
-          contentAsset: 'assets/books/${entry.file}',
+          contentAsset: '$folder/${entry.file}',
           knownWordCount: entry.words,
           // Cover: the series cover if there is one, else the book's own cover
           coverAsset: (seriesName != null ? coverFor(seriesName) : null) ?? coverFor(name),

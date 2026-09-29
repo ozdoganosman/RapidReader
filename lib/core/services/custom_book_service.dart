@@ -95,7 +95,7 @@ class CustomBookService {
     final newBook = Book(
       id: 'custom_${_uuid.v4()}',
       title: title,
-      author: author ?? 'Kullanıcı',
+      author: author ?? '',
       category: 'Özel',
       coverColor: _generateRandomColor(),
       content: content,

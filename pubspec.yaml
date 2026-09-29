@@ -1,7 +1,7 @@
 name: rapid_reader
 description: "RSVP Speed Reading App for Android"
 publish_to: 'none'
-version: 1.1.0+9
+version: 1.2.0+10
 
 environment:
   sdk: ^3.5.4
@@ -9,6 +9,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Turkish and English UI (lib/l10n)
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
   # File import (TXT/PDF/EPUB) for custom texts
   file_picker: ^13.1.0
@@ -44,9 +48,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
   assets:
     - assets/books.json
     - assets/books/
+    # English library (the app in English)
+    - assets/books/en/
     # Arabic Quran text (Tanzil Project), one file per surah
     - assets/quran/
     # Speed test passages and exam practice paragraphs

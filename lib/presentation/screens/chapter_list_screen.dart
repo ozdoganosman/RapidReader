@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/data/quran.dart';
 import '../../core/models/book.dart';
 import '../../core/models/rsvp_settings.dart';
+import '../../core/services/app_language.dart';
 import '../../core/services/reading_storage.dart';
 import '../route_observer.dart';
 import '../theme/app_colors.dart';
@@ -172,7 +173,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> with RouteAware {
           TextField(
             onChanged: (value) => setState(() => _query = value),
             decoration: InputDecoration(
-              hintText: 'Sure ara (ad ya da numara)',
+              hintText: context.l10n.searchSurah,
               hintStyle: const TextStyle(color: AppColors.secondaryText, fontWeight: FontWeight.w300),
               prefixIcon: const Icon(Icons.search, color: Colors.black45),
               isDense: true,
@@ -186,9 +187,9 @@ class _ChapterListScreenState extends State<ChapterListScreen> with RouteAware {
           ),
           const SizedBox(height: 10),
           SegmentedButton<bool>(
-            segments: const [
-              ButtonSegment(value: false, label: Text('İniş sırası')),
-              ButtonSegment(value: true, label: Text('Mushaf sırası')),
+            segments: [
+              ButtonSegment(value: false, label: Text(context.l10n.revelationOrder)),
+              ButtonSegment(value: true, label: Text(context.l10n.mushafOrder)),
             ],
             selected: {_mushafOrder},
             showSelectedIcon: false,
@@ -275,7 +276,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> with RouteAware {
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
                           Text(
-                            '${chapter.wordCount} kelime',
+                            context.l10n.wordCount(chapter.wordCount),
                             style: TextStyle(
                               color: AppColors.secondaryText,
                               fontSize: 12,
@@ -302,7 +303,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> with RouteAware {
                           // The surah's number in the other order
                           if (mushafNumber != null)
                             Text(
-                              _mushafOrder ? '  ·  İniş ${chapter.chapterNumber}' : '  ·  Mushaf $mushafNumber',
+                              '  ·  ${_mushafOrder ? context.l10n.revelationNumber(chapter.chapterNumber ?? 0) : context.l10n.mushafNumber(mushafNumber)}',
                               style: const TextStyle(
                                 color: AppColors.secondaryText,
                                 fontSize: 12,
@@ -318,7 +319,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> with RouteAware {
                 // Arabic text of the surah
                 if (mushafNumber != null)
                   IconButton(
-                    tooltip: 'Arapça metin',
+                    tooltip: context.l10n.arabicText,
                     icon: const Text('ع', style: TextStyle(fontSize: 20, color: AppColors.secondaryText)),
                     onPressed: () => Navigator.of(context).push(
                       MaterialPageRoute<void>(
@@ -337,7 +338,7 @@ class _ChapterListScreenState extends State<ChapterListScreen> with RouteAware {
                   Padding(
                     padding: const EdgeInsets.only(left: 8),
                     child: Text(
-                      '%${((_progress[chapter.id] ?? 0) * 100).round()}',
+                      context.l10n.percent(((_progress[chapter.id] ?? 0) * 100).round()),
                       style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
                     ),
                   ),
@@ -358,17 +359,18 @@ class _ChapterListScreenState extends State<ChapterListScreen> with RouteAware {
 
   /// Format reading time with minutes and seconds
   String _formatReadingTime(int wordCount, int wpm) {
-    if (wordCount == 0) return '0 sn';
+    final l10n = context.l10n;
+    if (wordCount == 0) return l10n.durationSeconds(0);
     final totalSeconds = (wordCount / wpm * 60).round();
     final minutes = totalSeconds ~/ 60;
     final seconds = totalSeconds % 60;
 
     if (minutes == 0) {
-      return '$seconds sn';
+      return l10n.durationSeconds(seconds);
     } else if (seconds == 0) {
-      return '$minutes dk';
+      return l10n.durationMinutes(minutes);
     } else {
-      return '$minutes dk $seconds sn';
+      return l10n.durationMinutesSeconds(minutes, seconds);
     }
   }
 }

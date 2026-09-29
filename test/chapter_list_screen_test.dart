@@ -6,6 +6,7 @@ import 'package:rapid_reader/core/data/quran.dart';
 import 'package:rapid_reader/presentation/screens/arabic_surah_screen.dart';
 import 'package:rapid_reader/presentation/screens/chapter_list_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rapid_reader/l10n/app_localizations.dart';
 
 void main() {
   testWidgets('reading time follows the chosen speed', (tester) async {
@@ -22,6 +23,9 @@ void main() {
     );
 
     Future<void> pumpWith(int wpm) => tester.pumpWidget(MaterialApp(
+          locale: const Locale('tr'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: ChapterListScreen(
             seriesName: 'X',
             chapters: [chapter],
@@ -60,6 +64,9 @@ void main() {
     Future<void> pumpList(WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
       await tester.pumpWidget(MaterialApp(
+        locale: const Locale('tr'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: ChapterListScreen(seriesName: "Kur'an-ı Kerim", chapters: surahs, settings: const RSVPSettings()),
       ));
       await tester.pumpAndSettle();
@@ -74,6 +81,9 @@ void main() {
         'reading_progress_kuran_2': ['5', '20'], // a quarter
       });
       await tester.pumpWidget(MaterialApp(
+        locale: const Locale('tr'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: ChapterListScreen(seriesName: "Kur'an-ı Kerim", chapters: surahs, settings: const RSVPSettings()),
       ));
       await tester.pumpAndSettle();

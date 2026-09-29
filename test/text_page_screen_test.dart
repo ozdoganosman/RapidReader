@@ -7,6 +7,7 @@ import 'package:rapid_reader/core/services/reading_storage.dart';
 import 'package:rapid_reader/presentation/screens/reader_screen.dart';
 import 'package:rapid_reader/presentation/screens/text_page_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rapid_reader/l10n/app_localizations.dart';
 
 // Non-mono family keeps the test offline (no font download)
 const _settings = RSVPSettings(fontFamily: 'sans', pageFontFamily: 'sans', adaptiveSpeed: false);
@@ -39,6 +40,9 @@ Future<void> _pump(
   ValueChanged<RSVPSettings>? onSettingsChanged,
 }) async {
   await tester.pumpWidget(MaterialApp(
+    locale: const Locale('tr'),
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     home: TextPageScreen(
       content: _text,
       title: 'Seri - Bölüm 1',
@@ -77,6 +81,9 @@ void main() {
   testWidgets('opening a chapter asks how to read it', (tester) async {
     _mockPlatform(tester);
     await tester.pumpWidget(MaterialApp(
+      locale: const Locale('tr'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: Builder(
         builder: (context) => TextButton(
           onPressed: () => ReaderScreen.open(context, book: _chapter(1), title: 'Bölüm 1', settings: _settings),

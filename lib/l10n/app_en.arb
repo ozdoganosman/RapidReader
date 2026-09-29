@@ -1,0 +1,302 @@
+{
+  "@@locale": "en",
+  "cancel": "Cancel",
+  "save": "Save",
+  "delete": "Delete",
+  "modeSpeed": "Speed Reading",
+  "modeSpeedHint": "Word by word, at your speed",
+  "modePlain": "Plain Text",
+  "modePlainHint": "As a page, at your own pace",
+  "continueReading": "Continue",
+  "continueProgress": "{percent}% · {mode}",
+  "@continueProgress": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      },
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
+  "sharedContentUnreadable": "Couldn't read the shared content",
+  "library": "Library",
+  "readingSpeed": "Reading Speed",
+  "wordsPerMinuteShort": "words/min",
+  "adjust": "Adjust",
+  "quranCardSubtitle": "Translated by M. Pickthall",
+  "chaptersAndTime": "{count, plural, =1{1 chapter} other{{count} chapters}} · {time}",
+  "@chaptersAndTime": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wordCount": "{count, plural, =1{1 word} other{{count} words}}",
+  "@wordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "addText": "Add Text",
+  "addTextHint": "Add your own text",
+  "addTextTitle": "Add New Text",
+  "addCoverOptional": "Add Cover Image (Optional)",
+  "titleLabel": "Title *",
+  "titleMissing": "A title is required",
+  "authorLabel": "Author (Optional)",
+  "fileUnreadableWithError": "Couldn't read the file: {error}",
+  "@fileUnreadableWithError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "readingFile": "Reading the file…",
+  "importFromFile": "Import from File (TXT, PDF, EPUB)",
+  "fromClipboard": "Paste",
+  "clipboardEmpty": "There is no text on the clipboard",
+  "webAddress": "Web Address",
+  "contentLabel": "Text *",
+  "contentMissing": "Text is required",
+  "readWithoutSaving": "Read Without Saving",
+  "saveFailed": "Couldn't save the text. It may be too large for the device's storage.",
+  "textAdded": "Text added!",
+  "webArticle": "Web article",
+  "fetch": "Fetch",
+  "pageUnreadableWithError": "Couldn't read the page: {error}",
+  "@pageUnreadableWithError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteText": "Delete Text",
+  "deleteTextConfirm": "Are you sure you want to delete \"{title}\"?",
+  "@deleteTextConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "textDeleted": "Text deleted",
+  "durationSeconds": "{seconds} s",
+  "@durationSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "durationMinutes": "{minutes} min",
+  "@durationMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "durationMinutesSeconds": "{minutes} min {seconds} s",
+  "@durationMinutesSeconds": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "durationHours": "{hours} h",
+  "@durationHours": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "durationHoursMinutes": "{hours} h {minutes} min",
+  "@durationHoursMinutes": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "settings": "Settings",
+  "unsavedChanges": "Unsaved Changes",
+  "unsavedChangesBody": "Your changes to the settings are not saved. What would you like to do?",
+  "discardAndExit": "Exit (Don't Save)",
+  "saveAndExit": "Save and Exit",
+  "wordsPerMinuteLabel": "Words per minute (WPM)",
+  "adaptiveSpeed": "Adaptive Speed",
+  "adaptiveSpeedHint": "Short words faster, long words slower",
+  "speedWarmUp": "Speed Warm-up",
+  "speedWarmUpHint": "Start slow, reach your speed in a few seconds",
+  "speedRamp": "Gradual Speed-up",
+  "speedRampHint": "While you read, the speed rises by {step} words every minute and stops at the target",
+  "@speedRampHint": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      }
+    }
+  },
+  "targetSpeed": "Target Speed",
+  "wordGrouping": "Word Grouping",
+  "chunkSize": "Chunk Size",
+  "display": "Display",
+  "fontSize": "Font Size",
+  "orpHighlight": "ORP Highlight",
+  "orpHighlightHint": "Highlight the focus letter in red",
+  "focusGuides": "Focus Guides",
+  "focusGuidesHint": "Show the vertical alignment lines",
+  "fontFamily": "Font Family",
+  "fontMonoHint": "Monospace - Fixed width",
+  "fontRobotoHint": "Sans-serif - Modern",
+  "fontOpenSansHint": "Sans-serif - Readable",
+  "fontNotoSansHint": "Sans-serif - Multilingual",
+  "fontLatoHint": "Sans-serif - Elegant",
+  "fontMontserratHint": "Sans-serif - Bold",
+  "fontMerriweatherHint": "Serif - Classic",
+  "fontRobotoSlabHint": "Slab Serif - Strong",
+  "fontOpenDyslexicHint": "Dyslexia friendly - Letters don't mix up",
+  "theme": "Theme",
+  "themeDark": "Dark",
+  "themeLight": "Light",
+  "themeSepia": "Sepia",
+  "themeHighContrast": "High Contrast",
+  "cognitivePause": "Cognitive Pause",
+  "microPause": "Micro-pause",
+  "microPauseEvery": "{count, plural, =1{A pause after every sentence} other{A pause every {count} sentences}}",
+  "@microPauseEvery": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "off": "Off",
+  "pauseInterval": "Pause Interval",
+  "sentenceCount": "{count, plural, =1{1 sentence} other{{count} sentences}}",
+  "@sentenceCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "privacy": "Privacy",
+  "adConsent": "Ad consent",
+  "adConsentHint": "Change the consent for ads with personal data",
+  "resetDefaults": "Reset to Defaults",
+  "language": "Language",
+  "languageDevice": "Device language",
+  "readingComplete": "Finished!",
+  "remainingAndTotal": "Left: {remaining} / Total: {total}",
+  "@remainingAndTotal": {
+    "placeholders": {
+      "remaining": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "tapLeftEdgeHint": "Tap the left edge: back to the sentence start",
+  "pageView": "Page View",
+  "wordPosition": "Word {current} / {total}",
+  "@wordPosition": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "chapterComplete": "Chapter Finished!",
+  "nextChapter": "Next Chapter",
+  "backToHome": "Back to Home",
+  "searchSurah": "Search surahs (name or number)",
+  "revelationOrder": "Revelation order",
+  "mushafOrder": "Mushaf order",
+  "revelationNumber": "Revelation {number}",
+  "@revelationNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "mushafNumber": "Mushaf {number}",
+  "@mushafNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "arabicText": "Arabic text",
+  "arabicTextUnavailable": "Couldn't load the Arabic text",
+  "arabicTextSource": "Arabic text: Tanzil Project (tanzil.net), used unchanged. CC BY 3.0",
+  "pageSettings": "Page settings",
+  "guidedReading": "Guided reading",
+  "stopGuidedReading": "Stop guided reading",
+  "slower": "Slower",
+  "faster": "Faster",
+  "pageThemeLight": "Light",
+  "pageThemeSepia": "Sepia",
+  "pageThemeGray": "Gray",
+  "pageThemeDark": "Dark",
+  "pageThemeNight": "Night",
+  "pageFont": "Font",
+  "pageTextSize": "Text size",
+  "pageBackground": "Background",
+  "pageTextColor": "Text color",
+  "pageBrightness": "Brightness",
+  "enterValidUrl": "Enter a valid web address (https://...)",
+  "siteBlockedInBrowser": "The browser's security rules don't allow reading this site. Use the Android app, or copy the text and use \"Paste\".",
+  "pageDownloadFailed": "Couldn't download the page. Check your internet connection.",
+  "pageOpenFailed": "Couldn't open the page (HTTP {status})",
+  "@pageOpenFailed": {
+    "placeholders": {
+      "status": {
+        "type": "int"
+      }
+    }
+  },
+  "noTextOnPage": "No readable text found on the page",
+  "fileUnreadable": "Couldn't read the file",
+  "unsupportedFileType": "Unsupported file type: .{extension}",
+  "@unsupportedFileType": {
+    "placeholders": {
+      "extension": {
+        "type": "String"
+      }
+    }
+  },
+  "noTextInFile": "No readable text found in the file",
+  "percent": "{value}%",
+  "@percent": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  }
+}

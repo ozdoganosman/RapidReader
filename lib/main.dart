@@ -9,6 +9,8 @@ import 'package:flutter/services.dart';
 
 import 'core/data/quran.dart';
 import 'core/services/ad_service.dart';
+import 'core/services/app_language.dart';
+import 'l10n/app_localizations.dart';
 import 'presentation/route_observer.dart';
 import 'presentation/screens/home_screen.dart';
 
@@ -40,6 +42,9 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
+  // The language chosen in the settings, if any
+  await AppLanguage.load();
+
   // Ads: the consent message first where needed (not awaited: the app
   // opens meanwhile)
   AdService().initialize();
@@ -53,9 +58,25 @@ class RapidReaderApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return ValueListenableBuilder<String?>(
+      valueListenable: AppLanguage.choice,
+      builder: (context, language, _) => _buildApp(language),
+    );
+  }
+
+  Widget _buildApp(String? language) {
     return MaterialApp(
       navigatorObservers: [routeObserver],
       title: 'RapidReader',
+      // Turkish on Turkish devices, English on all others (or the language
+      // chosen in the settings)
+      locale: language == null ? null : Locale(language),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localeResolutionCallback: (locale, _) {
+        AppLanguage.current = AppLanguage.resolve(locale);
+        return Locale(AppLanguage.current);
+      },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamilyFallback: _fontFallback,

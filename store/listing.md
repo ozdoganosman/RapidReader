@@ -1,5 +1,8 @@
 # Google Play mağaza girişi (tr-TR)
 
+İngilizce giriş `listing-en.md`'de; Play Console'da varsayılan dil İngilizce (en-US), Türkçe
+bir çeviri olarak eklenir.
+
 Görseller bu klasörde: `icon-512.png` (uygulama simgesi), `feature-graphic.png`
 (öne çıkan grafik, 1024x500), `screenshots/01-05.png` (telefon ekran görüntüleri,
 1080x1920), `tanitim-videosu.mp4` (30 sn, dikey 1080x1920, sessiz; YouTube'a yüklenip
@@ -49,13 +52,14 @@ Hesap gerekmez. Ayarlarınız, metinleriniz ve okuma konumunuz yalnızca cihazı
 
 Gizlilik politikası: https://ozdoganosman.github.io/RapidReader/privacy-policy.html
 
-## Sürüm notları, 1.1.0 (en çok 500 karakter)
+## Sürüm notları, 1.2.0 (en çok 500 karakter)
 
 <tr-TR>
 • Her bölüm Hızlı Okuma ya da Düz Metin olarak açılır
 • Düz metinde rehberli okuma, yazı tipi, tema ve ışık ayarı
 • Ana ekranda "Devam Et", bölüm listesinde ilerleme
 • Anlam gruplarıyla okuma, cümle başına dönme, kademeli hızlanma
+• Dil ayarı: Türkçe ya da İngilizce (İngilizce kitaplıkla)
 • Yeni simge ve birçok düzeltme
 </tr-TR>
 

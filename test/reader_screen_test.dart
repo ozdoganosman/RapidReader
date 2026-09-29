@@ -8,6 +8,7 @@ import 'package:rapid_reader/core/services/reading_storage.dart';
 import 'package:rapid_reader/presentation/screens/reader_screen.dart';
 import 'package:rapid_reader/presentation/widgets/orp_text_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rapid_reader/l10n/app_localizations.dart';
 
 // Non-mono family keeps the test offline (no font download)
 const _settings = RSVPSettings(fontFamily: 'sans');
@@ -21,6 +22,9 @@ Future<void> _pumpReader(
   _mockPlatform(tester);
 
   await tester.pumpWidget(MaterialApp(
+    locale: const Locale('tr'),
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     home: ReaderScreen(content: content, settings: settings, onSettingsChanged: onSettingsChanged),
   ));
 }
@@ -99,6 +103,9 @@ void main() {
     await ReadingStorage.saveProgress('b', const ReadingProgress(index: 13, total: 30));
 
     await tester.pumpWidget(MaterialApp(
+      locale: const Locale('tr'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: ReaderScreen(content: text, settings: _settings.copyWith(chunkSize: 3), currentBook: book),
     ));
     await tester.pumpAndSettle();
@@ -121,6 +128,9 @@ void main() {
   testWidgets('a tap on the left edge goes back to the start of the sentence', (tester) async {
     _mockPlatform(tester);
     await tester.pumpWidget(const MaterialApp(
+      locale: Locale('tr'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: ReaderScreen(content: 'Bir iki üç. Dört beş altı yedi.', settings: _settings, startIndex: 5),
     ));
     await tester.pump();
@@ -139,6 +149,9 @@ void main() {
     _mockPlatform(tester);
     final speeds = <int>[];
     await tester.pumpWidget(MaterialApp(
+      locale: const Locale('tr'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: ReaderScreen(
         content: List.filled(2000, 'kelime').join(' '),
         settings: _settings.copyWith(wordsPerMinute: 300, speedRampTarget: 320, adaptiveSpeed: false),
@@ -173,6 +186,9 @@ void main() {
 
     Future<void> finish(WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
+        locale: const Locale('tr'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: ReaderScreen(content: fatiha.content, settings: _settings, currentBook: fatiha, seriesChapters: chapters),
       ));
       await tester.tap(find.byIcon(Icons.play_circle));
@@ -192,7 +208,12 @@ void main() {
     testWidgets('"Ana Sayfaya Dön" goes back to the library, past the chapter list', (tester) async {
       _mockPlatform(tester);
       final navigatorKey = GlobalKey<NavigatorState>();
-      await tester.pumpWidget(MaterialApp(navigatorKey: navigatorKey, home: const Text('Kütüphane')));
+      await tester.pumpWidget(MaterialApp(
+          locale: const Locale('tr'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          navigatorKey: navigatorKey,
+          home: const Text('Kütüphane')));
       navigatorKey.currentState!.push(MaterialPageRoute<void>(builder: (_) => const Text('Bölüm listesi')));
       navigatorKey.currentState!.push(MaterialPageRoute<void>(
         builder: (_) => ReaderScreen(content: fatiha.content, settings: _settings),

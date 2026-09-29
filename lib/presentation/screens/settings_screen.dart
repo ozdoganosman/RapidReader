@@ -6,12 +6,14 @@
 /// - Font settings
 /// - Theme/colors
 /// - Micro-pause settings
+/// - The app's language
 library;
 
 import 'package:flutter/material.dart';
 
 import '../../core/models/rsvp_settings.dart';
 import '../../core/services/ad_service.dart';
+import '../../core/services/app_language.dart';
 import '../theme/app_colors.dart';
 import '../widgets/orp_text_widget.dart';
 
@@ -68,21 +70,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         title: Text(
-          'Kaydedilmemiş Değişiklikler',
+          context.l10n.unsavedChanges,
           style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w400),
         ),
         content: Text(
-          'Ayarlarda yaptığınız değişiklikler kaydedilmedi. Ne yapmak istersiniz?',
+          context.l10n.unsavedChangesBody,
           style: TextStyle(color: AppColors.secondaryText),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop('cancel'),
-            child: Text('İptal', style: TextStyle(color: AppColors.secondaryText)),
+            child: Text(context.l10n.cancel, style: TextStyle(color: AppColors.secondaryText)),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop('discard'),
-            child: Text('Çıkış (Kaydetme)', style: TextStyle(color: Colors.red[400])),
+            child: Text(context.l10n.discardAndExit, style: TextStyle(color: Colors.red[400])),
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop('save'),
@@ -91,7 +93,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
             ),
-            child: const Text('Kaydet ve Çık'),
+            child: Text(context.l10n.saveAndExit),
           ),
         ],
       ),
@@ -120,7 +122,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           elevation: 0,
           scrolledUnderElevation: 0,
           title: Text(
-            'Ayarlar',
+            context.l10n.settings,
             style: TextStyle(
               color: Colors.black87,
               fontSize: 18,
@@ -137,7 +139,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               TextButton(
                 onPressed: () => Navigator.pop(context, _currentSettings),
                 child: Text(
-                  'Kaydet',
+                  context.l10n.save,
                   style: TextStyle(
                     color: Colors.black87,
                     fontWeight: FontWeight.w500,
@@ -155,10 +157,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             // Reading Speed Section
             _buildSettingCard(
-              title: 'Okuma Hızı',
+              title: context.l10n.readingSpeed,
               children: [
                 _buildSliderSetting(
-                  label: 'Kelime/Dakika (WPM)',
+                  label: context.l10n.wordsPerMinuteLabel,
                   value: _currentSettings.wordsPerMinute.toDouble(),
                   min: RSVPSettings.minWordsPerMinute.toDouble(),
                   max: RSVPSettings.maxWordsPerMinute.toDouble(),
@@ -171,8 +173,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(height: 20),
                 _buildSwitchSetting(
-                  title: 'Adaptif Hız',
-                  subtitle: 'Kısa kelimeler hızlı, uzun kelimeler yavaş',
+                  title: context.l10n.adaptiveSpeed,
+                  subtitle: context.l10n.adaptiveSpeedHint,
                   value: _currentSettings.adaptiveSpeed,
                   onChanged: (value) {
                     _updateSettings(_currentSettings.copyWith(adaptiveSpeed: value));
@@ -180,8 +182,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(height: 12),
                 _buildSwitchSetting(
-                  title: 'Hız Isınması',
-                  subtitle: 'Yavaş başla, birkaç saniyede seçilen hıza çık',
+                  title: context.l10n.speedWarmUp,
+                  subtitle: context.l10n.speedWarmUpHint,
                   value: _currentSettings.speedWarmUp,
                   onChanged: (value) {
                     _updateSettings(_currentSettings.copyWith(speedWarmUp: value));
@@ -189,8 +191,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(height: 12),
                 _buildSwitchSetting(
-                  title: 'Kademeli Hızlanma',
-                  subtitle: 'Okurken hız her dakika ${RSVPSettings.speedRampStep} kelime artar, hedefte durur',
+                  title: context.l10n.speedRamp,
+                  subtitle: context.l10n.speedRampHint(RSVPSettings.speedRampStep),
                   value: _currentSettings.speedRampTarget > 0,
                   onChanged: (value) {
                     final target = (_currentSettings.wordsPerMinute + 100).clamp(
@@ -203,7 +205,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 if (_currentSettings.speedRampTarget > 0) ...[
                   const SizedBox(height: 12),
                   _buildSliderSetting(
-                    label: 'Hedef Hız',
+                    label: context.l10n.targetSpeed,
                     value: _currentSettings.speedRampTarget.toDouble(),
                     min: RSVPSettings.minWordsPerMinute.toDouble(),
                     max: RSVPSettings.maxWordsPerMinute.toDouble(),
@@ -222,15 +224,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             // Chunk Settings
             _buildSettingCard(
-              title: 'Kelime Gruplama',
+              title: context.l10n.wordGrouping,
               children: [
                 _buildSliderSetting(
-                  label: 'Chunk Boyutu',
+                  label: context.l10n.chunkSize,
                   value: _currentSettings.chunkSize.toDouble(),
                   min: 1,
                   max: 3,
                   divisions: 2,
-                  displayValue: '${_currentSettings.chunkSize} kelime',
+                  displayValue: context.l10n.wordCount(_currentSettings.chunkSize),
                   onChanged: (value) {
                     _updateSettings(_currentSettings.copyWith(chunkSize: value.round()));
                   },
@@ -242,10 +244,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             // Display Settings
             _buildSettingCard(
-              title: 'Görünüm',
+              title: context.l10n.display,
               children: [
                 _buildSliderSetting(
-                  label: 'Font Boyutu',
+                  label: context.l10n.fontSize,
                   value: _currentSettings.fontSize,
                   min: 20,
                   max: 60,
@@ -257,8 +259,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(height: 20),
                 _buildSwitchSetting(
-                  title: 'ORP Vurgulama',
-                  subtitle: 'Odak noktasını kırmızı ile vurgula',
+                  title: context.l10n.orpHighlight,
+                  subtitle: context.l10n.orpHighlightHint,
                   value: _currentSettings.showORPHighlight,
                   onChanged: (value) {
                     _updateSettings(_currentSettings.copyWith(showORPHighlight: value));
@@ -266,8 +268,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(height: 12),
                 _buildSwitchSetting(
-                  title: 'Odak Çizgileri',
-                  subtitle: 'Dikey hizalama çizgilerini göster',
+                  title: context.l10n.focusGuides,
+                  subtitle: context.l10n.focusGuidesHint,
                   value: _currentSettings.showFocusGuides,
                   onChanged: (value) {
                     _updateSettings(_currentSettings.copyWith(showFocusGuides: value));
@@ -280,25 +282,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             // Font Family Settings
             _buildSettingCard(
-              title: 'Font Ailesi',
+              title: context.l10n.fontFamily,
               children: [
-                _buildFontOption('Roboto Mono', 'Monospace - Sabit genişlik'),
+                _buildFontOption('Roboto Mono', context.l10n.fontMonoHint),
                 const SizedBox(height: 8),
-                _buildFontOption('Roboto', 'Sans-serif - Modern'),
+                _buildFontOption('Roboto', context.l10n.fontRobotoHint),
                 const SizedBox(height: 8),
-                _buildFontOption('Open Sans', 'Sans-serif - Okunabilir'),
+                _buildFontOption('Open Sans', context.l10n.fontOpenSansHint),
                 const SizedBox(height: 8),
-                _buildFontOption('Noto Sans', 'Sans-serif - Çok dilli'),
+                _buildFontOption('Noto Sans', context.l10n.fontNotoSansHint),
                 const SizedBox(height: 8),
-                _buildFontOption('Lato', 'Sans-serif - Zarif'),
+                _buildFontOption('Lato', context.l10n.fontLatoHint),
                 const SizedBox(height: 8),
-                _buildFontOption('Montserrat', 'Sans-serif - Cesur'),
+                _buildFontOption('Montserrat', context.l10n.fontMontserratHint),
                 const SizedBox(height: 8),
-                _buildFontOption('Merriweather', 'Serif - Klasik'),
+                _buildFontOption('Merriweather', context.l10n.fontMerriweatherHint),
                 const SizedBox(height: 8),
-                _buildFontOption('Roboto Slab', 'Slab Serif - Güçlü'),
+                _buildFontOption('Roboto Slab', context.l10n.fontRobotoSlabHint),
                 const SizedBox(height: 8),
-                _buildFontOption('OpenDyslexic', 'Disleksi dostu - Harfler karışmaz'),
+                _buildFontOption('OpenDyslexic', context.l10n.fontOpenDyslexicHint),
               ],
             ),
 
@@ -306,15 +308,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             // Theme Settings
             _buildSettingCard(
-              title: 'Tema',
+              title: context.l10n.theme,
               children: [
-                _buildThemeOption('Karanlık', RSVPSettings.darkTheme),
+                _buildThemeOption(context.l10n.themeDark, RSVPSettings.darkTheme),
                 const SizedBox(height: 8),
-                _buildThemeOption('Aydınlık', RSVPSettings.lightTheme),
+                _buildThemeOption(context.l10n.themeLight, RSVPSettings.lightTheme),
                 const SizedBox(height: 8),
-                _buildThemeOption('Sepia', RSVPSettings.sepiaTheme),
+                _buildThemeOption(context.l10n.themeSepia, RSVPSettings.sepiaTheme),
                 const SizedBox(height: 8),
-                _buildThemeOption('Yüksek Kontrast', RSVPSettings.highContrastTheme),
+                _buildThemeOption(context.l10n.themeHighContrast, RSVPSettings.highContrastTheme),
               ],
             ),
 
@@ -322,13 +324,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             // Micro-pause Settings
             _buildSettingCard(
-              title: 'Bilişsel Duraklama',
+              title: context.l10n.cognitivePause,
               children: [
                 _buildSwitchSetting(
-                  title: 'Mikro-Duraklama',
+                  title: context.l10n.microPause,
                   subtitle: _currentSettings.microPauseInterval > 0
-                      ? 'Her ${_currentSettings.microPauseInterval} cümlede bir duraklama'
-                      : 'Devre dışı',
+                      ? context.l10n.microPauseEvery(_currentSettings.microPauseInterval)
+                      : context.l10n.off,
                   value: _currentSettings.microPauseInterval > 0,
                   onChanged: (value) {
                     _updateSettings(_currentSettings.copyWith(
@@ -339,12 +341,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 if (_currentSettings.microPauseInterval > 0) ...[
                   const SizedBox(height: 20),
                   _buildSliderSetting(
-                    label: 'Duraklama Aralığı',
+                    label: context.l10n.pauseInterval,
                     value: _currentSettings.microPauseInterval.toDouble(),
                     min: 3,
                     max: 15,
                     divisions: 12,
-                    displayValue: '${_currentSettings.microPauseInterval} cümle',
+                    displayValue: context.l10n.sentenceCount(_currentSettings.microPauseInterval),
                     onChanged: (value) {
                       _updateSettings(_currentSettings.copyWith(microPauseInterval: value.round()));
                     },
@@ -356,7 +358,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             if (_adPrivacyOptions) ...[
               const SizedBox(height: 16),
               _buildSettingCard(
-                title: 'Gizlilik',
+                title: context.l10n.privacy,
                 children: [
                   InkWell(
                     onTap: AdService().showPrivacyOptions,
@@ -366,10 +368,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Reklam izinleri', style: TextStyle(color: Colors.black87, fontSize: 14)),
+                              Text(context.l10n.adConsent, style: TextStyle(color: Colors.black87, fontSize: 14)),
                               const SizedBox(height: 2),
                               Text(
-                                'Kişisel verilerle reklam iznini değiştir',
+                                context.l10n.adConsentHint,
                                 style: TextStyle(color: AppColors.secondaryText, fontSize: 12),
                               ),
                             ],
@@ -382,6 +384,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ],
+
+            const SizedBox(height: 16),
+
+            // The app's language (applied right away, not with the reading
+            // settings)
+            _buildSettingCard(
+              title: context.l10n.language,
+              children: [
+                ValueListenableBuilder<String?>(
+                  valueListenable: AppLanguage.choice,
+                  builder: (context, language, _) => Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      for (final (code, name) in [
+                        (null, context.l10n.languageDevice),
+                        ('tr', 'Türkçe'),
+                        ('en', 'English'),
+                      ])
+                        ChoiceChip(
+                          label: Text(name),
+                          selected: language == code,
+                          onSelected: (_) => AppLanguage.choose(code),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
 
             const SizedBox(height: 24),
 
@@ -403,7 +434,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Icon(Icons.refresh, size: 18, color: Colors.black45),
                       const SizedBox(width: 8),
                       Text(
-                        'Varsayılanlara Sıfırla',
+                        context.l10n.resetDefaults,
                         style: TextStyle(
                           color: AppColors.secondaryText,
                           fontSize: 13,
