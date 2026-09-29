@@ -1,6 +1,6 @@
 # Tanıtım videosu (Remotion)
 
-Play Store için dikey (1080x1920, 30 fps, ~37 sn) tanıtım videosunun kaynağı. Çıktı
+Play Store için dikey (1080x1920, 30 fps, ~30 sn) tanıtım videosunun kaynağı. Çıktı
 `../tanitim-videosu.mp4` olarak repoda durur.
 
 - `src/Promo.jsx`: sahneler, yazılar, animasyonlar ve sahne süreleri (`SCENES`)

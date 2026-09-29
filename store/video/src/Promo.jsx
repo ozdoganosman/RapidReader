@@ -18,7 +18,7 @@ const FADE = 15;
 
 // Scene lengths in frames; the clips are a little longer (their last
 // frame is held)
-const SCENES = { intro: 135, speed: 234, modes: 114, guided: 198, listen: 216, home: 144, outro: 150 };
+const SCENES = { intro: 135, speed: 234, modes: 117, guided: 198, home: 144, outro: 150 };
 export const PROMO_FRAMES = Object.values(SCENES).reduce((a, b) => a + b, 0) - FADE * (Object.keys(SCENES).length - 1);
 
 const background = {
@@ -65,7 +65,7 @@ const FadeIn = ({ delay, children, style }) => {
 };
 
 /// A feature: the title above, the app on a phone below
-const Scene = ({ title, subtitle, clip, extra }) => {
+const Scene = ({ title, subtitle, clip }) => {
   const phone = useSpring(8, { damping: 18, mass: 0.9 });
   return (
     <AbsoluteFill style={background}>
@@ -74,7 +74,6 @@ const Scene = ({ title, subtitle, clip, extra }) => {
         <FadeIn delay={title.length * 4 + 4} style={{ fontFamily: 'Roboto', fontSize: 42, color: GREY, lineHeight: 1.35, marginTop: 28, padding: '0 60px' }}>
           {subtitle}
         </FadeIn>
-        {extra}
       </div>
       <div
         style={{
@@ -97,22 +96,6 @@ const Scene = ({ title, subtitle, clip, extra }) => {
         </div>
       </div>
     </AbsoluteFill>
-  );
-};
-
-/// A moving sound wave under the listening title
-const SoundWave = () => {
-  const frame = useCurrentFrame();
-  const p = useSpring(20);
-  return (
-    <div style={{ display: 'flex', gap: 10, alignItems: 'center', height: 60, marginTop: 26, opacity: p }}>
-      {[0, 1, 2, 3, 4, 5, 6].map(i => (
-        <div
-          key={i}
-          style={{ width: 10, borderRadius: 5, background: RED, height: 14 + 40 * Math.abs(Math.sin(frame / 5 + i * 0.9)) }}
-        />
-      ))}
-    </div>
   );
 };
 
@@ -183,9 +166,9 @@ const Intro = () => {
           RapidReader
         </FadeIn>
         <FadeIn delay={LOGO_AT + 18} style={{ fontFamily: 'Roboto', fontSize: 48, color: GREY, marginTop: 36, textAlign: 'center', lineHeight: 1.5 }}>
-          Hızlı okuma · Rehberli okuma
+          Kelime kelime hızlı okuma
           <br />
-          Sesli okuma
+          Rehberli okuma
         </FadeIn>
       </AbsoluteFill>
     </AbsoluteFill>
@@ -242,9 +225,8 @@ const Outro = () => {
 const scenes = [
   ['intro', <Intro />],
   ['speed', <Scene clip="speed" title={[['Kelime'], ['kelime'], ['\n'], ['hızlı', true], ['oku']]} subtitle="Gözün tek noktada kalır, hızı sen seçersin" />],
-  ['modes', <Scene clip="modes" title={[['Bölümü'], ['istediğin'], ['gibi'], ['aç', true]]} subtitle="Hızlı okuma, düz metin ya da sesli okuma" />],
+  ['modes', <Scene clip="modes" title={[['Bölümü'], ['istediğin'], ['gibi'], ['aç', true]]} subtitle="Hızlı okuma ya da düz metin" />],
   ['guided', <Scene clip="guided" title={[['Rehberli', true], ['okuma']]} subtitle="Vurgu, seçtiğin hızda kelime kelime ilerler" />],
-  ['listen', <Scene clip="listen" title={[['Sesli', true], ['okuma']]} subtitle="Türkçe sesle; ekran kapalıyken de devam eder" extra={<SoundWave />} />],
   ['home', <Scene clip="home" title={[['Kitaplığın'], ['cebinde', true]]} subtitle="Klasikler, Kur'an-ı Kerim meali ve kendi metinlerin" />],
   ['outro', <Outro />],
 ];

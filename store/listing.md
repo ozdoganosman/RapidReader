@@ -1,8 +1,8 @@
 # Google Play mağaza girişi (tr-TR)
 
 Görseller bu klasörde: `icon-512.png` (uygulama simgesi), `feature-graphic.png`
-(öne çıkan grafik, 1024x500), `screenshots/01-06.png` (telefon ekran görüntüleri,
-1080x1920), `tanitim-videosu.mp4` (37 sn, dikey 1080x1920, sessiz; YouTube'a yüklenip
+(öne çıkan grafik, 1024x500), `screenshots/01-05.png` (telefon ekran görüntüleri,
+1080x1920), `tanitim-videosu.mp4` (30 sn, dikey 1080x1920, sessiz; YouTube'a yüklenip
 bağlantısı "Video" alanına yazılır; kaynağı `video/`, Remotion).
 
 ## Uygulama adı (en çok 30 karakter)
@@ -11,7 +11,7 @@ RapidReader: Hızlı Okuma
 
 ## Kısa açıklama (en çok 80 karakter)
 
-Kelime kelime hızlı okuma, rehberli okuma ve Türkçe sesli okuma.
+Kelime kelime hızlı okuma, rehberli okuma ve göz yormayan sayfa.
 
 ## Tam açıklama (en çok 4000 karakter)
 
@@ -33,11 +33,6 @@ Her bölümü istediğiniz gibi açın:
 • Açık, sepya, gri, koyu ve gece temaları; kendi arka plan ve yazı renginiz
 • Göz yormayan ışık ayarı
 
-🎧 SESLİ OKUMA
-• Cihazınızın Türkçe sesiyle kesintisiz okuma; okunan kelime vurgulanır
-• Ekran kapalıyken de devam eder; bildirimden ve kilit ekranından duraklatın, paragraf atlayın
-• Konuşma hızını ayarlayın; bölüm bitince sonraki bölüme geçer
-
 📚 KİTAPLIK
 • İki Şehrin Hikâyesi (Charles Dickens) ve Dönüşüm (Franz Kafka), Türkçe çeviri
 • Ömer Seyfettin hikâyeleri
@@ -57,8 +52,7 @@ Gizlilik politikası: https://ozdoganosman.github.io/RapidReader/privacy-policy.
 ## Sürüm notları, 1.1.0 (en çok 500 karakter)
 
 <tr-TR>
-• Her bölüm Hızlı Okuma, Düz Metin ya da Sesli Okuma olarak açılır
-• Sesli okuma: ekran kapalıyken de okur, bildirimden kontrol edilir
+• Her bölüm Hızlı Okuma ya da Düz Metin olarak açılır
 • Düz metinde rehberli okuma, yazı tipi, tema ve ışık ayarı
 • Ana ekranda "Devam Et", bölüm listesinde ilerleme
 • Anlam gruplarıyla okuma, cümle başına dönme, kademeli hızlanma
@@ -82,11 +76,6 @@ Gizlilik politikası: https://ozdoganosman.github.io/RapidReader/privacy-policy.
   birbiriyle iletişim kurmaz, konum paylaşılmaz, satın alma yoktur.
 - **Reklam kimliği:** Evet, kullanılıyor; amaç "Reklam veya pazarlama" (AdMob SDK'sı
   AD_ID iznini kendisi ekler).
-- **Ön plan hizmeti izinleri:** "Medya oynatma" (FOREGROUND_SERVICE_MEDIA_PLAYBACK).
-  Açıklama: "Sesli okuma modu, kullanıcının başlattığı metin okumayı ekran
-  kapalıyken ve uygulama arka plandayken sürdürür; bildirimde oynat/duraklat ve
-  paragraf atlama düğmeleri bulunur." İstenirse sesli okumanın ekran kapalıyken
-  sürdüğünü gösteren kısa bir video (YouTube, liste dışı) bağlantısı verin.
 - **Veri güvenliği:** Uygulamanın kendisi veri toplamaz; formu AdMob SDK'sına göre
   doldurun:
   - Veri toplanıyor mu: Evet. Aktarımda şifreleniyor mu: Evet. Silme isteği yolu: Hayır.
