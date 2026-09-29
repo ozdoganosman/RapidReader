@@ -62,7 +62,9 @@ Gizlilik politikası: https://ozdoganosman.github.io/RapidReader/privacy-policy.
 ## Diğer alanlar
 
 - **Kategori:** Eğitim (ya da Kitaplar ve Kaynaklar)
-- **Web sitesi:** https://ozdoganosman.github.io/RapidReader/
+- **Web sitesi:** https://ozdoganosman.github.io (kök alan adı olmalı: AdMob app-ads.txt
+  dosyasını `https://ozdoganosman.github.io/app-ads.txt` adresinde arar; o dosya
+  `ozdoganosman/ozdoganosman.github.io` deposunda durur)
 - **Gizlilik politikası:** https://ozdoganosman.github.io/RapidReader/privacy-policy.html
 - **E-posta:** gizlilik politikasındaki adres
 
