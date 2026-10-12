@@ -1,7 +1,7 @@
 name: rapid_reader
 description: "RSVP Speed Reading App for Android"
 publish_to: 'none'
-version: 1.2.0+10
+version: 1.2.1+11
 
 environment:
   sdk: ^3.5.4
