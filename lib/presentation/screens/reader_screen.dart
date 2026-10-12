@@ -22,6 +22,7 @@ import '../../core/services/ad_service.dart';
 import '../../core/services/app_language.dart';
 import '../../core/services/book_service.dart';
 import '../../core/services/reading_storage.dart';
+import '../../core/services/reading_time.dart';
 import '../../core/services/rsvp_engine.dart';
 import '../../core/utils/text_parser.dart';
 import '../../core/utils/timing_calculator.dart';
@@ -166,6 +167,9 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
   late final RSVPEngine _engine;
   late final AppLifecycleListener _lifecycleListener;
+
+  /// Time spent reading, for the daily goal
+  late final _clock = ReadingClock(goalMinutes: () => _settings.dailyGoalMinutes, onGoalReached: _showGoalReached);
   int? _lastSavedIndex;
   bool _wasComplete = false;
   late RSVPSettings _settings;
@@ -239,6 +243,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
     if (mounted) {
       setState(() {});
       _updateRamp();
+      _engine.state.isPlaying ? _clock.start() : _clock.stop();
 
       // Report progress
       widget.onProgressChanged?.call(_engine.state.currentIndex);
@@ -307,8 +312,15 @@ class _ReaderScreenState extends State<ReaderScreen> {
     );
   }
 
+  void _showGoalReached() {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(context.l10n.goalReached(_settings.dailyGoalMinutes))));
+  }
+
   @override
   void dispose() {
+    _clock.stop();
     _rampTimer?.cancel();
     _saveProgress();
     _lifecycleListener.dispose();

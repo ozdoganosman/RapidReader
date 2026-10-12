@@ -81,11 +81,31 @@ void main() {
     expect(find.text('Devam Et'), findsOneWidget);
     expect(find.text('Dönüşüm · İkinci Bölüm'), findsOneWidget);
     expect(find.text('%50 · Düz Metin'), findsOneWidget);
+    expect(find.text('Bugün 0/10 dk'), findsOneWidget); // the daily goal
+    expect(find.text('Her gün hatırlatalım mı?'), findsOneWidget);
 
     await tester.tap(find.text('Devam Et'));
     await settle(tester, () => find.byType(TextPageScreen).evaluate().isNotEmpty);
     expect(find.byType(TextPageScreen), findsOneWidget); // no mode question
     expect(find.text('Dönüşüm - İkinci Bölüm'), findsOneWidget);
+    await CustomBookService.reset();
+  });
+
+  testWidgets('today\'s reading shows against the daily goal', (tester) async {
+    final now = DateTime.now();
+    final today = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+    SharedPreferences.setMockInitialValues({
+      'last_read': ['donusum_2', 'plain'],
+      'reading_progress_donusum_2': ['2567', '5135'],
+      'reading_time_today': [today, '400'],
+      'daily_reminder_offer_dismissed': true,
+    });
+    await pumpApp(tester);
+    await settle(tester, () => find.text('Devam Et').evaluate().isNotEmpty);
+    await tester.pump();
+
+    expect(find.text('Bugün 6/10 dk'), findsOneWidget);
+    expect(find.text('Her gün hatırlatalım mı?'), findsNothing);
     await CustomBookService.reset();
   });
 

@@ -18,6 +18,22 @@ void main() {
     }
   });
 
+  testWidgets('the daily goal can be chosen', (tester) async {
+    await tester.pumpWidget(const MaterialApp(
+        locale: Locale('tr'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: SettingsScreen(settings: RSVPSettings())));
+
+    await tester.scrollUntilVisible(find.text('20 dk'), 200, scrollable: find.byType(Scrollable).first);
+    expect(find.text('Günlük Hedef ve Hatırlatma'), findsOneWidget);
+    expect(tester.widget<ChoiceChip>(find.widgetWithText(ChoiceChip, '10 dk')).selected, isTrue);
+    await tester.tap(find.text('20 dk'));
+    await tester.pump();
+    expect(tester.widget<ChoiceChip>(find.widgetWithText(ChoiceChip, '20 dk')).selected, isTrue);
+    expect(find.text('Kaydet'), findsOneWidget); // saved with the settings
+  });
+
   test('the default colors are the dark theme (shown as chosen)', () {
     const d = RSVPSettings.defaults, dark = RSVPSettings.darkTheme;
     expect([d.darkMode, d.textColor, d.backgroundColor, d.orpHighlightColor],

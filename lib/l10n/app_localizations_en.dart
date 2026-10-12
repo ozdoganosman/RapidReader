@@ -481,4 +481,69 @@ class AppLocalizationsEn extends AppLocalizations {
   String percent(int value) {
     return '$value%';
   }
+
+  @override
+  String get goalAndReminder => 'Daily Goal & Reminder';
+
+  @override
+  String get dailyGoal => 'Daily goal';
+
+  @override
+  String get goalOff => 'Off';
+
+  @override
+  String get dailyReminder => 'Daily reminder';
+
+  @override
+  String reminderAt(String time) {
+    return 'Every day at $time';
+  }
+
+  @override
+  String get notificationsDenied =>
+      'Notifications are not allowed. You can turn them on in the phone\'s settings.';
+
+  @override
+  String todayProgress(int done, int goal) {
+    return 'Today $done/$goal min';
+  }
+
+  @override
+  String get todayGoalDone => 'Today\'s goal done';
+
+  @override
+  String goalReached(int goal) {
+    return 'You reached today\'s $goal-minute goal!';
+  }
+
+  @override
+  String get reminderOfferTitle => 'Remind you every day?';
+
+  @override
+  String reminderOfferBody(String time) {
+    return 'A notification at $time to pick up where you left off';
+  }
+
+  @override
+  String get reminderOfferAction => 'Set';
+
+  @override
+  String get notNow => 'Not now';
+
+  @override
+  String get reminderTitle => 'Time to read 📖';
+
+  @override
+  String get reminderBody => 'Pick up where you left off.';
+
+  @override
+  String reminderBodyGoal(int goal) {
+    return 'Read your $goal minutes today — pick up where you left off.';
+  }
+
+  @override
+  String get reminderChannel => 'Daily reminder';
+
+  @override
+  String get reminderChannelDescription => 'A daily reminder to read';
 }

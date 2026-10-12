@@ -901,6 +901,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{value}%'**
   String percent(int value);
+
+  /// No description provided for @goalAndReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Goal & Reminder'**
+  String get goalAndReminder;
+
+  /// No description provided for @dailyGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily goal'**
+  String get dailyGoal;
+
+  /// No description provided for @goalOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get goalOff;
+
+  /// No description provided for @dailyReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reminder'**
+  String get dailyReminder;
+
+  /// No description provided for @reminderAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day at {time}'**
+  String reminderAt(String time);
+
+  /// No description provided for @notificationsDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are not allowed. You can turn them on in the phone\'s settings.'**
+  String get notificationsDenied;
+
+  /// No description provided for @todayProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Today {done}/{goal} min'**
+  String todayProgress(int done, int goal);
+
+  /// No description provided for @todayGoalDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s goal done'**
+  String get todayGoalDone;
+
+  /// No description provided for @goalReached.
+  ///
+  /// In en, this message translates to:
+  /// **'You reached today\'s {goal}-minute goal!'**
+  String goalReached(int goal);
+
+  /// No description provided for @reminderOfferTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remind you every day?'**
+  String get reminderOfferTitle;
+
+  /// No description provided for @reminderOfferBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A notification at {time} to pick up where you left off'**
+  String reminderOfferBody(String time);
+
+  /// No description provided for @reminderOfferAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Set'**
+  String get reminderOfferAction;
+
+  /// No description provided for @notNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get notNow;
+
+  /// No description provided for @reminderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to read 📖'**
+  String get reminderTitle;
+
+  /// No description provided for @reminderBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick up where you left off.'**
+  String get reminderBody;
+
+  /// No description provided for @reminderBodyGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Read your {goal} minutes today — pick up where you left off.'**
+  String reminderBodyGoal(int goal);
+
+  /// No description provided for @reminderChannel.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reminder'**
+  String get reminderChannel;
+
+  /// No description provided for @reminderChannelDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'A daily reminder to read'**
+  String get reminderChannelDescription;
 }
 
 class _AppLocalizationsDelegate

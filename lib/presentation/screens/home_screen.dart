@@ -19,8 +19,10 @@ import '../../core/services/app_language.dart';
 import '../../core/services/article_extractor.dart';
 import '../../core/services/book_service.dart';
 import '../../core/services/custom_book_service.dart';
+import '../../core/services/daily_reminder.dart';
 import '../../core/services/document_importer.dart';
 import '../../core/services/reading_storage.dart';
+import '../../core/services/reading_time.dart';
 import '../../core/services/text_cleaner.dart';
 import '../route_observer.dart';
 import '../theme/app_colors.dart';
@@ -50,11 +52,31 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
   /// The book opened last, its reading mode and how far it was read
   ({Book book, ReadingMode mode, double progress})? _continue;
 
+  /// Whether to offer the daily reminder (below "Devam Et")
+  bool _offerReminder = false;
+
   @override
   void initState() {
     super.initState();
     _loadSettings();
     _listenForShares();
+    ReadingTime.load();
+    DailyReminder.openRequested.addListener(_openFromReminder);
+    _loadReminderOffer();
+  }
+
+  Future<void> _loadReminderOffer() async {
+    if (!DailyReminder.supported || DailyReminder.time.value != null) return;
+    final dismissed = await DailyReminder.offerDismissed();
+    if (mounted && !dismissed) setState(() => _offerReminder = true);
+  }
+
+  /// The daily reminder was tapped: go on with the text read last
+  void _openFromReminder() {
+    if (!DailyReminder.openRequested.value || _continue == null || !mounted) return;
+    DailyReminder.openRequested.value = false;
+    // Already reading something: stay there
+    if (ModalRoute.of(context)?.isCurrent ?? true) _openContinue();
   }
 
   StreamSubscription<List<SharedMediaFile>>? _shareSubscription;
@@ -72,13 +94,17 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     }
   }
 
-  /// Back from reading: "Devam Et" shows the new position
+  /// Back from reading: "Devam Et" shows the new position and today's time
   @override
-  void didPopNext() => _loadContinue();
+  void didPopNext() {
+    _loadContinue();
+    ReadingTime.load();
+  }
 
   @override
   void dispose() {
     routeObserver.unsubscribe(this);
+    DailyReminder.openRequested.removeListener(_openFromReminder);
     _shareSubscription?.cancel();
     super.dispose();
   }
@@ -94,6 +120,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     final mode = ReadingMode.values.where((m) => m.name == last.mode).firstOrNull ?? ReadingMode.speed;
     final progress = saved == null || saved.total <= 0 ? 0.0 : (saved.index / saved.total).clamp(0.0, 1.0);
     if (mounted) setState(() => _continue = (book: book, mode: mode, progress: progress));
+    _openFromReminder();
   }
 
   /// The chapters of [book]'s series in order (null for a single text)
@@ -171,8 +198,15 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Text(context.l10n.continueProgress(percent, modeName),
-                          style: const TextStyle(fontSize: 12, color: AppColors.secondaryText)),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(context.l10n.continueProgress(percent, modeName),
+                                style: const TextStyle(fontSize: 12, color: AppColors.secondaryText)),
+                          ),
+                          _buildTodayGoal(),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -181,6 +215,92 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  /// Today's reading against the daily goal, e.g. "Bugün 6/10 dk"
+  Widget _buildTodayGoal() {
+    final goal = _settings.dailyGoalMinutes;
+    if (goal <= 0) return const SizedBox.shrink();
+    return ValueListenableBuilder<int>(
+      valueListenable: ReadingTime.today,
+      builder: (context, seconds, _) {
+        final minutes = seconds ~/ 60;
+        final done = minutes >= goal;
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(done ? Icons.check_circle : Icons.flag_outlined,
+                size: 14, color: done ? Colors.green[700] : AppColors.secondaryText),
+            const SizedBox(width: 4),
+            Text(
+              done ? context.l10n.todayGoalDone : context.l10n.todayProgress(minutes, goal),
+              style: TextStyle(fontSize: 12, color: done ? Colors.green[700] : AppColors.secondaryText),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /// Offer to remind every day at 20:00 (once, until set or dismissed)
+  Widget _buildReminderOffer() {
+    const at = TimeOfDay(hour: 20, minute: 0);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(16, 12, 8, 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(color: Colors.black.withValues(alpha: 0.1)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.notifications_none, color: Colors.black54),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(context.l10n.reminderOfferTitle,
+                          style: const TextStyle(fontSize: 15, color: Colors.black87)),
+                      const SizedBox(height: 2),
+                      Text(context.l10n.reminderOfferBody(at.format(context)),
+                          style: const TextStyle(fontSize: 12, color: AppColors.secondaryText)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    DailyReminder.dismissOffer();
+                    setState(() => _offerReminder = false);
+                  },
+                  child: Text(context.l10n.notNow, style: const TextStyle(color: AppColors.secondaryText)),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    final messenger = ScaffoldMessenger.of(context);
+                    final denied = context.l10n.notificationsDenied;
+                    final enabled = await DailyReminder.enable(at);
+                    if (!mounted) return;
+                    setState(() => _offerReminder = false);
+                    if (!enabled) messenger.showSnackBar(SnackBar(content: Text(denied)));
+                  },
+                  child: Text(context.l10n.reminderOfferAction),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -368,6 +488,14 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
 
         // The book read last
         if (_continue != null) SliverToBoxAdapter(child: _buildContinueCard()),
+        if (_continue != null && _offerReminder)
+          SliverToBoxAdapter(
+            // The saved reminder loads after the first frame
+            child: ValueListenableBuilder<TimeOfDay?>(
+              valueListenable: DailyReminder.time,
+              builder: (context, time, _) => time == null ? _buildReminderOffer() : const SizedBox.shrink(),
+            ),
+          ),
 
         // Section title with thin line
         SliverToBoxAdapter(

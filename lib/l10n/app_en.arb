@@ -298,5 +298,61 @@
         "type": "int"
       }
     }
-  }
+  },
+  "goalAndReminder": "Daily Goal & Reminder",
+  "dailyGoal": "Daily goal",
+  "goalOff": "Off",
+  "dailyReminder": "Daily reminder",
+  "reminderAt": "Every day at {time}",
+  "@reminderAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationsDenied": "Notifications are not allowed. You can turn them on in the phone's settings.",
+  "todayProgress": "Today {done}/{goal} min",
+  "@todayProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "goal": {
+        "type": "int"
+      }
+    }
+  },
+  "todayGoalDone": "Today's goal done",
+  "goalReached": "You reached today's {goal}-minute goal!",
+  "@goalReached": {
+    "placeholders": {
+      "goal": {
+        "type": "int"
+      }
+    }
+  },
+  "reminderOfferTitle": "Remind you every day?",
+  "reminderOfferBody": "A notification at {time} to pick up where you left off",
+  "@reminderOfferBody": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "reminderOfferAction": "Set",
+  "notNow": "Not now",
+  "reminderTitle": "Time to read 📖",
+  "reminderBody": "Pick up where you left off.",
+  "reminderBodyGoal": "Read your {goal} minutes today — pick up where you left off.",
+  "@reminderBodyGoal": {
+    "placeholders": {
+      "goal": {
+        "type": "int"
+      }
+    }
+  },
+  "reminderChannel": "Daily reminder",
+  "reminderChannelDescription": "A daily reminder to read"
 }

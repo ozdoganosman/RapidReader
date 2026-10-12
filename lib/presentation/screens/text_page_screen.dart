@@ -19,6 +19,7 @@ import '../../core/models/rsvp_settings.dart';
 import '../../core/services/app_language.dart';
 import '../../core/services/book_service.dart';
 import '../../core/services/reading_storage.dart';
+import '../../core/services/reading_time.dart';
 import '../../core/utils/timing_calculator.dart';
 import '../widgets/orp_text_widget.dart';
 import 'reader_screen.dart';
@@ -102,7 +103,14 @@ class _TextPageScreenState extends State<TextPageScreen> {
     // Reading the page: keep the screen on
     if (!kIsWeb) WakelockPlus.enable();
     // The position is saved when the app goes to the background
-    _lifecycle = AppLifecycleListener(onHide: _saveProgress);
+    _lifecycle = AppLifecycleListener(
+      onHide: () {
+        _saveProgress();
+        _clock.stop();
+      },
+      onShow: _clock.start,
+    );
+    _clock.start();
     _start();
   }
 
@@ -191,7 +199,21 @@ class _TextPageScreenState extends State<TextPageScreen> {
 
   /// Start guided reading at [paragraph], or where it stopped (the top of
   /// the page the first time)
+  /// Time spent reading, for the daily goal (a page left alone for a few
+  /// minutes stops counting)
+  late final _clock = ReadingClock(
+    goalMinutes: () => _settings.dailyGoalMinutes,
+    onGoalReached: () {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(context.l10n.goalReached(_settings.dailyGoalMinutes))));
+      }
+    },
+    idleLimit: const Duration(minutes: 3),
+  );
+
   void _startPacing({int? paragraph}) {
+    _clock.touch();
     if (_paragraphs.isEmpty) return;
     if (paragraph != null || !_showPace) {
       _paceParagraph = paragraph ?? _topParagraph();
@@ -228,6 +250,7 @@ class _TextPageScreenState extends State<TextPageScreen> {
 
   void _paceNext() {
     if (!mounted) return;
+    _clock.touch();
     if (_paceWord + 1 < _wordSpans[_paceParagraph].length) {
       _paceWord++;
     } else if (_paceParagraph + 1 < _paragraphs.length) {
@@ -256,6 +279,7 @@ class _TextPageScreenState extends State<TextPageScreen> {
     _pacer?.cancel();
     _saveProgress();
     _lifecycle.dispose();
+    _clock.stop();
     _scroll.dispose();
     if (!kIsWeb) WakelockPlus.disable();
     super.dispose();
@@ -297,6 +321,7 @@ class _TextPageScreenState extends State<TextPageScreen> {
       ),
       body: NotificationListener<ScrollEndNotification>(
         onNotification: (notification) {
+          _clock.touch();
           _topIndex = _topParagraph();
           _finished = notification.metrics.extentAfter < 1;
           return false;
@@ -377,6 +402,7 @@ class _TextPageScreenState extends State<TextPageScreen> {
     // Tap a paragraph to read from there
     return GestureDetector(
       onTap: () {
+        _clock.touch();
         if (_pacing) {
           _startPacing(paragraph: i);
         } else {

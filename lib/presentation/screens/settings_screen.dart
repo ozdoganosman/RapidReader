@@ -6,6 +6,7 @@
 /// - Font settings
 /// - Theme/colors
 /// - Micro-pause settings
+/// - Daily goal and reminder
 /// - The app's language
 library;
 
@@ -14,6 +15,7 @@ import 'package:flutter/material.dart';
 import '../../core/models/rsvp_settings.dart';
 import '../../core/services/ad_service.dart';
 import '../../core/services/app_language.dart';
+import '../../core/services/daily_reminder.dart';
 import '../theme/app_colors.dart';
 import '../widgets/orp_text_widget.dart';
 
@@ -57,6 +59,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   bool _settingsEqual(RSVPSettings a, RSVPSettings b) => a == b;
+
+  /// Ask for the reminder's time (starting at [initial]) and turn it on
+  Future<void> _pickReminderTime(TimeOfDay initial) async {
+    final picked = await showTimePicker(context: context, initialTime: initial);
+    if (picked == null || !mounted) return;
+    final messenger = ScaffoldMessenger.of(context);
+    final denied = context.l10n.notificationsDenied;
+    if (!await DailyReminder.enable(picked)) {
+      messenger.showSnackBar(SnackBar(content: Text(denied)));
+    }
+  }
 
   Future<void> _handleBackPress() async {
     if (!_hasChanges) {
@@ -350,6 +363,55 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onChanged: (value) {
                       _updateSettings(_currentSettings.copyWith(microPauseInterval: value.round()));
                     },
+                  ),
+                ],
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Daily goal (saved with the reading settings) and reminder
+            // (applied right away)
+            _buildSettingCard(
+              title: context.l10n.goalAndReminder,
+              children: [
+                Text(context.l10n.dailyGoal, style: TextStyle(color: Colors.black87, fontSize: 14)),
+                const SizedBox(height: 12),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (final minutes in RSVPSettings.dailyGoalChoices)
+                      ChoiceChip(
+                        label: Text(minutes == 0 ? context.l10n.goalOff : context.l10n.durationMinutes(minutes)),
+                        selected: _currentSettings.dailyGoalMinutes == minutes,
+                        onSelected: (_) => _updateSettings(_currentSettings.copyWith(dailyGoalMinutes: minutes)),
+                      ),
+                  ],
+                ),
+                if (DailyReminder.supported) ...[
+                  const SizedBox(height: 20),
+                  ValueListenableBuilder<TimeOfDay?>(
+                    valueListenable: DailyReminder.time,
+                    builder: (context, time, _) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildSwitchSetting(
+                          title: context.l10n.dailyReminder,
+                          subtitle: time != null ? context.l10n.reminderAt(time.format(context)) : context.l10n.off,
+                          value: time != null,
+                          onChanged: (value) =>
+                              value ? _pickReminderTime(const TimeOfDay(hour: 20, minute: 0)) : DailyReminder.disable(),
+                        ),
+                        if (time != null)
+                          TextButton.icon(
+                            onPressed: () => _pickReminderTime(time),
+                            icon: const Icon(Icons.schedule, size: 18),
+                            label: Text(time.format(context)),
+                            style: TextButton.styleFrom(foregroundColor: Colors.black87),
+                          ),
+                      ],
+                    ),
                   ),
                 ],
               ],

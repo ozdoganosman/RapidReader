@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'core/data/quran.dart';
 import 'core/services/ad_service.dart';
 import 'core/services/app_language.dart';
+import 'core/services/daily_reminder.dart';
 import 'l10n/app_localizations.dart';
 import 'presentation/route_observer.dart';
 import 'presentation/screens/home_screen.dart';
@@ -50,6 +51,9 @@ void main() async {
   AdService().initialize();
 
   runApp(const RapidReaderApp());
+
+  // The daily reminder, once the app's language is known
+  WidgetsBinding.instance.addPostFrameCallback((_) => DailyReminder.init());
 }
 
 /// Main application widget

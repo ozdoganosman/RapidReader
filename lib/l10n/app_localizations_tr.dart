@@ -456,4 +456,69 @@ class AppLocalizationsTr extends AppLocalizations {
   String percent(int value) {
     return '%$value';
   }
+
+  @override
+  String get goalAndReminder => 'Günlük Hedef ve Hatırlatma';
+
+  @override
+  String get dailyGoal => 'Günlük hedef';
+
+  @override
+  String get goalOff => 'Kapalı';
+
+  @override
+  String get dailyReminder => 'Günlük hatırlatma';
+
+  @override
+  String reminderAt(String time) {
+    return 'Her gün $time';
+  }
+
+  @override
+  String get notificationsDenied =>
+      'Bildirim izni verilmedi. Telefonun ayarlarından açabilirsin.';
+
+  @override
+  String todayProgress(int done, int goal) {
+    return 'Bugün $done/$goal dk';
+  }
+
+  @override
+  String get todayGoalDone => 'Bugünkü hedef tamam';
+
+  @override
+  String goalReached(int goal) {
+    return 'Bugünkü $goal dakikalık hedefini tamamladın!';
+  }
+
+  @override
+  String get reminderOfferTitle => 'Her gün hatırlatalım mı?';
+
+  @override
+  String reminderOfferBody(String time) {
+    return 'Saat $time\'de kaldığın yerden devam etmen için bir bildirim';
+  }
+
+  @override
+  String get reminderOfferAction => 'Kur';
+
+  @override
+  String get notNow => 'Şimdi değil';
+
+  @override
+  String get reminderTitle => 'Okuma vakti 📖';
+
+  @override
+  String get reminderBody => 'Kaldığın yerden devam et.';
+
+  @override
+  String reminderBodyGoal(int goal) {
+    return 'Bugünkü $goal dakikanı oku — kaldığın yerden devam et.';
+  }
+
+  @override
+  String get reminderChannel => 'Günlük hatırlatma';
+
+  @override
+  String get reminderChannelDescription => 'Her gün okumayı hatırlatır';
 }

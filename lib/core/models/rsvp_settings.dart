@@ -61,6 +61,9 @@ class RSVPSettings extends Equatable {
   final int pageTextColor;
   final double pageBrightness;
 
+  /// Minutes to read every day (shown on the home screen); 0: off
+  final int dailyGoalMinutes;
+
   const RSVPSettings({
     this.wordsPerMinute = 300,
     this.chunkSize = 1,
@@ -83,7 +86,11 @@ class RSVPSettings extends Equatable {
     this.pageBackgroundColor = 0xFFF8F1E3, // Sepia
     this.pageTextColor = 0xFF3B2F2A,
     this.pageBrightness = 1.0,
+    this.dailyGoalMinutes = 10,
   });
+
+  /// Daily goals offered in the settings (minutes; 0 is off)
+  static const dailyGoalChoices = [0, 5, 10, 15, 20, 30];
 
   /// Supported page font sizes
   static const minPageFontSize = 14.0;
@@ -161,6 +168,7 @@ class RSVPSettings extends Equatable {
         'pageBackgroundColor': pageBackgroundColor,
         'pageTextColor': pageTextColor,
         'pageBrightness': pageBrightness,
+        'dailyGoalMinutes': dailyGoalMinutes,
       };
 
   /// Restore from local storage
@@ -198,6 +206,7 @@ class RSVPSettings extends Equatable {
       pageBackgroundColor: read<int>('pageBackgroundColor', d.pageBackgroundColor),
       pageTextColor: read<int>('pageTextColor', d.pageTextColor),
       pageBrightness: read<num>('pageBrightness', d.pageBrightness).toDouble().clamp(minPageBrightness, 1.0),
+      dailyGoalMinutes: read<int>('dailyGoalMinutes', d.dailyGoalMinutes).clamp(0, 120),
     );
   }
 
@@ -223,6 +232,7 @@ class RSVPSettings extends Equatable {
     int? pageBackgroundColor,
     int? pageTextColor,
     double? pageBrightness,
+    int? dailyGoalMinutes,
   }) {
     return RSVPSettings(
       wordsPerMinute: wordsPerMinute ?? this.wordsPerMinute,
@@ -245,6 +255,7 @@ class RSVPSettings extends Equatable {
       pageBackgroundColor: pageBackgroundColor ?? this.pageBackgroundColor,
       pageTextColor: pageTextColor ?? this.pageTextColor,
       pageBrightness: pageBrightness ?? this.pageBrightness,
+      dailyGoalMinutes: dailyGoalMinutes ?? this.dailyGoalMinutes,
     );
   }
 
@@ -270,5 +281,6 @@ class RSVPSettings extends Equatable {
         pageBackgroundColor,
         pageTextColor,
         pageBrightness,
+        dailyGoalMinutes,
       ];
 }
