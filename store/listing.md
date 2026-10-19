@@ -52,18 +52,9 @@ Hesap gerekmez. Ayarlarınız, metinleriniz ve okuma konumunuz yalnızca cihazı
 
 Gizlilik politikası: https://ozdoganosman.github.io/RapidReader/privacy-policy.html
 
-## Sürüm notları, 1.3.0 (en çok 500 karakter)
+## Sürüm notları (en çok 500 karakter)
 
-<tr-TR>
-• Günlük okuma hedefi: ana ekranda "Bugün 6/10 dk"
-• Günlük hatırlatma: seçtiğin saatte bildirim, dokununca kaldığın yerden devam (o gün okuduysan gelmez)
-• Her bölüm Hızlı Okuma ya da Düz Metin olarak açılır
-• Düz metinde rehberli okuma, yazı tipi, tema ve ışık ayarı
-• Ana ekranda "Devam Et", bölüm listesinde ilerleme
-• Anlam gruplarıyla okuma, cümle başına dönme, kademeli hızlanma
-• Dil ayarı: Türkçe ya da İngilizce (İngilizce kitaplıkla)
-• Yeni simge ve birçok düzeltme
-</tr-TR>
+`store/whatsnew/whatsnew-tr-TR` dosyasında; Release iş akışı sürümü Play'e bununla yükler.
 
 ## Diğer alanlar
 

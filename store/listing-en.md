@@ -53,16 +53,9 @@ No account needed. Your settings, texts and reading position are stored only on 
 
 Privacy policy: https://ozdoganosman.github.io/RapidReader/privacy-policy-en.html
 
-## Release notes, 1.3.0 (max 500 characters)
+## Release notes (max 500 characters)
 
-<en-US>
-• Daily reading goal: "Today 6/10 min" on the home screen
-• Daily reminder: a notification at the time you choose; tap it to continue where you left off (not sent on a day you already read)
-• The app is now in English on devices that are not in Turkish, with an English library
-• Language setting: device language, Turkish or English
-• Every chapter opens as Speed Reading or Plain Text
-• Guided reading, fonts, themes and brightness for the plain text
-</en-US>
+In `store/whatsnew/whatsnew-en-US`; the Release workflow sends it to Play with the bundle.
 
 ## Other fields
 
